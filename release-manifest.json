@@ -1,0 +1,333 @@
+{
+  "version": "1.0",
+  "target": "pages",
+  "preparedAt": "2026-10-16T10:19:18.686Z",
+  "repository": "HKY-hub/crash-crown-demo",
+  "gameBaselineSHA256": "7af8b62666c4b39ee74b353cd04780cfdd6fd11b18b91b28cf6d477567346725",
+  "publicGameSHA256": "790941476cb57788566b2c3e5db19d00890be04a329a9a1517ac1363dcaef169",
+  "storagePrefix": "crash-crown-demo:1.0:",
+  "accountServiceEnabled": false,
+  "privateDataExcluded": true,
+  "files": [
+    {
+      "file": ".nojekyll",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "README.md",
+      "bytes": 314,
+      "sha256": "127dc1e455639ab2cb7cfdfa8d8eada1210a0843ebe9b5566ad711efb299efe8"
+    },
+    {
+      "file": "assets/crown.svg",
+      "bytes": 206,
+      "sha256": "5172656ef9e108c06eeb7e3368a92036f0067489d86975ce9f37332a2d25df19"
+    },
+    {
+      "file": "assets/gacha.jpg",
+      "bytes": 122833,
+      "sha256": "d2dea6b42d3de706598637f3910a6d07e0a06cee8ce2318df60165277c6a0f3f"
+    },
+    {
+      "file": "assets/gameplay.jpg",
+      "bytes": 192648,
+      "sha256": "425748941433eda1f674597e9eb287a1cfc871ffa0143ad54b37856e6a4cf2fe"
+    },
+    {
+      "file": "assets/garage.jpg",
+      "bytes": 119239,
+      "sha256": "ac7f676cca6638f0c86f73846077be29f4e3772d7faa51213c6e4545056a9df9"
+    },
+    {
+      "file": "assets/overhead.jpg",
+      "bytes": 115710,
+      "sha256": "55b0173638baf7a55594fd0598ea114adc7e3c3d89ebf5fc80133a3e902089a8"
+    },
+    {
+      "file": "assets/pass.jpg",
+      "bytes": 163214,
+      "sha256": "0c6652d76f732e57a1301ea4fdd7f5dd805ddf534fba1f22c2e34cfa863799ab"
+    },
+    {
+      "file": "assets/site.css",
+      "bytes": 7605,
+      "sha256": "ec0d54106a77b522085be47ea628e4004877797d27c76398e5fdca5ef1f9b7de"
+    },
+    {
+      "file": "assets/site.js",
+      "bytes": 785,
+      "sha256": "37f60bc3993b290be71a695977c3205696a72e02feb7057a5b70e8285e392b08"
+    },
+    {
+      "file": "assets/title.ttf",
+      "bytes": 7876,
+      "sha256": "9f692404c763e69cac191819a3ea81b22ce3ed7dbe3125ac4b8e4e7098c5e35d"
+    },
+    {
+      "file": "credits.html",
+      "bytes": 2223,
+      "sha256": "0a08dc66b2c53d437e6aaaca6def1b16fcaf0cb52ccbf89ebe1f1b34fc27c148"
+    },
+    {
+      "file": "credits/HKY原创版权与第三方说明.md",
+      "bytes": 4011,
+      "sha256": "fa0ee3de412485d96d3cf06fc4c9f88ed67306593522c94b8380bfbb89e52a67"
+    },
+    {
+      "file": "credits/licenses/ZCOOL-QingKe-HuangYou-OFL-1.1.txt",
+      "bytes": 4419,
+      "sha256": "f1bce31b817dee01c1e4ef8bc45d8ecb95f01f4abbf0a985007cb3cd0fd8123d"
+    },
+    {
+      "file": "credits/licenses/rapier-Apache-2.0.txt",
+      "bytes": 11343,
+      "sha256": "4c05555705e3efde601fb1252ae48f1d63992af8a8fb8947745b7fa834e8f519"
+    },
+    {
+      "file": "credits/licenses/three-r160-MIT.txt",
+      "bytes": 1081,
+      "sha256": "852e0e8699169bf9f6fdc6bda3e682d078dcbc738b5d33e74df594721bff271d"
+    },
+    {
+      "file": "credits/第三方资产与许可清单.json",
+      "bytes": 53694,
+      "sha256": "eac7117bc502d5f3b939861718843a589622dda9e1e2a6fb6864c12d2cc70e30"
+    },
+    {
+      "file": "docs/README部署说明.md",
+      "bytes": 3332,
+      "sha256": "42a822ff38d2c3a0d3ebea80df3422cadb9085a8ee5f9fcdfc5f5f83a8a5e680"
+    },
+    {
+      "file": "docs/index.html",
+      "bytes": 11762,
+      "sha256": "4553ec8f471769c8aa1e99089537668b96ca8871ccba7b7f254328474647f0bb"
+    },
+    {
+      "file": "docs/撞击王座_同类市场数据与定位说明.md",
+      "bytes": 11137,
+      "sha256": "b4fbb41fdca48fb56ef0184dfbcc83ff8488ed0faada37cce187cdcbc921b111"
+    },
+    {
+      "file": "docs/撞击王座_实机图_20261014/01_大厅.png",
+      "bytes": 161564,
+      "sha256": "8297f7f811c98f050f51113de90fa9efad95743de17dd2651b276d92270dc57f"
+    },
+    {
+      "file": "docs/撞击王座_实机图_20261014/02_车库与基础数值.png",
+      "bytes": 157700,
+      "sha256": "f13509629b00620b3fde45a2f96fd8a5768ac5074553a9231cb939f6c201b98d"
+    },
+    {
+      "file": "docs/撞击王座_实机图_20261014/03_车辆能力与数值来源.png",
+      "bytes": 183771,
+      "sha256": "3172b34ce5420cdf1267a2e899de27949443ad2f85ca324e52d4c3bb965c73c4"
+    },
+    {
+      "file": "docs/撞击王座_实机图_20261014/04_工坊构筑.png",
+      "bytes": 171997,
+      "sha256": "713c2a5f61773bfeb5cbcda5323a897604a2f4d4d651c488907061cdfe10c2bc"
+    },
+    {
+      "file": "docs/撞击王座_实机图_20261014/05_生涯与长期目标.png",
+      "bytes": 62531,
+      "sha256": "77f209943cdbaaedc37802b493e3ee892cf9cc96c452e3fd39e129fc5b32a476"
+    },
+    {
+      "file": "docs/撞击王座_实机图_20261014/06_设置与输入.png",
+      "bytes": 146588,
+      "sha256": "ba9f53b53a02b61482d84e9e57911aea12860c03dbbabc449a13e2e97912f0c3"
+    },
+    {
+      "file": "docs/撞击王座_实机图_20261014/07_主题皮肤与车型关联.png",
+      "bytes": 224483,
+      "sha256": "f201c8142a8c0af749127b0edb96890ac1ba8cd84b1b76757d39bb73f7f4fc96"
+    },
+    {
+      "file": "docs/撞击王座_实机图_20261014/08_通行证双轨.png",
+      "bytes": 123342,
+      "sha256": "4dc4cb23ae88da152bbb6243fc9ec8a3357cf257227bf226e7c1f730b90da81f"
+    },
+    {
+      "file": "docs/撞击王座_实机图_20261014/10_抽奖十类奖池.png",
+      "bytes": 133163,
+      "sha256": "9b89cd9f89a710fe3d5fc1fcb032687958348b46c2a3f4309a46acce053fb792"
+    },
+    {
+      "file": "docs/撞击王座_实机图_20261014/11_骑刃王模型预览.png",
+      "bytes": 131874,
+      "sha256": "8567039d71d6f6158812101a84c2317d4a620c67a5b99372b0ddc424e2b62591"
+    },
+    {
+      "file": "docs/撞击王座_实机图_20261014/12_抽奖芯片不足.png",
+      "bytes": 91573,
+      "sha256": "846e373a88e8cee8ff078f2a80195e0943d36ccbf28eaeffae6bcb15e677d078"
+    },
+    {
+      "file": "docs/撞击王座_实机图_20261014/13_账号与本机存档.png",
+      "bytes": 64114,
+      "sha256": "945195397f71879707038ee519642b4fa000df77a81356e80e328ca238f1fb5f"
+    },
+    {
+      "file": "docs/撞击王座_实机图_20261014/14_芯片商店与价格.png",
+      "bytes": 118393,
+      "sha256": "d77f2caddee7f1fe2fe5d68c58e998b743c4a46619ccd237bed64d5eb1b19835"
+    },
+    {
+      "file": "docs/撞击王座_实机图_20261014/15_玩法分类入口.png",
+      "bytes": 48159,
+      "sha256": "1d26db57ddfc33d664e49fe4a26ceb6972f7a16ec0bfd6af0012b7e222f59157"
+    },
+    {
+      "file": "docs/撞击王座_实机图_20261014/16_经典地图与备战.png",
+      "bytes": 358957,
+      "sha256": "9a660d1e9266e7ae52dc408a56c649316eb58b0f0c27caea531bf474003084eb"
+    },
+    {
+      "file": "docs/撞击王座_实机图_20261014/17_开赛确认.png",
+      "bytes": 83314,
+      "sha256": "2059f7e0a1c5c86cd120d1b927cd6e872af99ac9d7613fb4b4116cf910aae8e1"
+    },
+    {
+      "file": "docs/撞击王座_实机图_20261014/18_技能训练场.png",
+      "bytes": 423635,
+      "sha256": "def2cc497b0dd3b84f3168df28cfcbb01a7cf5c1c0bbda065e1800db57f334ad"
+    },
+    {
+      "file": "docs/撞击王座_实机图_20261014/19_训练场驾驶与靶车.png",
+      "bytes": 422742,
+      "sha256": "332d0586756b29c2673f0283036815bd3f8e96e71947f8b43678c85e04107dcf"
+    },
+    {
+      "file": "docs/撞击王座_实机图_20261014/20_经典竞技实战.png",
+      "bytes": 540194,
+      "sha256": "c41be009904d2fd0af961c3de7caaa73a15255829653a86d73b27fb545afe163"
+    },
+    {
+      "file": "docs/撞击王座_实机图_20261014/21_撞飞赛团队HUD.png",
+      "bytes": 487278,
+      "sha256": "f129cd9164c56f852b6b29b8deddf5ca69203dc4da101ad52c790195b0e44824"
+    },
+    {
+      "file": "docs/撞击王座_实机图_20261014/22_失衡赛倾斜圆盘.png",
+      "bytes": 773639,
+      "sha256": "9295142e07edff02894fad241db5e5488cef94fe150382e7bb74ff9bf24da75d"
+    },
+    {
+      "file": "docs/撞击王座_实机图_20261014/23_大逃杀资源与进化.png",
+      "bytes": 701441,
+      "sha256": "b06a30ddae0f1a8aca0a33e9eca4864471e6a39ad4c1d8af8e3778d1ea4b106d"
+    },
+    {
+      "file": "docs/撞击王座_实机图_20261014/24_军团战争团队战场.png",
+      "bytes": 669744,
+      "sha256": "2bb39208a9cd2a462d88856275c2a9411edd0194273bdc6d8d85c1f37f2d970f"
+    },
+    {
+      "file": "docs/撞击王座_实机图_20261014/25_奖池概率与保底.png",
+      "bytes": 109943,
+      "sha256": "2ab606d930b7b1f55ed30a0b206d40e657d7bf947303b6681ca95de361673e4b"
+    },
+    {
+      "file": "docs/撞击王座_实机图_20261014/26_通行证周任务.png",
+      "bytes": 99891,
+      "sha256": "004248353c99fefbd732e47b4dbda014f1134fea8486993844072b3846759b4d"
+    },
+    {
+      "file": "docs/撞击王座_实机图_20261014/27_通行证100级整车.png",
+      "bytes": 121560,
+      "sha256": "7409a0cf0e75350ca940d0800c2b40c4cf203d3020a66979056505dcf76554a1"
+    },
+    {
+      "file": "docs/撞击王座_实机图_20261014/28_天赋与前置.png",
+      "bytes": 136566,
+      "sha256": "be7791a6a0f8861bb99a500f5d6c641af4bd1b70e94fa8458bf6ed2de2e35727"
+    },
+    {
+      "file": "docs/撞击王座_实机图片与来源登记.md",
+      "bytes": 6993,
+      "sha256": "50ca9f3c0a92bd39fd715d0bb505fb6d4a89e7315777bfa7f48fd2f318a73c95"
+    },
+    {
+      "file": "docs/撞击王座_最新版本_系统拆解案.md",
+      "bytes": 188560,
+      "sha256": "e224260bf6810fdcdeb062da41d2ea542f21f241dbd5659e0d1cdf2da056e48a"
+    },
+    {
+      "file": "docs/撞击王座_最新版本_系统拆解案_阅读版.html",
+      "bytes": 8990938,
+      "sha256": "d0670f6451cd03f8e43ad663c4e89eb908e9416359cbdf718f2cbb81d6c4be45"
+    },
+    {
+      "file": "docs/撞击王座_最新版本_系统策划案.md",
+      "bytes": 285014,
+      "sha256": "4267f4d8bcbe983f9c7f07ce01c2e9a385e65aa14a46dcf20d3f1074657ffe89"
+    },
+    {
+      "file": "docs/撞击王座_最新版本_系统策划案_阅读版.html",
+      "bytes": 8035484,
+      "sha256": "9c23ff9ba8a86412b38cca77c3af02e4174849787c88b302de7cfd717f130fe6"
+    },
+    {
+      "file": "docs/撞击王座_架构图/01_产品功能全景.png",
+      "bytes": 271308,
+      "sha256": "13a65eb0288dec0687c037264ff64d42e2df612843cfe2d354b331624d8ced64"
+    },
+    {
+      "file": "docs/撞击王座_架构图/01_产品功能全景.svg",
+      "bytes": 7922,
+      "sha256": "d86099bc58f3cbdba6e734b40b52f44c54a665f8d963e56f24add7cd66d925f6"
+    },
+    {
+      "file": "docs/撞击王座_架构图/02_战斗系统分层与结算.png",
+      "bytes": 328857,
+      "sha256": "bfdac9e9e7287b6dfb72e47073c94cf27b8be06af8c724c4a43b568acf349d01"
+    },
+    {
+      "file": "docs/撞击王座_架构图/02_战斗系统分层与结算.svg",
+      "bytes": 9879,
+      "sha256": "2634994eb050802329985d5ab7cd4313a5161610982728bf376f72f7e32d9fbf"
+    },
+    {
+      "file": "docs/撞击王座_架构图/03_成长与经济关系.png",
+      "bytes": 270677,
+      "sha256": "1661055946a9b8e2e1960e2c0467bee8380d2ef4e7e9640b9125e151630ba974"
+    },
+    {
+      "file": "docs/撞击王座_架构图/03_成长与经济关系.svg",
+      "bytes": 7639,
+      "sha256": "2ef9abac4355b7f641d6c7133a37b7db19ee74554f21b08e24250998832c8de5"
+    },
+    {
+      "file": "docs/撞击王座_架构图/04_执行架构与责任边界.png",
+      "bytes": 297552,
+      "sha256": "bba7f971af20094e13b213e163f7acd4ecf2dd8bb603ab850bee7725b73a9ea5"
+    },
+    {
+      "file": "docs/撞击王座_架构图/04_执行架构与责任边界.svg",
+      "bytes": 9250,
+      "sha256": "00f34d8a132a347af5917dbf42ff96091585095c56124aa542010bfd645f760e"
+    },
+    {
+      "file": "docs/撞击王座_架构图/架构图使用说明.md",
+      "bytes": 1613,
+      "sha256": "a99cabae58f236de99bfbbd1cfc4ba8df7ae271924929e50d8eea48d527792ed"
+    },
+    {
+      "file": "game/index.html",
+      "bytes": 36874015,
+      "sha256": "790941476cb57788566b2c3e5db19d00890be04a329a9a1517ac1363dcaef169"
+    },
+    {
+      "file": "index.html",
+      "bytes": 7699,
+      "sha256": "e4c4e514a2ed7564589bfa9bb393e49bc597ea01640fed3974dd5545c929481f"
+    },
+    {
+      "file": "release.html",
+      "bytes": 2638,
+      "sha256": "dcf3c042bc85515725036b4bd1aee86070b19fd8c7e1e968a9ff4066ada43a09"
+    }
+  ]
+}

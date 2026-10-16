@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="《撞击王座》完整系统拆解案与系统执行策划案，附架构图、实机截图和可编辑正文。">
+  <meta name="color-scheme" content="light">
+  <title>撞击王座 1.0 · 系统策划双册</title>
+  <style>
+    :root{--paper:#f3f0e8;--ink:#202b2d;--muted:#596566;--line:#d4d8d1;--green:#25564b;--accent:#a64c29;--white:#fffef9}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.8 "Microsoft YaHei","PingFang SC",sans-serif}
+    a{color:var(--green);text-underline-offset:4px}a:hover{color:var(--accent)}a:focus-visible{outline:3px solid var(--accent);outline-offset:5px}.skip{position:absolute;top:-100px;left:16px;background:var(--white);padding:10px;z-index:2}.skip:focus{top:8px}
+    .wrap{width:min(1160px,calc(100% - 64px));margin:auto}.top{display:flex;justify-content:space-between;gap:24px;align-items:center;padding:24px 0;border-bottom:1px solid var(--line);font-size:14px}.brand{font-weight:700;letter-spacing:2px}.top nav{display:flex;gap:24px}.top a{text-decoration:none}
+    .intro{padding:62px 0 38px;display:grid;grid-template-columns:1.35fr 1fr;gap:60px;align-items:end}.eyebrow{font-size:13px;letter-spacing:2px;color:var(--accent);margin:0 0 12px;font-weight:700}h1{font-size:clamp(42px,6vw,70px);letter-spacing:-2px;line-height:1.17;margin:0 0 22px}h1 span{display:block;font-size:.48em;letter-spacing:1px;margin-top:12px;font-weight:500}.intro p{margin:0;max-width:640px}.intro .meta{border-left:3px solid var(--green);padding-left:22px;color:var(--muted);font-size:14px}.meta strong{display:block;color:var(--ink);font-size:16px;margin-bottom:7px}
+    .books{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin:8px 0 58px}.book{background:var(--white);border:1px solid var(--line);border-top:5px solid var(--green);padding:30px 32px;display:flex;flex-direction:column}.book:nth-child(2){border-top-color:var(--accent)}.number{color:var(--muted);font-size:12px;letter-spacing:2px}.book h2{margin:8px 0 13px;font-size:30px;line-height:1.4}.book p{margin:0 0 20px;color:var(--muted)}.stats{display:flex;gap:18px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:17px;margin-top:auto;font-size:14px}.stats strong{font-size:24px;line-height:1.2;color:var(--ink);margin-right:3px}.actions{display:flex;gap:18px;align-items:center;flex-wrap:wrap;margin-top:24px}.button{display:inline-flex;justify-content:center;align-items:center;background:var(--green);color:white;padding:10px 23px;text-decoration:none;font-weight:700;min-height:48px}.book:nth-child(2) .button{background:#844327}.button:hover{background:var(--ink);color:white}.source{font-size:14px}
+    section{margin-bottom:54px}.section-head{display:flex;justify-content:space-between;align-items:baseline;gap:24px;border-bottom:1px solid var(--line);margin-bottom:22px;padding-bottom:12px}.section-head h2{font-size:24px;margin:0}.section-head p{margin:0;color:var(--muted);font-size:14px}.diagrams{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}.diagram{display:block;text-decoration:none;border:1px solid var(--line);background:var(--white)}.diagram img{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:contain;background:#fbf9f2}.diagram span{display:block;padding:12px 14px;font-weight:700;font-size:14px}.diagram small{display:block;font-weight:400;color:var(--muted);font-size:12px;margin-top:3px}
+    .materials{display:grid;grid-template-columns:1.15fr 1fr;gap:30px;align-items:start}.shot{margin:0}.shot img{display:block;width:100%;height:auto;border:1px solid var(--line)}figcaption{font-size:12px;color:var(--muted);margin-top:8px}.files{margin:0;padding:0;list-style:none}.files li{padding:15px 0;border-bottom:1px solid var(--line)}.files li:first-child{padding-top:0}.files a{font-weight:700}.files small{display:block;color:var(--muted);margin-top:4px;font-size:13px}.note{font-size:14px;color:var(--muted);border-left:3px solid var(--line);padding-left:18px;margin:24px 0 0}footer{border-top:1px solid var(--line);padding:22px 0 28px;display:flex;justify-content:space-between;gap:20px;font-size:12px;color:var(--muted)}
+    @media(max-width:760px){.wrap{width:calc(100% - 32px)}.top{padding:18px 0;gap:14px}.top nav{gap:16px;font-size:13px}.intro{grid-template-columns:1fr;gap:26px;padding:36px 0 28px}h1{font-size:46px}.books{grid-template-columns:1fr;gap:20px;margin-bottom:38px}.book{padding:24px}.book h2{font-size:27px}.section-head{display:block}.section-head p{margin-top:8px}.diagrams{grid-template-columns:1fr 1fr;gap:12px}.materials{grid-template-columns:1fr;gap:24px}footer{flex-direction:column;gap:6px}section{margin-bottom:38px}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}@media print{body{background:white}.top nav,.actions,.skip{display:none}.wrap{width:100%}.intro{padding-top:20px}.book,.diagram{break-inside:avoid}.books{gap:20px}.diagrams{grid-template-columns:1fr 1fr}footer{margin-top:16px}}
+  </style>
+</head>
+<body><aside data-release-note="1.0" style="padding:16px 24px;background:#fff4db;color:#4b3825;border-bottom:1px solid #c9ab73;font:14px/1.7 system-ui">归档发行版：1.0；整理日期：2026年10月15日；当前正式游戏 SHA256：7af8b62666c4b39ee74b353cd04780cfdd6fd11b18b91b28cf6d477567346725。正文与原实机图片保留其标注的研究截点，历史快照不冒充本次重验。当前新增的账号云存档、设备自动识别与手动切换，以及本次整理验证，见 ../release.html。</aside>
+  <a class="skip" href="#books">跳到两册正文</a>
+  <div class="wrap">
+    <header class="top"><div class="brand">撞击王座</div><nav aria-label="首页导航"><a href="#books">两册正文</a><a href="#architecture">架构图</a><a href="#materials">原始材料</a></nav></header>
+    <main>
+      <div class="intro">
+        <div><p class="eyebrow">系统策划 · 项目文档</p><h1>撞击王座<span>系统拆解与执行策划</span></h1><p>从驾驶、撞击和车型选择，追到模式规则、成长经济与一次结算。两册分别记录现有机制，以及继续制作所需的规则和验收条件。</p></div>
+        <div class="meta"><strong>完整双册 · 可检索 · 可打印</strong><p>规则与实机图基线：2026年10月14日 03:34（北京时间）。策划案于2026年10月15日增补市场定位、手感规格与试玩计划。</p></div>
+      </div>
+      <section class="books" id="books" aria-label="两册正文">
+        <article class="book">
+          <div class="number">VOLUME 01 / 理解系统</div><h2>系统拆解案</h2>
+          <p>按玩家行动拆开各系统，说明规则如何影响选择、不同系统怎样传递结果，并追溯到参数、截图与本地来源。</p>
+          <div class="stats"><span><strong>21</strong>章</span><span><strong>6</strong>个附录</span><span><strong>138</strong>张表</span></div>
+          <div class="actions"><a class="button" href="撞击王座_最新版本_系统拆解案_阅读版.html">打开完整拆解案 →</a><a class="source" href="撞击王座_最新版本_系统拆解案.md" download>下载可编辑正文</a></div>
+        </article>
+        <article class="book">
+          <div class="number">VOLUME 02 / 继续制作</div><h2>系统执行策划案</h2>
+          <p>从市场定位进入制作，逐系统列出规则、数值字段、界面与异常处理，补齐手感要求、试玩观察及验收条件。</p>
+          <div class="stats"><span><strong>15</strong>章</span><span><strong>199</strong>条需求</span><span><strong>162</strong>项验收</span></div>
+          <div class="actions"><a class="button" href="撞击王座_最新版本_系统策划案_阅读版.html">打开完整策划案 →</a><a class="source" href="撞击王座_最新版本_系统策划案.md" download>下载可编辑正文</a></div>
+        </article>
+      </section>
+      <section id="architecture" aria-labelledby="architecture-title">
+        <div class="section-head"><h2 id="architecture-title">四张架构图</h2><p>拆解案 2.3 节 · 策划案 1.4 节也已收录；点击打开 SVG 原图。</p></div>
+        <div class="diagrams">
+          <a class="diagram" href="撞击王座_架构图/01_产品功能全景.svg"><img src="撞击王座_架构图/01_产品功能全景.svg" width="1920" height="1080" loading="lazy" alt="产品功能全景架构图"><span>01 产品功能全景<small>从玩法入口到账号成长</small></span></a>
+          <a class="diagram" href="撞击王座_架构图/02_战斗系统分层与结算.svg"><img src="撞击王座_架构图/02_战斗系统分层与结算.svg" width="1920" height="1080" loading="lazy" alt="战斗系统分层与结算架构图"><span>02 战斗分层与结算<small>接触、效果、规则与结果</small></span></a>
+          <a class="diagram" href="撞击王座_架构图/03_成长与经济关系.svg"><img src="撞击王座_架构图/03_成长与经济关系.svg" width="1920" height="1080" loading="lazy" alt="成长与经济关系架构图"><span>03 成长与经济关系<small>资源、获取与持久化</small></span></a>
+          <a class="diagram" href="撞击王座_架构图/04_执行架构与责任边界.svg"><img src="撞击王座_架构图/04_执行架构与责任边界.svg" width="1920" height="1080" loading="lazy" alt="执行架构与责任边界图，含拟定补齐接口"><span>04 执行架构与责任边界<small>现行结构与拟定接口</small></span></a>
+        </div>
+      </section>
+      <section id="materials" aria-labelledby="materials-title">
+        <div class="section-head"><h2 id="materials-title">原始材料与使用说明</h2><p>27 张实机原图 · 4 组 SVG / PNG · 两册 Markdown</p></div>
+        <div class="materials">
+          <figure class="shot"><a href="撞击王座_实机图_20261014/20_经典竞技实战.png"><img src="撞击王座_实机图_20261014/20_经典竞技实战.png" width="1920" height="1080" loading="lazy" alt="撞击王座经典竞技实机画面，含车辆、场地与状态HUD"></a><figcaption>图20 · 经典竞技实战原图。取图条件与证据范围见来源登记。</figcaption></figure>
+          <div><ul class="files">
+            <li><a href="撞击王座_实机图片与来源登记.md" download>实机图片与来源登记 ↓</a><small>27 张图片的取图条件、时间和校验信息。</small></li>
+            <li><a href="撞击王座_架构图/架构图使用说明.md" download>架构图使用说明 ↓</a><small>每图同时保留 SVG 与 1920 × 1080 PNG。</small></li>
+            <li><a href="撞击王座_同类市场数据与定位说明.md" download>同类市场数据与定位说明 ↓</a><small>下载、历史日活、同时在线分别列示，附9个来源。</small></li>
+            <li><a href="README部署说明.md" download>阅读与部署说明 ↓</a><small>本地直接打开；网页部署时上传整个目录的内容。</small></li>
+          </ul><p class="note">进入正文后，可用左侧目录跳转、顶部搜索查找车型或需求编号、点击图片放大，并用浏览器打印保存 PDF。验收案例是后续制作的执行清单。</p></div>
+        </div>
+      </section>
+    </main>
+    <footer><span>撞击王座 · 系统策划双册</span><span>静态网页 · 无构建步骤 · 正文与原始材料一并保留</span></footer>
+  </div>
+<p style="padding:24px;text-align:center"><a href="../">返回 HKY 作品集</a></p></body>
+</html>
