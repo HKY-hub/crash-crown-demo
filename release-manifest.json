@@ -1,7 +1,7 @@
 {
   "version": "1.0",
   "target": "pages",
-  "preparedAt": "2026-10-16T11:23:21.965Z",
+  "preparedAt": "2026-10-16T11:55:10.677Z",
   "repository": "HKY-hub/crash-crown-demo",
   "gameBaselineSHA256": "7af8b62666c4b39ee74b353cd04780cfdd6fd11b18b91b28cf6d477567346725",
   "publicGameSHA256": "790941476cb57788566b2c3e5db19d00890be04a329a9a1517ac1363dcaef169",
@@ -314,6 +314,11 @@
       "sha256": "5172656ef9e108c06eeb7e3368a92036f0067489d86975ce9f37332a2d25df19"
     },
     {
+      "file": "assets/cs2.jpg",
+      "bytes": 315288,
+      "sha256": "0c9f0b1381a51b63d418c0ca7b23bf58d3ed7101f69594ea63df4d84d3a98c68"
+    },
+    {
       "file": "assets/gacha.jpg",
       "bytes": 122833,
       "sha256": "d2dea6b42d3de706598637f3910a6d07e0a06cee8ce2318df60165277c6a0f3f"
@@ -340,13 +345,13 @@
     },
     {
       "file": "assets/site.css",
-      "bytes": 7605,
-      "sha256": "ec0d54106a77b522085be47ea628e4004877797d27c76398e5fdca5ef1f9b7de"
+      "bytes": 26185,
+      "sha256": "8792dcc7ae10b7ab37ad88402f0fe61ba792b4190dedea9d53ded3f87dcbc633"
     },
     {
       "file": "assets/site.js",
-      "bytes": 785,
-      "sha256": "37f60bc3993b290be71a695977c3205696a72e02feb7057a5b70e8285e392b08"
+      "bytes": 5054,
+      "sha256": "ae5d97344b3d00bdba9900f2113f167b111de74baad1a070855da5471cf62685"
     },
     {
       "file": "assets/title.ttf",
@@ -800,8 +805,8 @@
     },
     {
       "file": "index.html",
-      "bytes": 8448,
-      "sha256": "cb9379284f5d79ac9ddf51e062b0cf9a54f14a4687ca79fa2474d8cbc9ce7d17"
+      "bytes": 13597,
+      "sha256": "94ef4f80529ea63f47b0ce27851281bc76bdc31aa4b5585950850ffb61f259c8"
     },
     {
       "file": "release.html",
