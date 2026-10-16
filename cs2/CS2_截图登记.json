@@ -1,0 +1,1066 @@
+{
+  "IMG-01": {
+    "id": "IMG-01",
+    "title": "基础战斗 HUD 与角色状态",
+    "section": "2.3.1",
+    "priority": "先拍",
+    "frames": 1,
+    "where": "CS2 的练习爆破地图中，进入正常第一人称视角；Dust II 即可。",
+    "include": "完整雷达、回合时间与比分、生命/护甲、当前武器与弹药、现金和道具栏，同时保留场景与准星。",
+    "tip": "关闭购买菜单后截图，HUD 保持可读；站在安全位置即可，不需要刻意制造受伤。",
+    "caption": "第一人称 HUD 将角色状态、个人资源和回合信息放在同一行动视野中。",
+    "labels": [
+      "基础 HUD"
+    ],
+    "files": [
+      "CS2_实机截图/IMG-01_完整战斗HUD：Dust II A坡道交战.jpg"
+    ],
+    "status": "已补历史实机HUD",
+    "assets": [
+      {
+        "panel_index": 0,
+        "label": "完整战斗HUD：Dust II A坡道交战",
+        "source_page": "https://www.notebookcheck.net/Counter-Strike-2-in-review-laptop-and-desktop-benchmarks.767018.0.html",
+        "asset_url": "https://www.notebookcheck.net/fileadmin/Notebooks/Sonstiges/Games/Counter/pics_cs2__4_.jpg",
+        "source_title": "Notebookcheck — Counter-Strike 2 in review: laptop and desktop benchmarks",
+        "source_date": "页面日期 2023-11-11；拍摄日期未注明",
+        "kind": "media-screenshot",
+        "shows": [
+          "整幅1920×1080第一人称实机画面",
+          "雷达、比分、回合剩余1:12、双方存活4 vs 2、击杀信息",
+          "资金$100、生命100、弹药7/35、武器与C4栏"
+        ],
+        "limits": [
+          "2023年测试文章中的历史CS2截图，非2026-10当前版本截图",
+          "本帧未购买护甲/投掷物，不能展示其持有状态",
+          "对手为BOT，不代表正式排位对局"
+        ],
+        "match": "illustration",
+        "file": "CS2_实机截图/IMG-01_完整战斗HUD：Dust II A坡道交战.jpg",
+        "width": 1920,
+        "height": 1080,
+        "sha256": "0c9f0b1381a51b63d418c0ca7b23bf58d3ed7101f69594ea63df4d84d3a98c68",
+        "frame_id": "IMG-01"
+      }
+    ],
+    "needs_user": false,
+    "pending_reason": "",
+    "display_status": "已补历史实机HUD",
+    "original_capture_caption": "第一人称 HUD 将角色状态、个人资源和回合信息放在同一行动视野中。"
+  },
+  "IMG-02": {
+    "id": "IMG-02",
+    "title": "购买菜单与配装预算",
+    "section": "7.3.6",
+    "priority": "先拍",
+    "frames": 1,
+    "where": "练习爆破地图的出生购买区，在可购买阶段打开购买菜单。",
+    "include": "现金、武器分类及买价、护甲和道具选项；若界面显示已有装备、购买时限或退款提示，也一起保留。",
+    "tip": "选择能清楚展示一套配装选择的界面；阵营是 T 或 CT 均可，随图注明阵营。",
+    "caption": "完整配装需要同时考虑主枪、护甲与关键道具，买得起一把枪不等于拥有完整预算。",
+    "labels": [
+      "购买菜单"
+    ],
+    "files": [
+      "CS2_实机截图/IMG-02_购买菜单：现金、五类商品与退款入口（2023年历史实机）.jpg"
+    ],
+    "status": "已补历史购买界面",
+    "assets": [
+      {
+        "panel_index": 0,
+        "label": "购买菜单：现金、五类商品与退款入口（2023年历史实机）",
+        "source_page": "https://esports.gg/news/counter-strike-2/how-to-sell-weapons-in-cs2/",
+        "asset_url": "https://media.esports.gg/uploads/2023/09/CS2-buy-menu-1536x864.jpg",
+        "source_title": "How to sell weapons in CS2 — esports.gg",
+        "source_date": "原页未注明拍摄日期",
+        "kind": "media-screenshot",
+        "shows": "T阵营；$1250现金；00:40购买时间；Equipment/Pistols/Mid-Tier/Rifles/Grenades及买价；AK-47退款箭头与Refund提示；已有武器栏",
+        "limits": [
+          "历史Limited Test界面。可说明分类、现金与退款操作；旧价格、旧布局不能证明2026现版；未显示后续增加的Dropped Weapons面板。",
+          "版本线索：画面左下角标注2023-09-15 Limited Test构建；资产目录2023/09"
+        ],
+        "match": "illustration",
+        "file": "CS2_实机截图/IMG-02_购买菜单：现金、五类商品与退款入口（2023年历史实机）.jpg",
+        "width": 1536,
+        "height": 864,
+        "sha256": "c73b14259196e38494e55ee223ea5f290575eb3e8b0a2b1ca972de0491c17314",
+        "frame_id": "IMG-02"
+      }
+    ],
+    "needs_user": false,
+    "pending_reason": "",
+    "display_status": "已补历史购买界面",
+    "original_capture_caption": "完整配装需要同时考虑主枪、护甲与关键道具，买得起一把枪不等于拥有完整预算。"
+  },
+  "IMG-03": {
+    "id": "IMG-03",
+    "title": "局外配装菜单",
+    "section": "3.3.11",
+    "priority": "补充",
+    "frames": 1,
+    "where": "主界面的配装/装备选择界面，打开一个阵营的武器配装栏。",
+    "include": "阵营标识、武器分类、当前配装槽位和可选武器。",
+    "tip": "展开到能看清武器名称的状态；使用你当前真实配装即可。",
+    "caption": "局外配装决定对局中的部分购买候选，购买菜单和完整枪械库属于不同层次。",
+    "labels": [
+      "局外配装"
+    ],
+    "files": [
+      "CS2_实机截图/IMG-03_CT配装栏与库存备选（第三方攻略实机）.webp"
+    ],
+    "status": "已补配装参考图",
+    "assets": [
+      {
+        "panel_index": 0,
+        "label": "CT配装栏与库存备选（第三方攻略实机）",
+        "source_page": "https://tradeit.gg/blog/how-to-change-loadout-in-cs2/",
+        "asset_url": "https://tradeit.gg/blog/wp-content/uploads/2024/12/CS2-loadout-1024x576.webp",
+        "source_title": "How to Change Loadout in CS2 — Tradeit.gg",
+        "source_date": "页面日期 2026-02-18；拍摄日期未注明",
+        "kind": "media-screenshot",
+        "shows": "LOADOUT页签；EQUIP CT；CT/T人物；手枪、中档、步枪配装槽；下方可选库存武器与名称",
+        "limits": [
+          "另一玩家配装，非用户账号。截图拍摄日期不明，只用于说明槽位结构，不证明当前所有可选武器或数值。",
+          "版本线索：截图拍摄日期不明；资产目录2024/12；文章修改日期2026-04-05"
+        ],
+        "match": "illustration",
+        "file": "CS2_实机截图/IMG-03_CT配装栏与库存备选（第三方攻略实机）.webp",
+        "width": 1024,
+        "height": 576,
+        "sha256": "b84f101d49ff8b48a14138df0a7693728715492b9280256f8f8305a33c7c870d",
+        "frame_id": "IMG-03"
+      }
+    ],
+    "needs_user": false,
+    "pending_reason": "",
+    "display_status": "已补配装参考图",
+    "original_capture_caption": "局外配装决定对局中的部分购买候选，购买菜单和完整枪械库属于不同层次。"
+  },
+  "IMG-04": {
+    "id": "IMG-04",
+    "title": "烟雾遮挡的前后对照",
+    "section": "4.3.1",
+    "priority": "先拍",
+    "frames": 2,
+    "where": "练习 Dust II，选择 A 大道或中门的一条稳定观察视线。",
+    "include": "同一站位、同一朝向下，先截无遮挡画面，再截烟雾完全展开并遮挡该视线的画面；两张保留 HUD 和雷达。",
+    "tip": "两张尽量保持位置与视角一致。标为 IMG-04a（无烟）、IMG-04b（烟雾展开）。",
+    "caption": "同一段官方演示中的烟雾展开前后帧。画面用于观察烟雾占据通道后的可见关系；原片无HUD，镜头略有移动，未作为固定机位实验。",
+    "labels": [
+      "无烟视线",
+      "烟雾展开"
+    ],
+    "files": [
+      "CS2_实机截图/IMG-04a_烟雾展开前（官方演示 00_00.300）.jpg",
+      "CS2_实机截图/IMG-04b_烟雾展开后（官方演示 00_01.700）.jpg"
+    ],
+    "status": "已补官方演示前后帧",
+    "assets": [
+      {
+        "panel_index": 0,
+        "label": "烟雾展开前（官方演示 00:00.300）",
+        "source_page": "https://www.counter-strike.net/cs2",
+        "asset_url": "https://cdn.akamai.steamstatic.com/apps/csgo/images/csgo_react/cs2/smokes_vid3.mp4",
+        "source_title": "Valve — Counter-Strike 2，烟雾与环境空间演示短片",
+        "source_date": "原页未注明拍摄日期",
+        "kind": "official-video-frame",
+        "timecode": "00:00.300",
+        "shows": "拱门、木箱和可见通行空间尚未被烟雾填满。",
+        "limits": "官网无 HUD 技术演示，展示烟雾遮挡与沿场景展开；不是当前版本本机实测。原始拍摄日期未标注，不能用 CDN 文件修改时间替代。镜头有轻微变化，不作为严格固定机位测量。",
+        "match": "illustration",
+        "file": "CS2_实机截图/IMG-04a_烟雾展开前（官方演示 00_00.300）.jpg",
+        "width": 800,
+        "height": 600,
+        "sha256": "be95e268e71ac2cfd84308a25fbed70ebe393f43cef1e1b699ffa6e50ca1b22b",
+        "frame_id": "IMG-04a"
+      },
+      {
+        "panel_index": 1,
+        "label": "烟雾展开后（官方演示 00:01.700）",
+        "source_page": "https://www.counter-strike.net/cs2",
+        "asset_url": "https://cdn.akamai.steamstatic.com/apps/csgo/images/csgo_react/cs2/smokes_vid3.mp4",
+        "source_title": "Valve — Counter-Strike 2，烟雾与环境空间演示短片",
+        "source_date": "原页未注明拍摄日期",
+        "kind": "official-video-frame",
+        "timecode": "00:01.700",
+        "shows": "同一连续演示中的烟雾填入门洞周边并遮挡后方视线。",
+        "limits": "官网无 HUD 技术演示，展示烟雾遮挡与沿场景展开；不是当前版本本机实测。原始拍摄日期未标注，不能用 CDN 文件修改时间替代。镜头有轻微变化，不作为严格固定机位测量。",
+        "match": "illustration",
+        "file": "CS2_实机截图/IMG-04b_烟雾展开后（官方演示 00_01.700）.jpg",
+        "width": 800,
+        "height": 600,
+        "sha256": "d575c175affc1321bba2844cc576c2de87562803ec0f0198afabf6520131e8f9",
+        "frame_id": "IMG-04b"
+      }
+    ],
+    "needs_user": false,
+    "pending_reason": "",
+    "display_status": "已补官方演示前后帧",
+    "original_capture_caption": "烟雾用有限道具改变可见关系；遮挡视线同时减少己方对烟后空间的直接信息。"
+  },
+  "IMG-05": {
+    "id": "IMG-05",
+    "title": "HE 与烟雾的局部交互",
+    "section": "4.3.6",
+    "priority": "补充",
+    "frames": 2,
+    "where": "练习地图的固定视线处，先投烟，再让 HE 在烟雾内或附近生效。",
+    "include": "同一角度的完整烟雾，以及 HE 生效后出现局部视线变化的瞬间。",
+    "tip": "标为 IMG-05a（交互前）、IMG-05b（交互瞬间）。可从自己录制的画面取帧；如果没有拍到清楚变化，先留空。",
+    "caption": "同一段官方视频的连续镜头：HE生效前烟雾遮挡视线，爆炸后短暂露出烟后空间。两帧相隔0.4秒，说明可见交互，不据此测量完整窗口时长。",
+    "labels": [
+      "交互前",
+      "HE 生效瞬间"
+    ],
+    "files": [
+      "CS2_实机截图/IMG-05a_HE 生效前的烟雾（00_54.900）.jpg",
+      "CS2_实机截图/IMG-05b_HE 爆炸打开视线窗口（00_55.300）.jpg"
+    ],
+    "status": "已补官方HE交互帧",
+    "assets": [
+      {
+        "panel_index": 0,
+        "label": "HE 生效前的烟雾（00:54.900）",
+        "source_page": "https://www.youtube.com/watch?v=_y9MpNcAitQ",
+        "asset_url": "https://video.akamai.steamstatic.com/store_trailers/730/607847/d73c6346bc3bf5dbc6d66a8f721bab640fa3d37c/1748810721/dash_h264.mpd?t=1696005491",
+        "source_title": "Valve — Counter-Strike 2: Responsive Smokes（Steam 同版官方预告）",
+        "source_date": "2023-03-22",
+        "kind": "official-video-frame",
+        "timecode": "00:54.900",
+        "shows": "Nuke 外场红箱旁，烟雾遮住铁网与箱体之间的路径；无线电提示 Fire in the hole。",
+        "limits": "Valve 2023-03-22 公开的 CS2 技术演示，保留完整 HUD；同一连续 Nuke 外场镜头，玩家视角有轻微位移，不能标成严格固定机位或当前版本效果测量。",
+        "match": "partial",
+        "file": "CS2_实机截图/IMG-05a_HE 生效前的烟雾（00_54.900）.jpg",
+        "width": 1920,
+        "height": 1080,
+        "sha256": "60a374bb6c85e6057e3b46f75c4b517411ca3c5076f8748dfe10201e3d52973c",
+        "frame_id": "IMG-05a"
+      },
+      {
+        "panel_index": 1,
+        "label": "HE 爆炸打开视线窗口（00:55.300）",
+        "source_page": "https://www.youtube.com/watch?v=_y9MpNcAitQ",
+        "asset_url": "https://video.akamai.steamstatic.com/store_trailers/730/607847/d73c6346bc3bf5dbc6d66a8f721bab640fa3d37c/1748810721/dash_h264.mpd?t=1696005491",
+        "source_title": "Valve — Counter-Strike 2: Responsive Smokes（Steam 同版官方预告）",
+        "source_date": "2023-03-22",
+        "kind": "official-video-frame",
+        "timecode": "00:55.300",
+        "shows": "连续镜头中爆炸驱散遮挡后，红箱旁路径及远处设备变得可见，仍有爆炸烟尘。",
+        "limits": "Valve 2023-03-22 公开的 CS2 技术演示，保留完整 HUD；同一连续 Nuke 外场镜头，玩家视角有轻微位移，不能标成严格固定机位或当前版本效果测量。",
+        "match": "partial",
+        "file": "CS2_实机截图/IMG-05b_HE 爆炸打开视线窗口（00_55.300）.jpg",
+        "width": 1920,
+        "height": 1080,
+        "sha256": "8d8bdf6ef1133f042c001a6961b0748b9856351620c8dcae796f71dd394ab079",
+        "frame_id": "IMG-05b"
+      }
+    ],
+    "needs_user": false,
+    "pending_reason": "",
+    "display_status": "已补官方HE交互帧",
+    "original_capture_caption": "烟雾可以参与其他道具交互；截图展示可见变化，窗口持续时间仍需单独测量。"
+  },
+  "IMG-06": {
+    "id": "IMG-06",
+    "title": "Dust II 的 A 大道与 A 目标区",
+    "section": "5.3.7",
+    "priority": "先拍",
+    "frames": 1,
+    "where": "练习 Dust II，从 A 大道朝 A 包点观察。",
+    "include": "大道通路、坡道/平台和目标区方向，尽量带上可读雷达；让主要掩体和枪线关系出现在画面内。",
+    "tip": "取能同时看见通行路线与目标区的角度，随后可按你的画面补位置箭头。",
+    "caption": "A 大道把接近路线、远距离视线与目标区连接起来，空间价值来自路径和枪线的共同作用。",
+    "labels": [
+      "A 大道观察 A 区"
+    ],
+    "files": [
+      "CS2_实机截图/IMG-06_Dust II：从 A 大道朝 A 区推进（00_53.600）.jpg"
+    ],
+    "status": "已补官方历史实机",
+    "assets": [
+      {
+        "panel_index": 0,
+        "label": "Dust II：从 A 大道朝 A 区推进（00:53.600）",
+        "source_page": "https://www.youtube.com/watch?v=_y9MpNcAitQ",
+        "asset_url": "https://video.akamai.steamstatic.com/store_trailers/730/607847/d73c6346bc3bf5dbc6d66a8f721bab640fa3d37c/1748810721/dash_h264.mpd?t=1696005491",
+        "source_title": "Valve — Counter-Strike 2: Responsive Smokes（Steam 同版官方预告）",
+        "source_date": "2023-03-22",
+        "kind": "official-video-frame",
+        "timecode": "00:53.600",
+        "shows": "第一人称 AWP 视角，左上 Long A 雷达标签，通往 A 区的长路、前方上坡和两名推进队友。",
+        "limits": "2023 年 CS2 发布前演示；前方坡道与车辆附近存在局部烟火，适合说明路线和枪线方向，不证明当前版本完整掩体细节。",
+        "match": "full",
+        "file": "CS2_实机截图/IMG-06_Dust II：从 A 大道朝 A 区推进（00_53.600）.jpg",
+        "width": 1920,
+        "height": 1080,
+        "sha256": "a34b908e0726c36da6fc0acea7c47b74b6f1ff24aa61a3e048e47e83208f0138",
+        "frame_id": "IMG-06"
+      }
+    ],
+    "needs_user": false,
+    "pending_reason": "",
+    "display_status": "已补官方历史实机",
+    "original_capture_caption": "A 大道把接近路线、远距离视线与目标区连接起来，空间价值来自路径和枪线的共同作用。"
+  },
+  "IMG-07": {
+    "id": "IMG-07",
+    "title": "Inferno 香蕉道的通行约束",
+    "section": "5.3.8",
+    "priority": "补充",
+    "frames": 1,
+    "where": "练习 Inferno，在香蕉道靠 T 侧的位置朝 B 区观察。",
+    "include": "通道宽度、转角、关键掩体与通往 B 区的方向，保留雷达。",
+    "tip": "避开烟火完全遮满画面的时刻，先拍清楚空间结构。",
+    "caption": "Valve商店发布的Inferno香蕉道场景图，用于辨认通路、转角和掩体；图中没有HUD，不用于证明当前雷达或对局状态。",
+    "labels": [
+      "香蕉道空间"
+    ],
+    "files": [
+      "CS2_实机截图/IMG-07_Inferno：香蕉道朝 B 区方向（官方商店图）.jpg"
+    ],
+    "status": "已补官方场景图",
+    "assets": [
+      {
+        "panel_index": 0,
+        "label": "Inferno：香蕉道朝 B 区方向（官方商店图）",
+        "source_page": "https://store.steampowered.com/app/730/CounterStrike_2/",
+        "asset_url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/730/ss_ef82850f036dac5772cb07dbc2d1116ea13eb163.1920x1080.jpg?t=1791824795",
+        "source_title": "Valve — Counter-Strike 2 Steam 商店官方截图，第 5 张",
+        "source_date": "原页未注明拍摄日期",
+        "kind": "official-image",
+        "timecode": null,
+        "shows": "T 侧朝 B 区的香蕉道视角，木桶、转角和 B 方向标记共同呈现狭窄路线与掩体。",
+        "limits": "官方宣传图未保留 HUD 和雷达，也未标注拍摄版本；只作空间关系插图。画面含人物和枪口火焰，但未被烟火完全遮挡。",
+        "match": "illustration",
+        "file": "CS2_实机截图/IMG-07_Inferno：香蕉道朝 B 区方向（官方商店图）.jpg",
+        "width": 1920,
+        "height": 1080,
+        "sha256": "426ec1de7dbb6602b5259096bcbb89f2ccef4dc3d17b18712d6fb60c7e57a834",
+        "frame_id": "IMG-07"
+      }
+    ],
+    "needs_user": false,
+    "pending_reason": "",
+    "display_status": "已补官方场景图",
+    "original_capture_caption": "香蕉道把人员通行、道具争夺与 B 区入口连接，控制这里会影响后续执行和支援判断。"
+  },
+  "IMG-08": {
+    "id": "IMG-08",
+    "title": "Nuke 的上下层目标区",
+    "section": "5.3.9",
+    "priority": "补充",
+    "frames": 2,
+    "where": "练习 Nuke，分别进入上层 A 区和下层 B 区。",
+    "include": "两层各一张完整场景，带目标区特征、主要入口和雷达；画面应足以区分楼层。",
+    "tip": "标为 IMG-08a（上层 A）、IMG-08b（下层 B）。使用明确不同的入口或目标区角度。",
+    "caption": "两张官方场景图分别展示Nuke上层A区与下层B区。分层目标区增加了垂直空间判断的要求；两图来自独立画面，并非同局录像。",
+    "labels": [
+      "上层 A 区",
+      "下层 B 区"
+    ],
+    "files": [
+      "CS2_实机截图/IMG-08a_Nuke 上层 A 区（官方场景图）.jpg",
+      "CS2_实机截图/IMG-08b_Nuke 下层 B 区（官方商店图）.jpg"
+    ],
+    "status": "已补官方上下层场景图",
+    "assets": [
+      {
+        "panel_index": 0,
+        "label": "Nuke 上层 A 区（官方场景图）",
+        "source_page": "https://www.counter-strike.net/cs2",
+        "asset_url": "https://cdn.akamai.steamstatic.com/apps/csgo/images/csgo_react/cs2/maps/nuke_default_s2.jpg",
+        "source_title": "Valve — Counter-Strike 2 官网 Nuke Source 2 场景对比图",
+        "source_date": "原页未注明拍摄日期",
+        "kind": "official-image",
+        "timecode": null,
+        "shows": "红白双罐 A1、A 区墙面字样、黄色吊车、蓝箱和主要入口，说明上层目标区识别特征。",
+        "limits": "无 HUD、雷达，非当前版本本机测试；不以单张图证明上下层连接距离或听声效果。",
+        "match": "illustration",
+        "file": "CS2_实机截图/IMG-08a_Nuke 上层 A 区（官方场景图）.jpg",
+        "width": 2560,
+        "height": 1550,
+        "sha256": "c310fe7e74343c4e810f9ccb041bc3305e310f28c20c56d3503d6d03e3b45330",
+        "frame_id": "IMG-08a"
+      },
+      {
+        "panel_index": 1,
+        "label": "Nuke 下层 B 区（官方商店图）",
+        "source_page": "https://store.steampowered.com/app/730/CounterStrike_2/",
+        "asset_url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/730/ss_352666c1949ce3966bd966d6ea5a1afd532257bc.1920x1080.jpg?t=1791824795",
+        "source_title": "Valve — Counter-Strike 2 Steam 商店官方截图，第 12 张",
+        "source_date": "原页未注明拍摄日期",
+        "kind": "official-image",
+        "timecode": null,
+        "shows": "蓝色大厅、B1 单罐、玻璃地板、坡道及下层入口，能与 A 区场景区分。",
+        "limits": "无 HUD、雷达，官方页面未注明拍摄日期/版本；用于下层目标区空间识别，不证明当前版本几何未调整。",
+        "match": "illustration",
+        "file": "CS2_实机截图/IMG-08b_Nuke 下层 B 区（官方商店图）.jpg",
+        "width": 1920,
+        "height": 1080,
+        "sha256": "56d142ca5c0269ff71093e8ec1a2ec71a2f4ab3947b0ebe0e50e334fa291206f",
+        "frame_id": "IMG-08b"
+      }
+    ],
+    "needs_user": false,
+    "pending_reason": "",
+    "display_status": "已补官方上下层场景图",
+    "original_capture_caption": "垂直叠层使目标区在平面上接近，却通过不同入口、路径与信息条件形成不同空间。"
+  },
+  "IMG-09": {
+    "id": "IMG-09",
+    "title": "C4 安放时的操作窗口",
+    "section": "4.3.4",
+    "priority": "补充",
+    "frames": 1,
+    "where": "练习爆破地图，T 阵营携带 C4，在合法包点开始安放。",
+    "include": "安放动作、进度提示、目标区环境与 HUD。",
+    "tip": "在安放进行中截图，而非完成后；用练习环境拍即可。",
+    "caption": "安放 C4 需要投入操作时间，在这段窗口内行动者需要空间条件和队友保护。",
+    "labels": [
+      "C4 安放中"
+    ],
+    "files": [
+      "CS2_实机截图/IMG-09_B包点掩体后安放C4，完整HUD.webp"
+    ],
+    "status": "已补安放中实机画面",
+    "assets": [
+      {
+        "panel_index": 0,
+        "label": "B包点掩体后安放C4，完整HUD",
+        "source_page": "https://www.sportsdunia.com/gaming/counter-strike-2",
+        "asset_url": "https://sdprodstorage.blob.core.windows.net/sd-cms-prod/category/gaming/3-1759225885322.webp",
+        "source_title": "Sportsdunia — Counter Strike 2: Maps, Ranks, Tournaments, How to Start Guide",
+        "source_date": "原页未注明拍摄日期",
+        "kind": "media-screenshot",
+        "shows": [
+          "完整第一人称安放C4动作，手指正在输入代码",
+          "雷达B包点、回合0:58、比分1:0与玩家头像存活状态",
+          "$3300资金、92生命、C4手持栏与PLANTING无线电提示",
+          "玩家贴木质掩体安放，可讨论安放暴露与遮挡"
+        ],
+        "limits": [
+          "901×507媒体压缩图，较THESPIKE细节图模糊",
+          "原媒体图库没有注明游戏截图拍摄日期、补丁版本或作者",
+          "可证明安放中的画面状态，不能用静态图测出完整安放耗时"
+        ],
+        "match": "full",
+        "file": "CS2_实机截图/IMG-09_B包点掩体后安放C4，完整HUD.webp",
+        "width": 901,
+        "height": 507,
+        "sha256": "08b79acd2bab31123a45b5d401a3146f0e070b8b4f9b8f7306858c0f558ff176",
+        "frame_id": "IMG-09"
+      }
+    ],
+    "needs_user": false,
+    "pending_reason": "",
+    "display_status": "已补安放中实机画面",
+    "original_capture_caption": "安放 C4 需要投入操作时间，在这段窗口内行动者需要空间条件和队友保护。"
+  },
+  "IMG-10": {
+    "id": "IMG-10",
+    "title": "下包后的守包位置",
+    "section": "6.3.5",
+    "priority": "先拍",
+    "frames": 1,
+    "where": "练习爆破地图，在 A 或 B 区安放 C4 后，站到能观察包位的守包角度。",
+    "include": "已安放 C4 的位置或可见提示、守包视线、掩体和实际 HUD。",
+    "tip": "让包位与守包视角能建立直观关系；拍不到包本体时，保留目标提示并随图注明包位。",
+    "caption": "从A点斜坡一侧看向包点，地上的C4、中央箱体和左侧A大通路同时可见。箱体既提供遮挡，也会阻断部分包点视线；选择守包位置时，需要判断敌人能否在掩护下接近C4。图中持刀，仅用来说明位置关系。",
+    "labels": [
+      "包位与守包空间"
+    ],
+    "files": [
+      "CS2_实机截图/IMG-10_用户实机_20261015181746_1.jpg"
+    ],
+    "status": "已补用户实机截图",
+    "assets": [
+      {
+        "panel_index": 0,
+        "label": "Dust II A区：已安放C4、箱体掩护与A大通路",
+        "source_title": "用户提供的Steam原始截图",
+        "source_date": "文件名记录 2026-10-15 18:17:46；时区及客户端构建号未另行核实",
+        "kind": "user-screenshot",
+        "original_filename": "20261015181746_1.jpg",
+        "shows": "地上C4位于A区标记和箱体之间；左侧A大道／斜坡通路与包点同屏；雷达、安放状态、现金和生命保留。",
+        "limits": "截图持刀，用于辨认包位、掩体与通路的相对位置；没有展示持枪预瞄、实际回防交火或可保证的守包结果。",
+        "match": "full",
+        "file": "CS2_实机截图/IMG-10_用户实机_20261015181746_1.jpg",
+        "width": 1280,
+        "height": 960,
+        "sha256": "39e37fb3fcd1cd60f45dbf0429912f7b927a5eee2ab931a43b4160a7215a7f32",
+        "frame_id": "IMG-10"
+      }
+    ],
+    "needs_user": false,
+    "pending_reason": "",
+    "display_status": "已补用户实机截图",
+    "original_capture_caption": "下包后行动责任发生变化：守包方管理视线与时间，回防方必须重新抵达并完成拆除。"
+  },
+  "IMG-11": {
+    "id": "IMG-11",
+    "title": "有钳与无钳拆除的状态展示",
+    "section": "4.3.5",
+    "priority": "补充",
+    "frames": 2,
+    "where": "练习地图或自己的录像中，CT 分别在无拆包钳和有拆包钳状态下拆除 C4。",
+    "include": "两张拆除进行中的画面，包含拆除进度、C4、HUD 及当前工具状态的实际提示。",
+    "tip": "标为 IMG-11a（无钳）、IMG-11b（有钳）。在消息中注明携带状态；静态图片本身不证明 10/5 秒时长。",
+    "caption": "左图明确提示无拆弹器，右图显示钳图标。两张图来自不同媒体与场景，倒计时是截帧时的剩余时间；它们用于识别两种状态，不是一组同机位计时实验。",
+    "labels": [
+      "无钳拆除中",
+      "有钳拆除中"
+    ],
+    "files": [
+      "CS2_实机截图/IMG-11a_无拆弹器：拆除提示与9.859秒倒计时.png",
+      "CS2_实机截图/IMG-11b_有拆弹器：钳图标与3.296秒倒计时.jpg"
+    ],
+    "status": "已补有钳／无钳状态示例",
+    "assets": [
+      {
+        "panel_index": 0,
+        "label": "无拆弹器：拆除提示与9.859秒倒计时",
+        "source_page": "https://blast.tv/article/learn-how-to-play-cs2",
+        "asset_url": "https://cdn.sanity.io/images/6znhzi10/production/bfb91393dc61f49c0af72ad93428b565101ffaaf-886x709.png",
+        "source_title": "BLAST.tv — How to defuse in CS2 - Read our in-depth guide",
+        "source_date": "页面日期 2023-10-03；拍摄日期未注明",
+        "kind": "media-screenshot",
+        "shows": [
+          "明确显示You are defusing the bomb without a kit",
+          "倒计时00:09.859与环形拆弹进度",
+          "地面C4及底部生命、弹药HUD"
+        ],
+        "limits": [
+          "BLAST为赛事组织官方教程，而非Valve官方素材",
+          "原图已裁掉雷达和顶部HUD",
+          "与有钳图不同地图/不同作者，不能当同一场景实验配对或据静态图测得完整10秒"
+        ],
+        "match": "full",
+        "file": "CS2_实机截图/IMG-11a_无拆弹器：拆除提示与9.859秒倒计时.png",
+        "width": 886,
+        "height": 709,
+        "sha256": "8d85512a39516fdbc46efedc28f3e74fb58d8b6ec5b7d4a9ce20f3c72da1fea0",
+        "frame_id": "IMG-11a"
+      },
+      {
+        "panel_index": 1,
+        "label": "有拆弹器：钳图标与3.296秒倒计时",
+        "source_page": "https://www.thespike.gg/counter-strike-2/beginner-guides/how-to-defuse-bomb-cs2",
+        "asset_url": "https://thespike-strapi-cms.s3.us-east-1.amazonaws.com/bomb_2_f6f68b49bd.jpg",
+        "source_title": "THESPIKE.GG — How to defuse the bomb in CS2 and what to do if you can’t defuse it",
+        "source_date": "2026-03-31 (页面更新日期；截图拍摄日期未知)",
+        "kind": "media-screenshot",
+        "shows": [
+          "拆除面板清楚可见白色钳图标",
+          "提示You are defusing the bomb及00:03.296",
+          "C4本体、环形拆弹进度、生命与护甲100"
+        ],
+        "limits": [
+          "原媒体图裁切了顶部HUD",
+          "与无钳图不是同一场景，倒计时3.296仅为过程时点，不可解释为完整拆除耗时",
+          "客户端拍摄版本未知"
+        ],
+        "match": "full",
+        "file": "CS2_实机截图/IMG-11b_有拆弹器：钳图标与3.296秒倒计时.jpg",
+        "width": 1000,
+        "height": 643,
+        "sha256": "5ce93ff30fc7dbad10624ab58a1f2027d70491391c57b282758c1a47b7a0fd66",
+        "frame_id": "IMG-11b"
+      }
+    ],
+    "needs_user": false,
+    "pending_reason": "",
+    "display_status": "已补有钳／无钳状态示例",
+    "original_capture_caption": "拆包钳改变目标操作条件；画面展示拆除状态，精确时长需要连续时间记录。"
+  },
+  "IMG-12": {
+    "id": "IMG-12",
+    "title": "回合终结与结果反馈",
+    "section": "6.3.2",
+    "priority": "补充",
+    "frames": 1,
+    "where": "练习对局或自己的比赛录像中，在一回合刚结束时截图。",
+    "include": "胜负提示、能看清的终局原因、比分变化与 HUD；若有奖励提示也保留。",
+    "tip": "选择消灭、爆炸或拆除中的一种，并随图注明是哪种终局。",
+    "caption": "回合结算把交火与目标结果转化为明确的胜负反馈，并连接后续回合。",
+    "labels": [
+      "回合结束反馈"
+    ],
+    "files": [
+      "CS2_实机截图/IMG-12_回合胜利与MVP反馈.jpg"
+    ],
+    "status": "已补回合反馈实机图",
+    "assets": [
+      {
+        "panel_index": 0,
+        "label": "回合胜利与MVP反馈",
+        "source_page": "https://esportsinsider.com/why-valve-needs-to-rethink-cs2-for-new-players",
+        "asset_url": "https://esportsinsider.com/wp-content/uploads/2026/01/CS2s-Competitive-modes-map-based-ranking-system-is-poor.jpg",
+        "source_title": "Esports Insider — CS2 is awful for new players: Why Valve needs to rethink Competitive and Premier",
+        "source_date": "2026-01-17 (页面更新日期；截图拍摄日期未知)",
+        "kind": "media-screenshot",
+        "shows": [
+          "ROUND WON回合胜利提示",
+          "MVP与音乐盒反馈",
+          "顶部2:2、队伍资金/生命/装备、底部生命护甲弹药"
+        ],
+        "limits": [
+          "媒体原图主动模糊玩家头像与名称",
+          "雷达在该截图中不可见，不作为完整HUD图",
+          "仅能证明回合胜利和MVP样式，未显示奖励资金结算明细"
+        ],
+        "match": "full",
+        "file": "CS2_实机截图/IMG-12_回合胜利与MVP反馈.jpg",
+        "width": 1920,
+        "height": 1080,
+        "sha256": "b8b17a214e89b5b572b95243196f8c4e7115f44c611bffbeb853733bc6eab1f9",
+        "frame_id": "IMG-12"
+      }
+    ],
+    "needs_user": false,
+    "pending_reason": "",
+    "display_status": "已补回合反馈实机图",
+    "original_capture_caption": "回合结算把交火与目标结果转化为明确的胜负反馈，并连接后续回合。"
+  },
+  "IMG-13": {
+    "id": "IMG-13",
+    "title": "团队资金与发枪协作",
+    "section": "7.3.7",
+    "priority": "补充",
+    "frames": 1,
+    "where": "正常爆破对局的购买阶段，打开能看到队友经济和装备的当前界面。",
+    "include": "实际可见的队友现金、已有武器/装备与个人状态；如果界面能看见掉落武器，也一起保留。",
+    "tip": "用自己正常游玩时可见的队伍信息。若当前界面不显示现金，就拍实际装备信息并注明。",
+    "caption": "团队购买需要同时看五人的现金和已有装备，发枪把个人预算转化为整体作战能力。",
+    "labels": [
+      "团队资金/装备信息"
+    ],
+    "files": [
+      "CS2_实机截图/IMG-13_冻结时间的队伍资金与装备信息.png"
+    ],
+    "status": "已补历史队伍经济图",
+    "assets": [
+      {
+        "panel_index": 0,
+        "label": "冻结时间的队伍资金与装备信息",
+        "source_page": "https://ez3c.tw/11488",
+        "asset_url": "https://host.easylife.tw/pics/author/yohnu1/202310/CS2/010.png",
+        "source_title": "哇哇3C日誌 — CS 2 絕對武力 2 開放全民免費玩 Steam 即可免費下載",
+        "source_date": "页面日期 2023-10-05；拍摄日期未注明",
+        "kind": "media-screenshot",
+        "shows": [
+          "顶部冻结倒计时0:08",
+          "五名队员资金$3300/$700/$2300/$4950/$700",
+          "队员武器、护甲等装备小图标与角色头顶资金",
+          "完整游戏画面及打开购买菜单提示"
+        ],
+        "limits": [
+          "历史2023年CS2截图，非2026-10版本",
+          "900×506分辨率，顶部文字宜放大查看",
+          "为BOT对局示例，非真实人类队伍经济决策记录"
+        ],
+        "match": "full",
+        "file": "CS2_实机截图/IMG-13_冻结时间的队伍资金与装备信息.png",
+        "width": 900,
+        "height": 506,
+        "sha256": "481ac5fd23640aea95554ac151ebaa9fa3b71d0464f64002a3bcb9a92eb04ab6",
+        "frame_id": "IMG-13"
+      }
+    ],
+    "needs_user": false,
+    "pending_reason": "",
+    "display_status": "已补历史队伍经济图",
+    "original_capture_caption": "团队购买需要同时看五人的现金和已有装备，发枪把个人预算转化为整体作战能力。"
+  },
+  "IMG-14": {
+    "id": "IMG-14",
+    "title": "模式入口与玩家旅程",
+    "section": "8.3.1",
+    "priority": "补充",
+    "frames": 7,
+    "where": "主界面的开始游戏/模式选择页。",
+    "include": "你当前账号实际显示的模式名称、队列选项与入口条件提示。",
+    "tip": "保持完整界面，不要求所有模式都已解锁；当前页面显示什么就截什么。",
+    "caption": "同一批实机截图依次展示竞技、冲锋（Rush）、搭档、休闲、死亡竞赛、军备竞赛和回防菜单，保留完整顶部导航。竞技、搭档按地图勾选，部分模式按地图组选择；优先模式的评级页另见IMG-18。这些是匹配前入口，不能代替局内规则或双方选图流程。",
+    "labels": [
+      "竞技模式：地图勾选与完整模式导航",
+      "冲锋模式（Rush）：独立匹配入口",
+      "搭档模式：小地图选择",
+      "休闲模式：地图组选择",
+      "死亡竞赛：按地图组匹配",
+      "军备竞赛：模式入口与地图池",
+      "回防模式：炸弹拆除地图组"
+    ],
+    "files": [
+      "CS2_实机截图/IMG-14a_用户实机_20261015181449_1.jpg",
+      "CS2_实机截图/IMG-14b_用户实机_20261015181506_1.jpg",
+      "CS2_实机截图/IMG-14c_用户实机_20261015181521_1.jpg",
+      "CS2_实机截图/IMG-14d_用户实机_20261015181528_1.jpg",
+      "CS2_实机截图/IMG-14e_用户实机_20261015181534_1.jpg",
+      "CS2_实机截图/IMG-14f_用户实机_20261015181540_1.jpg",
+      "CS2_实机截图/IMG-14g_用户实机_20261015181548_1.jpg"
+    ],
+    "status": "已补用户实机截图",
+    "assets": [
+      {
+        "panel_index": 0,
+        "label": "竞技模式：地图勾选与完整模式导航",
+        "source_title": "用户提供的Steam原始截图",
+        "source_date": "文件名记录 2026-10-15 18:14:49；时区及客户端构建号未另行核实",
+        "kind": "user-screenshot",
+        "original_filename": "20261015181449_1.jpg",
+        "shows": [
+          "顶部：优先模式、竞技模式、搭档模式、冲锋模式、休闲模式、死亡竞赛、军备竞赛、回防模式、私人匹配",
+          "竞技地图卡片、勾选状态、地图等待时间",
+          "优先状态已启用、公开组队、地图选择预设、开始按钮"
+        ],
+        "limits": [
+          "是竞技匹配前的地图选择，不是优先模式双方选图",
+          "地图池与等待时间只代表截图时点"
+        ],
+        "match": "full",
+        "file": "CS2_实机截图/IMG-14a_用户实机_20261015181449_1.jpg",
+        "width": 1280,
+        "height": 960,
+        "sha256": "d2172a4c6c9e6a7e379c2004ea360660172bb8fd95322ab5eda9fca0874a69e4",
+        "frame_id": "IMG-14a"
+      },
+      {
+        "panel_index": 1,
+        "label": "冲锋模式（Rush）：独立匹配入口",
+        "source_title": "用户提供的Steam原始截图",
+        "source_date": "文件名记录 2026-10-15 18:15:06；时区及客户端构建号未另行核实",
+        "kind": "user-screenshot",
+        "original_filename": "20261015181506_1.jpg",
+        "shows": [
+          "冲锋模式高亮",
+          "RUSH标识、中文冲锋模式、等待时间",
+          "好友排行榜、比赛胜次",
+          "完整顶部模式导航与开始按钮"
+        ],
+        "limits": [
+          "只证明入口与匹配菜单，不证明局内规则、人数、时长"
+        ],
+        "match": "full",
+        "file": "CS2_实机截图/IMG-14b_用户实机_20261015181506_1.jpg",
+        "width": 1280,
+        "height": 960,
+        "sha256": "c4bc434e01d492fba0706fb6782432e537ae7b1acfca2013166b3623a5dac11a",
+        "frame_id": "IMG-14b"
+      },
+      {
+        "panel_index": 2,
+        "label": "搭档模式：小地图选择",
+        "source_title": "用户提供的Steam原始截图",
+        "source_date": "文件名记录 2026-10-15 18:15:21；时区及客户端构建号未另行核实",
+        "kind": "user-screenshot",
+        "original_filename": "20261015181521_1.jpg",
+        "shows": [
+          "搭档模式高亮",
+          "残翼小镇、黄金之城、波塞冬、死亡游乐园、殒命大厦、核子危机、炼狱小镇等地图卡片",
+          "地图勾选、等待时间、开始按钮"
+        ],
+        "limits": [
+          "这是搭档匹配地图菜单，非局内2v2或选图流程",
+          "地图名称中部分因卡片宽度截断",
+          "悬浮提示遮住少量底部区域"
+        ],
+        "match": "full",
+        "file": "CS2_实机截图/IMG-14c_用户实机_20261015181521_1.jpg",
+        "width": 1280,
+        "height": 960,
+        "sha256": "aded69fd4e7aff85d02eb770b9fdbd9dad4e06feea5ac753b8e34b671034760d",
+        "frame_id": "IMG-14c"
+      },
+      {
+        "panel_index": 3,
+        "label": "休闲模式：地图组选择",
+        "source_title": "用户提供的Steam原始截图",
+        "source_date": "文件名记录 2026-10-15 18:15:28；时区及客户端构建号未另行核实",
+        "kind": "user-screenshot",
+        "original_filename": "20261015181528_1.jpg",
+        "shows": [
+          "休闲模式高亮",
+          "两个炸弹拆除地图组、社区地图组、人质解救地图组",
+          "社区地图组的悬浮说明"
+        ],
+        "limits": [
+          "地图组卡片不代表对局实际匹配到的地图",
+          "卡片部分名称在界面中截断",
+          "非优先模式实际选图"
+        ],
+        "match": "full",
+        "file": "CS2_实机截图/IMG-14d_用户实机_20261015181528_1.jpg",
+        "width": 1280,
+        "height": 960,
+        "sha256": "7910d200fef13039743688d1e5d88b458b5a5dd8d9161660755465edd13f9393",
+        "frame_id": "IMG-14d"
+      },
+      {
+        "panel_index": 4,
+        "label": "死亡竞赛：按地图组匹配",
+        "source_title": "用户提供的Steam原始截图",
+        "source_date": "文件名记录 2026-10-15 18:15:34；时区及客户端构建号未另行核实",
+        "kind": "user-screenshot",
+        "original_filename": "20261015181534_1.jpg",
+        "shows": [
+          "死亡竞赛高亮",
+          "两个炸弹拆除地图组、社区地图组、人质解救地图组",
+          "地图组与开始入口"
+        ],
+        "limits": [
+          "是死亡竞赛地图组菜单，不能拿来说明爆破经济或胜负规则"
+        ],
+        "match": "full",
+        "file": "CS2_实机截图/IMG-14e_用户实机_20261015181534_1.jpg",
+        "width": 1280,
+        "height": 960,
+        "sha256": "9fad33bc829ffe4787635f20029e75e98e4ef99ee09e735d11da7616411dedf7",
+        "frame_id": "IMG-14e"
+      },
+      {
+        "panel_index": 5,
+        "label": "军备竞赛：模式入口与地图池",
+        "source_title": "用户提供的Steam原始截图",
+        "source_date": "文件名记录 2026-10-15 18:15:40；时区及客户端构建号未另行核实",
+        "kind": "user-screenshot",
+        "original_filename": "20261015181540_1.jpg",
+        "shows": [
+          "军备竞赛高亮",
+          "Baggage、Shoots两个时段版本、Pool Day图标",
+          "中文军备竞赛名称与模式说明浮窗"
+        ],
+        "limits": [
+          "静态入口不能证明局内升级武器顺序或夺胜条件",
+          "地图图标与说明只代表截图时点"
+        ],
+        "match": "full",
+        "file": "CS2_实机截图/IMG-14f_用户实机_20261015181540_1.jpg",
+        "width": 1280,
+        "height": 960,
+        "sha256": "eecd600de8ef330c5bc998e210f2d6180b6a1d52e7c3eb06134b5b5068a76ea7",
+        "frame_id": "IMG-14f"
+      },
+      {
+        "panel_index": 6,
+        "label": "回防模式：炸弹拆除地图组",
+        "source_title": "用户提供的Steam原始截图",
+        "source_date": "文件名记录 2026-10-15 18:15:48；时区及客户端构建号未另行核实",
+        "kind": "user-screenshot",
+        "original_filename": "20261015181548_1.jpg",
+        "shows": [
+          "回防模式高亮",
+          "炸弹拆除地图组I号与II号",
+          "地图组包含的地图图标及说明"
+        ],
+        "limits": [
+          "这是回防模式的菜单，不是爆破回防实战或残局选图",
+          "地图组卡片不证明局内兵力、装备发放或胜负机制"
+        ],
+        "match": "full",
+        "file": "CS2_实机截图/IMG-14g_用户实机_20261015181548_1.jpg",
+        "width": 1280,
+        "height": 960,
+        "sha256": "aee5447ff93a69685edaa83154d8d595b85bb4c66e2f6f3c30b9aebc1f080002",
+        "frame_id": "IMG-14g"
+      }
+    ],
+    "needs_user": false,
+    "pending_reason": "",
+    "display_status": "已补用户实机截图",
+    "original_capture_caption": "模式入口承接不同的时间、人数和竞技目标，实际可用范围与账号及版本条件有关。"
+  },
+  "IMG-15": {
+    "id": "IMG-15",
+    "title": "Premier 的地图选择界面",
+    "section": "8.3.6",
+    "priority": "补充",
+    "frames": 1,
+    "where": "你正常游玩 Premier 时，在开局地图选择阶段截图。",
+    "include": "地图候选、已选/已禁状态、轮到哪方和界面上的当前步骤提示。",
+    "tip": "随图注明所在选择步骤。没有该资格或暂时未遇到这个画面时，可以稍后再补。",
+    "caption": "Valve于2026年9月22日发布的演示：双方各选两张，四张候选中抽定Inferno。右图三个红叉表示未被抽中，不表示双方逐张禁图。",
+    "labels": [
+      "Premier 选图步骤"
+    ],
+    "files": [
+      "CS2_实机截图/IMG-15a_Premier四张候选地图：双方各选两张（Valve 2026-09-22官方演示00_01）.png",
+      "CS2_实机截图/IMG-15b_四候选抽定Inferno后的结果帧（同一官方演示00_05）.png"
+    ],
+    "status": "已补2026年9月官方选图演示",
+    "assets": [
+      {
+        "panel_index": 0,
+        "label": "Premier四张候选地图：双方各选两张（Valve 2026-09-22官方演示00:01）",
+        "source_page": "https://www.counter-strike.net/newsentry/711161056325533826",
+        "asset_url": "https://clan.fastly.steamstatic.com/images/3381077/a26282d4460f972b036a9873a3f1ed5a98fe989a.mp4",
+        "source_title": "Rush Hour — Valve / Counter-Strike 2",
+        "source_date": "2026-09-22",
+        "kind": "official-video-frame",
+        "timecode": "00:01.000",
+        "shows": "Cache/Inferno为YOUR PICK；Ancient/Anubis为THEIR PICK；四张地图的绿色选中状态，未选Nuke淡化；地图偏好雷达",
+        "limits": "Valve官方界面演示取帧；非用户账号实拍；演示裁去外围UI，缺完整倒计时/完整候选地图/轮到哪方的顶部提示；静帧本身不证明随机概率或完整顺序。",
+        "match": "illustration",
+        "file": "CS2_实机截图/IMG-15a_Premier四张候选地图：双方各选两张（Valve 2026-09-22官方演示00_01）.png",
+        "width": 1280,
+        "height": 720,
+        "sha256": "7eff70443cc3523db389bdd83ea7112e53f5543a4fde3b2ff4bef7c9d3639254",
+        "frame_id": "IMG-15a"
+      },
+      {
+        "panel_index": 1,
+        "label": "四候选抽定Inferno后的结果帧（同一官方演示00:05）",
+        "source_page": "https://www.counter-strike.net/newsentry/711161056325533826",
+        "asset_url": "https://clan.fastly.steamstatic.com/images/3381077/a26282d4460f972b036a9873a3f1ed5a98fe989a.mp4",
+        "source_title": "Rush Hour — Valve / Counter-Strike 2",
+        "source_date": "2026-09-22",
+        "kind": "official-video-frame",
+        "timecode": "00:05.000",
+        "shows": "Inferno保留绿色勾选并向中央聚拢；其余三张已选地图出现红叉，展示抽定结果",
+        "limits": "同一官方演示的后续帧；动画结果非旧版队伍禁图，需在图注明确，以免把红叉误读为队伍禁图。",
+        "match": "illustration",
+        "file": "CS2_实机截图/IMG-15b_四候选抽定Inferno后的结果帧（同一官方演示00_05）.png",
+        "width": 1280,
+        "height": 720,
+        "sha256": "967c961af1194483ac60eb4cff28043e8988767b83702c862f677955f628e784",
+        "frame_id": "IMG-15b"
+      }
+    ],
+    "needs_user": false,
+    "pending_reason": "",
+    "display_status": "已补2026年9月官方选图演示",
+    "original_capture_caption": "地图选择界面展示对局开始前的共同决策，实际步骤需要结合当前版本与完整流程核验。"
+  },
+  "IMG-16": {
+    "id": "IMG-16",
+    "title": "物品检视与外观属性",
+    "section": "9.3.6",
+    "priority": "先拍",
+    "frames": 1,
+    "where": "库存中检视一件你已拥有的武器外观；打开实际可见的物品详情或信息提示。",
+    "include": "武器外观、物品名称，以及页面实际显示的品质、磨损类别或其他属性。",
+    "tip": "以你拥有的物品为准。若一张图不能同时展示外观与属性，可再补一张详情图，标为 IMG-16b。",
+    "caption": "租赁AK-47 | Inheritance的检视界面展示外观、名称与属性浮窗。到期提示属于租赁物品条件，不能套用到永久持有物品。",
+    "labels": [
+      "库存物品检视"
+    ],
+    "files": [
+      "CS2_实机截图/IMG-16_AK-47 _ Inheritance租赁物品的检视与属性浮窗（资料截图）.webp"
+    ],
+    "status": "已补租赁物品检视示例",
+    "assets": [
+      {
+        "panel_index": 0,
+        "label": "AK-47 | Inheritance租赁物品的检视与属性浮窗（资料截图）",
+        "source_page": "https://www.exitlag.com/blog/what-is-csgo-float/",
+        "asset_url": "https://www.exitlag.com/blog/wp-content/uploads/2024/12/what-is-csgo-float-3-1024x576.webp",
+        "source_title": "CSGO Float Guide: Wear Ranges, Skin Value, and Safe Trading in CS2 — ExitLag",
+        "source_date": "页面日期 2026-07-31；拍摄日期未注明",
+        "kind": "media-screenshot",
+        "shows": "AK-47 | Inheritance名称、The Kilowatt Collection、完整武器外观；底部i信息浮窗含Finish Style/Finish Catalog/Pattern Template/Wear Rating/Exterior；顶部Inspecting your rented weapon与Expires in 7 Days",
+        "limits": [
+          "这是来源作者的租赁检视示例，非永久拥有物品、非用户账号。资料压缩使小字较小，适合展示属性结构；不能据此声称用户持有这件物品。",
+          "版本线索：截图确切日期未标；资产目录2024/12"
+        ],
+        "match": "illustration",
+        "file": "CS2_实机截图/IMG-16_AK-47 _ Inheritance租赁物品的检视与属性浮窗（资料截图）.webp",
+        "width": 1024,
+        "height": 576,
+        "sha256": "eafa65bb6e2cd8907414ef69963ed5abd018f7409fc2de52bed6f14eb22630d1",
+        "frame_id": "IMG-16"
+      }
+    ],
+    "needs_user": false,
+    "pending_reason": "",
+    "display_status": "已补租赁物品检视示例",
+    "original_capture_caption": "同一武器可以通过外观和物品属性形成收藏差异；这些参数与对局伤害和精度分开。"
+  },
+  "IMG-17": {
+    "id": "IMG-17",
+    "title": "军械库积分与兑换入口",
+    "section": "9.3.9",
+    "priority": "补充",
+    "frames": 1,
+    "where": "打开军械库主界面或通行证/积分说明页。",
+    "include": "当前显示的通行证状态、积分区和兑换内容或说明；未激活状态也可。",
+    "tip": "截已有页面即可，保持当前真实状态；注明画面属于拥有还是未拥有通行证。",
+    "caption": "2024年军械库历史界面展示积分、通行证进度与兑换分类。图中货架、余额和价格仅用于解读当时界面，不代表2026年当前供给。",
+    "labels": [
+      "军械库界面"
+    ],
+    "files": [
+      "CS2_实机截图/IMG-17_军械库积分、已激活通行证与兑换内容（2024年历史实机）.jpg"
+    ],
+    "status": "已补历史军械库界面",
+    "assets": [
+      {
+        "panel_index": 0,
+        "label": "军械库积分、已激活通行证与兑换内容（2024年历史实机）",
+        "source_page": "https://esports.gg/news/counter-strike-2/how-to-earn-and-spend-credits-on-the-armory-pass-in-cs2/",
+        "asset_url": "https://media.esports.gg/uploads/2024/10/image-5-8-1024x725.jpg",
+        "source_title": "How to earn and spend credits on the Armory Pass in CS2 — esports.gg",
+        "source_date": "原页未注明拍摄日期",
+        "kind": "media-screenshot",
+        "shows": "ARMORY页；四个活跃通行证的Next Credit/Credits Earned；Credits Balance 0；Get Another Armory Pass；武器收藏品、挂件、贴纸、Gallery Case兑换入口与积分价",
+        "limits": [
+          "来源作者已拥有通行证的历史账号截图。货架、限时内容、积分价与通行证状态不可代表2026-10当前货架或用户账号。",
+          "版本线索：2024-10军械库首发内容（资产目录与Overpass 2024、限时Desert Eagle内容可识别）"
+        ],
+        "match": "illustration",
+        "file": "CS2_实机截图/IMG-17_军械库积分、已激活通行证与兑换内容（2024年历史实机）.jpg",
+        "width": 1024,
+        "height": 725,
+        "sha256": "c20a98d20ae3b9eca73faab95340cb511cd994a793021ea7d83c95760e4a2b96",
+        "frame_id": "IMG-17"
+      }
+    ],
+    "needs_user": false,
+    "pending_reason": "",
+    "display_status": "已补历史军械库界面",
+    "original_capture_caption": "军械库把付费资格、游玩进度与兑换目标连接，当前页面展示的是用户实际获得的规则反馈。"
+  },
+  "IMG-18": {
+    "id": "IMG-18",
+    "title": "竞技评级与个人身份反馈",
+    "section": "8.3.4",
+    "priority": "补充",
+    "frames": 1,
+    "where": "打开显示你当前 CS Rating、地图段位或个人资料等级的界面，任选一种。",
+    "include": "该指标的名称、数值/段位、所属模式或地图，及实际显示的赛季等上下文。",
+    "tip": "随图注明展示的是 CS Rating、地图段位还是资料等级；三者不互相替代。",
+    "caption": "优先模式页面显示CS综合得分21,019、36场比赛胜利及第五赛季信息，把已有竞技身份与下一次匹配放在同一页面。该图展示账号当前累计状态，不用于推导单局加减分公式。",
+    "labels": [
+      "优先模式评级"
+    ],
+    "files": [
+      "CS2_实机截图/IMG-18_用户实机_20261015181456_1.jpg"
+    ],
+    "status": "已补用户实机截图",
+    "assets": [
+      {
+        "panel_index": 0,
+        "label": "优先模式：第五赛季评级与最近胜利",
+        "source_title": "用户提供的Steam原始截图",
+        "source_date": "文件名记录 2026-10-15 18:14:56；时区及客户端构建号未另行核实",
+        "kind": "user-screenshot",
+        "original_filename": "20261015181456_1.jpg",
+        "shows": [
+          "优先模式高亮",
+          "CS综合得分21,019、36场比赛胜利",
+          "第五赛季好友排行榜、胜率与百分比",
+          "赛季进度、最近胜利场次雷达图"
+        ],
+        "limits": "页面显示的是账号当时的CS综合得分与赛季状态；不是本局增减，也不是地图段位或资料等级。该页面没有展示实际双方选图。",
+        "match": "full",
+        "file": "CS2_实机截图/IMG-18_用户实机_20261015181456_1.jpg",
+        "width": 1280,
+        "height": 960,
+        "sha256": "83c6256623096802f0871df26277e0f7b299884c0ec24285126f9398bd854f74",
+        "frame_id": "IMG-18"
+      }
+    ],
+    "needs_user": false,
+    "pending_reason": "",
+    "display_status": "已补用户实机截图",
+    "original_capture_caption": "不同竞技身份指标承接不同评价范围，资料等级、地图段位与 Premier 评级需要分别解释。"
+  }
+}

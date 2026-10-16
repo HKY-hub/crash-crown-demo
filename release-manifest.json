@@ -1,13 +1,302 @@
 {
   "version": "1.0",
   "target": "pages",
-  "preparedAt": "2026-10-16T10:19:18.686Z",
+  "preparedAt": "2026-10-16T11:23:21.965Z",
   "repository": "HKY-hub/crash-crown-demo",
   "gameBaselineSHA256": "7af8b62666c4b39ee74b353cd04780cfdd6fd11b18b91b28cf6d477567346725",
   "publicGameSHA256": "790941476cb57788566b2c3e5db19d00890be04a329a9a1517ac1363dcaef169",
   "storagePrefix": "crash-crown-demo:1.0:",
   "accountServiceEnabled": false,
   "privateDataExcluded": true,
+  "supplementalInputs": [
+    {
+      "source": "CS2_系统拆解案_网页部署版/CS2_实机截图/IMG-01_完整战斗HUD：Dust II A坡道交战.jpg",
+      "sourceSHA256": "0c9f0b1381a51b63d418c0ca7b23bf58d3ed7101f69594ea63df4d84d3a98c68",
+      "file": "cs2/CS2_实机截图/IMG-01_完整战斗HUD：Dust II A坡道交战.jpg",
+      "outputSHA256": "0c9f0b1381a51b63d418c0ca7b23bf58d3ed7101f69594ea63df4d84d3a98c68",
+      "adapted": false
+    },
+    {
+      "source": "CS2_系统拆解案_网页部署版/CS2_实机截图/IMG-02_购买菜单：现金、五类商品与退款入口（2023年历史实机）.jpg",
+      "sourceSHA256": "c73b14259196e38494e55ee223ea5f290575eb3e8b0a2b1ca972de0491c17314",
+      "file": "cs2/CS2_实机截图/IMG-02_购买菜单：现金、五类商品与退款入口（2023年历史实机）.jpg",
+      "outputSHA256": "c73b14259196e38494e55ee223ea5f290575eb3e8b0a2b1ca972de0491c17314",
+      "adapted": false
+    },
+    {
+      "source": "CS2_系统拆解案_网页部署版/CS2_实机截图/IMG-03_CT配装栏与库存备选（第三方攻略实机）.webp",
+      "sourceSHA256": "b84f101d49ff8b48a14138df0a7693728715492b9280256f8f8305a33c7c870d",
+      "file": "cs2/CS2_实机截图/IMG-03_CT配装栏与库存备选（第三方攻略实机）.webp",
+      "outputSHA256": "b84f101d49ff8b48a14138df0a7693728715492b9280256f8f8305a33c7c870d",
+      "adapted": false
+    },
+    {
+      "source": "CS2_系统拆解案_网页部署版/CS2_实机截图/IMG-04a_烟雾展开前（官方演示 00_00.300）.jpg",
+      "sourceSHA256": "be95e268e71ac2cfd84308a25fbed70ebe393f43cef1e1b699ffa6e50ca1b22b",
+      "file": "cs2/CS2_实机截图/IMG-04a_烟雾展开前（官方演示 00_00.300）.jpg",
+      "outputSHA256": "be95e268e71ac2cfd84308a25fbed70ebe393f43cef1e1b699ffa6e50ca1b22b",
+      "adapted": false
+    },
+    {
+      "source": "CS2_系统拆解案_网页部署版/CS2_实机截图/IMG-04b_烟雾展开后（官方演示 00_01.700）.jpg",
+      "sourceSHA256": "d575c175affc1321bba2844cc576c2de87562803ec0f0198afabf6520131e8f9",
+      "file": "cs2/CS2_实机截图/IMG-04b_烟雾展开后（官方演示 00_01.700）.jpg",
+      "outputSHA256": "d575c175affc1321bba2844cc576c2de87562803ec0f0198afabf6520131e8f9",
+      "adapted": false
+    },
+    {
+      "source": "CS2_系统拆解案_网页部署版/CS2_实机截图/IMG-05a_HE 生效前的烟雾（00_54.900）.jpg",
+      "sourceSHA256": "60a374bb6c85e6057e3b46f75c4b517411ca3c5076f8748dfe10201e3d52973c",
+      "file": "cs2/CS2_实机截图/IMG-05a_HE 生效前的烟雾（00_54.900）.jpg",
+      "outputSHA256": "60a374bb6c85e6057e3b46f75c4b517411ca3c5076f8748dfe10201e3d52973c",
+      "adapted": false
+    },
+    {
+      "source": "CS2_系统拆解案_网页部署版/CS2_实机截图/IMG-05b_HE 爆炸打开视线窗口（00_55.300）.jpg",
+      "sourceSHA256": "8d8bdf6ef1133f042c001a6961b0748b9856351620c8dcae796f71dd394ab079",
+      "file": "cs2/CS2_实机截图/IMG-05b_HE 爆炸打开视线窗口（00_55.300）.jpg",
+      "outputSHA256": "8d8bdf6ef1133f042c001a6961b0748b9856351620c8dcae796f71dd394ab079",
+      "adapted": false
+    },
+    {
+      "source": "CS2_系统拆解案_网页部署版/CS2_实机截图/IMG-06_Dust II：从 A 大道朝 A 区推进（00_53.600）.jpg",
+      "sourceSHA256": "a34b908e0726c36da6fc0acea7c47b74b6f1ff24aa61a3e048e47e83208f0138",
+      "file": "cs2/CS2_实机截图/IMG-06_Dust II：从 A 大道朝 A 区推进（00_53.600）.jpg",
+      "outputSHA256": "a34b908e0726c36da6fc0acea7c47b74b6f1ff24aa61a3e048e47e83208f0138",
+      "adapted": false
+    },
+    {
+      "source": "CS2_系统拆解案_网页部署版/CS2_实机截图/IMG-07_Inferno：香蕉道朝 B 区方向（官方商店图）.jpg",
+      "sourceSHA256": "426ec1de7dbb6602b5259096bcbb89f2ccef4dc3d17b18712d6fb60c7e57a834",
+      "file": "cs2/CS2_实机截图/IMG-07_Inferno：香蕉道朝 B 区方向（官方商店图）.jpg",
+      "outputSHA256": "426ec1de7dbb6602b5259096bcbb89f2ccef4dc3d17b18712d6fb60c7e57a834",
+      "adapted": false
+    },
+    {
+      "source": "CS2_系统拆解案_网页部署版/CS2_实机截图/IMG-08a_Nuke 上层 A 区（官方场景图）.jpg",
+      "sourceSHA256": "c310fe7e74343c4e810f9ccb041bc3305e310f28c20c56d3503d6d03e3b45330",
+      "file": "cs2/CS2_实机截图/IMG-08a_Nuke 上层 A 区（官方场景图）.jpg",
+      "outputSHA256": "c310fe7e74343c4e810f9ccb041bc3305e310f28c20c56d3503d6d03e3b45330",
+      "adapted": false
+    },
+    {
+      "source": "CS2_系统拆解案_网页部署版/CS2_实机截图/IMG-08b_Nuke 下层 B 区（官方商店图）.jpg",
+      "sourceSHA256": "56d142ca5c0269ff71093e8ec1a2ec71a2f4ab3947b0ebe0e50e334fa291206f",
+      "file": "cs2/CS2_实机截图/IMG-08b_Nuke 下层 B 区（官方商店图）.jpg",
+      "outputSHA256": "56d142ca5c0269ff71093e8ec1a2ec71a2f4ab3947b0ebe0e50e334fa291206f",
+      "adapted": false
+    },
+    {
+      "source": "CS2_系统拆解案_网页部署版/CS2_实机截图/IMG-09_B包点掩体后安放C4，完整HUD.webp",
+      "sourceSHA256": "08b79acd2bab31123a45b5d401a3146f0e070b8b4f9b8f7306858c0f558ff176",
+      "file": "cs2/CS2_实机截图/IMG-09_B包点掩体后安放C4，完整HUD.webp",
+      "outputSHA256": "08b79acd2bab31123a45b5d401a3146f0e070b8b4f9b8f7306858c0f558ff176",
+      "adapted": false
+    },
+    {
+      "source": "CS2_系统拆解案_网页部署版/CS2_实机截图/IMG-10_用户实机_20261015181746_1.jpg",
+      "sourceSHA256": "39e37fb3fcd1cd60f45dbf0429912f7b927a5eee2ab931a43b4160a7215a7f32",
+      "file": "cs2/CS2_实机截图/IMG-10_用户实机_20261015181746_1.jpg",
+      "outputSHA256": "39e37fb3fcd1cd60f45dbf0429912f7b927a5eee2ab931a43b4160a7215a7f32",
+      "adapted": false
+    },
+    {
+      "source": "CS2_系统拆解案_网页部署版/CS2_实机截图/IMG-11a_无拆弹器：拆除提示与9.859秒倒计时.png",
+      "sourceSHA256": "8d85512a39516fdbc46efedc28f3e74fb58d8b6ec5b7d4a9ce20f3c72da1fea0",
+      "file": "cs2/CS2_实机截图/IMG-11a_无拆弹器：拆除提示与9.859秒倒计时.png",
+      "outputSHA256": "8d85512a39516fdbc46efedc28f3e74fb58d8b6ec5b7d4a9ce20f3c72da1fea0",
+      "adapted": false
+    },
+    {
+      "source": "CS2_系统拆解案_网页部署版/CS2_实机截图/IMG-11b_有拆弹器：钳图标与3.296秒倒计时.jpg",
+      "sourceSHA256": "5ce93ff30fc7dbad10624ab58a1f2027d70491391c57b282758c1a47b7a0fd66",
+      "file": "cs2/CS2_实机截图/IMG-11b_有拆弹器：钳图标与3.296秒倒计时.jpg",
+      "outputSHA256": "5ce93ff30fc7dbad10624ab58a1f2027d70491391c57b282758c1a47b7a0fd66",
+      "adapted": false
+    },
+    {
+      "source": "CS2_系统拆解案_网页部署版/CS2_实机截图/IMG-12_回合胜利与MVP反馈.jpg",
+      "sourceSHA256": "b8b17a214e89b5b572b95243196f8c4e7115f44c611bffbeb853733bc6eab1f9",
+      "file": "cs2/CS2_实机截图/IMG-12_回合胜利与MVP反馈.jpg",
+      "outputSHA256": "b8b17a214e89b5b572b95243196f8c4e7115f44c611bffbeb853733bc6eab1f9",
+      "adapted": false
+    },
+    {
+      "source": "CS2_系统拆解案_网页部署版/CS2_实机截图/IMG-13_冻结时间的队伍资金与装备信息.png",
+      "sourceSHA256": "481ac5fd23640aea95554ac151ebaa9fa3b71d0464f64002a3bcb9a92eb04ab6",
+      "file": "cs2/CS2_实机截图/IMG-13_冻结时间的队伍资金与装备信息.png",
+      "outputSHA256": "481ac5fd23640aea95554ac151ebaa9fa3b71d0464f64002a3bcb9a92eb04ab6",
+      "adapted": false
+    },
+    {
+      "source": "CS2_系统拆解案_网页部署版/CS2_实机截图/IMG-14a_用户实机_20261015181449_1.jpg",
+      "sourceSHA256": "d2172a4c6c9e6a7e379c2004ea360660172bb8fd95322ab5eda9fca0874a69e4",
+      "file": "cs2/CS2_实机截图/IMG-14a_用户实机_20261015181449_1.jpg",
+      "outputSHA256": "d2172a4c6c9e6a7e379c2004ea360660172bb8fd95322ab5eda9fca0874a69e4",
+      "adapted": false
+    },
+    {
+      "source": "CS2_系统拆解案_网页部署版/CS2_实机截图/IMG-14b_用户实机_20261015181506_1.jpg",
+      "sourceSHA256": "c4bc434e01d492fba0706fb6782432e537ae7b1acfca2013166b3623a5dac11a",
+      "file": "cs2/CS2_实机截图/IMG-14b_用户实机_20261015181506_1.jpg",
+      "outputSHA256": "c4bc434e01d492fba0706fb6782432e537ae7b1acfca2013166b3623a5dac11a",
+      "adapted": false
+    },
+    {
+      "source": "CS2_系统拆解案_网页部署版/CS2_实机截图/IMG-14c_用户实机_20261015181521_1.jpg",
+      "sourceSHA256": "aded69fd4e7aff85d02eb770b9fdbd9dad4e06feea5ac753b8e34b671034760d",
+      "file": "cs2/CS2_实机截图/IMG-14c_用户实机_20261015181521_1.jpg",
+      "outputSHA256": "aded69fd4e7aff85d02eb770b9fdbd9dad4e06feea5ac753b8e34b671034760d",
+      "adapted": false
+    },
+    {
+      "source": "CS2_系统拆解案_网页部署版/CS2_实机截图/IMG-14d_用户实机_20261015181528_1.jpg",
+      "sourceSHA256": "7910d200fef13039743688d1e5d88b458b5a5dd8d9161660755465edd13f9393",
+      "file": "cs2/CS2_实机截图/IMG-14d_用户实机_20261015181528_1.jpg",
+      "outputSHA256": "7910d200fef13039743688d1e5d88b458b5a5dd8d9161660755465edd13f9393",
+      "adapted": false
+    },
+    {
+      "source": "CS2_系统拆解案_网页部署版/CS2_实机截图/IMG-14e_用户实机_20261015181534_1.jpg",
+      "sourceSHA256": "9fad33bc829ffe4787635f20029e75e98e4ef99ee09e735d11da7616411dedf7",
+      "file": "cs2/CS2_实机截图/IMG-14e_用户实机_20261015181534_1.jpg",
+      "outputSHA256": "9fad33bc829ffe4787635f20029e75e98e4ef99ee09e735d11da7616411dedf7",
+      "adapted": false
+    },
+    {
+      "source": "CS2_系统拆解案_网页部署版/CS2_实机截图/IMG-14f_用户实机_20261015181540_1.jpg",
+      "sourceSHA256": "eecd600de8ef330c5bc998e210f2d6180b6a1d52e7c3eb06134b5b5068a76ea7",
+      "file": "cs2/CS2_实机截图/IMG-14f_用户实机_20261015181540_1.jpg",
+      "outputSHA256": "eecd600de8ef330c5bc998e210f2d6180b6a1d52e7c3eb06134b5b5068a76ea7",
+      "adapted": false
+    },
+    {
+      "source": "CS2_系统拆解案_网页部署版/CS2_实机截图/IMG-14g_用户实机_20261015181548_1.jpg",
+      "sourceSHA256": "aee5447ff93a69685edaa83154d8d595b85bb4c66e2f6f3c30b9aebc1f080002",
+      "file": "cs2/CS2_实机截图/IMG-14g_用户实机_20261015181548_1.jpg",
+      "outputSHA256": "aee5447ff93a69685edaa83154d8d595b85bb4c66e2f6f3c30b9aebc1f080002",
+      "adapted": false
+    },
+    {
+      "source": "CS2_系统拆解案_网页部署版/CS2_实机截图/IMG-15a_Premier四张候选地图：双方各选两张（Valve 2026-09-22官方演示00_01）.png",
+      "sourceSHA256": "7eff70443cc3523db389bdd83ea7112e53f5543a4fde3b2ff4bef7c9d3639254",
+      "file": "cs2/CS2_实机截图/IMG-15a_Premier四张候选地图：双方各选两张（Valve 2026-09-22官方演示00_01）.png",
+      "outputSHA256": "7eff70443cc3523db389bdd83ea7112e53f5543a4fde3b2ff4bef7c9d3639254",
+      "adapted": false
+    },
+    {
+      "source": "CS2_系统拆解案_网页部署版/CS2_实机截图/IMG-15b_四候选抽定Inferno后的结果帧（同一官方演示00_05）.png",
+      "sourceSHA256": "967c961af1194483ac60eb4cff28043e8988767b83702c862f677955f628e784",
+      "file": "cs2/CS2_实机截图/IMG-15b_四候选抽定Inferno后的结果帧（同一官方演示00_05）.png",
+      "outputSHA256": "967c961af1194483ac60eb4cff28043e8988767b83702c862f677955f628e784",
+      "adapted": false
+    },
+    {
+      "source": "CS2_系统拆解案_网页部署版/CS2_实机截图/IMG-16_AK-47 _ Inheritance租赁物品的检视与属性浮窗（资料截图）.webp",
+      "sourceSHA256": "eafa65bb6e2cd8907414ef69963ed5abd018f7409fc2de52bed6f14eb22630d1",
+      "file": "cs2/CS2_实机截图/IMG-16_AK-47 _ Inheritance租赁物品的检视与属性浮窗（资料截图）.webp",
+      "outputSHA256": "eafa65bb6e2cd8907414ef69963ed5abd018f7409fc2de52bed6f14eb22630d1",
+      "adapted": false
+    },
+    {
+      "source": "CS2_系统拆解案_网页部署版/CS2_实机截图/IMG-17_军械库积分、已激活通行证与兑换内容（2024年历史实机）.jpg",
+      "sourceSHA256": "c20a98d20ae3b9eca73faab95340cb511cd994a793021ea7d83c95760e4a2b96",
+      "file": "cs2/CS2_实机截图/IMG-17_军械库积分、已激活通行证与兑换内容（2024年历史实机）.jpg",
+      "outputSHA256": "c20a98d20ae3b9eca73faab95340cb511cd994a793021ea7d83c95760e4a2b96",
+      "adapted": false
+    },
+    {
+      "source": "CS2_系统拆解案_网页部署版/CS2_实机截图/IMG-18_用户实机_20261015181456_1.jpg",
+      "sourceSHA256": "83c6256623096802f0871df26277e0f7b299884c0ec24285126f9398bd854f74",
+      "file": "cs2/CS2_实机截图/IMG-18_用户实机_20261015181456_1.jpg",
+      "outputSHA256": "83c6256623096802f0871df26277e0f7b299884c0ec24285126f9398bd854f74",
+      "adapted": false
+    },
+    {
+      "source": "CS2_系统拆解案_网页部署版/CS2_实机截图拍摄清单.md",
+      "sourceSHA256": "2b9af7f2e6fb7938f15d6f0b39eab845253ede2e5f61f7fb1e608727b9f937c8",
+      "file": "cs2/CS2_实机截图拍摄清单.md",
+      "outputSHA256": "2b9af7f2e6fb7938f15d6f0b39eab845253ede2e5f61f7fb1e608727b9f937c8",
+      "adapted": false
+    },
+    {
+      "source": "CS2_系统拆解案_网页部署版/CS2_待补截图清单.md",
+      "sourceSHA256": "c4a2789cb64eac97122db06a574c7ffec3f83bd02bb25f2eb9457ab8314e3995",
+      "file": "cs2/CS2_待补截图清单.md",
+      "outputSHA256": "c4a2789cb64eac97122db06a574c7ffec3f83bd02bb25f2eb9457ab8314e3995",
+      "adapted": false
+    },
+    {
+      "source": "CS2_系统拆解案_网页部署版/CS2_截图来源与版本登记.md",
+      "sourceSHA256": "99bffd5ac843bf01d593f34ad07ffe57ebb500a579f393b3e9137e1883628279",
+      "file": "cs2/CS2_截图来源与版本登记.md",
+      "outputSHA256": "99bffd5ac843bf01d593f34ad07ffe57ebb500a579f393b3e9137e1883628279",
+      "adapted": false
+    },
+    {
+      "source": "CS2_系统拆解案_网页部署版/CS2_截图登记.json",
+      "sourceSHA256": "cacb44ca341338646258ec6983facdd89f3dc2534eb2395872511e7277f739be",
+      "file": "cs2/CS2_截图登记.json",
+      "outputSHA256": "cacb44ca341338646258ec6983facdd89f3dc2534eb2395872511e7277f739be",
+      "adapted": false
+    },
+    {
+      "source": "CS2_系统拆解案_网页部署版/CS2_整体架构及八大系统拆解.md",
+      "sourceSHA256": "6b88bc58f4dd75b41ee2a5c07bf4b36e6b2f689876c675d717288832ce6bd494",
+      "file": "cs2/CS2_整体架构及八大系统拆解.md",
+      "outputSHA256": "6b88bc58f4dd75b41ee2a5c07bf4b36e6b2f689876c675d717288832ce6bd494",
+      "adapted": false
+    },
+    {
+      "source": "CS2_系统拆解案_网页部署版/CS2_整体架构及八大系统拆解_阅读版.html",
+      "sourceSHA256": "9c739fa888789ab73bd4458adb755aaca6184723fe86d0f239c1c9397a997f7e",
+      "file": "cs2/CS2_整体架构及八大系统拆解_阅读版.html",
+      "outputSHA256": "0b02e99fcbe16a1d11a4e886e54575c29c867e49a04006e38061e17392fcdfba",
+      "adapted": true
+    },
+    {
+      "source": "CS2_系统拆解案_网页部署版/index.html",
+      "sourceSHA256": "9c739fa888789ab73bd4458adb755aaca6184723fe86d0f239c1c9397a997f7e",
+      "file": "cs2/index.html",
+      "outputSHA256": "0b02e99fcbe16a1d11a4e886e54575c29c867e49a04006e38061e17392fcdfba",
+      "adapted": true
+    },
+    {
+      "source": "CS2_系统拆解案_网页部署版/部署说明.txt",
+      "sourceSHA256": "efae9adf96d740b28066ba763fc4bb34932f1c66ce9fd299b1c7b7d30fcff26a",
+      "file": "cs2/部署说明.txt",
+      "outputSHA256": "efae9adf96d740b28066ba763fc4bb34932f1c66ce9fd299b1c7b7d30fcff26a",
+      "adapted": false
+    },
+    {
+      "source": "CS2_系统拆解案_网页部署版/阅读说明.txt",
+      "sourceSHA256": "70d35668d9c88cde4ed8cebce1649eb646be4cffaad0d45cd15e4fed40385297",
+      "file": "cs2/阅读说明.txt",
+      "outputSHA256": "70d35668d9c88cde4ed8cebce1649eb646be4cffaad0d45cd15e4fed40385297",
+      "adapted": false
+    },
+    {
+      "source": "系统策划Excel补充_20261016/CS2_经济系统配置与预算.xlsx",
+      "sourceSHA256": "f1fa673f14a000e033305bc8a3f157ca2bc981ee249f8db01165912d6228b5b4",
+      "file": "spreadsheets/CS2_经济系统配置与预算.xlsx",
+      "outputSHA256": "f1fa673f14a000e033305bc8a3f157ca2bc981ee249f8db01165912d6228b5b4",
+      "adapted": false
+    },
+    {
+      "source": "系统策划Excel补充_20261016/使用说明.md",
+      "sourceSHA256": "fe5ec5fabbb4dcc81446b5e6307eeb57bc8e926293f6f6766137fed164887b53",
+      "file": "spreadsheets/使用说明.md",
+      "outputSHA256": "fe5ec5fabbb4dcc81446b5e6307eeb57bc8e926293f6f6766137fed164887b53",
+      "adapted": false
+    },
+    {
+      "source": "系统策划Excel补充_20261016/撞击王座_系统策划交付表.xlsx",
+      "sourceSHA256": "e56f151134a513f08adbe202cd90af6560f47fd0eefdca9246f058ba503efc40",
+      "file": "spreadsheets/撞击王座_系统策划交付表.xlsx",
+      "outputSHA256": "e56f151134a513f08adbe202cd90af6560f47fd0eefdca9246f058ba503efc40",
+      "adapted": false
+    }
+  ],
   "files": [
     {
       "file": ".nojekyll",
@@ -16,8 +305,8 @@
     },
     {
       "file": "README.md",
-      "bytes": 314,
-      "sha256": "127dc1e455639ab2cb7cfdfa8d8eada1210a0843ebe9b5566ad711efb299efe8"
+      "bytes": 494,
+      "sha256": "5ff2922200933bee234ebff516d1ffc82a5ee2cbfe028eda40642453b5f7cc94"
     },
     {
       "file": "assets/crown.svg",
@@ -93,6 +382,196 @@
       "file": "credits/第三方资产与许可清单.json",
       "bytes": 53694,
       "sha256": "eac7117bc502d5f3b939861718843a589622dda9e1e2a6fb6864c12d2cc70e30"
+    },
+    {
+      "file": "cs2/CS2_实机截图/IMG-01_完整战斗HUD：Dust II A坡道交战.jpg",
+      "bytes": 315288,
+      "sha256": "0c9f0b1381a51b63d418c0ca7b23bf58d3ed7101f69594ea63df4d84d3a98c68"
+    },
+    {
+      "file": "cs2/CS2_实机截图/IMG-02_购买菜单：现金、五类商品与退款入口（2023年历史实机）.jpg",
+      "bytes": 107347,
+      "sha256": "c73b14259196e38494e55ee223ea5f290575eb3e8b0a2b1ca972de0491c17314"
+    },
+    {
+      "file": "cs2/CS2_实机截图/IMG-03_CT配装栏与库存备选（第三方攻略实机）.webp",
+      "bytes": 49156,
+      "sha256": "b84f101d49ff8b48a14138df0a7693728715492b9280256f8f8305a33c7c870d"
+    },
+    {
+      "file": "cs2/CS2_实机截图/IMG-04a_烟雾展开前（官方演示 00_00.300）.jpg",
+      "bytes": 139051,
+      "sha256": "be95e268e71ac2cfd84308a25fbed70ebe393f43cef1e1b699ffa6e50ca1b22b"
+    },
+    {
+      "file": "cs2/CS2_实机截图/IMG-04b_烟雾展开后（官方演示 00_01.700）.jpg",
+      "bytes": 115120,
+      "sha256": "d575c175affc1321bba2844cc576c2de87562803ec0f0198afabf6520131e8f9"
+    },
+    {
+      "file": "cs2/CS2_实机截图/IMG-05a_HE 生效前的烟雾（00_54.900）.jpg",
+      "bytes": 603886,
+      "sha256": "60a374bb6c85e6057e3b46f75c4b517411ca3c5076f8748dfe10201e3d52973c"
+    },
+    {
+      "file": "cs2/CS2_实机截图/IMG-05b_HE 爆炸打开视线窗口（00_55.300）.jpg",
+      "bytes": 643872,
+      "sha256": "8d8bdf6ef1133f042c001a6961b0748b9856351620c8dcae796f71dd394ab079"
+    },
+    {
+      "file": "cs2/CS2_实机截图/IMG-06_Dust II：从 A 大道朝 A 区推进（00_53.600）.jpg",
+      "bytes": 587832,
+      "sha256": "a34b908e0726c36da6fc0acea7c47b74b6f1ff24aa61a3e048e47e83208f0138"
+    },
+    {
+      "file": "cs2/CS2_实机截图/IMG-07_Inferno：香蕉道朝 B 区方向（官方商店图）.jpg",
+      "bytes": 358023,
+      "sha256": "426ec1de7dbb6602b5259096bcbb89f2ccef4dc3d17b18712d6fb60c7e57a834"
+    },
+    {
+      "file": "cs2/CS2_实机截图/IMG-08a_Nuke 上层 A 区（官方场景图）.jpg",
+      "bytes": 2632974,
+      "sha256": "c310fe7e74343c4e810f9ccb041bc3305e310f28c20c56d3503d6d03e3b45330"
+    },
+    {
+      "file": "cs2/CS2_实机截图/IMG-08b_Nuke 下层 B 区（官方商店图）.jpg",
+      "bytes": 814642,
+      "sha256": "56d142ca5c0269ff71093e8ec1a2ec71a2f4ab3947b0ebe0e50e334fa291206f"
+    },
+    {
+      "file": "cs2/CS2_实机截图/IMG-09_B包点掩体后安放C4，完整HUD.webp",
+      "bytes": 34904,
+      "sha256": "08b79acd2bab31123a45b5d401a3146f0e070b8b4f9b8f7306858c0f558ff176"
+    },
+    {
+      "file": "cs2/CS2_实机截图/IMG-10_用户实机_20261015181746_1.jpg",
+      "bytes": 332974,
+      "sha256": "39e37fb3fcd1cd60f45dbf0429912f7b927a5eee2ab931a43b4160a7215a7f32"
+    },
+    {
+      "file": "cs2/CS2_实机截图/IMG-11a_无拆弹器：拆除提示与9.859秒倒计时.png",
+      "bytes": 1339155,
+      "sha256": "8d85512a39516fdbc46efedc28f3e74fb58d8b6ec5b7d4a9ce20f3c72da1fea0"
+    },
+    {
+      "file": "cs2/CS2_实机截图/IMG-11b_有拆弹器：钳图标与3.296秒倒计时.jpg",
+      "bytes": 87209,
+      "sha256": "5ce93ff30fc7dbad10624ab58a1f2027d70491391c57b282758c1a47b7a0fd66"
+    },
+    {
+      "file": "cs2/CS2_实机截图/IMG-12_回合胜利与MVP反馈.jpg",
+      "bytes": 177265,
+      "sha256": "b8b17a214e89b5b572b95243196f8c4e7115f44c611bffbeb853733bc6eab1f9"
+    },
+    {
+      "file": "cs2/CS2_实机截图/IMG-13_冻结时间的队伍资金与装备信息.png",
+      "bytes": 238158,
+      "sha256": "481ac5fd23640aea95554ac151ebaa9fa3b71d0464f64002a3bcb9a92eb04ab6"
+    },
+    {
+      "file": "cs2/CS2_实机截图/IMG-14a_用户实机_20261015181449_1.jpg",
+      "bytes": 284625,
+      "sha256": "d2172a4c6c9e6a7e379c2004ea360660172bb8fd95322ab5eda9fca0874a69e4"
+    },
+    {
+      "file": "cs2/CS2_实机截图/IMG-14b_用户实机_20261015181506_1.jpg",
+      "bytes": 170530,
+      "sha256": "c4bc434e01d492fba0706fb6782432e537ae7b1acfca2013166b3623a5dac11a"
+    },
+    {
+      "file": "cs2/CS2_实机截图/IMG-14c_用户实机_20261015181521_1.jpg",
+      "bytes": 251828,
+      "sha256": "aded69fd4e7aff85d02eb770b9fdbd9dad4e06feea5ac753b8e34b671034760d"
+    },
+    {
+      "file": "cs2/CS2_实机截图/IMG-14d_用户实机_20261015181528_1.jpg",
+      "bytes": 258306,
+      "sha256": "7910d200fef13039743688d1e5d88b458b5a5dd8d9161660755465edd13f9393"
+    },
+    {
+      "file": "cs2/CS2_实机截图/IMG-14e_用户实机_20261015181534_1.jpg",
+      "bytes": 261544,
+      "sha256": "9fad33bc829ffe4787635f20029e75e98e4ef99ee09e735d11da7616411dedf7"
+    },
+    {
+      "file": "cs2/CS2_实机截图/IMG-14f_用户实机_20261015181540_1.jpg",
+      "bytes": 226346,
+      "sha256": "eecd600de8ef330c5bc998e210f2d6180b6a1d52e7c3eb06134b5b5068a76ea7"
+    },
+    {
+      "file": "cs2/CS2_实机截图/IMG-14g_用户实机_20261015181548_1.jpg",
+      "bytes": 230754,
+      "sha256": "aee5447ff93a69685edaa83154d8d595b85bb4c66e2f6f3c30b9aebc1f080002"
+    },
+    {
+      "file": "cs2/CS2_实机截图/IMG-15a_Premier四张候选地图：双方各选两张（Valve 2026-09-22官方演示00_01）.png",
+      "bytes": 682848,
+      "sha256": "7eff70443cc3523db389bdd83ea7112e53f5543a4fde3b2ff4bef7c9d3639254"
+    },
+    {
+      "file": "cs2/CS2_实机截图/IMG-15b_四候选抽定Inferno后的结果帧（同一官方演示00_05）.png",
+      "bytes": 509268,
+      "sha256": "967c961af1194483ac60eb4cff28043e8988767b83702c862f677955f628e784"
+    },
+    {
+      "file": "cs2/CS2_实机截图/IMG-16_AK-47 _ Inheritance租赁物品的检视与属性浮窗（资料截图）.webp",
+      "bytes": 46934,
+      "sha256": "eafa65bb6e2cd8907414ef69963ed5abd018f7409fc2de52bed6f14eb22630d1"
+    },
+    {
+      "file": "cs2/CS2_实机截图/IMG-17_军械库积分、已激活通行证与兑换内容（2024年历史实机）.jpg",
+      "bytes": 142611,
+      "sha256": "c20a98d20ae3b9eca73faab95340cb511cd994a793021ea7d83c95760e4a2b96"
+    },
+    {
+      "file": "cs2/CS2_实机截图/IMG-18_用户实机_20261015181456_1.jpg",
+      "bytes": 186207,
+      "sha256": "83c6256623096802f0871df26277e0f7b299884c0ec24285126f9398bd854f74"
+    },
+    {
+      "file": "cs2/CS2_实机截图拍摄清单.md",
+      "bytes": 12629,
+      "sha256": "2b9af7f2e6fb7938f15d6f0b39eab845253ede2e5f61f7fb1e608727b9f937c8"
+    },
+    {
+      "file": "cs2/CS2_待补截图清单.md",
+      "bytes": 672,
+      "sha256": "c4a2789cb64eac97122db06a574c7ffec3f83bd02bb25f2eb9457ab8314e3995"
+    },
+    {
+      "file": "cs2/CS2_截图来源与版本登记.md",
+      "bytes": 29390,
+      "sha256": "99bffd5ac843bf01d593f34ad07ffe57ebb500a579f393b3e9137e1883628279"
+    },
+    {
+      "file": "cs2/CS2_截图登记.json",
+      "bytes": 55936,
+      "sha256": "cacb44ca341338646258ec6983facdd89f3dc2534eb2395872511e7277f739be"
+    },
+    {
+      "file": "cs2/CS2_整体架构及八大系统拆解.md",
+      "bytes": 207878,
+      "sha256": "6b88bc58f4dd75b41ee2a5c07bf4b36e6b2f689876c675d717288832ce6bd494"
+    },
+    {
+      "file": "cs2/CS2_整体架构及八大系统拆解_阅读版.html",
+      "bytes": 16144689,
+      "sha256": "0b02e99fcbe16a1d11a4e886e54575c29c867e49a04006e38061e17392fcdfba"
+    },
+    {
+      "file": "cs2/index.html",
+      "bytes": 16144689,
+      "sha256": "0b02e99fcbe16a1d11a4e886e54575c29c867e49a04006e38061e17392fcdfba"
+    },
+    {
+      "file": "cs2/部署说明.txt",
+      "bytes": 957,
+      "sha256": "efae9adf96d740b28066ba763fc4bb34932f1c66ce9fd299b1c7b7d30fcff26a"
+    },
+    {
+      "file": "cs2/阅读说明.txt",
+      "bytes": 814,
+      "sha256": "70d35668d9c88cde4ed8cebce1649eb646be4cffaad0d45cd15e4fed40385297"
     },
     {
       "file": "docs/README部署说明.md",
@@ -321,13 +800,33 @@
     },
     {
       "file": "index.html",
-      "bytes": 7699,
-      "sha256": "e4c4e514a2ed7564589bfa9bb393e49bc597ea01640fed3974dd5545c929481f"
+      "bytes": 8448,
+      "sha256": "cb9379284f5d79ac9ddf51e062b0cf9a54f14a4687ca79fa2474d8cbc9ce7d17"
     },
     {
       "file": "release.html",
       "bytes": 2638,
       "sha256": "dcf3c042bc85515725036b4bd1aee86070b19fd8c7e1e968a9ff4066ada43a09"
+    },
+    {
+      "file": "spreadsheets/CS2_经济系统配置与预算.xlsx",
+      "bytes": 63009,
+      "sha256": "f1fa673f14a000e033305bc8a3f157ca2bc981ee249f8db01165912d6228b5b4"
+    },
+    {
+      "file": "spreadsheets/index.html",
+      "bytes": 2418,
+      "sha256": "b73c1fa2589cd767890379edbc0aeb4b1d17dca5e9778704755225f58f0c5d56"
+    },
+    {
+      "file": "spreadsheets/使用说明.md",
+      "bytes": 3056,
+      "sha256": "fe5ec5fabbb4dcc81446b5e6307eeb57bc8e926293f6f6766137fed164887b53"
+    },
+    {
+      "file": "spreadsheets/撞击王座_系统策划交付表.xlsx",
+      "bytes": 308650,
+      "sha256": "e56f151134a513f08adbe202cd90af6560f47fd0eefdca9246f058ba503efc40"
     }
   ]
 }
