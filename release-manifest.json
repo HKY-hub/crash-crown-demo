@@ -1,7 +1,7 @@
 {
   "version": "1.0",
   "target": "pages",
-  "preparedAt": "2026-10-16T11:55:10.677Z",
+  "preparedAt": "2026-10-16T12:25:53.516Z",
   "repository": "HKY-hub/crash-crown-demo",
   "gameBaselineSHA256": "7af8b62666c4b39ee74b353cd04780cfdd6fd11b18b91b28cf6d477567346725",
   "publicGameSHA256": "790941476cb57788566b2c3e5db19d00890be04a329a9a1517ac1363dcaef169",
@@ -216,22 +216,22 @@
       "source": "CS2_系统拆解案_网页部署版/CS2_实机截图拍摄清单.md",
       "sourceSHA256": "2b9af7f2e6fb7938f15d6f0b39eab845253ede2e5f61f7fb1e608727b9f937c8",
       "file": "cs2/CS2_实机截图拍摄清单.md",
-      "outputSHA256": "2b9af7f2e6fb7938f15d6f0b39eab845253ede2e5f61f7fb1e608727b9f937c8",
-      "adapted": false
+      "outputSHA256": "14513ea73fb02dd9df9b1e98a3d6ee72718417cefa0878e9497862f3410b9bee",
+      "adapted": true
     },
     {
       "source": "CS2_系统拆解案_网页部署版/CS2_待补截图清单.md",
       "sourceSHA256": "c4a2789cb64eac97122db06a574c7ffec3f83bd02bb25f2eb9457ab8314e3995",
       "file": "cs2/CS2_待补截图清单.md",
-      "outputSHA256": "c4a2789cb64eac97122db06a574c7ffec3f83bd02bb25f2eb9457ab8314e3995",
-      "adapted": false
+      "outputSHA256": "90225d5896dc8378f793778dd9e6599034f7a076d99cc2fe2689b6d6ea776ab6",
+      "adapted": true
     },
     {
       "source": "CS2_系统拆解案_网页部署版/CS2_截图来源与版本登记.md",
       "sourceSHA256": "99bffd5ac843bf01d593f34ad07ffe57ebb500a579f393b3e9137e1883628279",
       "file": "cs2/CS2_截图来源与版本登记.md",
-      "outputSHA256": "99bffd5ac843bf01d593f34ad07ffe57ebb500a579f393b3e9137e1883628279",
-      "adapted": false
+      "outputSHA256": "11ad5c46d97161751985e97a2667e495224b6a0c92eb369f1dca2a4eecdb5615",
+      "adapted": true
     },
     {
       "source": "CS2_系统拆解案_网页部署版/CS2_截图登记.json",
@@ -244,29 +244,29 @@
       "source": "CS2_系统拆解案_网页部署版/CS2_整体架构及八大系统拆解.md",
       "sourceSHA256": "6b88bc58f4dd75b41ee2a5c07bf4b36e6b2f689876c675d717288832ce6bd494",
       "file": "cs2/CS2_整体架构及八大系统拆解.md",
-      "outputSHA256": "6b88bc58f4dd75b41ee2a5c07bf4b36e6b2f689876c675d717288832ce6bd494",
-      "adapted": false
+      "outputSHA256": "0bcc9c84e845ce49e6f571002f0392b60a367b0c5cbac4390a9e6fbde655c2a4",
+      "adapted": true
     },
     {
       "source": "CS2_系统拆解案_网页部署版/CS2_整体架构及八大系统拆解_阅读版.html",
       "sourceSHA256": "9c739fa888789ab73bd4458adb755aaca6184723fe86d0f239c1c9397a997f7e",
       "file": "cs2/CS2_整体架构及八大系统拆解_阅读版.html",
-      "outputSHA256": "0b02e99fcbe16a1d11a4e886e54575c29c867e49a04006e38061e17392fcdfba",
+      "outputSHA256": "77f79bedc1a69174de0ce1b836715600af827feecc2abe286519f8b47dd8666b",
       "adapted": true
     },
     {
       "source": "CS2_系统拆解案_网页部署版/index.html",
       "sourceSHA256": "9c739fa888789ab73bd4458adb755aaca6184723fe86d0f239c1c9397a997f7e",
       "file": "cs2/index.html",
-      "outputSHA256": "0b02e99fcbe16a1d11a4e886e54575c29c867e49a04006e38061e17392fcdfba",
+      "outputSHA256": "77f79bedc1a69174de0ce1b836715600af827feecc2abe286519f8b47dd8666b",
       "adapted": true
     },
     {
       "source": "CS2_系统拆解案_网页部署版/部署说明.txt",
       "sourceSHA256": "efae9adf96d740b28066ba763fc4bb34932f1c66ce9fd299b1c7b7d30fcff26a",
       "file": "cs2/部署说明.txt",
-      "outputSHA256": "efae9adf96d740b28066ba763fc4bb34932f1c66ce9fd299b1c7b7d30fcff26a",
-      "adapted": false
+      "outputSHA256": "c66188e361d641ed76752d017bf2dd36f6e8e7ec465168ccba4226a3782b99c7",
+      "adapted": true
     },
     {
       "source": "CS2_系统拆解案_网页部署版/阅读说明.txt",
@@ -286,8 +286,8 @@
       "source": "系统策划Excel补充_20261016/使用说明.md",
       "sourceSHA256": "fe5ec5fabbb4dcc81446b5e6307eeb57bc8e926293f6f6766137fed164887b53",
       "file": "spreadsheets/使用说明.md",
-      "outputSHA256": "fe5ec5fabbb4dcc81446b5e6307eeb57bc8e926293f6f6766137fed164887b53",
-      "adapted": false
+      "outputSHA256": "51f7dbc9ae5edef1166e3503ace312cb6b2dbc2f8342d17d11605dd0f31ed806",
+      "adapted": true
     },
     {
       "source": "系统策划Excel补充_20261016/撞击王座_系统策划交付表.xlsx",
@@ -535,18 +535,18 @@
     },
     {
       "file": "cs2/CS2_实机截图拍摄清单.md",
-      "bytes": 12629,
-      "sha256": "2b9af7f2e6fb7938f15d6f0b39eab845253ede2e5f61f7fb1e608727b9f937c8"
+      "bytes": 12410,
+      "sha256": "14513ea73fb02dd9df9b1e98a3d6ee72718417cefa0878e9497862f3410b9bee"
     },
     {
       "file": "cs2/CS2_待补截图清单.md",
-      "bytes": 672,
-      "sha256": "c4a2789cb64eac97122db06a574c7ffec3f83bd02bb25f2eb9457ab8314e3995"
+      "bytes": 662,
+      "sha256": "90225d5896dc8378f793778dd9e6599034f7a076d99cc2fe2689b6d6ea776ab6"
     },
     {
       "file": "cs2/CS2_截图来源与版本登记.md",
-      "bytes": 29390,
-      "sha256": "99bffd5ac843bf01d593f34ad07ffe57ebb500a579f393b3e9137e1883628279"
+      "bytes": 26617,
+      "sha256": "11ad5c46d97161751985e97a2667e495224b6a0c92eb369f1dca2a4eecdb5615"
     },
     {
       "file": "cs2/CS2_截图登记.json",
@@ -555,23 +555,23 @@
     },
     {
       "file": "cs2/CS2_整体架构及八大系统拆解.md",
-      "bytes": 207878,
-      "sha256": "6b88bc58f4dd75b41ee2a5c07bf4b36e6b2f689876c675d717288832ce6bd494"
+      "bytes": 204516,
+      "sha256": "0bcc9c84e845ce49e6f571002f0392b60a367b0c5cbac4390a9e6fbde655c2a4"
     },
     {
       "file": "cs2/CS2_整体架构及八大系统拆解_阅读版.html",
-      "bytes": 16144689,
-      "sha256": "0b02e99fcbe16a1d11a4e886e54575c29c867e49a04006e38061e17392fcdfba"
+      "bytes": 16143768,
+      "sha256": "77f79bedc1a69174de0ce1b836715600af827feecc2abe286519f8b47dd8666b"
     },
     {
       "file": "cs2/index.html",
-      "bytes": 16144689,
-      "sha256": "0b02e99fcbe16a1d11a4e886e54575c29c867e49a04006e38061e17392fcdfba"
+      "bytes": 16143768,
+      "sha256": "77f79bedc1a69174de0ce1b836715600af827feecc2abe286519f8b47dd8666b"
     },
     {
       "file": "cs2/部署说明.txt",
-      "bytes": 957,
-      "sha256": "efae9adf96d740b28066ba763fc4bb34932f1c66ce9fd299b1c7b7d30fcff26a"
+      "bytes": 945,
+      "sha256": "c66188e361d641ed76752d017bf2dd36f6e8e7ec465168ccba4226a3782b99c7"
     },
     {
       "file": "cs2/阅读说明.txt",
@@ -580,18 +580,18 @@
     },
     {
       "file": "docs/README部署说明.md",
-      "bytes": 3332,
-      "sha256": "42a822ff38d2c3a0d3ebea80df3422cadb9085a8ee5f9fcdfc5f5f83a8a5e680"
+      "bytes": 494,
+      "sha256": "0f37567de5a5deecd07c3e2296dba0936867139e3e020aa36689b8e9d2e45650"
     },
     {
       "file": "docs/index.html",
-      "bytes": 11762,
-      "sha256": "4553ec8f471769c8aa1e99089537668b96ca8871ccba7b7f254328474647f0bb"
+      "bytes": 11486,
+      "sha256": "184ea65e70b9be63521d65af6666d9a24419019d46c13eaf4bb8481dedb62e00"
     },
     {
       "file": "docs/撞击王座_同类市场数据与定位说明.md",
-      "bytes": 11137,
-      "sha256": "b4fbb41fdca48fb56ef0184dfbcc83ff8488ed0faada37cce187cdcbc921b111"
+      "bytes": 10714,
+      "sha256": "4fc9a2d1f41e7ece225b636fcad59c2d59400910e6af170b87ffb4503a3feace"
     },
     {
       "file": "docs/撞击王座_实机图_20261014/01_大厅.png",
@@ -730,73 +730,73 @@
     },
     {
       "file": "docs/撞击王座_实机图片与来源登记.md",
-      "bytes": 6993,
-      "sha256": "50ca9f3c0a92bd39fd715d0bb505fb6d4a89e7315777bfa7f48fd2f318a73c95"
+      "bytes": 5244,
+      "sha256": "31ca1cabb1fb3dd9d81a2dd43923078690833d4275375a9ddda95ffbd7294deb"
     },
     {
       "file": "docs/撞击王座_最新版本_系统拆解案.md",
-      "bytes": 188560,
-      "sha256": "e224260bf6810fdcdeb062da41d2ea542f21f241dbd5659e0d1cdf2da056e48a"
+      "bytes": 182410,
+      "sha256": "81d2428c726a2673efe3be2362c2ca50410a868184467b846e40bafb7a2dcf0b"
     },
     {
       "file": "docs/撞击王座_最新版本_系统拆解案_阅读版.html",
-      "bytes": 8990938,
-      "sha256": "d0670f6451cd03f8e43ad663c4e89eb908e9416359cbdf718f2cbb81d6c4be45"
+      "bytes": 8980605,
+      "sha256": "14b680a3db883960fb148f94ba4f606c4c8d57a24159d245f3507c4e3c175780"
     },
     {
       "file": "docs/撞击王座_最新版本_系统策划案.md",
-      "bytes": 285014,
-      "sha256": "4267f4d8bcbe983f9c7f07ce01c2e9a385e65aa14a46dcf20d3f1074657ffe89"
+      "bytes": 276889,
+      "sha256": "4f2545fcf490a746f8d8a435e5fbc890612558975b4344ed234baab5502cbee3"
     },
     {
       "file": "docs/撞击王座_最新版本_系统策划案_阅读版.html",
-      "bytes": 8035484,
-      "sha256": "9c23ff9ba8a86412b38cca77c3af02e4174849787c88b302de7cfd717f130fe6"
+      "bytes": 8025047,
+      "sha256": "12b4b0a7ed7c2c2ffc4405e6fd0aebcf0aa8462b783bd1b297ddbe57de2d0652"
     },
     {
       "file": "docs/撞击王座_架构图/01_产品功能全景.png",
-      "bytes": 271308,
-      "sha256": "13a65eb0288dec0687c037264ff64d42e2df612843cfe2d354b331624d8ced64"
+      "bytes": 267516,
+      "sha256": "21ca08e6cda231f42b707ba591cea72b099366f0832f593a237fc6dd143e1e9c"
     },
     {
       "file": "docs/撞击王座_架构图/01_产品功能全景.svg",
-      "bytes": 7922,
-      "sha256": "d86099bc58f3cbdba6e734b40b52f44c54a665f8d963e56f24add7cd66d925f6"
+      "bytes": 7864,
+      "sha256": "f6640eba6fccefcc8956ee253f24ccf1514188400ebabd17a8cbcf9a3675c264"
     },
     {
       "file": "docs/撞击王座_架构图/02_战斗系统分层与结算.png",
-      "bytes": 328857,
-      "sha256": "bfdac9e9e7287b6dfb72e47073c94cf27b8be06af8c724c4a43b568acf349d01"
+      "bytes": 327162,
+      "sha256": "7792fe45186bd8c27b6df49192ff5f9a350bcc9fca221e426cebe85ed3af3dc6"
     },
     {
       "file": "docs/撞击王座_架构图/02_战斗系统分层与结算.svg",
-      "bytes": 9879,
-      "sha256": "2634994eb050802329985d5ab7cd4313a5161610982728bf376f72f7e32d9fbf"
+      "bytes": 9849,
+      "sha256": "8ad5fe1be2a7c2f06b0eaf6ec196d7de59fdd66f25c4555bab5d82aa9a4eaf0e"
     },
     {
       "file": "docs/撞击王座_架构图/03_成长与经济关系.png",
-      "bytes": 270677,
-      "sha256": "1661055946a9b8e2e1960e2c0467bee8380d2ef4e7e9640b9125e151630ba974"
+      "bytes": 268832,
+      "sha256": "2854c2a6781caab7b3a838821ba05b599f137cd2d2e0c5933aed25bf698897bd"
     },
     {
       "file": "docs/撞击王座_架构图/03_成长与经济关系.svg",
-      "bytes": 7639,
-      "sha256": "2ef9abac4355b7f641d6c7133a37b7db19ee74554f21b08e24250998832c8de5"
+      "bytes": 7609,
+      "sha256": "76f90e75cb17b9ff0b4f836e4d2900fed8546955742d3bc24304f51d602aaada"
     },
     {
       "file": "docs/撞击王座_架构图/04_执行架构与责任边界.png",
-      "bytes": 297552,
-      "sha256": "bba7f971af20094e13b213e163f7acd4ecf2dd8bb603ab850bee7725b73a9ea5"
+      "bytes": 291142,
+      "sha256": "23780e6ea8692f5385cf7319fc6129d4d3d92fb3c6d56834f1f8936d4cc9e5f4"
     },
     {
       "file": "docs/撞击王座_架构图/04_执行架构与责任边界.svg",
-      "bytes": 9250,
-      "sha256": "00f34d8a132a347af5917dbf42ff96091585095c56124aa542010bfd645f760e"
+      "bytes": 9154,
+      "sha256": "7f765fc6d70bc283b8a04f77afe63a997a6fd633c304f23d6460124a0d7aceb1"
     },
     {
       "file": "docs/撞击王座_架构图/架构图使用说明.md",
-      "bytes": 1613,
-      "sha256": "a99cabae58f236de99bfbbd1cfc4ba8df7ae271924929e50d8eea48d527792ed"
+      "bytes": 1498,
+      "sha256": "757ca187b213dce2c432bb4c113ad9e863f7b308124bb82bd02b0263f74fbc36"
     },
     {
       "file": "game/index.html",
@@ -805,13 +805,13 @@
     },
     {
       "file": "index.html",
-      "bytes": 13597,
-      "sha256": "94ef4f80529ea63f47b0ce27851281bc76bdc31aa4b5585950850ffb61f259c8"
+      "bytes": 13539,
+      "sha256": "7cf32dbe9a19398792ee4e00a02c5480393e7a00807baa041e78d1084fa4c7db"
     },
     {
       "file": "release.html",
-      "bytes": 2638,
-      "sha256": "dcf3c042bc85515725036b4bd1aee86070b19fd8c7e1e968a9ff4066ada43a09"
+      "bytes": 2344,
+      "sha256": "06174d332f23f0b8e6c18dacf4b9f8f475db84b72ab71d9f99485303152380d4"
     },
     {
       "file": "spreadsheets/CS2_经济系统配置与预算.xlsx",
@@ -820,13 +820,13 @@
     },
     {
       "file": "spreadsheets/index.html",
-      "bytes": 2418,
-      "sha256": "b73c1fa2589cd767890379edbc0aeb4b1d17dca5e9778704755225f58f0c5d56"
+      "bytes": 2381,
+      "sha256": "c107177096534fce8e8a279f63d224e070459d99737c6b71bdb50699e59aede6"
     },
     {
       "file": "spreadsheets/使用说明.md",
-      "bytes": 3056,
-      "sha256": "fe5ec5fabbb4dcc81446b5e6307eeb57bc8e926293f6f6766137fed164887b53"
+      "bytes": 2864,
+      "sha256": "51f7dbc9ae5edef1166e3503ace312cb6b2dbc2f8342d17d11605dd0f31ed806"
     },
     {
       "file": "spreadsheets/撞击王座_系统策划交付表.xlsx",
