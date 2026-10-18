@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <script src="js/demo.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>交底记录详情 - 电力风险智能交底系统</title>
+    <link rel="stylesheet" href="css/pc-style.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        .detail-page-wrapper {
+            min-height: 100vh;
+            background: var(--pc-bg-body);
+            padding-top: 24px;
+            padding-bottom: 40px;
+        }
+        
+        .detail-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+        
+        .detail-page-title {
+            margin-bottom: 24px;
+        }
+        
+        .detail-page-title h1 {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--pc-text-primary);
+            margin-bottom: 8px;
+            background: var(--pc-gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .detail-page-title p {
+            font-size: 14px;
+            color: var(--pc-text-tertiary);
+        }
+        
+        .detail-title-divider {
+            height: 3px;
+            background: var(--pc-gradient-primary);
+            border-radius: 2px;
+            margin-top: 16px;
+            position: relative;
+        }
+        
+        .detail-title-divider::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 10px;
+            height: 10px;
+            background: var(--pc-warning);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--pc-warning);
+        }
+        
+        .detail-toolbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+            gap: 16px;
+        }
+        
+        .detail-toolbar-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .detail-toolbar-right {
+            display: flex;
+            gap: 12px;
+        }
+        
+        .detail-section-card {
+            background: #fff;
+            border-radius: var(--pc-radius-2xl);
+            overflow: hidden;
+            box-shadow: var(--pc-shadow-lg);
+            border: 1px solid var(--pc-border-light);
+            margin-bottom: 24px;
+        }
+        
+        .detail-section-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--pc-border-light);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .detail-section-header h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--pc-text-primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .detail-section-header h3::before {
+            content: '';
+            width: 4px;
+            height: 20px;
+            background: var(--pc-gradient-primary);
+            border-radius: 2px;
+        }
+        
+        .detail-section-header p {
+            font-size: 13px;
+            color: var(--pc-text-tertiary);
+            margin-top: 4px;
+        }
+        
+        .detail-section-body {
+            padding: 24px;
+        }
+        
+        .detail-header-card {
+            background: var(--pc-gradient-hero);
+            border-radius: var(--pc-radius-2xl);
+            padding: 32px 36px;
+            position: relative;
+            overflow: hidden;
+            color: #fff;
+            box-shadow: 0 20px 40px rgba(0, 43, 102, 0.3);
+            border: 1px solid rgba(0, 82, 204, 0.5);
+            margin-bottom: 24px;
+        }
+        
+        .detail-header-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 60%);
+            pointer-events: none;
+        }
+        
+        .detail-header-card::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -5%;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(250, 140, 22, 0.15) 0%, transparent 60%);
+            pointer-events: none;
+        }
+        
+        .detail-header-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .detail-header-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        
+        .detail-header-no {
+            font-size: 14px;
+            opacity: 0.8;
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+        }
+        
+        .info-item {
+            background: var(--pc-metal-100);
+            border-radius: var(--pc-radius-lg);
+            padding: 16px;
+            border: 1px solid var(--pc-border-light);
+        }
+        
+        .info-label {
+            font-size: 12px;
+            color: var(--pc-text-tertiary);
+            margin-bottom: 6px;
+        }
+        
+        .info-value {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--pc-text-primary);
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .status-badge.published {
+            background: var(--pc-gradient-success);
+            color: #fff;
+        }
+        
+        .status-badge.draft {
+            background: var(--pc-gradient-metal);
+            color: #fff;
+        }
+        
+        .task-card {
+            background: var(--pc-primary-pale);
+            border-radius: var(--pc-radius-xl);
+            padding: 20px 24px;
+            border: 1px solid var(--pc-primary-lighter);
+            position: relative;
+        }
+        
+        .task-card::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: var(--pc-gradient-primary);
+            border-radius: 4px 0 0 4px;
+        }
+        
+        .task-info h4 {
+            font-size: 17px;
+            font-weight: 600;
+            color: var(--pc-text-primary);
+            margin-bottom: 10px;
+        }
+        
+        .task-meta {
+            display: flex;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+        
+        .task-meta span {
+            font-size: 13px;
+            color: var(--pc-text-secondary);
+        }
+        
+        .task-meta span span {
+            font-weight: 600;
+            color: var(--pc-primary);
+        }
+        
+        .disclosure-content {
+            font-size: 14px;
+            line-height: 1.8;
+            color: var(--pc-text-secondary);
+        }
+        
+        .disclosure-content h1,
+        .disclosure-content h2,
+        .disclosure-content h3 {
+            color: var(--pc-text-primary) !important;
+        }
+        
+        .disclosure-content table {
+            margin: 12px 0 !important;
+        }
+        
+        .disclosure-content td {
+            border-color: var(--pc-border-light) !important;
+        }
+        
+        .hazard-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .hazard-card {
+            background: #fff;
+            border-radius: var(--pc-radius-xl);
+            padding: 20px 24px;
+            border: 2px solid var(--pc-border-light);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .hazard-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+        }
+        
+        .hazard-card.high {
+            border-color: var(--pc-danger);
+            background: linear-gradient(135deg, #fff 0%, #FFF1F0 100%);
+        }
+        
+        .hazard-card.medium {
+            border-color: var(--pc-warning);
+            background: linear-gradient(135deg, #fff 0%, #FFF7E6 100%);
+        }
+        
+        .hazard-card.low {
+            border-color: var(--pc-success);
+            background: linear-gradient(135deg, #fff 0%, #F6FFED 100%);
+        }
+        
+        .hazard-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+        
+        .hazard-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--pc-text-primary);
+        }
+        
+        .hazard-level {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .hazard-level.high {
+            background: var(--pc-gradient-danger);
+            color: #fff;
+        }
+        
+        .hazard-level.medium {
+            background: var(--pc-gradient-warning);
+            color: #fff;
+        }
+        
+        .hazard-level.low {
+            background: var(--pc-gradient-success);
+            color: #fff;
+        }
+        
+        .hazard-category {
+            font-size: 13px;
+            color: var(--pc-text-tertiary);
+            margin-bottom: 8px;
+        }
+        
+        .hazard-desc {
+            font-size: 14px;
+            color: var(--pc-text-secondary);
+            line-height: 1.6;
+        }
+        
+        .measure-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .measure-card {
+            background: #fff;
+            border-radius: var(--pc-radius-xl);
+            padding: 20px 24px;
+            border: 2px solid var(--pc-primary-light);
+            transition: all 0.3s ease;
+            background: linear-gradient(135deg, #fff 0%, #E6F0FF 100%);
+        }
+        
+        .measure-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 82, 204, 0.15);
+        }
+        
+        .measure-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+        
+        .measure-priority {
+            background: var(--pc-gradient-primary);
+            color: #fff;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .measure-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--pc-text-primary);
+        }
+        
+        .measure-desc {
+            font-size: 14px;
+            color: var(--pc-text-secondary);
+            line-height: 1.6;
+            padding-left: 4px;
+        }
+        
+        .signature-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+        }
+        
+        .sign-group {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        
+        .sign-group-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--pc-text-primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .sign-group-title::before {
+            content: '';
+            width: 3px;
+            height: 16px;
+            background: var(--pc-gradient-primary);
+            border-radius: 2px;
+        }
+        
+        .sign-box {
+            background: var(--pc-metal-100);
+            border-radius: var(--pc-radius-lg);
+            padding: 16px;
+            border: 1px solid var(--pc-border-light);
+        }
+        
+        .sign-box p {
+            font-size: 13px;
+            color: var(--pc-text-tertiary);
+            margin-bottom: 10px;
+        }
+        
+        .sign-canvas-container {
+            background: #fff;
+            border: 2px dashed var(--pc-border-medium);
+            border-radius: var(--pc-radius-md);
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .sign-canvas-container:hover {
+            border-color: var(--pc-primary);
+            background: var(--pc-primary-pale);
+        }
+        
+        .sign-canvas-container canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .sign-hint {
+            font-size: 13px;
+            color: var(--pc-text-quaternary);
+        }
+        
+        .signature-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        
+        .time-input {
+            width: 100%;
+            height: 44px;
+            padding: 0 12px;
+            border: 2px solid var(--pc-border-light);
+            border-radius: var(--pc-radius-md);
+            font-size: 14px;
+            background: #fff;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+        
+        .time-input:focus {
+            border-color: var(--pc-primary);
+            box-shadow: 0 0 0 3px rgba(0, 82, 204, 0.1);
+        }
+        
+        .signature-save-btn {
+            width: 100%;
+            margin-top: 24px;
+            height: 48px;
+        }
+        
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+        
+        .modal-overlay.show {
+            display: flex;
+            animation: fadeIn 0.2s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .modal-content {
+            background: #fff;
+            border-radius: var(--pc-radius-2xl);
+            width: 90%;
+            max-width: 580px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+            overflow: hidden;
+            animation: modalSlideIn 0.3s ease;
+        }
+        
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        
+        .modal-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--pc-border-light);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .modal-header h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--pc-text-primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .modal-header h3::before {
+            content: '';
+            width: 4px;
+            height: 20px;
+            background: var(--pc-gradient-primary);
+            border-radius: 2px;
+        }
+        
+        .modal-close {
+            width: 32px;
+            height: 32px;
+            border: none;
+            background: var(--pc-metal-100);
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--pc-text-secondary);
+            transition: all 0.3s ease;
+        }
+        
+        .modal-close:hover {
+            background: var(--pc-danger-pale);
+            color: var(--pc-danger);
+        }
+        
+        .modal-body {
+            padding: 24px;
+        }
+        
+        #signatureCanvas {
+            width: 100%;
+            height: 240px;
+            border: 2px solid var(--pc-border-light);
+            border-radius: var(--pc-radius-lg);
+            background: #fff;
+            cursor: crosshair;
+            display: block;
+        }
+        
+        .modal-footer {
+            padding: 16px 24px;
+            border-top: 1px solid var(--pc-border-light);
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+        }
+        
+        @media (max-width: 900px) {
+            .info-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .signature-section {
+                grid-template-columns: 1fr;
+            }
+            .task-meta {
+                flex-direction: column;
+                gap: 8px;
+            }
+        }
+    </style>
+    <script src="js/theme.js"></script>
+    <link rel="stylesheet" href="css/demo.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%231677ff'/%3E%3Cpath d='M4 8l3 3 5-6' stroke='white' stroke-width='2' fill='none'/%3E%3C/svg%3E">
+</head>
+<body>
+    <div class="pc-sidebar-layout">
+        <aside class="pc-sidebar">
+            <div class="pc-sidebar-header">
+                <a href="dashboard.html?module=home" class="pc-sidebar-logo">
+                    <div class="pc-sidebar-logo-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M13 3L4 14h7l-2 7 9-11h-7l2-7z"/>
+                        </svg>
+                    </div>
+                    <div class="pc-sidebar-logo-text">
+                        <span class="pc-sidebar-logo-title">电力风险智能交底</span>
+                        <span class="pc-sidebar-logo-subtitle">RISK DISCLOSURE</span>
+                    </div>
+                </a>
+            </div>
+            <ul class="pc-sidebar-menu">
+                <li class="pc-sidebar-item">
+                    <a href="dashboard.html?module=home" class="pc-sidebar-link">
+                        <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+                        首页
+                    </a>
+                </li>
+                <li class="pc-sidebar-item">
+                    <a href="dashboard.html?module=tasks" class="pc-sidebar-link">
+                        <svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+                        任务管理
+                    </a>
+                </li>
+                <li class="pc-sidebar-item">
+                    <a href="dashboard.html?module=hazards" class="pc-sidebar-link">
+                        <svg viewBox="0 0 24 24"><path d="M12 2L1 21h22L12 2zm0 3.84L18.09 19H5.91L12 5.84zM11 10v4h2v-4h-2zm0 6v2h2v-2h-2z"/></svg>
+                        风险辨识
+                    </a>
+                </li>
+                <li class="pc-sidebar-item active">
+                    <a href="dashboard.html?module=disclosures" class="pc-sidebar-link">
+                        <svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+                        安全交底
+                    </a>
+                </li>
+                <li class="pc-sidebar-item">
+                    <a href="weather-risk.html" class="pc-sidebar-link">
+                        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                        天气预警
+                    </a>
+                </li>
+                <li class="pc-sidebar-item">
+                    <a href="dashboard.html?module=cases" class="pc-sidebar-link">
+                        <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+                        事故案例
+                    </a>
+                </li>
+                <li class="pc-sidebar-item">
+                    <a href="chat.html" class="pc-sidebar-link">
+                        <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/></svg>
+                        智能交底Agent
+                    </a>
+                </li>
+                <li class="pc-sidebar-item">
+                    <a href="dashboard.html?module=dict" class="pc-sidebar-link">
+                        <svg viewBox="0 0 24 24"><path d="M11 17h2v-1h1c.55 0 1-.45 1-1v-3c0-.55-.45-1-1-1h-3v-1h4v-2h-4V7h-2v1h-1c-.55 0-1 .45-1 1v3c0 .55.45 1 1 1h3v1H9v2h2v1zm1-15C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg>
+                        字典管理
+                    </a>
+                </li>
+            </ul>
+            <div class="pc-sidebar-footer">
+                <div class="pc-sidebar-user" id="userDropdown">
+                    <div class="pc-sidebar-avatar" id="userAvatar">用</div>
+                    <div class="pc-sidebar-user-info">
+                        <div class="pc-sidebar-user-name" id="usernameDisplay">用户</div>
+                        <div class="pc-sidebar-user-role">系统操作员</div>
+                    </div>
+                    <div class="pc-sidebar-dropdown-menu">
+                        <a href="#" class="pc-sidebar-dropdown-item" onclick="showProfile()">
+                            <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                            个人信息
+                        </a>
+                        <a href="settings.html" class="pc-sidebar-dropdown-item">
+                            <svg viewBox="0 0 24 24"><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg>
+                            系统设置
+                        </a>
+                        <div class="pc-sidebar-divider"></div>
+                        <a href="#" class="pc-sidebar-dropdown-item logout" onclick="logout()">
+                            <svg viewBox="0 0 24 24"><path d="M10.09 15.59L11.5 17l5-5-5-5-1.41 1.41L12.67 11H3v2h9.67l-2.58 2.59zM19 3H5c-1.11 0-2 .9-2 2v4h2V5h14v14H5v-4H3v4c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"/></svg>
+                            退出登录
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </aside>
+        <main class="pc-main-content">
+            <div class="detail-page-wrapper">
+                <div class="detail-container">
+                    <div class="detail-page-title">
+                        <h1>交底记录详情</h1>
+                        <p>查看安全交底卡详细信息，包括危险点识别、安全控制措施及电子签名</p>
+                        <div class="detail-title-divider"></div>
+                    </div>
+
+                    <div class="detail-toolbar">
+                        <div class="detail-toolbar-left">
+                            <button class="pc-btn pc-btn-secondary" onclick="goBack()">
+                                <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+                                返回列表
+                            </button>
+                        </div>
+                        <div class="detail-toolbar-right">
+                            <button class="pc-btn pc-btn-secondary" onclick="downloadWord()">
+                                <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+                                导出 TXT
+                            </button>
+                            <button class="pc-btn pc-btn-secondary" onclick="downloadPdf()">
+                                <svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+                                导出 HTML
+                            </button>
+                            <button class="pc-btn pc-btn-primary" onclick="playDisclosure()">
+                                <svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
+                                语音播报
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="detail-header-card">
+                        <div class="detail-header-content">
+                            <div class="detail-header-title" id="detailTitle">安全交底卡</div>
+                            <div class="detail-header-no" id="detailNo">编号：JD000000</div>
+                        </div>
+                    </div>
+
+                    <div class="detail-section-card">
+                        <div class="detail-section-header">
+                            <div>
+                                <h3>基本信息</h3>
+                                <p>交底记录的基础信息概览</p>
+                            </div>
+                        </div>
+                        <div class="detail-section-body">
+                            <div class="info-grid">
+                                <div class="info-item">
+                                    <div class="info-label">交底类型</div>
+                                    <div class="info-value" id="detailType">作业前交底</div>
+                                </div>
+                                <div class="info-item">
+                                    <div class="info-label">状态</div>
+                                    <div class="info-value status-badge" id="detailStatus">草稿</div>
+                                </div>
+                                <div class="info-item">
+                                    <div class="info-label">创建时间</div>
+                                    <div class="info-value" id="detailCreateTime">-</div>
+                                </div>
+                                <div class="info-item">
+                                    <div class="info-label">更新时间</div>
+                                    <div class="info-value" id="detailUpdateTime">-</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="detail-section-card">
+                        <div class="detail-section-header">
+                            <div>
+                                <h3>关联任务</h3>
+                                <p>本次交底对应的作业任务信息</p>
+                            </div>
+                        </div>
+                        <div class="detail-section-body">
+                            <div class="task-card" id="detailTask">
+                                <div class="task-info">
+                                    <h4 id="taskName">-</h4>
+                                    <div class="task-meta">
+                                        <span>电压等级：<span id="taskVoltage">-</span></span>
+                                        <span>设备类型：<span id="taskEquipment">-</span></span>
+                                        <span>作业类型：<span id="taskWorkType">-</span></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="detail-section-card">
+                        <div class="detail-section-header">
+                            <div>
+                                <h3>交底内容</h3>
+                                <p>安全交底的详细内容说明</p>
+                            </div>
+                        </div>
+                        <div class="detail-section-body">
+                            <div class="disclosure-content" id="detailContent"></div>
+                        </div>
+                    </div>
+
+                    <div class="detail-section-card">
+                        <div class="detail-section-header">
+                            <div>
+                                <h3>应急信息</h3>
+                                <p>紧急情况下的联系人和处置方案</p>
+                            </div>
+                        </div>
+                        <div class="detail-section-body">
+                            <div class="info-grid">
+                                <div class="info-item">
+                                    <div class="info-label">应急联系人</div>
+                                    <div class="info-value" id="detailEmergencyContact">-</div>
+                                </div>
+                                <div class="info-item">
+                                    <div class="info-label">应急路线</div>
+                                    <div class="info-value" id="detailEmergencyRoute">-</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="detail-section-card">
+                        <div class="detail-section-header">
+                            <div>
+                                <h3>危险点识别</h3>
+                                <p>作业过程中可能存在的危险点及风险等级</p>
+                            </div>
+                            <span class="pc-badge pc-badge-danger" id="hazardCountBadge">共 0 项</span>
+                        </div>
+                        <div class="detail-section-body">
+                            <div class="hazard-list" id="detailHazards"></div>
+                        </div>
+                    </div>
+
+                    <div class="detail-section-card">
+                        <div class="detail-section-header">
+                            <div>
+                                <h3>安全控制措施</h3>
+                                <p>针对危险点制定的安全防护措施</p>
+                            </div>
+                            <span class="pc-badge pc-badge-primary" id="measureCountBadge">共 0 项</span>
+                        </div>
+                        <div class="detail-section-body">
+                            <div class="measure-list" id="detailMeasures"></div>
+                        </div>
+                    </div>
+
+                    <div class="detail-section-card">
+                        <div class="detail-section-header">
+                            <div>
+                                <h3>电子签名</h3>
+                                <p>交底人和被交底人签名确认</p>
+                            </div>
+                        </div>
+                        <div class="detail-section-body">
+                            <div class="signature-section">
+                                <div class="sign-group">
+                                    <div class="sign-group-title">交底人</div>
+                                    <div class="sign-box">
+                                        <p>交底人签名</p>
+                                        <div class="sign-canvas-container" onclick="openSignatureModal('issuer')">
+                                            <canvas id="issuerCanvas" width="200" height="80"></canvas>
+                                            <span class="sign-hint" id="issuerHint">点击签名</span>
+                                            <img id="issuerSignature" class="signature-image" style="display:none">
+                                        </div>
+                                    </div>
+                                    <div class="sign-box">
+                                        <p>交底时间</p>
+                                        <input type="datetime-local" id="disclosureTime" class="time-input">
+                                    </div>
+                                </div>
+                                <div class="sign-group">
+                                    <div class="sign-group-title">被交底人</div>
+                                    <div class="sign-box">
+                                        <p>被交底人签名</p>
+                                        <div class="sign-canvas-container" onclick="openSignatureModal('receiver')">
+                                            <canvas id="receiverCanvas" width="200" height="80"></canvas>
+                                            <span class="sign-hint" id="receiverHint">点击签名</span>
+                                            <img id="receiverSignature" class="signature-image" style="display:none">
+                                        </div>
+                                    </div>
+                                    <div class="sign-box">
+                                        <p>签字确认时间</p>
+                                        <input type="datetime-local" id="confirmTime" class="time-input">
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="pc-btn pc-btn-primary signature-save-btn" onclick="saveSignatures()">
+                                <svg viewBox="0 0 24 24"><path d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"/></svg>
+                                保存签名
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div id="signatureModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>电子签名</h3>
+                <button class="modal-close" onclick="closeSignatureModal()">×</button>
+            </div>
+            <div class="modal-body">
+                <canvas id="signatureCanvas" width="500" height="240"></canvas>
+            </div>
+            <div class="modal-footer">
+                <button class="pc-btn pc-btn-secondary" onclick="clearSignature()">清除</button>
+                <button class="pc-btn pc-btn-primary" onclick="confirmSignature()">确认签名</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function initSidebarUser() {
+            const userEl = document.querySelector('.pc-sidebar-user');
+            if (userEl) {
+                userEl.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    this.classList.toggle('open');
+                });
+                document.addEventListener('click', function(e) {
+                    if (!e.target.closest('.pc-sidebar-user')) {
+                        userEl.classList.remove('open');
+                    }
+                });
+            }
+        }
+        function checkAuth() {
+            const token = localStorage.getItem('token');
+            const username = localStorage.getItem('username');
+            if (!token) {
+                window.location.href = 'index.html';
+                return;
+            }
+            if (username) {
+                const usernameDisplay = document.getElementById('usernameDisplay');
+                if (usernameDisplay) usernameDisplay.textContent = username;
+                const avatar = document.getElementById('userAvatar');
+                if (avatar) avatar.textContent = username.charAt(0).toUpperCase();
+            }
+        }
+        function logout() {
+            localStorage.removeItem('token');
+            localStorage.removeItem('username');
+            window.location.href = 'index.html';
+        }
+        document.addEventListener('DOMContentLoaded', function() {
+            checkAuth();
+            initSidebarUser();
+        });
+    </script>
+    <script src="js/disclosure-detail.js"></script>
+</body>
+</html>

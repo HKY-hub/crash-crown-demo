@@ -1,0 +1,1110 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <script src="js/demo.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>选择作业地点与日期 - 电力风险智能交底系统</title>
+    <link rel="stylesheet" href="css/pc-style.css">
+    <script src="js/theme.js"></script>
+    <!-- Leaflet地图 -->
+    <link rel="stylesheet" href="vendor/leaflet/leaflet.css" />
+    <script src="vendor/leaflet/leaflet.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+        }
+
+        .entry-page {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            background: var(--pc-bg-page);
+        }
+
+        /* 顶部导航 */
+        .entry-header {
+            height: 60px;
+            background: var(--pc-bg-elevated);
+            border-bottom: 1px solid var(--pc-border-secondary);
+            display: flex;
+            align-items: center;
+            padding: 0 24px;
+            flex-shrink: 0;
+        }
+
+        .entry-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--pc-text-primary);
+            cursor: pointer;
+        }
+
+        .entry-logo-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, var(--pc-primary) 0%, var(--pc-primary-dark) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .entry-logo-icon svg {
+            width: 20px;
+            height: 20px;
+            fill: #fff;
+        }
+
+        .entry-header-right {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .back-btn {
+            padding: 6px 14px;
+            border: 1px solid var(--pc-border-primary);
+            background: transparent;
+            color: var(--pc-text-secondary);
+            border-radius: 6px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .back-btn:hover {
+            background: var(--pc-bg-tertiary);
+            color: var(--pc-text-primary);
+        }
+
+        /* 主体内容 */
+        .entry-main {
+            flex: 1;
+            display: flex;
+            overflow: hidden;
+        }
+
+        /* 左侧信息面板 */
+        .entry-panel {
+            width: 380px;
+            background: var(--pc-bg-elevated);
+            border-right: 1px solid var(--pc-border-secondary);
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
+        }
+
+        .panel-header {
+            padding: 24px;
+            border-bottom: 1px solid var(--pc-border-secondary);
+        }
+
+        .panel-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--pc-text-primary);
+            margin-bottom: 6px;
+        }
+
+        .panel-desc {
+            font-size: 13px;
+            color: var(--pc-text-secondary);
+            line-height: 1.5;
+        }
+
+        .panel-steps {
+            display: flex;
+            gap: 8px;
+            margin-top: 16px;
+        }
+
+        .step-item {
+            flex: 1;
+            height: 4px;
+            background: var(--pc-bg-tertiary);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .step-item.active {
+            background: var(--pc-primary);
+        }
+
+        .panel-body {
+            flex: 1;
+            padding: 20px 24px;
+            overflow-y: auto;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--pc-text-primary);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .form-label .required {
+            color: var(--pc-danger, #f53f3f);
+        }
+
+        .form-label .step-num {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--pc-primary);
+            color: #fff;
+            font-size: 11px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .search-input-wrapper {
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 10px 12px 10px 36px;
+            border: 1px solid var(--pc-border-primary);
+            border-radius: 8px;
+            background: var(--pc-bg-page);
+            color: var(--pc-text-primary);
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .search-input:focus {
+            border-color: var(--pc-primary);
+        }
+
+        .search-input-icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 16px;
+            height: 16px;
+            fill: var(--pc-text-tertiary);
+        }
+
+        .search-results {
+            position: relative;
+            background: var(--pc-bg-elevated);
+            border: 1px solid var(--pc-border-primary);
+            border-radius: 10px;
+            max-height: 320px;
+            overflow-y: auto;
+            z-index: 1000;
+            margin-top: 8px;
+            display: none;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .search-results.show {
+            display: block;
+        }
+
+        .search-result-item {
+            padding: 10px 14px;
+            cursor: pointer;
+            border-bottom: 1px solid var(--pc-border-secondary);
+            transition: background 0.15s;
+        }
+
+        .search-result-item:last-child {
+            border-bottom: none;
+        }
+
+        .search-result-item:hover {
+            background: var(--pc-bg-tertiary);
+        }
+
+        .search-result-name {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--pc-text-primary);
+        }
+
+        .search-result-addr {
+            font-size: 12px;
+            color: var(--pc-text-tertiary);
+            margin-top: 2px;
+        }
+
+        .selected-location {
+            padding: 12px;
+            background: rgba(0, 114, 229, 0.08);
+            border: 1px solid rgba(0, 114, 229, 0.2);
+            border-radius: 8px;
+            margin-top: 12px;
+            display: none;
+        }
+
+        .selected-location.show {
+            display: block;
+        }
+
+        .selected-location-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--pc-primary);
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .selected-location-addr {
+            font-size: 12px;
+            color: var(--pc-text-secondary);
+            line-height: 1.4;
+        }
+
+        .selected-location-coord {
+            font-size: 11px;
+            color: var(--pc-text-tertiary);
+            margin-top: 4px;
+            font-family: monospace;
+        }
+
+        .map-hint {
+            font-size: 12px;
+            color: var(--pc-text-tertiary);
+            margin-top: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .map-hint svg {
+            width: 14px;
+            height: 14px;
+            fill: var(--pc-text-tertiary);
+        }
+
+        /* 日期选择 */
+        .date-picker-row {
+            display: flex;
+            gap: 10px;
+        }
+
+        .date-input {
+            flex: 1;
+            padding: 10px 12px;
+            border: 1px solid var(--pc-border-primary);
+            border-radius: 8px;
+            background: var(--pc-bg-page);
+            color: var(--pc-text-primary);
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .date-input:focus {
+            border-color: var(--pc-primary);
+        }
+
+        .quick-date-btns {
+            display: flex;
+            gap: 6px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+
+        .quick-date-btn {
+            padding: 5px 12px;
+            border: 1px solid var(--pc-border-primary);
+            background: var(--pc-bg-page);
+            color: var(--pc-text-secondary);
+            border-radius: 6px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .quick-date-btn:hover {
+            border-color: var(--pc-primary);
+            color: var(--pc-primary);
+        }
+
+        .quick-date-btn.active {
+            background: var(--pc-primary);
+            border-color: var(--pc-primary);
+            color: #fff;
+        }
+
+        /* 天气预览 */
+        .weather-preview {
+            padding: 14px;
+            background: var(--pc-bg-page);
+            border-radius: 8px;
+            margin-top: 12px;
+            display: none;
+        }
+
+        .weather-preview.show {
+            display: block;
+        }
+
+        .weather-preview-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .weather-preview-icon {
+            font-size: 28px;
+        }
+
+        .weather-preview-info {
+            flex: 1;
+        }
+
+        .weather-preview-type {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--pc-text-primary);
+        }
+
+        .weather-preview-temp {
+            font-size: 12px;
+            color: var(--pc-text-secondary);
+            margin-top: 2px;
+        }
+
+        .weather-preview-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 500;
+        }
+
+        .weather-preview-status.safe {
+            background: rgba(0, 180, 42, 0.1);
+            color: #00b42a;
+        }
+
+        .weather-preview-status.warning {
+            background: rgba(255, 159, 0, 0.1);
+            color: #ff9f00;
+        }
+
+        .weather-preview-status.danger {
+            background: rgba(245, 63, 63, 0.1);
+            color: #f53f3f;
+        }
+
+        .weather-loading {
+            font-size: 12px;
+            color: var(--pc-text-tertiary);
+            text-align: center;
+            padding: 10px;
+        }
+
+        /* 底部操作区 */
+        .panel-footer {
+            padding: 16px 24px;
+            border-top: 1px solid var(--pc-border-secondary);
+            flex-shrink: 0;
+        }
+
+        .start-btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, var(--pc-primary) 0%, var(--pc-primary-dark) 100%);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .start-btn:hover:not(:disabled) {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 82, 204, 0.3);
+        }
+
+        .start-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .start-btn svg {
+            width: 18px;
+            height: 18px;
+            fill: #fff;
+        }
+
+        /* 地图容器 */
+        .map-container {
+            flex: 1;
+            position: relative;
+        }
+
+        #map {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* 地图上的自定义标记 */
+        .custom-marker {
+            background: none;
+            border: none;
+        }
+
+        .marker-pin {
+            width: 32px;
+            height: 32px;
+            background: var(--pc-primary);
+            border: 3px solid #fff;
+            border-radius: 50% 50% 50% 0;
+            transform: rotate(-45deg);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .marker-pin::after {
+            content: '';
+            width: 10px;
+            height: 10px;
+            background: #fff;
+            border-radius: 50%;
+            transform: rotate(45deg);
+        }
+
+        /* 地图控件覆盖层 */
+        .map-controls {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            z-index: 500;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .map-control-btn {
+            width: 36px;
+            height: 36px;
+            background: var(--pc-bg-elevated);
+            border: 1px solid var(--pc-border-primary);
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.2s;
+        }
+
+        .map-control-btn:hover {
+            background: var(--pc-bg-tertiary);
+        }
+
+        .map-control-btn svg {
+            width: 18px;
+            height: 18px;
+            fill: var(--pc-text-secondary);
+        }
+
+        /* Leaflet暗色主题适配（高德地图无需反色） */
+        .leaflet-tile {
+            filter: none;
+        }
+
+        /* 滚动条样式 */
+        .panel-body::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .panel-body::-webkit-scrollbar-thumb {
+            background: var(--pc-border-primary);
+            border-radius: 3px;
+        }
+    </style>
+    <link rel="stylesheet" href="css/demo.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%231677ff'/%3E%3Cpath d='M4 8l3 3 5-6' stroke='white' stroke-width='2' fill='none'/%3E%3C/svg%3E">
+</head>
+<body>
+    <div class="entry-page">
+        <!-- 顶部导航 -->
+        <header class="entry-header">
+            <div class="entry-logo" onclick="goBack()">
+                <div class="entry-logo-icon">
+                    <svg viewBox="0 0 24 24"><path d="M13 3L4 14h7v7l9-11h-7V3z"/></svg>
+                </div>
+                <span>电力风险智能交底系统</span>
+            </div>
+            <div class="entry-header-right">
+                <button class="back-btn" onclick="goBack()">← 返回</button>
+            </div>
+        </header>
+
+        <!-- 主体内容 -->
+        <div class="entry-main">
+            <!-- 左侧面板 -->
+            <aside class="entry-panel">
+                <div class="panel-header">
+                    <div class="panel-title">设置作业信息</div>
+                    <div class="panel-desc">请选择作业地点和日期，系统将自动检查天气条件，确保作业安全</div>
+                    <div class="panel-steps">
+                        <div class="step-item active"></div>
+                        <div class="step-item active"></div>
+                        <div class="step-item"></div>
+                    </div>
+                </div>
+
+                <div class="panel-body">
+                    <!-- 步骤1：选择地点 -->
+                    <div class="form-group">
+                        <div class="form-label">
+                            <span class="step-num">1</span>
+                            选择作业地点
+                            <span class="required">*</span>
+                        </div>
+                        <div class="search-input-wrapper">
+                            <svg class="search-input-icon" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+                            <input type="text" class="search-input" id="locationSearch" placeholder="搜索地点，如：武汉、变电站..." oninput="searchLocation(this.value)" onfocus="showSearchResults()" onblur="setTimeout(hideSearchResults, 200)">
+                            <div class="search-results" id="searchResults"></div>
+                        </div>
+                        <div class="map-hint">
+                            <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                            <span>也可以直接在右侧地图上点击选点</span>
+                        </div>
+                        <div class="selected-location" id="selectedLocation">
+                            <div class="selected-location-title">
+                                <svg viewBox="0 0 24 24" style="width:14px;height:14px;fill:currentColor;"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                                <span id="selectedLocationName">已选地点</span>
+                            </div>
+                            <div class="selected-location-addr" id="selectedLocationAddr">--</div>
+                            <div class="selected-location-coord" id="selectedLocationCoord">--</div>
+                        </div>
+                    </div>
+
+                    <!-- 步骤2：选择日期 -->
+                    <div class="form-group">
+                        <div class="form-label">
+                            <span class="step-num">2</span>
+                            选择作业日期
+                            <span class="required">*</span>
+                        </div>
+                        <div class="date-picker-row">
+                            <input type="date" class="date-input" id="workDate" onchange="onDateChange()">
+                        </div>
+                        <div class="quick-date-btns">
+                            <button class="quick-date-btn" data-offset="0" onclick="setQuickDate(0)">今天</button>
+                            <button class="quick-date-btn active" data-offset="1" onclick="setQuickDate(1)">明天</button>
+                            <button class="quick-date-btn" data-offset="2" onclick="setQuickDate(2)">后天</button>
+                            <button class="quick-date-btn" data-offset="3" onclick="setQuickDate(3)">3天后</button>
+                            <button class="quick-date-btn" data-offset="7" onclick="setQuickDate(7)">一周后</button>
+                        </div>
+
+                        <!-- 天气预览 -->
+                        <div class="weather-preview" id="weatherPreview">
+                            <div class="weather-loading" id="weatherLoading">正在获取天气信息...</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 底部开始按钮 -->
+                <div class="panel-footer">
+                    <button class="start-btn" id="startBtn" onclick="startAgent()" disabled>
+                        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                        开始智能交底
+                    </button>
+                </div>
+            </aside>
+
+            <!-- 地图区域 -->
+            <div class="map-container">
+                <div id="map"></div>
+                <div class="map-controls">
+                    <button class="map-control-btn" onclick="locateUser()" title="定位当前位置">
+                        <svg viewBox="0 0 24 24"><path d="M12 8c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm8.94 3c-.46-4.17-3.77-7.48-7.94-7.94V1h-2v2.06C6.83 3.52 3.52 6.83 3.06 11H1v2h2.06c.46 4.17 3.77 7.48 7.94 7.94V23h2v-2.06c4.17-.46 7.48-3.77 7.94-7.94H23v-2h-2.06zM12 19c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7z"/></svg>
+                    </button>
+                    <button class="map-control-btn" onclick="resetMapView()" title="重置视图">
+                        <svg viewBox="0 0 24 24"><path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V5l-2.35 1.35z"/></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = '/api/agent';
+        let map = null;
+        let marker = null;
+        let selectedLocation = null;
+        let currentWeatherResult = null;
+
+        // 初始化
+        function init() {
+            initMap();
+            setQuickDate(1); // 默认明天
+        }
+
+        // 初始化地图
+        function initMap() {
+            // 默认中心：武汉
+            const defaultCenter = [30.5928, 114.3055];
+            const defaultZoom = 10;
+
+            map = L.map('map', {
+                zoomControl: true,
+                attributionControl: false
+            }).setView(defaultCenter, defaultZoom);
+
+            // 演示版使用本地网格底图，不请求任何外部瓦片。
+
+            // 点击地图选点
+            map.on('click', function(e) {
+                selectLocation(e.latlng.lat, e.latlng.lng);
+            });
+        }
+
+        // 主要城市坐标表（用于搜索定位和地图选点匹配）
+        const CITY_COORDS = {
+            '101010100': { name: '北京', lat: 39.9042, lng: 116.4074 },
+            '101020100': { name: '上海', lat: 31.2304, lng: 121.4737 },
+            '101280101': { name: '广州', lat: 23.1291, lng: 113.2644 },
+            '101280601': { name: '深圳', lat: 22.5431, lng: 114.0579 },
+            '101210101': { name: '杭州', lat: 30.2741, lng: 120.1551 },
+            '101190101': { name: '南京', lat: 32.0603, lng: 118.7969 },
+            '101200101': { name: '武汉', lat: 30.5928, lng: 114.3055 },
+            '101200901': { name: '宜昌', lat: 30.6918, lng: 111.2865 },
+            '101200201': { name: '襄阳', lat: 32.0147, lng: 112.1225 },
+            '101200801': { name: '荆州', lat: 30.3352, lng: 112.2397 },
+            '101200501': { name: '黄冈', lat: 30.4534, lng: 114.8723 },
+            '101270101': { name: '成都', lat: 30.5728, lng: 104.0668 },
+            '101110101': { name: '西安', lat: 34.3416, lng: 108.9398 },
+            '101040100': { name: '重庆', lat: 29.5630, lng: 106.5516 },
+            '101220101': { name: '合肥', lat: 31.8206, lng: 117.2272 },
+            '101030100': { name: '天津', lat: 39.3434, lng: 117.3616 },
+            '101180101': { name: '郑州', lat: 34.7466, lng: 113.6254 },
+            '101120101': { name: '济南', lat: 36.6512, lng: 117.1201 },
+            '101050101': { name: '哈尔滨', lat: 45.8038, lng: 126.5350 },
+            '101060101': { name: '长春', lat: 43.8171, lng: 125.3235 },
+            '101070101': { name: '沈阳', lat: 41.8057, lng: 123.4315 },
+            '101250101': { name: '长沙', lat: 28.2282, lng: 112.9388 },
+            '101290101': { name: '昆明', lat: 25.0389, lng: 102.7183 },
+            '101260101': { name: '贵阳', lat: 26.6470, lng: 106.6302 },
+            '101230101': { name: '福州', lat: 26.0745, lng: 119.2965 },
+            '101240101': { name: '南昌', lat: 28.6820, lng: 115.8579 },
+            '101160101': { name: '兰州', lat: 36.0611, lng: 103.8343 },
+            '101170101': { name: '西宁', lat: 36.6171, lng: 101.7782 },
+            '101130101': { name: '太原', lat: 37.8706, lng: 112.5489 },
+            '101090101': { name: '石家庄', lat: 38.0428, lng: 114.5149 },
+            '101100101': { name: '呼和浩特', lat: 40.8414, lng: 111.7519 },
+            '101140101': { name: '银川', lat: 38.4872, lng: 106.2309 },
+            '101150101': { name: '乌鲁木齐', lat: 43.8256, lng: 87.6168 },
+            '101310101': { name: '海口', lat: 20.0440, lng: 110.1920 },
+            '101300101': { name: '南宁', lat: 22.8170, lng: 108.3665 },
+            '101340102': { name: '台北', lat: 25.0330, lng: 121.5654 },
+            '101320101': { name: '香港', lat: 22.3027, lng: 114.1772 },
+            '101330101': { name: '澳门', lat: 22.1987, lng: 113.5439 },
+            '101200301': { name: '十堰', lat: 32.6250, lng: 110.7940 },
+            '101200401': { name: '孝感', lat: 30.9247, lng: 113.9240 },
+            '101200601': { name: '鄂州', lat: 30.3702, lng: 114.8953 },
+            '101200701': { name: '黄石', lat: 30.1990, lng: 115.0420 },
+            '101201001': { name: '恩施', lat: 30.2825, lng: 109.4870 },
+            '101201101': { name: '咸宁', lat: 29.8418, lng: 114.3180 },
+            '101201201': { name: '随州', lat: 31.6904, lng: 113.3720 },
+            '101201301': { name: '荆门', lat: 31.0280, lng: 112.1980 },
+            '101201401': { name: '天门', lat: 30.6580, lng: 113.1630 },
+            '101201501': { name: '仙桃', lat: 30.3650, lng: 113.4500 },
+            '101201601': { name: '潜江', lat: 30.4230, lng: 112.8910 }
+        };
+
+        // 找最近的城市
+        function findNearestCity(lat, lng) {
+            let nearest = null;
+            let minDist = Infinity;
+            for (const code in CITY_COORDS) {
+                const c = CITY_COORDS[code];
+                const d = Math.sqrt(Math.pow(lat - c.lat, 2) + Math.pow(lng - c.lng, 2));
+                if (d < minDist) {
+                    minDist = d;
+                    nearest = { cityCode: code, cityName: c.name, lat: c.lat, lng: c.lng };
+                }
+            }
+            return nearest;
+        }
+
+        // 搜索地点
+        let searchTimeout = null;
+        async function searchLocation(keyword) {
+            clearTimeout(searchTimeout);
+            if (!keyword || keyword.length < 1) {
+                hideSearchResults();
+                return;
+            }
+
+            searchTimeout = setTimeout(async () => {
+                try {
+                    // 用本地城市数据库搜索
+                    const resp = await fetch(API_BASE + '/cities/search?keyword=' + encodeURIComponent(keyword));
+                    if (resp.ok) {
+                        const cities = await resp.json();
+                        renderSearchResults(cities.map(c => ({
+                            name: c.cityName,
+                            addr: c.province || '',
+                            cityCode: c.cityCode,
+                            cityName: c.cityName,
+                            province: c.province,
+                            lat: CITY_COORDS[c.cityCode]?.lat,
+                            lng: CITY_COORDS[c.cityCode]?.lng
+                        })));
+                    }
+                } catch(err) {
+                    console.warn('搜索失败:', err);
+                }
+            }, 300);
+        }
+
+        function renderSearchResults(items) {
+            const dropdown = document.getElementById('searchResults');
+            if (!items || items.length === 0) {
+                dropdown.innerHTML = '<div class="search-result-item" style="color:var(--pc-text-tertiary);cursor:default;">未找到相关地点</div>';
+                dropdown.classList.add('show');
+                return;
+            }
+
+            let html = '';
+            items.slice(0, 8).forEach(item => {
+                html += `
+                    <div class="search-result-item" onmousedown="selectCity('${item.cityCode}', '${item.name}', '${item.addr}')">
+                        <div class="search-result-name">${item.name}</div>
+                        <div class="search-result-addr">${item.addr}</div>
+                    </div>
+                `;
+            });
+
+            dropdown.innerHTML = html;
+            dropdown.classList.add('show');
+        }
+
+        function showSearchResults() {
+            const dropdown = document.getElementById('searchResults');
+            if (dropdown.innerHTML) {
+                dropdown.classList.add('show');
+            }
+        }
+
+        function hideSearchResults() {
+            document.getElementById('searchResults').classList.remove('show');
+        }
+
+        // 选择城市
+        function selectCity(cityCode, cityName, province) {
+            hideSearchResults();
+            document.getElementById('locationSearch').value = cityName;
+
+            const coord = CITY_COORDS[cityCode];
+            if (coord) {
+                selectedLocation = {
+                    cityCode: cityCode,
+                    cityName: cityName,
+                    province: province,
+                    lat: coord.lat,
+                    lng: coord.lng,
+                    name: cityName,
+                    address: (province || '') + cityName
+                };
+                updateSelectedLocationUI();
+                panToLocation(coord.lat, coord.lng);
+                checkWeather();
+                updateStartBtn();
+            }
+        }
+
+        // 选择位置（地图点击）
+        function selectLocation(lat, lng, name, addr) {
+            // 找最近的城市
+            const nearest = findNearestCity(lat, lng);
+            selectedLocation = {
+                lat: lat,
+                lng: lng,
+                name: name || '地图选点',
+                address: addr || (nearest ? nearest.cityName + '附近' : `坐标: ${lng.toFixed(4)}, ${lat.toFixed(4)}`),
+                cityCode: nearest ? nearest.cityCode : null,
+                cityName: nearest ? nearest.cityName : null,
+                province: null
+            };
+
+            updateSelectedLocationUI();
+            panToLocation(lat, lng);
+            if (selectedLocation.cityCode) {
+                checkWeather();
+            }
+            updateStartBtn();
+        }
+
+        // 更新已选地点UI
+        function updateSelectedLocationUI() {
+            const box = document.getElementById('selectedLocation');
+            if (!selectedLocation) {
+                box.classList.remove('show');
+                return;
+            }
+            box.classList.add('show');
+            document.getElementById('selectedLocationName').textContent = selectedLocation.name;
+            document.getElementById('selectedLocationAddr').textContent = selectedLocation.address;
+            document.getElementById('selectedLocationCoord').textContent =
+                `坐标: ${selectedLocation.lng.toFixed(4)}, ${selectedLocation.lat.toFixed(4)}`;
+
+            // 更新地图标记
+            if (marker) {
+                marker.setLatLng([selectedLocation.lat, selectedLocation.lng]);
+            } else {
+                const customIcon = L.divIcon({
+                    className: 'custom-marker',
+                    html: '<div class="marker-pin"></div>',
+                    iconSize: [32, 32],
+                    iconAnchor: [16, 32]
+                });
+                marker = L.marker([selectedLocation.lat, selectedLocation.lng], { icon: customIcon }).addTo(map);
+            }
+        }
+
+        // 地图移动到指定位置
+        function panToLocation(lat, lng) {
+            if (map) {
+                map.panTo([lat, lng]);
+                if (map.getZoom() < 13) {
+                    map.setZoom(13);
+                }
+            }
+        }
+
+        // 定位用户
+        function locateUser() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    (pos) => {
+                        selectLocation(pos.coords.latitude, pos.coords.longitude, '当前位置', '当前定位位置');
+                    },
+                    (err) => {
+                        alert('定位失败：' + err.message);
+                    }
+                );
+            } else {
+                alert('您的浏览器不支持地理定位');
+            }
+        }
+
+        // 重置地图视图
+        function resetMapView() {
+            if (map) {
+                map.setView([30.5928, 114.3055], 10);
+            }
+        }
+
+        // 快捷日期
+        function setQuickDate(offset) {
+            const date = new Date();
+            date.setDate(date.getDate() + offset);
+            const dateStr = date.toISOString().split('T')[0];
+            document.getElementById('workDate').value = dateStr;
+
+            // 更新按钮状态
+            document.querySelectorAll('.quick-date-btn').forEach(btn => {
+                btn.classList.toggle('active', parseInt(btn.dataset.offset) === offset);
+            });
+
+            onDateChange();
+        }
+
+        function onDateChange() {
+            // 清除快捷按钮高亮
+            const val = document.getElementById('workDate').value;
+            const today = new Date().toISOString().split('T')[0];
+            document.querySelectorAll('.quick-date-btn').forEach(btn => {
+                const offset = parseInt(btn.dataset.offset);
+                const d = new Date();
+                d.setDate(d.getDate() + offset);
+                btn.classList.toggle('active', d.toISOString().split('T')[0] === val);
+            });
+
+            if (selectedLocation && selectedLocation.cityCode) {
+                checkWeather();
+            }
+            updateStartBtn();
+        }
+
+        // 天气检查
+        let weatherCheckTimeout = null;
+        async function checkWeather() {
+            if (!selectedLocation || !selectedLocation.cityCode) return;
+            const workDate = document.getElementById('workDate').value;
+            if (!workDate) return;
+
+            const preview = document.getElementById('weatherPreview');
+            preview.classList.add('show');
+            const loadingEl = document.getElementById('weatherLoading');
+            if (loadingEl) {
+                loadingEl.style.display = 'block';
+            }
+
+            try {
+                const resp = await fetch(API_BASE + '/weather-check', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        cityCode: selectedLocation.cityCode,
+                        cityName: selectedLocation.cityName,
+                        workDate: workDate
+                    })
+                });
+                if (resp.ok) {
+                    const result = await resp.json();
+                    currentWeatherResult = result;
+                    renderWeatherPreview(result);
+                }
+            } catch(err) {
+                console.warn('天气检查失败:', err);
+                const loadingEl2 = document.getElementById('weatherLoading');
+                if (loadingEl2) {
+                    loadingEl2.style.display = 'none';
+                }
+                preview.innerHTML = '<div style="text-align:center;padding:10px;font-size:12px;color:var(--pc-text-tertiary);">天气数据获取失败</div>';
+            }
+            updateStartBtn();
+        }
+
+        function renderWeatherPreview(result) {
+            const preview = document.getElementById('weatherPreview');
+            const info = result.weatherInfo;
+            const highRisks = result.highRisks || [];
+            const mediumRisks = result.mediumRisks || [];
+
+            let statusClass = 'safe';
+            let statusText = '天气良好';
+            if (highRisks.length > 0) {
+                statusClass = 'danger';
+                statusText = '恶劣天气';
+            } else if (mediumRisks.length > 0) {
+                statusClass = 'warning';
+                statusText = '中等风险';
+            }
+
+            let weatherType = info ? info.type : '-';
+            let tempRange = info ? `${info.low} ~ ${info.high}` : '-';
+
+            preview.innerHTML = `
+                <div class="weather-preview-header">
+                    <div class="weather-preview-icon">${getWeatherIcon(weatherType)}</div>
+                    <div class="weather-preview-info">
+                        <div class="weather-preview-type">${weatherType}</div>
+                        <div class="weather-preview-temp">${tempRange}</div>
+                    </div>
+                    <span class="weather-preview-status ${statusClass}">${statusText}</span>
+                </div>
+                <div style="font-size:12px;color:var(--pc-text-secondary);line-height:1.5;">
+                    ${result.message.substring(0, 100)}${result.message.length > 100 ? '...' : ''}
+                </div>
+            `;
+        }
+
+        function getWeatherIcon(type) {
+            if (!type) return '🌤️';
+            if (type.includes('雷')) return '⛈️';
+            if (type.includes('暴雨') || type.includes('大暴雨')) return '🌧️';
+            if (type.includes('雨')) return '🌦️';
+            if (type.includes('雪')) return '❄️';
+            if (type.includes('雾') || type.includes('霾')) return '🌫️';
+            if (type.includes('风') || type.includes('沙')) return '💨';
+            if (type.includes('晴')) return '☀️';
+            if (type.includes('多云') || type.includes('阴')) return '⛅';
+            return '🌤️';
+        }
+
+        // 更新开始按钮状态
+        function updateStartBtn() {
+            const btn = document.getElementById('startBtn');
+            const canStart = selectedLocation &&
+                           selectedLocation.cityCode &&
+                           document.getElementById('workDate').value;
+            btn.disabled = !canStart;
+        }
+
+        // 开始AGENT
+        function startAgent() {
+            if (!selectedLocation || !selectedLocation.cityCode) {
+                alert('请先选择作业地点');
+                return;
+            }
+            const workDate = document.getElementById('workDate').value;
+            if (!workDate) {
+                alert('请选择作业日期');
+                return;
+            }
+
+            // 高危天气时警告
+            if (currentWeatherResult && currentWeatherResult.highRisks && currentWeatherResult.highRisks.length > 0) {
+                if (!confirm('⚠️ 检测到恶劣天气，仍要进入AGENT对话页面吗？\n\n系统将在生成交底卡时自动拒绝。')) {
+                    return;
+                }
+            }
+
+            // 跳转并传递参数
+            const params = new URLSearchParams({
+                cityCode: selectedLocation.cityCode,
+                cityName: selectedLocation.cityName,
+                province: selectedLocation.province || '',
+                lat: selectedLocation.lat,
+                lng: selectedLocation.lng,
+                locationName: selectedLocation.name,
+                address: selectedLocation.address,
+                workDate: workDate
+            });
+            window.location.href = 'chat.html?' + params.toString();
+        }
+
+        // 返回上一页
+        function goBack() {
+            window.location.href = 'agent-entry.html';
+        }
+
+        // 页面加载
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', init);
+        } else {
+            init();
+        }
+    </script>
+</body>
+</html>

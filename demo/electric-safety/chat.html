@@ -1,0 +1,2372 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <script src="js/demo.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>智能交底Agent - 电力风险智能交底系统</title>
+    <link rel="stylesheet" href="css/pc-style.css">
+    <script src="js/theme.js"></script>
+    <style>
+        /* ==================== 豆包风格对话界面 ==================== */
+        .chat-app {
+            display: flex;
+            height: 100vh;
+            background: var(--pc-bg-page);
+            overflow: hidden;
+        }
+
+        /* 左侧会话列表 */
+        .chat-sidebar {
+            width: 280px;
+            background: var(--pc-bg-elevated);
+            border-right: 1px solid var(--pc-border-secondary);
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
+        }
+
+        .chat-sidebar-header {
+            padding: 16px;
+            border-bottom: 1px solid var(--pc-border-secondary);
+        }
+
+        .new-chat-btn {
+            width: 100%;
+            padding: 10px 16px;
+            background: linear-gradient(135deg, var(--pc-primary) 0%, var(--pc-primary-dark) 100%);
+            color: #fff;
+            border: none;
+            border-radius: var(--pc-radius-md);
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .new-chat-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 82, 204, 0.3);
+        }
+
+        .new-chat-btn svg {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
+        }
+
+        .chat-list {
+            flex: 1;
+            overflow-y: auto;
+            padding: 8px;
+        }
+
+        .chat-list::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .chat-list::-webkit-scrollbar-thumb {
+            background: var(--pc-border-primary);
+            border-radius: 3px;
+        }
+
+        .chat-group-title {
+            font-size: 12px;
+            color: var(--pc-text-tertiary);
+            padding: 12px 8px 6px;
+            font-weight: 600;
+        }
+
+        .chat-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 12px;
+            border-radius: var(--pc-radius-md);
+            cursor: pointer;
+            transition: all 0.15s ease;
+            margin-bottom: 2px;
+            position: relative;
+        }
+
+        .chat-item:hover {
+            background: var(--pc-bg-tertiary);
+        }
+
+        .chat-item.active {
+            background: var(--pc-primary-pale);
+        }
+
+        .chat-item-icon {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+            fill: var(--pc-text-secondary);
+        }
+
+        .chat-item.active .chat-item-icon {
+            fill: var(--pc-primary);
+        }
+
+        .chat-item-title {
+            flex: 1;
+            font-size: 13px;
+            color: var(--pc-text-primary);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .chat-item-delete {
+            opacity: 0;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            transition: all 0.15s ease;
+        }
+
+        .chat-item:hover .chat-item-delete {
+            opacity: 1;
+        }
+
+        .chat-item-delete:hover {
+            background: rgba(245, 63, 63, 0.1);
+        }
+
+        .chat-item-delete svg {
+            width: 14px;
+            height: 14px;
+            fill: var(--pc-text-tertiary);
+        }
+
+        .chat-item-delete:hover svg {
+            fill: var(--pc-danger);
+        }
+
+        /* 右侧对话主区域 */
+        .chat-main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+        }
+
+        .chat-header {
+            padding: 14px 24px;
+            background: var(--pc-bg-elevated);
+            border-bottom: 1px solid var(--pc-border-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .chat-header-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .chat-header-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--pc-primary) 0%, var(--pc-primary-dark) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .chat-header-icon svg {
+            width: 20px;
+            height: 20px;
+            fill: #fff;
+        }
+
+        .chat-header-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--pc-text-primary);
+        }
+
+        .chat-header-subtitle {
+            font-size: 12px;
+            color: var(--pc-text-tertiary);
+            margin-top: 2px;
+        }
+
+        .chat-header-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .header-action-btn {
+            padding: 6px 12px;
+            background: var(--pc-bg-tertiary);
+            border: 1px solid var(--pc-border-secondary);
+            border-radius: var(--pc-radius-md);
+            color: var(--pc-text-secondary);
+            font-size: 13px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.15s ease;
+        }
+
+        .header-action-btn:hover {
+            background: var(--pc-bg-elevated-hover);
+            color: var(--pc-text-primary);
+        }
+
+        .header-action-btn svg {
+            width: 14px;
+            height: 14px;
+            fill: currentColor;
+        }
+
+        /* 消息区域 */
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 24px 0;
+        }
+
+        .chat-messages::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .chat-messages::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .chat-messages::-webkit-scrollbar-thumb {
+            background: var(--pc-border-primary);
+            border-radius: 4px;
+        }
+
+        .message-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .message {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .message.user {
+            flex-direction: row-reverse;
+        }
+
+        .message-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .message.assistant .message-avatar {
+            background: linear-gradient(135deg, var(--pc-primary) 0%, var(--pc-primary-dark) 100%);
+            color: #fff;
+        }
+
+        .message.user .message-avatar {
+            background: var(--pc-bg-tertiary);
+            color: var(--pc-text-primary);
+            border: 1px solid var(--pc-border-secondary);
+        }
+
+        .message-bubble {
+            max-width: 70%;
+            padding: 12px 16px;
+            border-radius: 12px;
+            font-size: 14px;
+            line-height: 1.7;
+            position: relative;
+        }
+
+        .message.assistant .message-bubble {
+            background: var(--pc-bg-elevated);
+            border: 1px solid var(--pc-border-secondary);
+            color: var(--pc-text-primary);
+            border-top-left-radius: 4px;
+        }
+
+        .message.user .message-bubble {
+            background: linear-gradient(135deg, var(--pc-primary) 0%, var(--pc-primary-dark) 100%);
+            color: #fff;
+            border-top-right-radius: 4px;
+        }
+
+        .message-content {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .message-content h1, .message-content h2, .message-content h3, .message-content h4 {
+            margin: 12px 0 8px;
+            font-weight: 600;
+        }
+
+        .message.content h1 { font-size: 18px; }
+        .message-content h2 { font-size: 16px; }
+        .message-content h3 { font-size: 15px; }
+
+        .message-content p {
+            margin: 8px 0;
+        }
+
+        .message-content ul, .message-content ol {
+            margin: 8px 0;
+            padding-left: 24px;
+        }
+
+        .message-content li {
+            margin: 4px 0;
+        }
+
+        .message-content code {
+            background: var(--pc-bg-tertiary);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 13px;
+            font-family: 'Consolas', monospace;
+        }
+
+        .message.user .message-content code {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .message-content pre {
+            background: var(--pc-bg-tertiary);
+            padding: 12px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 8px 0;
+        }
+
+        .message-content pre code {
+            background: none;
+            padding: 0;
+        }
+
+        .message-content table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 10px 0;
+            font-size: 13px;
+        }
+
+        .message-content th, .message-content td {
+            border: 1px solid var(--pc-border-secondary);
+            padding: 8px 12px;
+            text-align: left;
+        }
+
+        .message.content th {
+            background: var(--pc-bg-tertiary);
+            font-weight: 600;
+        }
+
+        .message-content strong {
+            font-weight: 600;
+        }
+
+        .message-content blockquote {
+            border-left: 3px solid var(--pc-primary);
+            padding-left: 12px;
+            margin: 8px 0;
+            color: var(--pc-text-secondary);
+        }
+
+        /* 消息操作栏 */
+        .message-actions {
+            display: flex;
+            gap: 4px;
+            margin-top: 8px;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        .message:hover .message-actions {
+            opacity: 1;
+        }
+
+        .message-action-btn {
+            padding: 4px 8px;
+            background: transparent;
+            border: 1px solid var(--pc-border-secondary);
+            border-radius: 4px;
+            color: var(--pc-text-tertiary);
+            font-size: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            transition: all 0.15s ease;
+        }
+
+        .message-action-btn:hover {
+            background: var(--pc-bg-tertiary);
+            color: var(--pc-text-primary);
+        }
+
+        .message-action-btn svg {
+            width: 12px;
+            height: 12px;
+            fill: currentColor;
+        }
+
+        .message-action-btn.playing {
+            background: var(--pc-primary-pale);
+            color: var(--pc-primary);
+            border-color: var(--pc-primary-lighter);
+        }
+
+        .message-action-btn.disclosure-btn:hover {
+            background: rgba(0, 180, 42, 0.1);
+            color: var(--pc-success);
+            border-color: var(--pc-success);
+        }
+
+        /* 交底卡生成结果提示 */
+        .disclosure-result-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 10px;
+            background: var(--pc-success-pale, rgba(0, 180, 42, 0.1));
+            color: var(--pc-success, #00b42a);
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 500;
+            text-decoration: none;
+            margin-top: 6px;
+            transition: all 0.15s ease;
+        }
+
+        .disclosure-result-link:hover {
+            background: var(--pc-success, #00b42a);
+            color: #fff;
+        }
+
+        /* ==================== 作业信息设置 ==================== */
+        .work-info-section {
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--pc-border-secondary);
+            background: var(--pc-bg-elevated);
+        }
+
+        .work-info-title {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--pc-text-secondary);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .work-info-title svg {
+            width: 14px;
+            height: 14px;
+            fill: var(--pc-primary);
+        }
+
+        .work-info-field {
+            margin-bottom: 10px;
+        }
+
+        .work-info-field:last-child {
+            margin-bottom: 0;
+        }
+
+        .work-info-label {
+            font-size: 11px;
+            color: var(--pc-text-tertiary);
+            margin-bottom: 4px;
+        }
+
+        .work-info-input {
+            width: 100%;
+            padding: 7px 10px;
+            border: 1px solid var(--pc-border-primary);
+            border-radius: var(--pc-radius-sm);
+            background: var(--pc-bg-page);
+            color: var(--pc-text-primary);
+            font-size: 13px;
+            outline: none;
+            transition: border-color 0.2s;
+            box-sizing: border-box;
+        }
+
+        .work-info-input:focus {
+            border-color: var(--pc-primary);
+        }
+
+        .city-search-wrapper {
+            position: relative;
+        }
+
+        .city-search-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: var(--pc-bg-elevated);
+            border: 1px solid var(--pc-border-primary);
+            border-radius: var(--pc-radius-sm);
+            max-height: 200px;
+            overflow-y: auto;
+            z-index: 100;
+            margin-top: 4px;
+            display: none;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .city-search-dropdown.show {
+            display: block;
+        }
+
+        .city-option {
+            padding: 8px 12px;
+            cursor: pointer;
+            font-size: 13px;
+            color: var(--pc-text-primary);
+            transition: background 0.15s;
+        }
+
+        .city-option:hover {
+            background: var(--pc-bg-tertiary);
+        }
+
+        .city-option .city-province {
+            font-size: 11px;
+            color: var(--pc-text-tertiary);
+            margin-left: 8px;
+        }
+
+        .weather-status-badge {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 10px;
+            border-radius: var(--pc-radius-sm);
+            font-size: 12px;
+            margin-top: 8px;
+        }
+
+        .weather-status-badge.safe {
+            background: rgba(0, 180, 42, 0.1);
+            color: var(--pc-success, #00b42a);
+        }
+
+        .weather-status-badge.warning {
+            background: rgba(255, 159, 0, 0.1);
+            color: #ff9f00;
+        }
+
+        .weather-status-badge.danger {
+            background: rgba(245, 63, 63, 0.1);
+            color: var(--pc-danger, #f53f3f);
+        }
+
+        .work-info-display {
+            font-size: 13px;
+            color: var(--pc-text-primary);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            word-break: break-all;
+        }
+
+        .location-icon {
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+
+        .work-info-sub {
+            font-size: 11px;
+            color: var(--pc-text-tertiary);
+            margin-top: 4px;
+            padding-left: 20px;
+            line-height: 1.4;
+        }
+
+        .work-info-change {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            padding: 6px;
+            margin-top: 8px;
+            font-size: 12px;
+            color: var(--pc-primary);
+            cursor: pointer;
+            border-radius: 6px;
+            transition: background 0.2s;
+        }
+
+        .work-info-change:hover {
+            background: var(--pc-primary-pale, rgba(0, 114, 229, 0.1));
+        }
+
+        .work-info-change svg {
+            width: 12px;
+            height: 12px;
+            fill: currentColor;
+        }
+
+        /* ==================== 天气弹窗 ==================== */
+        .weather-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .weather-modal-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .weather-modal {
+            background: #FFFFFF;
+            border-radius: 12px;
+            width: 480px;
+            max-width: 90vw;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+        }
+
+        .weather-modal-overlay.show .weather-modal {
+            transform: translateY(0);
+        }
+
+        .weather-modal-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--pc-border-secondary);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .weather-modal-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+
+        .weather-modal-icon.danger {
+            background: rgba(245, 63, 63, 0.1);
+        }
+
+        .weather-modal-icon.warning {
+            background: rgba(255, 159, 0, 0.1);
+        }
+
+        .weather-modal-icon.safe {
+            background: rgba(0, 180, 42, 0.1);
+        }
+
+        .weather-modal-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--pc-text-primary);
+        }
+
+        .weather-modal-subtitle {
+            font-size: 13px;
+            color: var(--pc-text-secondary);
+            margin-top: 2px;
+        }
+
+        .weather-modal-body {
+            padding: 20px 24px;
+        }
+
+        .weather-info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 16px;
+            padding: 12px;
+            background: var(--pc-bg-page);
+            border-radius: 8px;
+        }
+
+        .weather-info-item {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .weather-info-label {
+            font-size: 11px;
+            color: var(--pc-text-tertiary);
+        }
+
+        .weather-info-value {
+            font-size: 14px;
+            color: var(--pc-text-primary);
+            font-weight: 500;
+        }
+
+        .weather-risk-list {
+            margin-bottom: 16px;
+        }
+
+        .weather-risk-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--pc-text-primary);
+            margin-bottom: 8px;
+        }
+
+        .weather-risk-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 10px 12px;
+            border-radius: 6px;
+            margin-bottom: 6px;
+        }
+
+        .weather-risk-item.high {
+            background: rgba(245, 63, 63, 0.08);
+            border-left: 3px solid var(--pc-danger, #f53f3f);
+        }
+
+        .weather-risk-item.medium {
+            background: rgba(255, 159, 0, 0.08);
+            border-left: 3px solid #ff9f00;
+        }
+
+        .weather-risk-icon {
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        .weather-risk-content {
+            flex: 1;
+        }
+
+        .weather-risk-name {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--pc-text-primary);
+            margin-bottom: 2px;
+        }
+
+        .weather-risk-desc {
+            font-size: 12px;
+            color: var(--pc-text-secondary);
+        }
+
+        .weather-restriction-box {
+            background: rgba(245, 63, 63, 0.08);
+            border: 1px solid rgba(245, 63, 63, 0.2);
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 16px;
+        }
+
+        .weather-restriction-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--pc-danger, #f53f3f);
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .weather-restriction-text {
+            font-size: 12px;
+            color: var(--pc-text-secondary);
+            line-height: 1.6;
+        }
+
+        .weather-modal-footer {
+            padding: 16px 24px;
+            border-top: 1px solid var(--pc-border-secondary);
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+
+        .weather-modal-btn {
+            padding: 8px 20px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s;
+        }
+
+        .weather-modal-btn.secondary {
+            background: var(--pc-bg-tertiary);
+            color: var(--pc-text-primary);
+        }
+
+        .weather-modal-btn.secondary:hover {
+            background: var(--pc-border-primary);
+        }
+
+        .weather-modal-btn.primary {
+            background: var(--pc-primary);
+            color: #fff;
+        }
+
+        .weather-modal-btn.primary:hover {
+            background: var(--pc-primary-dark);
+        }
+
+        .weather-modal-btn.danger {
+            background: var(--pc-danger, #f53f3f);
+            color: #fff;
+        }
+
+        .weather-modal-btn.danger:hover {
+            background: #d93636;
+        }
+
+        .weather-modal-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* 欢迎页 */
+        .welcome-page {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .welcome-icon {
+            width: 72px;
+            height: 72px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, var(--pc-primary) 0%, var(--pc-primary-dark) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .welcome-icon svg {
+            width: 36px;
+            height: 36px;
+            fill: #fff;
+        }
+
+        .welcome-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--pc-text-primary);
+            margin-bottom: 8px;
+        }
+
+        .welcome-subtitle {
+            font-size: 14px;
+            color: var(--pc-text-secondary);
+            margin-bottom: 32px;
+            max-width: 500px;
+            line-height: 1.6;
+        }
+
+        .suggestion-cards {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            max-width: 600px;
+            width: 100%;
+        }
+
+        .suggestion-card {
+            background: var(--pc-bg-elevated);
+            border: 1px solid var(--pc-border-secondary);
+            border-radius: var(--pc-radius-lg);
+            padding: 16px;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .suggestion-card:hover {
+            border-color: var(--pc-primary-lighter);
+            transform: translateY(-2px);
+            box-shadow: var(--pc-shadow-sm);
+        }
+
+        .suggestion-card-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            background: var(--pc-primary-pale);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 10px;
+        }
+
+        .suggestion-card-icon svg {
+            width: 18px;
+            height: 18px;
+            fill: var(--pc-primary);
+        }
+
+        .suggestion-card-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--pc-text-primary);
+            margin-bottom: 4px;
+        }
+
+        .suggestion-card-desc {
+            font-size: 12px;
+            color: var(--pc-text-tertiary);
+            line-height: 1.5;
+        }
+
+        /* 输入区域 */
+        .chat-input-area {
+            padding: 16px 24px 24px;
+            background: var(--pc-bg-elevated);
+            border-top: 1px solid var(--pc-border-secondary);
+        }
+
+        .input-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .input-wrapper {
+            background: var(--pc-bg-page);
+            border: 1px solid var(--pc-border-primary);
+            border-radius: var(--pc-radius-lg);
+            padding: 12px 16px;
+            transition: all 0.2s ease;
+        }
+
+        .input-wrapper:focus-within {
+            border-color: var(--pc-primary);
+            box-shadow: 0 0 0 3px rgba(0, 82, 204, 0.1);
+        }
+
+        .chat-input {
+            width: 100%;
+            min-height: 24px;
+            max-height: 200px;
+            background: transparent;
+            border: none;
+            outline: none;
+            color: var(--pc-text-primary);
+            font-size: 14px;
+            line-height: 1.6;
+            resize: none;
+            font-family: inherit;
+        }
+
+        .chat-input::placeholder {
+            color: var(--pc-text-tertiary);
+        }
+
+        .input-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .input-tools {
+            display: flex;
+            gap: 6px;
+        }
+
+        .tool-btn {
+            width: 32px;
+            height: 32px;
+            background: transparent;
+            border: none;
+            border-radius: 6px;
+            color: var(--pc-text-tertiary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.15s ease;
+        }
+
+        .tool-btn:hover {
+            background: var(--pc-bg-tertiary);
+            color: var(--pc-text-primary);
+        }
+
+        .tool-btn svg {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
+        }
+
+        .send-btn {
+            padding: 8px 20px;
+            background: linear-gradient(135deg, var(--pc-primary) 0%, var(--pc-primary-dark) 100%);
+            color: #fff;
+            border: none;
+            border-radius: var(--pc-radius-md);
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+        }
+
+        .send-btn:hover:not(:disabled) {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 82, 204, 0.3);
+        }
+
+        .send-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .send-btn svg {
+            width: 14px;
+            height: 14px;
+            fill: currentColor;
+        }
+
+        .input-tip {
+            text-align: center;
+            font-size: 11px;
+            color: var(--pc-text-quaternary);
+            margin-top: 8px;
+        }
+
+        /* 快捷问题 */
+        .quick-questions {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 12px;
+            justify-content: center;
+        }
+
+        .quick-question {
+            padding: 6px 14px;
+            background: var(--pc-bg-elevated);
+            border: 1px solid var(--pc-border-secondary);
+            border-radius: 20px;
+            color: var(--pc-text-secondary);
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+
+        .quick-question:hover {
+            border-color: var(--pc-primary-lighter);
+            color: var(--pc-primary);
+            background: var(--pc-primary-pale);
+        }
+
+        /* 打字指示器 */
+        .typing-indicator {
+            display: flex;
+            gap: 4px;
+            padding: 4px 0;
+        }
+
+        .typing-indicator span {
+            width: 6px;
+            height: 6px;
+            background: var(--pc-text-tertiary);
+            border-radius: 50%;
+            animation: typing 1.4s infinite ease-in-out;
+        }
+
+        .typing-indicator span:nth-child(1) { animation-delay: 0s; }
+        .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+        .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes typing {
+            0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+            30% { transform: translateY(-6px); opacity: 1; }
+        }
+
+        /* 交底卡片样式 */
+        .disclosure-card {
+            background: var(--pc-bg-page);
+            border: 1px solid var(--pc-border-secondary);
+            border-radius: var(--pc-radius-md);
+            padding: 16px;
+            margin-top: 12px;
+        }
+
+        .disclosure-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--pc-border-secondary);
+        }
+
+        .disclosure-card-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--pc-primary);
+        }
+
+        .disclosure-badge {
+            padding: 2px 10px;
+            background: var(--pc-primary-pale);
+            color: var(--pc-primary);
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .disclosure-section {
+            margin-bottom: 12px;
+        }
+
+        .disclosure-section:last-child { margin-bottom: 0; }
+
+        .disclosure-section-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--pc-text-secondary);
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .disclosure-section-title::before {
+            content: '';
+            width: 3px;
+            height: 14px;
+            background: var(--pc-primary);
+            border-radius: 2px;
+        }
+
+        .disclosure-section-content {
+            font-size: 13px;
+            color: var(--pc-text-primary);
+            line-height: 1.6;
+            padding-left: 10px;
+        }
+
+        .hazard-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            padding: 6px 0;
+        }
+
+        .hazard-level {
+            flex-shrink: 0;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .hazard-level.high { background: rgba(245, 63, 63, 0.1); color: var(--pc-danger); }
+        .hazard-level.medium { background: rgba(255, 125, 0, 0.1); color: var(--pc-warning); }
+        .hazard-level.low { background: rgba(0, 180, 42, 0.1); color: var(--pc-success); }
+
+        .disclosure-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid var(--pc-border-secondary);
+        }
+
+        .disclosure-action-btn {
+            flex: 1;
+            padding: 8px 12px;
+            background: var(--pc-primary-pale);
+            border: 1px solid var(--pc-primary-lighter);
+            border-radius: var(--pc-radius-md);
+            color: var(--pc-primary);
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+
+        .disclosure-action-btn:hover {
+            background: var(--pc-primary);
+            color: #fff;
+        }
+
+        /* 响应式 */
+        @media (max-width: 768px) {
+            .chat-sidebar {
+                display: none;
+            }
+            .suggestion-cards {
+                grid-template-columns: 1fr;
+            }
+            .message-bubble {
+                max-width: 85%;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="css/demo.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%231677ff'/%3E%3Cpath d='M4 8l3 3 5-6' stroke='white' stroke-width='2' fill='none'/%3E%3C/svg%3E">
+</head>
+<body>
+    <div class="chat-app">
+        <!-- 左侧会话列表 -->
+        <aside class="chat-sidebar">
+            <div class="chat-sidebar-header">
+                <button class="new-chat-btn" onclick="createNewChat()">
+                    <svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+                    新建会话
+                </button>
+            </div>
+
+            <!-- 作业信息展示 -->
+            <div class="work-info-section">
+                <div class="work-info-title">
+                    <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                    作业信息
+                </div>
+                <div class="work-info-field">
+                    <div class="work-info-label">作业地点</div>
+                    <div class="work-info-display" id="workLocationDisplay">
+                        <span class="location-icon">📍</span>
+                        <span id="workLocationName">未设置</span>
+                    </div>
+                    <div class="work-info-sub" id="workLocationAddr" style="display:none;"></div>
+                </div>
+                <div class="work-info-field">
+                    <div class="work-info-label">作业日期</div>
+                    <div class="work-info-display">
+                        <span class="location-icon">📅</span>
+                        <span id="workDateDisplay">未设置</span>
+                    </div>
+                </div>
+                <div id="weatherStatusBadge" style="display:none;"></div>
+                <div class="work-info-change" onclick="changeLocation()">
+                    <svg viewBox="0 0 24 24"><path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V5l-2.35 1.35z"/></svg>
+                    重新选择
+                </div>
+            </div>
+
+            <div class="chat-list" id="chatList">
+                <div class="chat-group-title">历史会话</div>
+                <div id="chatListItems">
+                    <!-- 动态生成 -->
+                </div>
+            </div>
+        </aside>
+
+        <!-- 右侧对话主区域 -->
+        <main class="chat-main">
+            <div class="chat-header">
+                <div class="chat-header-left">
+                    <div class="chat-header-icon">
+                        <svg viewBox="0 0 24 24"><path d="M13 3L4 14h7l-2 7 9-11h-7l2-7z"/></svg>
+                    </div>
+                    <div>
+                        <div class="chat-header-title">电力安全交底智能助手</div>
+                        <div class="chat-header-subtitle" id="chatSubtitle">DeepSeek API · 电力安全智能助手</div>
+                    </div>
+                </div>
+                <div class="chat-header-actions">
+                    <button class="header-action-btn" onclick="goToDashboard()" title="返回系统首页">
+                        <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+                        系统首页
+                    </button>
+                    <button class="header-action-btn" onclick="toggleSidebar()" title="会话列表">
+                        <svg viewBox="0 0 24 24"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
+                    </button>
+                    <button class="header-action-btn" onclick="clearChat()" title="清空对话">
+                        <svg viewBox="0 0 24 24"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
+                    </button>
+                </div>
+            </div>
+
+            <div class="chat-messages" id="chatMessages">
+                <!-- 欢迎页 -->
+                <div class="welcome-page" id="welcomePage">
+                    <div class="welcome-icon">
+                        <svg viewBox="0 0 24 24"><path d="M13 3L4 14h7l-2 7 9-11h-7l2-7z"/></svg>
+                    </div>
+                    <div class="welcome-title">电力安全交底智能助手</div>
+                    <div class="welcome-subtitle">
+                        我可以帮您进行电力作业风险辨识、生成安全交底卡、识别危险点并制定控制措施。<br>
+                        基于DeepSeek API，知识库约束确保回答专业准确。
+                    </div>
+                    <div class="suggestion-cards">
+                        <div class="suggestion-card" onclick="sendQuickMessage('帮我分析10kV某线路1#杆更换绝缘子作业的危险点')">
+                            <div class="suggestion-card-icon">
+                                <svg viewBox="0 0 24 24"><path d="M12 2L1 21h22L12 2zm0 3.84L18.09 19H5.91L12 5.84zM11 10v4h2v-4h-2zm0 6v2h2v-2h-2z"/></svg>
+                            </div>
+                            <div class="suggestion-card-title">危险点识别</div>
+                            <div class="suggestion-card-desc">输入作业任务，自动识别触电、高坠等危险点</div>
+                        </div>
+                        <div class="suggestion-card" onclick="sendQuickMessage('生成一份配电线路检修的安全交底卡')">
+                            <div class="suggestion-card-icon">
+                                <svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+                            </div>
+                            <div class="suggestion-card-title">生成交底卡</div>
+                            <div class="suggestion-card-desc">按标准模板生成完整安全交底卡</div>
+                        </div>
+                        <div class="suggestion-card" onclick="sendQuickMessage('高空作业有哪些控制措施？请按优先级排序')">
+                            <div class="suggestion-card-icon">
+                                <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+                            </div>
+                            <div class="suggestion-card-title">控制措施</div>
+                            <div class="suggestion-card-desc">针对危险点生成对应的安全控制措施</div>
+                        </div>
+                        <div class="suggestion-card" onclick="sendQuickMessage('电力安全工作规程中关于停电作业的规定是什么')">
+                            <div class="suggestion-card-icon">
+                                <svg viewBox="0 0 24 24"><path d="M11 17h2v-1h1c.55 0 1-.45 1-1v-3c0-.55-.45-1-1-1h-3v-1h4v-2h-4V7h-2v1h-1c-.55 0-1 .45-1 1v3c0 .55.45 1 1 1h3v1H9v2h2v1zm1-15C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg>
+                            </div>
+                            <div class="suggestion-card-title">规程查询</div>
+                            <div class="suggestion-card-desc">查询《电力安全工作规程》相关规定</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="message-container" id="messageContainer">
+                    <!-- 消息动态生成 -->
+                </div>
+            </div>
+
+            <div class="chat-input-area">
+                <div class="input-container">
+                    <div class="quick-questions" id="quickQuestions">
+                        <span class="quick-question" onclick="sendQuickMessage('分析杆塔作业的风险')">杆塔作业风险</span>
+                        <span class="quick-question" onclick="sendQuickMessage('变电检修安全措施')">变电检修措施</span>
+                        <span class="quick-question" onclick="sendQuickMessage('低压带电作业注意事项')">带电作业事项</span>
+                        <span class="quick-question" onclick="sendQuickMessage('应急处置流程')">应急处置流程</span>
+                    </div>
+                    <div class="input-wrapper">
+                        <textarea
+                            class="chat-input"
+                            id="chatInput"
+                            placeholder="请输入作业任务，例如：10kV某线路1#杆更换绝缘子..."
+                            rows="1"
+                            onkeydown="handleKeyDown(event)"
+                            oninput="autoResize(this)"
+                        ></textarea>
+                        <div class="input-actions">
+                            <div class="input-tools">
+                                <button class="tool-btn" title="上传图片" onclick="document.getElementById('imageInput').click()">
+                                    <svg viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
+                                </button>
+                                <input type="file" id="imageInput" accept="image/*" style="display:none;" onchange="handleImageUpload(event)">
+                                <button class="tool-btn" title="语音输入" onclick="toggleVoiceInput()">
+                                    <svg viewBox="0 0 24 24"><path d="M12 14c1.66 0 2.99-1.34 2.99-3L15 5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.48 6-3.3 6-6.72h-1.7z"/></svg>
+                                </button>
+                            </div>
+                            <button class="send-btn" id="sendBtn" onclick="sendMessage()" disabled>
+                                <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+                                发送
+                            </button>
+                        </div>
+                    </div>
+                    <div class="input-tip">内容由 AI 生成，仅供参考。实际作业请严格遵守电力安全工作规程。</div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // ==================== 全局状态 ====================
+        const API_BASE = '/api/agent';
+        let currentChatId = null;
+        let chats = [];
+        let messages = [];
+        let isGenerating = false;
+
+        // ==================== 初始化 ====================
+        function init() {
+            loadChats();
+            if (chats.length === 0) {
+                createNewChat();
+            } else {
+                switchChat(chats[0].id);
+            }
+
+            // 从URL参数加载作业信息
+            loadWorkInfoFromUrl();
+
+            // 输入框监听
+            const input = document.getElementById('chatInput');
+            input.addEventListener('input', function() {
+                document.getElementById('sendBtn').disabled = this.value.trim().length === 0;
+            });
+        }
+
+        // 从URL加载作业信息
+        function loadWorkInfoFromUrl() {
+            const params = new URLSearchParams(window.location.search);
+            const cityCode = params.get('cityCode');
+            const cityName = params.get('cityName');
+            const province = params.get('province');
+            const lat = params.get('lat');
+            const lng = params.get('lng');
+            const locationName = params.get('locationName');
+            const address = params.get('address');
+            const workDate = params.get('workDate');
+
+            if (cityCode && cityName) {
+                selectedCity = { cityCode, cityName, province, lat: parseFloat(lat), lng: parseFloat(lng), locationName, address };
+                document.getElementById('workLocationName').textContent = locationName || cityName;
+                document.getElementById('workDateDisplay').textContent = workDate || '未设置';
+
+                if (address) {
+                    document.getElementById('workLocationAddr').textContent = address;
+                    document.getElementById('workLocationAddr').style.display = 'block';
+                }
+
+                // 保存到localStorage
+                localStorage.setItem('workCity', JSON.stringify(selectedCity));
+                localStorage.setItem('workDate', workDate);
+
+                // 检查天气
+                checkWeather();
+            } else {
+                // 没有URL参数，从localStorage加载
+                const savedCity = localStorage.getItem('workCity');
+                const savedDate = localStorage.getItem('workDate');
+                if (savedCity) {
+                    const cityData = JSON.parse(savedCity);
+                    selectedCity = cityData;
+                    document.getElementById('workLocationName').textContent = cityData.cityName;
+                    document.getElementById('workDateDisplay').textContent = savedDate || '未设置';
+                    checkWeather();
+                }
+            }
+        }
+
+        // 重新选择地点
+        function changeLocation() {
+            window.location.href = 'agent-map.html';
+        }
+
+        // ==================== 会话管理 ====================
+        function loadChats() {
+            const saved = localStorage.getItem('ele_chat_list');
+            if (saved) {
+                chats = JSON.parse(saved);
+            }
+            renderChatList();
+        }
+
+        function saveChats() {
+            localStorage.setItem('ele_chat_list', JSON.stringify(chats));
+        }
+
+        function createNewChat() {
+            const chatId = 'chat_' + Date.now();
+            const newChat = {
+                id: chatId,
+                title: '新会话',
+                messages: [],
+                createTime: Date.now()
+            };
+            chats.unshift(newChat);
+            saveChats();
+            renderChatList();
+            switchChat(chatId);
+        }
+
+        function switchChat(chatId) {
+            currentChatId = chatId;
+            const chat = chats.find(c => c.id === chatId);
+            if (!chat) return;
+
+            messages = chat.messages || [];
+            renderChatList();
+            renderMessages();
+
+            // 更新标题
+            document.querySelector('.chat-header-title').textContent = chat.title;
+
+            // 显示/隐藏欢迎页
+            const welcomePage = document.getElementById('welcomePage');
+            const msgContainer = document.getElementById('messageContainer');
+            if (messages.length === 0) {
+                welcomePage.style.display = 'flex';
+                msgContainer.style.display = 'none';
+            } else {
+                welcomePage.style.display = 'none';
+                msgContainer.style.display = 'block';
+            }
+        }
+
+        function deleteChat(chatId, event) {
+            event.stopPropagation();
+            if (!confirm('确定删除这个会话吗？')) return;
+            chats = chats.filter(c => c.id !== chatId);
+            saveChats();
+            if (currentChatId === chatId) {
+                if (chats.length > 0) {
+                    switchChat(chats[0].id);
+                } else {
+                    createNewChat();
+                }
+            } else {
+                renderChatList();
+            }
+        }
+
+        function renderChatList() {
+            const container = document.getElementById('chatListItems');
+            if (chats.length === 0) {
+                container.innerHTML = '<div style="text-align:center;color:var(--pc-text-tertiary);padding:20px;font-size:12px;">暂无会话</div>';
+                return;
+            }
+            container.innerHTML = chats.map(chat => `
+                <div class="chat-item ${chat.id === currentChatId ? 'active' : ''}" onclick="switchChat('${chat.id}')">
+                    <svg class="chat-item-icon" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
+                    <span class="chat-item-title">${escapeHtml(chat.title)}</span>
+                    <div class="chat-item-delete" onclick="deleteChat('${chat.id}', event)" title="删除">
+                        <svg viewBox="0 0 24 24"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // ==================== 消息发送 ====================
+        function sendQuickMessage(text) {
+            document.getElementById('chatInput').value = text;
+            sendMessage();
+        }
+
+        function handleKeyDown(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage();
+            }
+        }
+
+        function autoResize(textarea) {
+            textarea.style.height = 'auto';
+            textarea.style.height = Math.min(textarea.scrollHeight, 200) + 'px';
+        }
+
+        async function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const text = input.value.trim();
+            if (!text || isGenerating) return;
+
+            // 隐藏欢迎页
+            document.getElementById('welcomePage').style.display = 'none';
+            document.getElementById('messageContainer').style.display = 'block';
+
+            // 添加用户消息
+            addMessage('user', text);
+            input.value = '';
+            input.style.height = 'auto';
+            document.getElementById('sendBtn').disabled = true;
+            document.getElementById('quickQuestions').style.display = 'none';
+
+            // 添加AI消息（带加载动画）
+            const msgId = 'msg_' + Date.now();
+            addLoadingMessage(msgId);
+
+            isGenerating = true;
+
+            try {
+                const response = await fetch(API_BASE + '/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        message: text,
+                        conversationId: currentChatId
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.rejected) {
+                    // 非电力安全内容，被拦截
+                    updateMessageWithModel(msgId, data.message, '内容审核');
+                } else if (data.error) {
+                    updateMessageWithModel(msgId, '❌ 生成失败：' + data.error, '错误');
+                } else {
+                    updateMessageWithModel(msgId, data.answer, data.model);
+                }
+            } catch(err) {
+                updateMessageWithModel(msgId, '❌ 请求失败：' + err.message + '\n\n请检查后端服务是否正常运行。', '错误');
+            }
+
+            isGenerating = false;
+
+            // 更新会话标题（第一条消息）
+            const chat = chats.find(c => c.id === currentChatId);
+            if (chat && messages.filter(m => m.role === 'user').length === 1) {
+                chat.title = text.length > 20 ? text.substring(0, 20) + '...' : text;
+                document.querySelector('.chat-header-title').textContent = chat.title;
+                saveChats();
+                renderChatList();
+            }
+
+            // 保存消息
+            saveCurrentMessages();
+        }
+
+        function updateMessageWithModel(msgId, content, modelInfo) {
+            const msg = messages.find(m => m.id === msgId);
+            if (msg) {
+                msg.content = content;
+                msg.role = 'assistant';
+                msg.loading = false;
+                msg.model = modelInfo;
+            }
+            renderMessages();
+            scrollToBottom();
+        }
+
+        // ==================== 消息渲染 ====================
+        function addMessage(role, content, model) {
+            const msg = {
+                id: 'msg_' + Date.now() + '_' + Math.random().toString(36).substr(2, 5),
+                role: role,
+                content: content,
+                model: model,
+                timestamp: Date.now()
+            };
+            messages.push(msg);
+            renderMessages();
+            scrollToBottom();
+        }
+
+        function addLoadingMessage(msgId) {
+            const msg = {
+                id: msgId,
+                role: 'assistant',
+                content: '',
+                loading: true,
+                timestamp: Date.now()
+            };
+            messages.push(msg);
+            renderMessages();
+            scrollToBottom();
+        }
+
+        function renderMessages() {
+            const container = document.getElementById('messageContainer');
+            container.innerHTML = messages.map(msg => {
+                const isUser = msg.role === 'user';
+                const avatarText = isUser ? '我' : '⚡';
+                return `
+                    <div class="message ${msg.role}" data-msg-id="${msg.id}">
+                        <div class="message-avatar">${avatarText}</div>
+                        <div class="message-bubble">
+                            <div class="message-content">${msg.loading ? '<div class="typing-indicator"><span></span><span></span><span></span></div>' : renderMarkdown(msg.content)}</div>
+                            ${!isUser && !msg.loading && msg.model ? `
+                            <div style="margin-top:8px;padding-top:8px;border-top:1px solid var(--pc-border-secondary);font-size:11px;color:var(--pc-text-tertiary);display:flex;align-items:center;gap:6px;">
+                                <svg viewBox="0 0 24 24" style="width:12px;height:12px;fill:currentColor;"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                                模型: ${msg.model}
+                            </div>
+                            ` : ''}
+                            ${!isUser && !msg.loading ? `
+                            <div class="message-actions">
+                                <button class="message-action-btn" onclick="copyMessage('${msg.id}')">
+                                    <svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+                                    复制
+                                </button>
+                                <button class="message-action-btn" onclick="regenerateMessage()">
+                                    <svg viewBox="0 0 24 24"><path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/></svg>
+                                    重新生成
+                                </button>
+                                ${window.speechSynthesis ? `
+                                <button class="message-action-btn" id="speak-btn-${msg.id}" onclick="toggleSpeak('${msg.id}')">
+                                    <svg viewBox="0 0 24 24" style="width:12px;height:12px;fill:currentColor;"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
+                                    <span id="speak-text-${msg.id}">播放</span>
+                                </button>
+                                ` : ''}
+                                <button class="message-action-btn disclosure-btn" onclick="generateDisclosure('${msg.id}')">
+                                    <svg viewBox="0 0 24 24" style="width:12px;height:12px;fill:currentColor;"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+                                    生成交底卡
+                                </button>
+                            </div>
+                            ${msg.disclosureId ? `
+                            <a class="disclosure-result-link" href="disclosure-detail.html?id=${msg.disclosureId}" target="_blank">
+                                <svg viewBox="0 0 24 24" style="width:12px;height:12px;fill:currentColor;"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                                交底卡已生成，点击查看
+                            </a>
+                            ` : ''}
+                            ` : ''}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function scrollToBottom() {
+            const chatMsgs = document.getElementById('chatMessages');
+            setTimeout(() => {
+                chatMsgs.scrollTop = chatMsgs.scrollHeight;
+            }, 10);
+        }
+
+        // ==================== Markdown渲染 ====================
+        function renderMarkdown(text) {
+            if (!text) return '';
+            let html = escapeHtml(text);
+
+            // 代码块
+            html = html.replace(/```([\s\S]*?)```/g, function(match, code) {
+                return '<pre><code>' + code + '</code></pre>';
+            });
+
+            // 行内代码
+            html = html.replace(/`([^`]+)`/g, '<code>$1</code>');
+
+            // 标题
+            html = html.replace(/^### (.*$)/gm, '<h3>$1</h3>');
+            html = html.replace(/^## (.*$)/gm, '<h2>$1</h2>');
+            html = html.replace(/^# (.*$)/gm, '<h1>$1</h1>');
+
+            // 粗体
+            html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+
+            // 斜体
+            html = html.replace(/\*(.*?)\*/g, '<em>$1</em>');
+
+            // 无序列表
+            html = html.replace(/^- (.*$)/gm, function(match, content) {
+                return '<li>' + content + '</li>';
+            });
+            html = html.replace(/(<li>.*<\/li>\n?)+/g, function(match) {
+                return '<ul>' + match + '</ul>';
+            });
+
+            // 有序列表
+            html = html.replace(/^\d+\. (.*$)/gm, function(match, content) {
+                return '<li>' + content + '</li>';
+            });
+
+            // 引用
+            html = html.replace(/^> (.*$)/gm, '<blockquote>$1</blockquote>');
+
+            // 换行
+            html = html.replace(/\n/g, '<br>');
+
+            // 清理多余的br
+            html = html.replace(/(<br>\s*){3,}/g, '<br><br>');
+
+            return html;
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // ==================== 消息操作 ====================
+        function copyMessage(msgId) {
+            const msg = messages.find(m => m.id === msgId);
+            if (msg) {
+                navigator.clipboard.writeText(msg.content).then(() => {
+                    alert('已复制到剪贴板');
+                });
+            }
+        }
+
+        function regenerateMessage() {
+            if (isGenerating) return;
+            // 找到最后一条用户消息
+            const lastUserMsg = [...messages].reverse().find(m => m.role === 'user');
+            if (!lastUserMsg) return;
+            // 删除最后一条AI消息
+            const lastAiIndex = [...messages].reverse().findIndex(m => m.role === 'assistant');
+            if (lastAiIndex >= 0) {
+                const realIndex = messages.length - 1 - lastAiIndex;
+                messages.splice(realIndex, 1);
+            }
+            renderMessages();
+            // 重新生成
+            const msgId = 'msg_' + Date.now();
+            addLoadingMessage(msgId);
+            isGenerating = true;
+
+            fetch(API_BASE + '/chat', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    message: lastUserMsg.content,
+                    conversationId: currentChatId
+                })
+            }).then(resp => resp.json()).then(data => {
+                if (data.rejected) {
+                    updateMessageWithModel(msgId, data.message, '内容审核');
+                } else if (data.error) {
+                    updateMessageWithModel(msgId, '❌ 生成失败：' + data.error, '错误');
+                } else {
+                    updateMessageWithModel(msgId, data.answer, data.model);
+                }
+                isGenerating = false;
+                saveCurrentMessages();
+            }).catch(err => {
+                isGenerating = false;
+                updateMessageWithModel(msgId, '❌ 请求失败：' + err.message, '错误');
+            });
+        }
+
+        function clearChat() {
+            if (!confirm('确定清空当前对话吗？')) return;
+            messages = [];
+            saveCurrentMessages();
+            document.getElementById('welcomePage').style.display = 'flex';
+            document.getElementById('messageContainer').style.display = 'none';
+            document.getElementById('quickQuestions').style.display = 'flex';
+            renderMessages();
+        }
+
+        function saveCurrentMessages() {
+            const chat = chats.find(c => c.id === currentChatId);
+            if (chat) {
+                chat.messages = messages;
+                saveChats();
+            }
+        }
+
+        // ==================== 语音播报功能 ====================
+        let currentSpeakMsgId = null;
+        let speechUtterance = null;
+
+        function toggleSpeak(msgId) {
+            if (currentSpeakMsgId === msgId) {
+                // 同一条消息，切换暂停/继续
+                if (speechSynthesis.speaking && !speechSynthesis.paused) {
+                    speechSynthesis.pause();
+                    updateSpeakButton(msgId, '继续', false);
+                } else if (speechSynthesis.paused) {
+                    speechSynthesis.resume();
+                    updateSpeakButton(msgId, '暂停', true);
+                }
+                return;
+            }
+
+            // 停止当前播放
+            stopSpeak();
+
+            const msg = messages.find(m => m.id === msgId);
+            if (!msg || !msg.content) return;
+
+            // 提取纯文本（去除markdown标记）
+            const text = extractPlainText(msg.content);
+
+            speechUtterance = new SpeechSynthesisUtterance(text);
+            speechUtterance.lang = 'zh-CN';
+            speechUtterance.rate = 0.9;
+            speechUtterance.pitch = 1.1;
+            speechUtterance.volume = 1;
+
+            // 尝试选择中文女声
+            const voices = speechSynthesis.getVoices();
+            const chineseVoice = voices.find(v =>
+                v.lang.includes('zh') && (v.name.includes('女') || v.name.includes('Female') || v.name.includes('Xiaoxiao') || v.name.includes('Yaoyao'))
+            ) || voices.find(v => v.lang.includes('zh'));
+            if (chineseVoice) {
+                speechUtterance.voice = chineseVoice;
+            }
+
+            speechUtterance.onstart = function() {
+                currentSpeakMsgId = msgId;
+                updateSpeakButton(msgId, '暂停', true);
+            };
+
+            speechUtterance.onend = function() {
+                updateSpeakButton(msgId, '播放', false);
+                if (currentSpeakMsgId === msgId) {
+                    currentSpeakMsgId = null;
+                }
+                speechUtterance = null;
+            };
+
+            speechUtterance.onerror = function() {
+                updateSpeakButton(msgId, '播放', false);
+                if (currentSpeakMsgId === msgId) {
+                    currentSpeakMsgId = null;
+                }
+                speechUtterance = null;
+            };
+
+            speechSynthesis.speak(speechUtterance);
+        }
+
+        function stopSpeak() {
+            if (speechSynthesis.speaking || speechSynthesis.paused) {
+                speechSynthesis.cancel();
+            }
+            if (currentSpeakMsgId) {
+                updateSpeakButton(currentSpeakMsgId, '播放', false);
+                currentSpeakMsgId = null;
+            }
+            speechUtterance = null;
+        }
+
+        function updateSpeakButton(msgId, text, isPlaying) {
+            const btn = document.getElementById('speak-btn-' + msgId);
+            const textSpan = document.getElementById('speak-text-' + msgId);
+            if (btn) {
+                btn.classList.toggle('playing', isPlaying);
+            }
+            if (textSpan) {
+                textSpan.textContent = text;
+            }
+        }
+
+        function extractPlainText(text) {
+            if (!text) return '';
+            return text
+                .replace(/```[\s\S]*?```/g, '代码块')
+                .replace(/`([^`]+)`/g, '$1')
+                .replace(/^#{1,6}\s+/gm, '')
+                .replace(/\*\*(.*?)\*\*/g, '$1')
+                .replace(/\*(.*?)\*/g, '$1')
+                .replace(/^[-*]\s+/gm, '')
+                .replace(/^\d+\.\s+/gm, '')
+                .replace(/^>\s+/gm, '')
+                .replace(/\|/g, '，')
+                .replace(/---+/g, '');
+        }
+
+        // 预加载语音列表
+        if (window.speechSynthesis) {
+            speechSynthesis.getVoices();
+            speechSynthesis.onvoiceschanged = function() {
+                speechSynthesis.getVoices();
+            };
+        }
+
+        // ==================== 天气与作业地点联动 ====================
+        let selectedCity = null;
+        let currentWeatherResult = null;
+        let pendingDisclosureMsgId = null;
+
+        // 天气检查
+        async function checkWeather() {
+            if (!selectedCity) return;
+            const workDate = localStorage.getItem('workDate') || new Date().toISOString().split('T')[0];
+            if (!workDate) return;
+
+            try {
+                const resp = await fetch(API_BASE + '/weather-check', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        cityCode: selectedCity.cityCode,
+                        cityName: selectedCity.cityName,
+                        workDate: workDate
+                    })
+                });
+                if (resp.ok) {
+                    const result = await resp.json();
+                    currentWeatherResult = result;
+                    updateWeatherBadge(result);
+                }
+            } catch(err) {
+                console.warn('天气检查失败:', err);
+            }
+        }
+
+        function updateWeatherBadge(result) {
+            const badge = document.getElementById('weatherStatusBadge');
+            if (!badge) return;
+            if (!result) {
+                badge.style.display = 'none';
+                return;
+            }
+            badge.style.display = 'flex';
+            const highRisks = result.highRisks || [];
+            const mediumRisks = result.mediumRisks || [];
+
+            if (highRisks.length > 0) {
+                badge.className = 'weather-status-badge danger';
+                badge.innerHTML = '⚠️ 恶劣天气，禁止作业';
+            } else if (mediumRisks.length > 0) {
+                badge.className = 'weather-status-badge warning';
+                badge.innerHTML = 'ℹ️ 中等风险，注意防范';
+            } else {
+                badge.className = 'weather-status-badge safe';
+                badge.innerHTML = '✅ 天气良好';
+            }
+        }
+
+        // 天气弹窗
+        function showWeatherModal(result, forGenerate = false) {
+            const modal = document.getElementById('weatherModal');
+            const icon = document.getElementById('weatherModalIcon');
+            const title = document.getElementById('weatherModalTitle');
+            const subtitle = document.getElementById('weatherModalSubtitle');
+            const body = document.getElementById('weatherModalBody');
+            const confirmBtn = document.getElementById('weatherModalConfirmBtn');
+            const footer = document.getElementById('weatherModalFooter');
+            
+            if (!modal || !icon || !title || !subtitle || !body || !footer) {
+                console.warn('天气弹窗元素缺失，跳过显示');
+                return;
+            }
+
+            const highRisks = result.highRisks || [];
+            const mediumRisks = result.mediumRisks || [];
+            const weatherInfo = result.weatherInfo;
+            const cityName = result.cityName || '';
+            const workDate = result.workDate || '';
+
+            subtitle.textContent = cityName + ' · ' + workDate;
+
+            if (highRisks.length > 0) {
+                icon.className = 'weather-modal-icon danger';
+                icon.textContent = '⛔';
+                title.textContent = '恶劣天气警告';
+                confirmBtn.style.display = 'none';
+                footer.innerHTML = '<button class="weather-modal-btn secondary" onclick="closeWeatherModal()">我知道了</button>';
+            } else if (mediumRisks.length > 0) {
+                icon.className = 'weather-modal-icon warning';
+                icon.textContent = '⚠️';
+                title.textContent = '天气风险提示';
+                confirmBtn.style.display = forGenerate ? 'inline-block' : 'none';
+                confirmBtn.textContent = '继续生成';
+                confirmBtn.className = 'weather-modal-btn primary';
+                footer.innerHTML = `
+                    <button class="weather-modal-btn secondary" onclick="closeWeatherModal()">取消</button>
+                    <button class="weather-modal-btn primary" onclick="confirmWeatherAndGenerate()">继续生成</button>
+                `;
+            } else {
+                icon.className = 'weather-modal-icon safe';
+                icon.textContent = '✅';
+                title.textContent = '天气良好';
+                if (forGenerate) {
+                    footer.innerHTML = `
+                        <button class="weather-modal-btn secondary" onclick="closeWeatherModal()">取消</button>
+                        <button class="weather-modal-btn primary" onclick="confirmWeatherAndGenerate()">确认生成</button>
+                    `;
+                } else {
+                    footer.innerHTML = '<button class="weather-modal-btn secondary" onclick="closeWeatherModal()">关闭</button>';
+                }
+            }
+
+            // 构建body内容
+            let bodyHtml = '';
+
+            // 天气信息
+            if (weatherInfo) {
+                bodyHtml += `
+                    <div class="weather-info-grid">
+                        <div class="weather-info-item">
+                            <span class="weather-info-label">天气</span>
+                            <span class="weather-info-value">${weatherInfo.type || '-'}</span>
+                        </div>
+                        <div class="weather-info-item">
+                            <span class="weather-info-label">温度</span>
+                            <span class="weather-info-value">${weatherInfo.low || ''} ~ ${weatherInfo.high || ''}</span>
+                        </div>
+                        <div class="weather-info-item">
+                            <span class="weather-info-label">风向风力</span>
+                            <span class="weather-info-value">${weatherInfo.windDir || '-'} ${weatherInfo.windScale || ''}</span>
+                        </div>
+                        <div class="weather-info-item">
+                            <span class="weather-info-label">空气质量</span>
+                            <span class="weather-info-value">AQI ${weatherInfo.aqi || '-'}</span>
+                        </div>
+                    </div>
+                `;
+            }
+
+            // 风险列表
+            if (highRisks.length > 0 || mediumRisks.length > 0) {
+                bodyHtml += '<div class="weather-risk-list"><div class="weather-risk-title">天气风险</div>';
+                highRisks.forEach(r => {
+                    bodyHtml += `
+                        <div class="weather-risk-item high">
+                            <span class="weather-risk-icon">${r.icon || '⚠️'}</span>
+                            <div class="weather-risk-content">
+                                <div class="weather-risk-name">${r.riskName}</div>
+                                <div class="weather-risk-desc">${r.description}</div>
+                            </div>
+                        </div>
+                    `;
+                });
+                mediumRisks.forEach(r => {
+                    bodyHtml += `
+                        <div class="weather-risk-item medium">
+                            <span class="weather-risk-icon">${r.icon || 'ℹ️'}</span>
+                            <div class="weather-risk-content">
+                                <div class="weather-risk-name">${r.riskName}</div>
+                                <div class="weather-risk-desc">${r.description}</div>
+                            </div>
+                        </div>
+                    `;
+                });
+                bodyHtml += '</div>';
+            }
+
+            // 作业限制
+            if (highRisks.length > 0) {
+                const restrictions = [...new Set(highRisks.map(r => r.workRestriction).filter(Boolean))];
+                bodyHtml += `
+                    <div class="weather-restriction-box">
+                        <div class="weather-restriction-title">🚫 作业限制</div>
+                        <div class="weather-restriction-text">
+                            ${restrictions.map(r => '• ' + r).join('<br>')}
+                            <br><br>
+                            <strong>系统拒绝在该天气条件下生成安全交底卡。</strong><br>
+                            建议调整作业日期或等待天气条件改善。
+                        </div>
+                    </div>
+                `;
+            }
+
+            body.innerHTML = bodyHtml;
+            modal.classList.add('show');
+        }
+
+        function closeWeatherModal() {
+            const modal = document.getElementById('weatherModal');
+            if (modal) modal.classList.remove('show');
+            pendingDisclosureMsgId = null;
+        }
+
+        function confirmWeatherAndGenerate() {
+            closeWeatherModal();
+            if (pendingDisclosureMsgId) {
+                doGenerateDisclosure(pendingDisclosureMsgId);
+                pendingDisclosureMsgId = null;
+            }
+        }
+
+        // ==================== 生成交底卡功能 ====================
+        async function generateDisclosure(msgId) {
+            const msg = messages.find(m => m.id === msgId);
+            if (!msg) return;
+
+            // 检查是否选择了作业地点
+            if (!selectedCity) {
+                if (confirm('请先选择作业地点和日期，是否前往选择？')) {
+                    window.location.href = 'agent-entry.html';
+                }
+                return;
+            }
+
+            const workDate = localStorage.getItem('workDate');
+            if (!workDate) {
+                if (confirm('请先选择作业日期，是否前往选择？')) {
+                    window.location.href = 'agent-entry.html';
+                }
+                return;
+            }
+
+            // 如果已有天气结果且是高危，直接弹窗拒绝
+            if (currentWeatherResult && currentWeatherResult.highRisks && currentWeatherResult.highRisks.length > 0) {
+                showWeatherModal(currentWeatherResult, true);
+                return;
+            }
+
+            // 先做天气检查
+            try {
+                const resp = await fetch(API_BASE + '/weather-check', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        cityCode: selectedCity.cityCode,
+                        cityName: selectedCity.cityName,
+                        workDate: workDate
+                    })
+                });
+                if (resp.ok) {
+                    const result = await resp.json();
+                    currentWeatherResult = result;
+                    updateWeatherBadge(result);
+
+                    if (result.highRisks && result.highRisks.length > 0) {
+                        // 高危天气，弹窗拒绝
+                        pendingDisclosureMsgId = msgId;
+                        showWeatherModal(result, true);
+                        return;
+                    } else if (result.mediumRisks && result.mediumRisks.length > 0) {
+                        // 中等风险，弹窗确认
+                        pendingDisclosureMsgId = msgId;
+                        showWeatherModal(result, true);
+                        return;
+                    }
+                }
+            } catch(err) {
+                console.warn('天气检查失败，跳过:', err);
+            }
+
+            // 天气正常，直接生成
+            doGenerateDisclosure(msgId);
+        }
+
+        async function doGenerateDisclosure(msgId) {
+            const msg = messages.find(m => m.id === msgId);
+            if (!msg) return;
+
+            const btn = document.querySelector(`[onclick="generateDisclosure('${msgId}')"]`);
+            if (btn) {
+                btn.disabled = true;
+                btn.style.opacity = '0.6';
+                const originalText = btn.innerHTML;
+                btn.innerHTML = '<svg viewBox="0 0 24 24" style="width:12px;height:12px;fill:currentColor;animation:model-spin 0.8s linear infinite;"><path d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46C19.54 15.03 20 13.57 20 12c0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6 0-1.01.25-1.97.7-2.8L5.24 7.74C4.46 8.97 4 10.43 4 12c0 4.42 3.58 8 8 8v3l4-4-4-4v3z"/></svg>生成中...';
+            }
+
+            try {
+                // 获取当前对话的所有消息作为任务描述
+                const conversationText = messages
+                    .filter(m => !m.loading)
+                    .map(m => (m.role === 'user' ? '用户：' : '助手：') + m.content)
+                    .join('\n\n');
+
+                // 获取第一条用户消息作为任务名称
+                const firstUserMsg = messages.find(m => m.role === 'user' && !m.loading);
+                const currentChatObj = chats.find(c => c.id === currentChatId);
+                const taskName = firstUserMsg ? firstUserMsg.content.substring(0, 50) : (currentChatObj ? currentChatObj.title : '交底任务');
+
+                // 使用完整流程接口：任务解析 + 危险源识别 + 措施生成 + 交底卡生成
+                const flowResp = await fetch(API_BASE + '/complete-flow', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        taskName: taskName,
+                        taskDesc: conversationText,
+                        taskText: conversationText
+                    })
+                });
+
+                if (!flowResp.ok) {
+                    throw new Error('生成交底卡失败');
+                }
+
+                const flowData = await flowResp.json();
+                const disclosure = flowData.disclosure;
+
+                if (!disclosure || !disclosure.id) {
+                    throw new Error('交底卡生成失败');
+                }
+
+                const disclosureId = disclosure.id;
+
+                // 保存taskId到当前会话
+                if (currentChatObj && flowData.task && flowData.task.id) {
+                    currentChatObj.taskId = flowData.task.id;
+                    saveChats();
+                }
+
+                if (disclosureId) {
+                    // 保存disclosureId到消息
+                    msg.disclosureId = disclosureId;
+                    saveCurrentMessages();
+                    renderMessages();
+                } else {
+                    alert('交底卡生成成功，但未能获取ID');
+                }
+
+            } catch(err) {
+                console.error('生成交底卡失败:', err);
+                alert('生成交底卡失败：' + err.message + '\n\n请检查后端服务是否正常运行，且相关接口已实现。');
+            } finally {
+                if (btn) {
+                    btn.disabled = false;
+                    btn.style.opacity = '';
+                }
+            }
+        }
+
+        // ==================== 其他功能 ====================
+        function goToDashboard() {
+            window.location.href = 'dashboard.html?module=home';
+        }
+
+        function toggleSidebar() {
+            const sidebar = document.querySelector('.chat-sidebar');
+            sidebar.style.display = sidebar.style.display === 'none' ? 'flex' : 'none';
+        }
+
+        function handleImageUpload(event) {
+            const file = event.target.files[0];
+            if (file) {
+                alert('图片上传功能开发中，敬请期待');
+            }
+            event.target.value = '';
+        }
+
+        function toggleVoiceInput() {
+            alert('语音输入功能开发中，敬请期待');
+        }
+
+        // 页面加载
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', init);
+        } else {
+            init();
+        }
+    </script>
+
+    <!-- 天气弹窗 -->
+    <div class="weather-modal-overlay" id="weatherModal" onclick="if(event.target===this)closeWeatherModal()">
+        <div class="weather-modal">
+            <div class="weather-modal-header">
+                <div class="weather-modal-icon" id="weatherModalIcon">⚠️</div>
+                <div>
+                    <div class="weather-modal-title" id="weatherModalTitle">天气检查</div>
+                    <div class="weather-modal-subtitle" id="weatherModalSubtitle"></div>
+                </div>
+            </div>
+            <div class="weather-modal-body" id="weatherModalBody">
+                <!-- 动态内容 -->
+            </div>
+            <div class="weather-modal-footer" id="weatherModalFooter">
+                <button class="weather-modal-btn secondary" onclick="closeWeatherModal()">关闭</button>
+                <button class="weather-modal-btn primary" id="weatherModalConfirmBtn" onclick="confirmWeatherAndGenerate()">继续生成</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

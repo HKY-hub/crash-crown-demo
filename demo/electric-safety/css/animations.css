@@ -1,0 +1,196 @@
+/* ===================== 高压铁塔淡入 ===================== */
+@keyframes tower-fade {
+    0%, 100% { opacity: 0.12; }
+    50% { opacity: 0.25; }
+}
+
+/* ===================== 能量粒子上升 ===================== */
+@keyframes particle-rise {
+    0% {
+        opacity: 0;
+        transform: translateY(0) scale(1);
+    }
+    20% {
+        opacity: 0.8;
+    }
+    80% {
+        opacity: 0.6;
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-120px) scale(0.3);
+    }
+}
+
+/* ===================== 电路连线绘制 ===================== */
+@keyframes circuit-draw {
+    0% {
+        opacity: 0;
+        stroke-dashoffset: 300;
+    }
+    30% {
+        opacity: 1;
+    }
+    80% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        stroke-dashoffset: 0;
+    }
+}
+
+/* ===================== 节点脉冲 ===================== */
+@keyframes node-pulse {
+    0%, 100% {
+        box-shadow: 0 0 8px #00b4ff, 0 0 20px rgba(0, 180, 255, 0.3);
+        transform: scale(1);
+    }
+    50% {
+        box-shadow: 0 0 16px #00b4ff, 0 0 40px rgba(0, 180, 255, 0.5);
+        transform: scale(1.3);
+    }
+}
+
+/* ===================== 安全环脉冲 ===================== */
+@keyframes ring-pulse {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 0.15;
+        border-color: rgba(255, 140, 0, 0.1);
+    }
+    50% {
+        transform: scale(1.05);
+        opacity: 0.3;
+        border-color: rgba(255, 140, 0, 0.2);
+    }
+}
+
+/* ===================== 卡片滑入 ===================== */
+@keyframes slide-in {
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.97);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.card {
+    animation: slide-in 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ===================== 表单项淡入 ===================== */
+@keyframes fade-in-up {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.form-group {
+    animation: fade-in-up 0.4s ease-out backwards;
+}
+
+.form-group:nth-child(1) { animation-delay: 0.1s; }
+.form-group:nth-child(2) { animation-delay: 0.18s; }
+.form-group:nth-child(3) { animation-delay: 0.26s; }
+.form-group:nth-child(4) { animation-delay: 0.34s; }
+
+/* ===================== 波纹点击效果 ===================== */
+@keyframes ripple {
+    0% {
+        transform: scale(0.5);
+        opacity: 0.6;
+    }
+    100% {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
+
+.btn:focus::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 30px;
+    height: 30px;
+    background: rgba(255, 255, 255, 0.4);
+    border-radius: 50%;
+    transform: translate(-50%, -50%) scale(0.5);
+    animation: ripple 0.6s ease-out;
+}
+
+/* ===================== 标题闪烁（电光效果） ===================== */
+@keyframes flicker {
+    0%, 100% { opacity: 1; }
+    92% { opacity: 1; }
+    93% { opacity: 0.85; }
+    94% { opacity: 1; }
+    96% { opacity: 0.9; }
+    97% { opacity: 1; }
+}
+
+.card-header h1 {
+    animation: flicker 5s ease-in-out infinite;
+}
+
+/* ===================== 输入框聚焦辉光 ===================== */
+@keyframes input-glow {
+    0% {
+        box-shadow: 0 0 0 rgba(0, 180, 255, 0);
+    }
+    50% {
+        box-shadow: 0 0 30px rgba(0, 180, 255, 0.2);
+    }
+    100% {
+        box-shadow: 0 0 20px rgba(0, 180, 255, 0.12), inset 0 0 20px rgba(0, 180, 255, 0.04);
+    }
+}
+
+.form-group input:focus {
+    animation: input-glow 0.3s ease-out;
+}
+
+/* ===================== 电路流动（保留原有，增强） ===================== */
+@keyframes electric-flow {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+}
+
+/* ===================== 闪电闪烁 ===================== */
+@keyframes lightning-flash {
+    0%, 100% {
+        opacity: 0.2;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.6;
+        transform: scale(1.15);
+    }
+}
+
+/* ===================== 悬浮 ===================== */
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-12px); }
+}
+
+/* ===================== 安全警示文字闪烁 ===================== */
+@keyframes warning-blink {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 1; }
+}
+
+/* ===================== 环境光扫描 ===================== */
+@keyframes ambient-scan {
+    0% { transform: translateX(-100%) rotate(45deg); }
+    100% { transform: translateX(200%) rotate(45deg); }
+}

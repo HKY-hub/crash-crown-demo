@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <script src="js/demo.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>智能交底Agent - 电力风险智能交底系统</title>
+    <link rel="stylesheet" href="css/pc-style.css">
+    <script src="js/theme.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+        }
+
+        .landing-page {
+            min-height: 100vh;
+            background: var(--pc-bg-page);
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* 顶部导航 */
+        .landing-header {
+            height: 64px;
+            background: var(--pc-bg-elevated);
+            border-bottom: 1px solid var(--pc-border-secondary);
+            display: flex;
+            align-items: center;
+            padding: 0 40px;
+            flex-shrink: 0;
+        }
+
+        .landing-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--pc-text-primary);
+            cursor: pointer;
+        }
+
+        .landing-logo-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--pc-primary) 0%, var(--pc-primary-dark) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0, 82, 204, 0.3);
+        }
+
+        .landing-logo-icon svg {
+            width: 22px;
+            height: 22px;
+            fill: #fff;
+        }
+
+        .landing-header-right {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .back-btn {
+            padding: 8px 18px;
+            border: 1px solid var(--pc-border-primary);
+            background: transparent;
+            color: var(--pc-text-secondary);
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .back-btn:hover {
+            background: var(--pc-bg-tertiary);
+            color: var(--pc-text-primary);
+        }
+
+        /* 主体内容 */
+        .landing-main {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 40px;
+        }
+
+        .landing-content {
+            max-width: 560px;
+            text-align: center;
+            animation: fadeInUp 0.6s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .landing-icon-wrapper {
+            width: 96px;
+            height: 96px;
+            margin: 0 auto 32px;
+            border-radius: 28px;
+            background: linear-gradient(135deg, var(--pc-primary) 0%, var(--pc-primary-dark) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 24px rgba(0, 82, 204, 0.3);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                box-shadow: 0 8px 24px rgba(0, 82, 204, 0.3);
+            }
+            50% {
+                box-shadow: 0 8px 32px rgba(0, 82, 204, 0.5);
+            }
+        }
+
+        .landing-icon-wrapper svg {
+            width: 48px;
+            height: 48px;
+            fill: #fff;
+        }
+
+        .landing-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--pc-text-primary);
+            margin-bottom: 16px;
+            line-height: 1.3;
+        }
+
+        .landing-subtitle {
+            font-size: 16px;
+            color: var(--pc-text-secondary);
+            line-height: 1.7;
+            margin-bottom: 40px;
+        }
+
+        .landing-features {
+            display: flex;
+            gap: 24px;
+            margin-bottom: 48px;
+            justify-content: center;
+        }
+
+        .landing-feature {
+            flex: 1;
+            max-width: 160px;
+            padding: 20px 16px;
+            background: var(--pc-bg-elevated);
+            border: 1px solid var(--pc-border-secondary);
+            border-radius: 16px;
+            transition: all 0.25s ease;
+        }
+
+        .landing-feature:hover {
+            border-color: var(--pc-primary);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(0, 82, 204, 0.15);
+        }
+
+        .landing-feature-icon {
+            width: 44px;
+            height: 44px;
+            margin: 0 auto 12px;
+            border-radius: 12px;
+            background: rgba(0, 114, 229, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .landing-feature-icon svg {
+            width: 22px;
+            height: 22px;
+            fill: var(--pc-primary);
+        }
+
+        .landing-feature-text {
+            font-size: 13px;
+            color: var(--pc-text-secondary);
+            font-weight: 500;
+        }
+
+        .start-agent-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 16px 48px;
+            background: linear-gradient(135deg, var(--pc-primary) 0%, var(--pc-primary-dark) 100%);
+            color: #fff;
+            border: none;
+            border-radius: 14px;
+            font-size: 17px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            box-shadow: 0 6px 20px rgba(0, 82, 204, 0.35);
+        }
+
+        .start-agent-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 28px rgba(0, 82, 204, 0.45);
+        }
+
+        .start-agent-btn:active {
+            transform: translateY(0);
+        }
+
+        .start-agent-btn svg {
+            width: 20px;
+            height: 20px;
+            fill: #fff;
+        }
+
+        .landing-hint {
+            margin-top: 20px;
+            font-size: 13px;
+            color: var(--pc-text-tertiary);
+        }
+
+        /* 底部 */
+        .landing-footer {
+            padding: 24px 40px;
+            text-align: center;
+            color: var(--pc-text-quaternary);
+            font-size: 12px;
+            border-top: 1px solid var(--pc-border-secondary);
+            flex-shrink: 0;
+        }
+    </style>
+    <link rel="stylesheet" href="css/demo.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%231677ff'/%3E%3Cpath d='M4 8l3 3 5-6' stroke='white' stroke-width='2' fill='none'/%3E%3C/svg%3E">
+</head>
+<body>
+    <div class="landing-page">
+        <!-- 顶部导航 -->
+        <header class="landing-header">
+            <div class="landing-logo" onclick="goBack()">
+                <div class="landing-logo-icon">
+                    <svg viewBox="0 0 24 24"><path d="M13 3L4 14h7v7l9-11h-7V3z"/></svg>
+                </div>
+                <span>电力风险智能交底系统</span>
+            </div>
+            <div class="landing-header-right">
+                <button class="back-btn" onclick="goBack()">← 返回首页</button>
+            </div>
+        </header>
+
+        <!-- 主体内容 -->
+        <main class="landing-main">
+            <div class="landing-content">
+                <div class="landing-icon-wrapper">
+                    <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/></svg>
+                </div>
+
+                <h1 class="landing-title">智能交底 Agent</h1>
+
+                <p class="landing-subtitle">
+                    请选择作业地点和日期进行作业<br>
+                    系统将自动检测天气条件，为您提供专业的电力安全交底服务
+                </p>
+
+                <div class="landing-features">
+                    <div class="landing-feature">
+                        <div class="landing-feature-icon">
+                            <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                        </div>
+                        <div class="landing-feature-text">地图选点</div>
+                    </div>
+                    <div class="landing-feature">
+                        <div class="landing-feature-icon">
+                            <svg viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM9 10H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2z"/></svg>
+                        </div>
+                        <div class="landing-feature-text">选择日期</div>
+                    </div>
+                    <div class="landing-feature">
+                        <div class="landing-feature-icon">
+                            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                        </div>
+                        <div class="landing-feature-text">天气检测</div>
+                    </div>
+                </div>
+
+                <button class="start-agent-btn" onclick="startAgent()">
+                    <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                    开始设置作业信息
+                </button>
+
+                <div class="landing-hint">
+                    恶劣天气将自动提醒并限制作业交底
+                </div>
+            </div>
+        </main>
+
+        <!-- 底部 -->
+        <footer class="landing-footer">
+            电力风险智能交底系统 · 专业电力安全管理平台
+        </footer>
+    </div>
+
+    <script>
+        function startAgent() {
+            window.location.href = 'agent-map.html';
+        }
+
+        function goBack() {
+            window.location.href = 'dashboard.html?module=home';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <script src="js/demo.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>事故案例库 - 电力风险智能交底系统</title>
+    <link rel="stylesheet" href="css/pc-style.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        .page-wrapper {
+            min-height: 100vh;
+            background: var(--pc-bg-body);
+            padding-top: 80px;
+            padding-bottom: 40px;
+        }
+        
+        .page-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+        
+        .page-header {
+            margin-bottom: 24px;
+        }
+        
+        .page-header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--pc-text-primary);
+            margin-bottom: 8px;
+            background: var(--pc-gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .page-header p {
+            font-size: 14px;
+            color: var(--pc-text-tertiary);
+        }
+        
+        .title-divider {
+            height: 3px;
+            background: var(--pc-gradient-primary);
+            border-radius: 2px;
+            margin-top: 16px;
+            position: relative;
+        }
+        
+        .title-divider::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 10px;
+            height: 10px;
+            background: var(--pc-warning);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--pc-warning);
+        }
+        
+        .filter-bar {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+        
+        .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .filter-group label {
+            font-size: 13px;
+            color: var(--pc-text-secondary);
+            white-space: nowrap;
+        }
+        
+        .filter-select {
+            height: 36px;
+            padding: 0 12px;
+            border: 1px solid var(--pc-border-light);
+            border-radius: var(--pc-radius-md);
+            background: #fff;
+            font-size: 13px;
+            color: var(--pc-text-primary);
+            cursor: pointer;
+            outline: none;
+            transition: all 0.2s ease;
+        }
+        
+        .filter-select:focus {
+            border-color: var(--pc-primary);
+            box-shadow: 0 0 0 3px rgba(0, 82, 204, 0.1);
+        }
+        
+        .search-box {
+            position: relative;
+            flex: 1;
+            max-width: 360px;
+            margin-left: auto;
+        }
+        
+        .search-box input {
+            width: 100%;
+            height: 36px;
+            padding: 0 12px 0 36px;
+            border: 1px solid var(--pc-border-light);
+            border-radius: var(--pc-radius-md);
+            background: #fff;
+            font-size: 13px;
+            outline: none;
+            transition: all 0.2s ease;
+        }
+        
+        .search-box input:focus {
+            border-color: var(--pc-primary);
+            box-shadow: 0 0 0 3px rgba(0, 82, 204, 0.1);
+        }
+        
+        .search-icon {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--pc-text-tertiary);
+            width: 16px;
+            height: 16px;
+        }
+        
+        .cases-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+            gap: 20px;
+        }
+        
+        .case-card {
+            background: #fff;
+            border-radius: var(--pc-radius-lg);
+            border: 1px solid var(--pc-border-light);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .case-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+            border-color: var(--pc-primary);
+        }
+        
+        .case-card-header {
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--pc-border-light);
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 12px;
+        }
+        
+        .case-card-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--pc-text-primary);
+            line-height: 1.5;
+            flex: 1;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        
+        .severity-badge {
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        
+        .severity-critical {
+            background: linear-gradient(135deg, #ff4757, #ff3838);
+            color: #fff;
+        }
+        
+        .severity-major {
+            background: linear-gradient(135deg, #ff7f50, #ff6348);
+            color: #fff;
+        }
+        
+        .severity-larger {
+            background: linear-gradient(135deg, #ffa502, #ff9f1a);
+            color: #fff;
+        }
+        
+        .severity-general {
+            background: linear-gradient(135deg, #2ed573, #1dd1a1);
+            color: #fff;
+        }
+        
+        .case-card-body {
+            padding: 16px 20px;
+        }
+        
+        .case-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px 16px;
+            margin-bottom: 12px;
+        }
+        
+        .case-meta-item {
+            font-size: 12px;
+            color: var(--pc-text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        
+        .case-meta-item span:first-child {
+            color: var(--pc-text-tertiary);
+        }
+        
+        .case-meta-item span:last-child {
+            color: var(--pc-text-primary);
+            font-weight: 500;
+        }
+        
+        .case-desc {
+            font-size: 13px;
+            color: var(--pc-text-secondary);
+            line-height: 1.7;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        
+        .case-card-footer {
+            padding: 12px 20px;
+            border-top: 1px solid var(--pc-border-light);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--pc-bg-gray);
+        }
+        
+        .case-date {
+            font-size: 12px;
+            color: var(--pc-text-tertiary);
+        }
+        
+        .case-view-btn {
+            font-size: 13px;
+            color: var(--pc-primary);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        
+        .case-view-btn svg {
+            width: 14px;
+            height: 14px;
+            transition: transform 0.2s ease;
+        }
+        
+        .case-card:hover .case-view-btn svg {
+            transform: translateX(2px);
+        }
+        
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            margin-top: 32px;
+        }
+        
+        .page-btn {
+            min-width: 36px;
+            height: 36px;
+            padding: 0 12px;
+            border: 1px solid var(--pc-border-light);
+            border-radius: var(--pc-radius-md);
+            background: #fff;
+            font-size: 13px;
+            color: var(--pc-text-primary);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .page-btn:hover:not(:disabled) {
+            border-color: var(--pc-primary);
+            color: var(--pc-primary);
+        }
+        
+        .page-btn.active {
+            background: var(--pc-primary);
+            border-color: var(--pc-primary);
+            color: #fff;
+        }
+        
+        .page-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .page-info {
+            font-size: 13px;
+            color: var(--pc-text-tertiary);
+            margin: 0 8px;
+        }
+        
+        .detail-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .detail-modal-overlay.active {
+            display: flex;
+        }
+        
+        .detail-modal {
+            background: #fff;
+            border-radius: var(--pc-radius-lg);
+            width: 100%;
+            max-width: 800px;
+            max-height: 85vh;
+            overflow-y: auto;
+            animation: modalFadeIn 0.3s ease;
+        }
+        
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .detail-modal-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--pc-border-light);
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 16px;
+            position: sticky;
+            top: 0;
+            background: #fff;
+            z-index: 1;
+        }
+        
+        .detail-modal-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--pc-text-primary);
+            line-height: 1.5;
+            flex: 1;
+        }
+        
+        .detail-close-btn {
+            width: 32px;
+            height: 32px;
+            border: none;
+            background: var(--pc-bg-gray);
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--pc-text-secondary);
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+        }
+        
+        .detail-close-btn:hover {
+            background: var(--pc-border-light);
+            color: var(--pc-text-primary);
+        }
+        
+        .detail-modal-body {
+            padding: 24px;
+        }
+        
+        .detail-section {
+            margin-bottom: 24px;
+        }
+        
+        .detail-section:last-child {
+            margin-bottom: 0;
+        }
+        
+        .detail-section-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--pc-text-primary);
+            margin-bottom: 12px;
+            padding-left: 12px;
+            border-left: 3px solid var(--pc-primary);
+        }
+        
+        .detail-meta-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        
+        .detail-meta-item {
+            background: var(--pc-bg-gray);
+            padding: 12px 16px;
+            border-radius: var(--pc-radius-md);
+        }
+        
+        .detail-meta-label {
+            font-size: 12px;
+            color: var(--pc-text-tertiary);
+            margin-bottom: 4px;
+        }
+        
+        .detail-meta-value {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--pc-text-primary);
+        }
+        
+        .detail-content {
+            font-size: 14px;
+            color: var(--pc-text-secondary);
+            line-height: 1.8;
+        }
+        
+        .hazard-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .hazard-tag {
+            padding: 6px 12px;
+            background: rgba(255, 107, 107, 0.1);
+            color: #ff6b6b;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 80px 20px;
+            color: var(--pc-text-tertiary);
+        }
+        
+        .empty-state svg {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 16px;
+            opacity: 0.5;
+        }
+        
+        .empty-state p {
+            font-size: 14px;
+        }
+    </style>
+    <script src="js/theme.js"></script>
+    <link rel="stylesheet" href="css/demo.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%231677ff'/%3E%3Cpath d='M4 8l3 3 5-6' stroke='white' stroke-width='2' fill='none'/%3E%3C/svg%3E">
+</head>
+<body>
+    <div class="pc-sidebar-layout">
+        <aside class="pc-sidebar">
+            <div class="pc-sidebar::before"></div>
+            <div class="pc-sidebar-header">
+                <div class="pc-sidebar-logo">
+                    <div class="pc-sidebar-logo-icon">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                        </svg>
+                    </div>
+                    <div class="pc-sidebar-logo-text">
+                        <div class="pc-sidebar-logo-title">电力风险智能交底</div>
+                        <div class="pc-sidebar-logo-subtitle">RISK DISCLOSURE</div>
+                    </div>
+                </div>
+            </div>
+            <nav class="pc-sidebar-menu">
+                <div class="pc-sidebar-item"><a href="dashboard.html" class="pc-sidebar-link">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg>
+                    <span>首页</span></a></div>
+                <div class="pc-sidebar-item"><a href="dashboard.html?module=tasks" class="pc-sidebar-link">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm4 18H6V4h7v5h5v11z"/></svg>
+                    <span>任务管理</span></a></div>
+                <div class="pc-sidebar-item"><a href="dashboard.html?module=hazards" class="pc-sidebar-link">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>
+                    <span>风险辨识</span></a></div>
+                <div class="pc-sidebar-item"><a href="dashboard.html?module=disclosures" class="pc-sidebar-link">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+                    <span>安全交底</span></a></div>
+                <div class="pc-sidebar-item"><a href="weather-risk.html" class="pc-sidebar-link">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.76 4.84l-1.8-1.79-1.41 1.41 1.79 1.79 1.42-1.41zM4 10.5H1v2h3v-2zm9-9.95h-2V3.5h2V.55zm7.45 3.91l-1.41-1.41-1.79 1.79 1.41 1.41 1.79-1.79zm-3.21 13.7l1.79 1.8 1.41-1.41-1.8-1.79-1.4 1.4zM20 10.5v2h3v-2h-3zm-8-5c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6zm-1 16.95h2V19.5h-2v2.95zm-7.45-3.91l1.41 1.41 1.79-1.8-1.41-1.41-1.79 1.8z"/></svg>
+                    <span>天气预警</span></a></div>
+                <div class="pc-sidebar-item active"><a href="accident-cases.html" class="pc-sidebar-link">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+                    <span>事故案例</span></a></div>
+                <div class="pc-sidebar-item"><a href="chat.html" class="pc-sidebar-link">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
+                    <span>智能交底Agent</span></a></div>
+                <div class="pc-sidebar-item"><a href="dashboard.html?module=dictionary" class="pc-sidebar-link">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+                    <span>字典管理</span></a></div>
+            </nav>
+            <div class="pc-sidebar-footer">
+                <div class="pc-sidebar-user" id="sidebarUser">
+                    <div class="pc-sidebar-avatar">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                        </svg>
+                    </div>
+                    <div class="pc-sidebar-user-info">
+                        <div class="pc-sidebar-user-name" id="usernameDisplay">用户</div>
+                        <div class="pc-sidebar-user-role" id="userRoleDisplay">操作员</div>
+                    </div>
+                    <div class="pc-sidebar-dropdown-menu">
+                        <div class="pc-dropdown-item" onclick="window.location.href='profile.html'">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                            <span>个人信息</span>
+                        </div>
+                        <div class="pc-dropdown-divider"></div>
+                        <div class="pc-dropdown-item logout" onclick="logout()">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M10.09 15.59L11.5 17l5-5-5-5-1.41 1.41L12.67 11H3v2h9.67l-2.58 2.59zM19 3H5c-1.11 0-2 .9-2 2v4h2V5h14v14H5v-4H3v4c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"/></svg>
+                            <span>退出登录</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <main class="pc-main-content">
+            <div class="page-wrapper">
+                <div class="page-container">
+                    <div class="page-header">
+                        <h1>事故案例库</h1>
+                        <p>电力行业典型事故案例汇总，吸取历史教训，防范同类事故发生</p>
+                        <div class="title-divider"></div>
+                    </div>
+
+                    <div class="filter-bar">
+                        <div class="filter-group">
+                            <label>事故类型</label>
+                            <select class="filter-select" id="filterType">
+                                <option value="">全部类型</option>
+                                <option value="触电">触电</option>
+                                <option value="高处坠落">高处坠落</option>
+                                <option value="误操作">误操作</option>
+                                <option value="火灾">火灾</option>
+                                <option value="坍塌">坍塌</option>
+                                <option value="物体打击">物体打击</option>
+                                <option value="机械伤害">机械伤害</option>
+                                <option value="其他">其他</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label>电压等级</label>
+                            <select class="filter-select" id="filterVoltage">
+                                <option value="">全部电压</option>
+                                <option value="低压">低压</option>
+                                <option value="10kV">10kV</option>
+                                <option value="35kV">35kV</option>
+                                <option value="110kV">110kV</option>
+                                <option value="220kV">220kV</option>
+                                <option value="500kV">500kV</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label>严重程度</label>
+                            <select class="filter-select" id="filterSeverity">
+                                <option value="">全部等级</option>
+                                <option value="一般">一般</option>
+                                <option value="较大">较大</option>
+                                <option value="重大">重大</option>
+                                <option value="特别重大">特别重大</option>
+                            </select>
+                        </div>
+                        <div class="search-box">
+                            <svg class="search-icon" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                            </svg>
+                            <input type="text" id="searchInput" placeholder="搜索案例名称或内容...">
+                        </div>
+                    </div>
+
+                    <div class="cases-grid" id="casesGrid">
+                    </div>
+
+                    <div class="pagination" id="pagination"></div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div class="detail-modal-overlay" id="detailModal">
+        <div class="detail-modal">
+            <div class="detail-modal-header">
+                <div class="detail-modal-title" id="detailTitle">案例标题</div>
+                <button class="detail-close-btn" onclick="closeDetail()">
+                    <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
+                        <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="detail-modal-body" id="detailBody">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE_URL = '/api';
+        let allCases = [];
+        let filteredCases = [];
+        let currentPage = 1;
+        const pageSize = 12;
+
+        function getToken() {
+            return localStorage.getItem('token') || '';
+        }
+
+        function checkAuth() {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                window.location.href = 'index.html';
+                return false;
+            }
+            const username = localStorage.getItem('username');
+            if (username) {
+                const displays = ['usernameDisplay'];
+                displays.forEach(id => {
+                    const el = document.getElementById(id);
+                    if (el) el.textContent = username;
+                });
+            }
+            const role = localStorage.getItem('role');
+            const roleDisplay = document.getElementById('userRoleDisplay');
+            if (roleDisplay && role) {
+                const roleMap = { admin: '管理员', operator: '操作员', supervisor: '监理' };
+                roleDisplay.textContent = roleMap[role] || role;
+            }
+            const sidebarUser = document.getElementById('sidebarUser');
+            if (sidebarUser) {
+                sidebarUser.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    this.classList.toggle('open');
+                });
+                document.addEventListener('click', function() {
+                    sidebarUser.classList.remove('open');
+                });
+            }
+            return true;
+        }
+
+        function logout() {
+            localStorage.removeItem('token');
+            localStorage.removeItem('username');
+            localStorage.removeItem('role');
+            window.location.href = 'index.html';
+        }
+
+        function getSeverityClass(severity) {
+            const map = {
+                '特别重大': 'severity-critical',
+                '重大': 'severity-major',
+                '较大': 'severity-larger',
+                '一般': 'severity-general'
+            };
+            return map[severity] || 'severity-general';
+        }
+
+        function formatDate(dateStr) {
+            if (!dateStr) return '未知';
+            const d = new Date(dateStr);
+            if (isNaN(d)) return dateStr.substring(0, 10);
+            return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+        }
+
+        async function loadCases() {
+            try {
+                const res = await fetch(`${API_BASE_URL}/accident-cases`, {
+                    headers: { 'Authorization': 'Bearer ' + getToken() }
+                });
+                const data = await res.json();
+                allCases = Array.isArray(data) ? data : (data.data || []);
+                filteredCases = [...allCases];
+                applyFilters();
+            } catch (e) {
+                console.error('加载案例失败:', e);
+                document.getElementById('casesGrid').innerHTML = `
+                    <div class="empty-state" style="grid-column: 1 / -1;">
+                        <p>加载失败，请刷新重试</p>
+                    </div>`;
+            }
+        }
+
+        function applyFilters() {
+            const type = document.getElementById('filterType').value;
+            const voltage = document.getElementById('filterVoltage').value;
+            const severity = document.getElementById('filterSeverity').value;
+            const keyword = document.getElementById('searchInput').value.trim().toLowerCase();
+
+            filteredCases = allCases.filter(c => {
+                if (type && c.accidentType !== type) return false;
+                if (voltage && c.voltageLevel !== voltage) return false;
+                if (severity && c.severity !== severity) return false;
+                if (keyword) {
+                    const searchText = (c.caseName + c.caseDesc + c.causeAnalysis).toLowerCase();
+                    if (!searchText.includes(keyword)) return false;
+                }
+                return true;
+            });
+
+            currentPage = 1;
+            renderCases();
+            renderPagination();
+        }
+
+        function renderCases() {
+            const grid = document.getElementById('casesGrid');
+            const start = (currentPage - 1) * pageSize;
+            const pageData = filteredCases.slice(start, start + pageSize);
+
+            if (pageData.length === 0) {
+                grid.innerHTML = `
+                    <div class="empty-state" style="grid-column: 1 / -1;">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm4 18H6V4h7v5h5v11z"/>
+                        </svg>
+                        <p>暂无匹配的事故案例</p>
+                    </div>`;
+                return;
+            }
+
+            grid.innerHTML = pageData.map(c => `
+                <div class="case-card" onclick="showDetail(${c.id})">
+                    <div class="case-card-header">
+                        <div class="case-card-title">${c.caseName || '未命名案例'}</div>
+                        <span class="severity-badge ${getSeverityClass(c.severity)}">${c.severity || '一般'}</span>
+                    </div>
+                    <div class="case-card-body">
+                        <div class="case-meta">
+                            <div class="case-meta-item"><span>类型</span><span>${c.accidentType || '-'}</span></div>
+                            <div class="case-meta-item"><span>电压</span><span>${c.voltageLevel || '-'}</span></div>
+                            <div class="case-meta-item"><span>作业</span><span>${c.workType || '-'}</span></div>
+                        </div>
+                        <div class="case-desc">${c.caseDesc || ''}</div>
+                    </div>
+                    <div class="case-card-footer">
+                        <span class="case-date">发生时间：${formatDate(c.occurTime)}</span>
+                        <span class="case-view-btn">
+                            查看详情
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+                            </svg>
+                        </span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderPagination() {
+            const totalPages = Math.ceil(filteredCases.length / pageSize);
+            const pagination = document.getElementById('pagination');
+
+            if (totalPages <= 1) {
+                pagination.innerHTML = `<span class="page-info">共 ${filteredCases.length} 条案例</span>`;
+                return;
+            }
+
+            let html = `<button class="page-btn" onclick="goPage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>上一页</button>`;
+
+            const maxBtns = 7;
+            let startPage = Math.max(1, currentPage - Math.floor(maxBtns / 2));
+            let endPage = Math.min(totalPages, startPage + maxBtns - 1);
+            if (endPage - startPage < maxBtns - 1) {
+                startPage = Math.max(1, endPage - maxBtns + 1);
+            }
+
+            for (let i = startPage; i <= endPage; i++) {
+                html += `<button class="page-btn ${i === currentPage ? 'active' : ''}" onclick="goPage(${i})">${i}</button>`;
+            }
+
+            html += `<button class="page-btn" onclick="goPage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>下一页</button>`;
+            html += `<span class="page-info">共 ${filteredCases.length} 条 / ${totalPages} 页</span>`;
+
+            pagination.innerHTML = html;
+        }
+
+        function goPage(page) {
+            const totalPages = Math.ceil(filteredCases.length / pageSize);
+            if (page < 1 || page > totalPages) return;
+            currentPage = page;
+            renderCases();
+            renderPagination();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        async function showDetail(id) {
+            try {
+                const res = await fetch(`${API_BASE_URL}/accident-cases/${id}`, {
+                    headers: { 'Authorization': 'Bearer ' + getToken() }
+                });
+                const c = await res.json();
+                const caseData = c.data || c;
+
+                document.getElementById('detailTitle').textContent = caseData.caseName || '未命名案例';
+
+                document.getElementById('detailBody').innerHTML = `
+                    <div class="detail-meta-grid">
+                        <div class="detail-meta-item">
+                            <div class="detail-meta-label">事故类型</div>
+                            <div class="detail-meta-value">${caseData.accidentType || '-'}</div>
+                        </div>
+                        <div class="detail-meta-item">
+                            <div class="detail-meta-label">电压等级</div>
+                            <div class="detail-meta-value">${caseData.voltageLevel || '-'}</div>
+                        </div>
+                        <div class="detail-meta-item">
+                            <div class="detail-meta-label">作业类型</div>
+                            <div class="detail-meta-value">${caseData.workType || '-'}</div>
+                        </div>
+                        <div class="detail-meta-item">
+                            <div class="detail-meta-label">设备类型</div>
+                            <div class="detail-meta-value">${caseData.equipmentType || '-'}</div>
+                        </div>
+                        <div class="detail-meta-item">
+                            <div class="detail-meta-label">严重程度</div>
+                            <div class="detail-meta-value"><span class="severity-badge ${getSeverityClass(caseData.severity)}">${caseData.severity || '一般'}</span></div>
+                        </div>
+                        <div class="detail-meta-item">
+                            <div class="detail-meta-label">发生时间</div>
+                            <div class="detail-meta-value">${formatDate(caseData.occurTime)}</div>
+                        </div>
+                    </div>
+
+                    <div class="detail-section">
+                        <div class="detail-section-title">事故经过</div>
+                        <div class="detail-content">${caseData.caseDesc || '暂无'}</div>
+                    </div>
+
+                    <div class="detail-section">
+                        <div class="detail-section-title">原因分析</div>
+                        <div class="detail-content">${caseData.causeAnalysis || '暂无'}</div>
+                    </div>
+
+                    <div class="detail-section">
+                        <div class="detail-section-title">经验教训</div>
+                        <div class="detail-content">${caseData.lessonsLearned || '暂无'}</div>
+                    </div>
+
+                    ${caseData.hazardPoints ? `
+                    <div class="detail-section">
+                        <div class="detail-section-title">危险点</div>
+                        <div class="hazard-tags">
+                            ${caseData.hazardPoints.split(/[;；]/).filter(h => h.trim()).map(h => 
+                                `<span class="hazard-tag">${h.trim()}</span>`
+                            ).join('')}
+                        </div>
+                    </div>` : ''}
+                `;
+
+                document.getElementById('detailModal').classList.add('active');
+            } catch (e) {
+                console.error('加载详情失败:', e);
+            }
+        }
+
+        function closeDetail() {
+            document.getElementById('detailModal').classList.remove('active');
+        }
+
+        document.getElementById('detailModal').addEventListener('click', function(e) {
+            if (e.target === this) closeDetail();
+        });
+
+        document.getElementById('filterType').addEventListener('change', applyFilters);
+        document.getElementById('filterVoltage').addEventListener('change', applyFilters);
+        document.getElementById('filterSeverity').addEventListener('change', applyFilters);
+        
+        let searchTimer;
+        document.getElementById('searchInput').addEventListener('input', function() {
+            clearTimeout(searchTimer);
+            searchTimer = setTimeout(applyFilters, 300);
+        });
+
+        function getUrlParam(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            if (!checkAuth()) return;
+            loadCases().then(() => {
+                const typeParam = getUrlParam('type');
+                const severityParam = getUrlParam('severity');
+                const voltageParam = getUrlParam('voltage');
+                const keywordParam = getUrlParam('keyword');
+                
+                let hasFilter = false;
+                if (typeParam) {
+                    document.getElementById('filterType').value = typeParam;
+                    hasFilter = true;
+                }
+                if (severityParam) {
+                    document.getElementById('filterSeverity').value = severityParam;
+                    hasFilter = true;
+                }
+                if (voltageParam) {
+                    document.getElementById('filterVoltage').value = voltageParam;
+                    hasFilter = true;
+                }
+                if (keywordParam) {
+                    document.getElementById('searchInput').value = keywordParam;
+                    hasFilter = true;
+                }
+                if (hasFilter) {
+                    applyFilters();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

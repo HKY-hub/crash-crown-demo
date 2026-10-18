@@ -1,0 +1,2061 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <script src="js/demo.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>视觉违章检测 - 电力风险智能交底系统</title>
+    <link rel="stylesheet" href="css/pc-style.css">
+    <style>
+        /* 视觉监控页面专用样式 */
+        .vision-layout {
+            display: grid;
+            grid-template-columns: 1fr 380px;
+            gap: 20px;
+        }
+
+        .media-container {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background: var(--pc-metal-900);
+            border-radius: var(--pc-radius-lg);
+            overflow: hidden;
+        }
+
+        .media-wrapper {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #imageDisplay {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        #videoDisplay {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        #canvasOverlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .media-placeholder {
+            text-align: center;
+            color: var(--pc-text-tertiary);
+            padding: 40px;
+        }
+
+        .media-placeholder-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 16px;
+            opacity: 0.4;
+        }
+
+        .media-placeholder-icon svg {
+            width: 100%;
+            height: 100%;
+            fill: var(--pc-metal-500);
+        }
+
+        .media-placeholder h4 {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--pc-text-secondary);
+            margin-bottom: 8px;
+        }
+
+        .media-placeholder p {
+            font-size: 13px;
+            color: var(--pc-text-tertiary);
+            line-height: 1.6;
+        }
+
+        .upload-tabs {
+            display: flex;
+            gap: 4px;
+            background: var(--pc-metal-100);
+            border-radius: var(--pc-radius-md);
+            padding: 4px;
+            margin-bottom: 16px;
+        }
+
+        .upload-tab {
+            flex: 1;
+            padding: 10px 16px;
+            border: none;
+            background: transparent;
+            color: var(--pc-text-secondary);
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: var(--pc-radius-sm);
+            cursor: pointer;
+            transition: all var(--pc-transition-fast);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .upload-tab.active {
+            background: var(--pc-bg-card);
+            color: var(--pc-primary);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .upload-tab svg {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
+        }
+
+        .control-bar {
+            display: flex;
+            gap: 12px;
+            margin-top: 16px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .control-bar .pc-btn {
+            flex: none;
+        }
+
+        .image-count-badge {
+            background: var(--pc-primary);
+            color: #fff;
+            font-size: 12px;
+            font-weight: 600;
+            padding: 2px 10px;
+            border-radius: 12px;
+        }
+
+        .image-thumb-list {
+            margin-top: 12px;
+            background: var(--pc-bg-elevated);
+            border-radius: var(--pc-radius-md);
+            border: 1px solid var(--pc-border-secondary);
+            overflow: hidden;
+        }
+
+        .thumb-list-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 14px;
+            background: var(--pc-metal-50);
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--pc-text-secondary);
+            border-bottom: 1px solid var(--pc-border-secondary);
+        }
+
+        .thumb-list-count {
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--pc-text-tertiary);
+        }
+
+        .thumb-list-container {
+            display: flex;
+            gap: 8px;
+            padding: 10px;
+            overflow-x: auto;
+            overflow-y: hidden;
+            max-height: 110px;
+        }
+
+        .thumb-item {
+            position: relative;
+            flex: none;
+            width: 80px;
+            height: 80px;
+            border-radius: var(--pc-radius-sm);
+            overflow: hidden;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all var(--pc-transition-fast);
+        }
+
+        .thumb-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .thumb-item.active {
+            border-color: var(--pc-primary);
+            box-shadow: 0 0 0 2px rgba(22, 119, 255, 0.2);
+        }
+
+        .thumb-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .thumb-item-status {
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        .thumb-item-status.pending {
+            background: #86909C;
+        }
+
+        .thumb-item-status.success {
+            background: #00B42A;
+        }
+
+        .thumb-item-status.error {
+            background: #F53F3F;
+        }
+
+        .thumb-item-status.processing {
+            background: var(--pc-primary);
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .thumb-item-index {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.6);
+            color: #fff;
+            font-size: 10px;
+            text-align: center;
+            padding: 2px 0;
+        }
+
+        .thumb-remove-btn {
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: rgba(245, 63, 63, 0.9);
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            font-size: 12px;
+            line-height: 1;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+        }
+
+        .thumb-item:hover .thumb-remove-btn {
+            display: flex;
+        }
+
+        .video-controls {
+            display: none;
+            align-items: center;
+            gap: 12px;
+            margin-top: 12px;
+            padding: 12px;
+            background: var(--pc-metal-50);
+            border-radius: var(--pc-radius-md);
+        }
+
+        .video-controls.show {
+            display: flex;
+        }
+
+        .video-progress {
+            flex: 1;
+            height: 6px;
+            background: var(--pc-metal-200);
+            border-radius: 3px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .video-progress-bar {
+            height: 100%;
+            background: var(--pc-primary);
+            border-radius: 3px;
+            width: 0%;
+            transition: width 0.1s linear;
+        }
+
+        .video-time {
+            font-size: 12px;
+            color: var(--pc-text-tertiary);
+            font-family: 'Consolas', monospace;
+            min-width: 90px;
+            text-align: center;
+        }
+
+        .detection-types {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .detection-type {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            padding: 12px 8px;
+            background: var(--pc-bg-elevated);
+            border: 2px solid var(--pc-border-secondary);
+            border-radius: var(--pc-radius-md);
+            transition: all 0.25s ease;
+            cursor: pointer;
+            opacity: 0.5;
+            filter: grayscale(60%);
+        }
+
+        .detection-type:hover {
+            opacity: 0.7;
+            transform: translateY(-1px);
+        }
+
+        .detection-type.active {
+            opacity: 1;
+            filter: grayscale(0%);
+            transform: translateY(0);
+        }
+
+        /* 各类型激活时的主题色 */
+        .detection-type.active[data-type="helmet"] {
+            border-color: #00B42A;
+            background: rgba(0, 180, 42, 0.08);
+        }
+        .detection-type.active[data-type="helmet"] .detection-type-icon {
+            background: #00B42A;
+        }
+        .detection-type.active[data-type="helmet"] .detection-type-label {
+            color: #00B42A;
+        }
+
+        .detection-type.active[data-type="belt"] {
+            border-color: #FF7D00;
+            background: rgba(255, 125, 0, 0.08);
+        }
+        .detection-type.active[data-type="belt"] .detection-type-icon {
+            background: #FF7D00;
+        }
+        .detection-type.active[data-type="belt"] .detection-type-label {
+            color: #FF7D00;
+        }
+
+        .detection-type.active[data-type="vest"] {
+            border-color: #165DFF;
+            background: rgba(22, 93, 255, 0.08);
+        }
+        .detection-type.active[data-type="vest"] .detection-type-icon {
+            background: #165DFF;
+        }
+        .detection-type.active[data-type="vest"] .detection-type-label {
+            color: #165DFF;
+        }
+
+        .detection-type.active[data-type="phone"] {
+            border-color: #F53F3F;
+            background: rgba(245, 63, 63, 0.08);
+        }
+        .detection-type.active[data-type="phone"] .detection-type-icon {
+            background: #F53F3F;
+        }
+        .detection-type.active[data-type="phone"] .detection-type-label {
+            color: #F53F3F;
+        }
+
+        .detection-type.active[data-type="smoking"] {
+            border-color: #722ED1;
+            background: rgba(114, 46, 209, 0.08);
+        }
+        .detection-type.active[data-type="smoking"] .detection-type-icon {
+            background: #722ED1;
+        }
+        .detection-type.active[data-type="smoking"] .detection-type-label {
+            color: #722ED1;
+        }
+
+        .detection-type.active[data-type="fire"] {
+            border-color: #FF4D4F;
+            background: rgba(255, 77, 79, 0.08);
+        }
+        .detection-type.active[data-type="fire"] .detection-type-icon {
+            background: #FF4D4F;
+        }
+        .detection-type.active[data-type="fire"] .detection-type-label {
+            color: #FF4D4F;
+        }
+
+        .detection-type-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--pc-metal-100);
+            transition: all 0.25s ease;
+        }
+
+        .detection-type-icon svg {
+            width: 20px;
+            height: 20px;
+            fill: #fff;
+        }
+
+        .detection-type-label {
+            font-size: 12px;
+            color: var(--pc-text-secondary);
+            font-weight: 500;
+            transition: all 0.25s ease;
+        }
+
+        .detection-type-status {
+            font-size: 10px;
+            padding: 2px 6px;
+            border-radius: 4px;
+            background: rgba(0,0,0,0.1);
+            color: var(--pc-text-tertiary);
+        }
+
+        .detection-type.active .detection-type-status {
+            background: rgba(255,255,255,0.8);
+            color: inherit;
+        }
+
+        /* 检测结果样式 */
+        .violation-result {
+            background: var(--pc-bg-elevated);
+            border: 1px solid var(--pc-border-secondary);
+            border-radius: var(--pc-radius-md);
+            padding: 14px;
+            margin-bottom: 12px;
+        }
+
+        .violation-result:last-child {
+            margin-bottom: 0;
+        }
+
+        .violation-result.has-violation {
+            border-left: 4px solid var(--pc-danger);
+            background: linear-gradient(90deg, rgba(245, 63, 63, 0.05) 0%, transparent 100%);
+        }
+
+        .violation-result.no-violation {
+            border-left: 4px solid var(--pc-success);
+            background: linear-gradient(90deg, rgba(0, 180, 42, 0.05) 0%, transparent 100%);
+        }
+
+        .violation-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .worker-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 12px;
+            background: var(--pc-primary-pale);
+            color: var(--pc-primary);
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .violation-status {
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .violation-status.danger { color: var(--pc-danger); }
+        .violation-status.success { color: var(--pc-success); }
+
+        .check-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+
+        .check-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: var(--pc-text-secondary);
+        }
+
+        .check-icon {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: bold;
+            flex-shrink: 0;
+            color: #fff;
+        }
+
+        .check-icon.pass { background: var(--pc-success); }
+        .check-icon.fail { background: var(--pc-danger); }
+
+        .violation-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 12px;
+        }
+
+        .violation-badge {
+            padding: 4px 10px;
+            background: rgba(245, 63, 63, 0.1);
+            color: var(--pc-danger);
+            border: 1px solid var(--pc-danger);
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        /* 统计卡片 */
+        .stat-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .stat-item {
+            background: var(--pc-bg-elevated);
+            border: 1px solid var(--pc-border-secondary);
+            border-radius: var(--pc-radius-md);
+            padding: 16px;
+            text-align: center;
+            transition: all 0.2s ease;
+        }
+
+        .stat-item:hover {
+            border-color: var(--pc-primary-lighter);
+            transform: translateY(-2px);
+            box-shadow: var(--pc-shadow-sm);
+        }
+
+        .stat-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--pc-primary);
+            line-height: 1.2;
+            margin-bottom: 4px;
+        }
+
+        .stat-value.danger { color: var(--pc-danger); }
+        .stat-value.warning { color: var(--pc-warning); }
+        .stat-value.success { color: var(--pc-success); }
+
+        .stat-label {
+            font-size: 12px;
+            color: var(--pc-text-secondary);
+        }
+
+        .no-data {
+            text-align: center;
+            color: var(--pc-text-tertiary);
+            padding: 24px;
+            font-size: 13px;
+        }
+
+        /* 检测类型图例 */
+        .legend-section {
+            margin-bottom: 16px;
+        }
+
+        .legend-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--pc-text-secondary);
+            margin-bottom: 10px;
+        }
+
+        .legend-items {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            color: var(--pc-text-tertiary);
+        }
+
+        .legend-color {
+            width: 12px;
+            height: 12px;
+            border-radius: 3px;
+        }
+
+        .legend-color.helmet { background: #00B42A; }
+        .legend-color.belt { background: #FF7D00; }
+        .legend-color.vest { background: #165DFF; }
+        .legend-color.phone { background: #F53F3F; }
+        .legend-color.smoking { background: #722ED1; }
+        .legend-color.fire { background: #FF7D00; }
+
+        /* 响应式 */
+        @media (max-width: 1200px) {
+            .vision-layout {
+                grid-template-columns: 1fr;
+            }
+            .detection-types {
+                grid-template-columns: repeat(6, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .detection-types {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+    </style>
+    <script src="js/theme.js"></script>
+    <link rel="stylesheet" href="css/demo.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%231677ff'/%3E%3Cpath d='M4 8l3 3 5-6' stroke='white' stroke-width='2' fill='none'/%3E%3C/svg%3E">
+</head>
+<body>
+    <div class="pc-sidebar-layout">
+        <aside class="pc-sidebar">
+            <div class="pc-sidebar-header">
+                <a href="dashboard.html?module=home" class="pc-sidebar-logo">
+                    <div class="pc-sidebar-logo-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M13 3L4 14h7l-2 7 9-11h-7l2-7z"/>
+                        </svg>
+                    </div>
+                    <div class="pc-sidebar-logo-text">
+                        <span class="pc-sidebar-logo-title">电力风险智能交底</span>
+                        <span class="pc-sidebar-logo-subtitle">RISK DISCLOSURE</span>
+                    </div>
+                </a>
+            </div>
+            <ul class="pc-sidebar-menu">
+                <li class="pc-sidebar-item">
+                    <a href="dashboard.html?module=home" class="pc-sidebar-link">
+                        <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+                        首页
+                    </a>
+                </li>
+                <li class="pc-sidebar-item">
+                    <a href="dashboard.html?module=tasks" class="pc-sidebar-link">
+                        <svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+                        任务管理
+                    </a>
+                </li>
+                <li class="pc-sidebar-item">
+                    <a href="dashboard.html?module=hazards" class="pc-sidebar-link">
+                        <svg viewBox="0 0 24 24"><path d="M12 2L1 21h22L12 2zm0 3.84L18.09 19H5.91L12 5.84zM11 10v4h2v-4h-2zm0 6v2h2v-2h-2z"/></svg>
+                        风险辨识
+                    </a>
+                </li>
+                <li class="pc-sidebar-item">
+                    <a href="dashboard.html?module=disclosures" class="pc-sidebar-link">
+                        <svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+                        安全交底
+                    </a>
+                </li>
+                <li class="pc-sidebar-item active">
+                    <a href="vision-monitor.html" class="pc-sidebar-link">
+                        <svg viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
+                        视觉检测
+                    </a>
+                </li>
+                <li class="pc-sidebar-item">
+                    <a href="weather-risk.html" class="pc-sidebar-link">
+                        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                        天气预警
+                    </a>
+                </li>
+                <li class="pc-sidebar-item">
+                    <a href="dashboard.html?module=cases" class="pc-sidebar-link">
+                        <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+                        事故案例
+                    </a>
+                </li>
+                <li class="pc-sidebar-item">
+                    <a href="chat.html" class="pc-sidebar-link">
+                        <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/></svg>
+                        智能交底Agent
+                    </a>
+                </li>
+                <li class="pc-sidebar-item">
+                    <a href="dashboard.html?module=dict" class="pc-sidebar-link">
+                        <svg viewBox="0 0 24 24"><path d="M11 17h2v-1h1c.55 0 1-.45 1-1v-3c0-.55-.45-1-1-1h-3v-1h4v-2h-4V7h-2v1h-1c-.55 0-1 .45-1 1v3c0 .55.45 1 1 1h3v1H9v2h2v1zm1-15C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg>
+                        字典管理
+                    </a>
+                </li>
+            </ul>
+            <div class="pc-sidebar-footer">
+                <div class="pc-sidebar-user" id="userDropdown">
+                    <div class="pc-sidebar-avatar" id="userAvatar">用</div>
+                    <div class="pc-sidebar-user-info">
+                        <div class="pc-sidebar-user-name" id="usernameDisplay">用户</div>
+                        <div class="pc-sidebar-user-role">系统操作员</div>
+                    </div>
+                    <div class="pc-sidebar-dropdown-menu">
+                        <a href="#" class="pc-sidebar-dropdown-item" onclick="showProfile()">
+                            <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                            个人信息
+                        </a>
+                        <a href="settings.html" class="pc-sidebar-dropdown-item">
+                            <svg viewBox="0 0 24 24"><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg>
+                            系统设置
+                        </a>
+                        <div class="pc-sidebar-divider"></div>
+                        <a href="#" class="pc-sidebar-dropdown-item logout" onclick="logout()">
+                            <svg viewBox="0 0 24 24"><path d="M10.09 15.59L11.5 17l5-5-5-5-1.41 1.41L12.67 11H3v2h9.67l-2.58 2.59zM19 3H5c-1.11 0-2 .9-2 2v4h2V5h14v14H5v-4H3v4c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"/></svg>
+                            退出登录
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <main class="pc-main-content">
+            <main class="pc-main-container">
+                <div class="pc-page-header">
+                    <h1 class="pc-page-title">视觉违章智能检测</h1>
+                    <p class="pc-page-subtitle">上传图片或视频，基于本地YOLO模型自动识别安全帽、反光衣等PPE装备及6类电力违章行为</p>
+                    <div class="pc-page-divider"></div>
+                </div>
+
+                <div class="vision-layout">
+                    <!-- 左侧媒体检测区 -->
+                    <div>
+                        <div class="pc-card pc-card-animate">
+                            <div class="pc-card-header">
+                                <h3 class="pc-card-title">
+                                    <svg viewBox="0 0 24 24" style="width: 20px; height: 20px; fill: var(--pc-primary);">
+                                        <path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/>
+                                    </svg>
+                                    检测画面
+                                </h3>
+                                <div style="display: flex; gap: 8px; align-items: center;">
+                                    <span class="pc-badge pc-badge-primary" id="detectStatusBadge">待检测</span>
+                                </div>
+                            </div>
+                            <div class="pc-card-body" style="padding: 16px;">
+                                <!-- 检测类型选择 -->
+                                <div class="detection-types">
+                                    <div class="detection-type active" data-type="helmet">
+                                        <div class="detection-type-icon">
+                                            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-5-9h10v2H7z"/></svg>
+                                        </div>
+                                        <span class="detection-type-label">安全帽</span>
+                                    </div>
+                                    <div class="detection-type active" data-type="belt">
+                                        <div class="detection-type-icon">
+                                            <svg viewBox="0 0 24 24"><path d="M12 2L4 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-8-5zm0 18c-3.86 0-7-3.14-7-7V8.5l7-4.38 7 4.38V13c0 3.86-3.14 7-7 7z"/></svg>
+                                        </div>
+                                        <span class="detection-type-label">安全带</span>
+                                    </div>
+                                    <div class="detection-type active" data-type="vest">
+                                        <div class="detection-type-icon">
+                                            <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6l-3-4H6zm3.5 6h5v2h-5V8zm-1 6h7v2h-7v-2z"/></svg>
+                                        </div>
+                                        <span class="detection-type-label">反光衣</span>
+                                    </div>
+                                    <div class="detection-type active" data-type="phone">
+                                        <div class="detection-type-icon">
+                                            <svg viewBox="0 0 24 24"><path d="M17 1.01L7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 19H7V5h10v14z"/></svg>
+                                        </div>
+                                        <span class="detection-type-label">玩手机</span>
+                                    </div>
+                                    <div class="detection-type active" data-type="smoking">
+                                        <div class="detection-type-icon">
+                                            <svg viewBox="0 0 24 24"><path d="M16 17.5c0-.28-.22-.5-.5-.5h-11c-.28 0-.5.22-.5.5v3c0 .28.22.5.5.5h11c.28 0 .5-.22.5-.5v-3zM2 17.5c0-.28-.22-.5-.5-.5H1v4h.5c.28 0 .5-.22.5-.5v-3zm20 0c0-.28-.22-.5-.5-.5h-.5v4h.5c.28 0 .5-.22.5-.5v-3zM10.5 16V5.5h1V16h-1zm3 0V7h1v9h-1zm3 0V9h1v7h-1z"/></svg>
+                                        </div>
+                                        <span class="detection-type-label">吸烟</span>
+                                    </div>
+                                    <div class="detection-type active" data-type="fire">
+                                        <div class="detection-type-icon">
+                                            <svg viewBox="0 0 24 24"><path d="M13.5.67s.74 2.65.74 4.8c0 2.06-1.35 3.73-3.41 3.73-2.07 0-3.63-1.67-3.63-3.73l.03-.36C5.21 7.51 4 10.62 4 14c0 4.42 3.58 8 8 8s8-3.58 8-8C20 8.61 17.41 3.8 13.5.67zM11.71 19c-1.78 0-3.22-1.4-3.22-3.14 0-1.62 1.05-2.76 2.81-3.12 1.77-.36 3.6 1.1 3.6 2.62.14 1.64-1.43 3.64-3.19 3.64z"/></svg>
+                                        </div>
+                                        <span class="detection-type-label">火灾</span>
+                                    </div>
+                                </div>
+
+                                <!-- 上传类型切换 -->
+                                <div class="upload-tabs">
+                                    <button class="upload-tab active" data-tab="image" onclick="switchUploadTab('image')">
+                                        <svg viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
+                                        图片检测
+                                    </button>
+                                    <button class="upload-tab" data-tab="video" onclick="switchUploadTab('video')">
+                                        <svg viewBox="0 0 24 24"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/></svg>
+                                        视频检测
+                                    </button>
+                                </div>
+
+                                <div class="media-container">
+                                    <div class="media-wrapper">
+                                        <img id="imageDisplay" alt="检测图片">
+                                        <video id="videoDisplay" playsinline muted></video>
+                                        <canvas id="canvasOverlay"></canvas>
+                                    </div>
+                                    <div class="media-placeholder" id="mediaPlaceholder">
+                                        <div class="media-placeholder-icon">
+                                            <svg viewBox="0 0 24 24"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z"/></svg>
+                                        </div>
+                                        <h4>上传图片或视频开始检测</h4>
+                                        <p>支持 JPG/PNG/BMP 图片 / MP4 视频<br>6类电力违章自动识别，数据本地处理</p>
+                                    </div>
+                                </div>
+
+                                <div class="control-bar">
+                                    <input type="file" id="imageInput" accept="image/*" multiple style="display: none;">
+                                    <input type="file" id="videoInput" accept="video/*" style="display: none;">
+                                    <button class="pc-btn pc-btn-primary" id="btnUploadImage" onclick="document.getElementById('imageInput').click()">
+                                        <svg viewBox="0 0 24 24" style="width: 16px; height: 16px; fill: currentColor;"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z"/></svg>
+                                        上传图片
+                                    </button>
+                                    <button class="pc-btn pc-btn-secondary" id="btnUploadVideo" onclick="document.getElementById('videoInput').click()" style="display: none;">
+                                        <svg viewBox="0 0 24 24" style="width: 16px; height: 16px; fill: currentColor;"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/></svg>
+                                        上传视频
+                                    </button>
+                                    <button class="pc-btn pc-btn-success" id="btnDetect" onclick="startDetection()" disabled>
+                                        <svg viewBox="0 0 24 24" style="width: 16px; height: 16px; fill: currentColor;"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg>
+                                        开始检测
+                                    </button>
+                                    <button class="pc-btn pc-btn-secondary" id="btnClear" onclick="clearAll()">
+                                        <svg viewBox="0 0 24 24" style="width: 16px; height: 16px; fill: currentColor;"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
+                                        清除
+                                    </button>
+                                    <span class="image-count-badge" id="imageCountBadge" style="display:none;"></span>
+                                </div>
+
+                                <!-- 图片缩略图列表 -->
+                                <div class="image-thumb-list" id="imageThumbList" style="display:none;">
+                                    <div class="thumb-list-header">
+                                        <span>图片列表</span>
+                                        <span class="thumb-list-count" id="thumbListCount">0 张</span>
+                                    </div>
+                                    <div class="thumb-list-container" id="thumbListContainer"></div>
+                                </div>
+
+                                <!-- 视频控制条 -->
+                                <div class="video-controls" id="videoControls">
+                                    <button class="pc-btn pc-btn-primary pc-btn-sm" id="btnPlayPause" onclick="togglePlayPause()">
+                                        <svg viewBox="0 0 24 24" style="width: 14px; height: 14px; fill: currentColor;"><path d="M8 5v14l11-7z"/></svg>
+                                    </button>
+                                    <div class="video-progress" onclick="seekVideo(event)">
+                                        <div class="video-progress-bar" id="videoProgressBar"></div>
+                                    </div>
+                                    <span class="video-time" id="videoTime">00:00 / 00:00</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 检测图例 -->
+                        <div class="pc-card pc-card-animate" style="animation-delay: 0.1s; margin-top: 16px;">
+                            <div class="pc-card-header">
+                                <h3 class="pc-card-title">
+                                    <svg viewBox="0 0 24 24" style="width: 18px; height: 18px; fill: var(--pc-primary);">
+                                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
+                                    </svg>
+                                    检测类型说明
+                                </h3>
+                            </div>
+                            <div class="pc-card-body">
+                                <div class="legend-section">
+                                    <div class="legend-items">
+                                        <div class="legend-item">
+                                            <div class="legend-color helmet"></div>
+                                            <span>安全帽检测 - 识别是否佩戴安全帽</span>
+                                        </div>
+                                        <div class="legend-item">
+                                            <div class="legend-color belt"></div>
+                                            <span>安全带检测 - 识别是否系安全带</span>
+                                        </div>
+                                        <div class="legend-item">
+                                            <div class="legend-color vest"></div>
+                                            <span>反光衣检测 - 识别是否穿反光衣</span>
+                                        </div>
+                                        <div class="legend-item">
+                                            <div class="legend-color phone"></div>
+                                            <span>玩手机检测 - 识别作业时玩手机</span>
+                                        </div>
+                                        <div class="legend-item">
+                                            <div class="legend-color smoking"></div>
+                                            <span>吸烟检测 - 识别现场吸烟行为</span>
+                                        </div>
+                                        <div class="legend-item">
+                                            <div class="legend-color fire"></div>
+                                            <span>火灾检测 - 识别现场明火/烟雾</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 右侧信息面板 -->
+                    <div style="display: flex; flex-direction: column; gap: 16px;">
+                        <!-- 识别统计 -->
+                        <div class="pc-card pc-card-animate">
+                            <div class="pc-card-header">
+                                <h3 class="pc-card-title">
+                                    <svg viewBox="0 0 24 24" style="width: 20px; height: 20px; fill: var(--pc-primary);">
+                                        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+                                    </svg>
+                                    检测统计
+                                </h3>
+                            </div>
+                            <div class="pc-card-body">
+                                <div class="stat-grid">
+                                    <div class="stat-item">
+                                        <div class="stat-value" id="statPersons">0</div>
+                                        <div class="stat-label">检测人数</div>
+                                    </div>
+                                    <div class="stat-item">
+                                        <div class="stat-value danger" id="statViolations">0</div>
+                                        <div class="stat-label">违章人数</div>
+                                    </div>
+                                    <div class="stat-item">
+                                        <div class="stat-value warning" id="statTypes">0</div>
+                                        <div class="stat-label">违章类型</div>
+                                    </div>
+                                    <div class="stat-item">
+                                        <div class="stat-value success" id="statLatency">--ms</div>
+                                        <div class="stat-label">检测耗时</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 最新识别结果 -->
+                        <div class="pc-card pc-card-animate">
+                            <div class="pc-card-header">
+                                <h3 class="pc-card-title">
+                                    <svg viewBox="0 0 24 24" style="width: 20px; height: 20px; fill: var(--pc-primary);">
+                                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                                    </svg>
+                                    检测结果详情
+                                </h3>
+                            </div>
+                            <div class="pc-card-body">
+                                <div id="currentResult" style="max-height: 400px; overflow-y: auto;">
+                                    <div class="no-data">上传图片或视频后开始检测</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 模型状态 -->
+                        <div class="pc-card pc-card-animate">
+                            <div class="pc-card-header">
+                                <h3 class="pc-card-title">
+                                    <svg viewBox="0 0 24 24" style="width: 20px; height: 20px; fill: var(--pc-primary);">
+                                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                                    </svg>
+                                    模型状态
+                                </h3>
+                            </div>
+                            <div class="pc-card-body">
+                                <div style="display: flex; flex-direction: column; gap: 10px;">
+                                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                                        <span style="font-size: 13px; color: var(--pc-text-secondary);">YOLO检测模型</span>
+                                        <span class="pc-badge pc-badge-success" id="yoloStatus">已连接</span>
+                                    </div>
+                                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                                        <span style="font-size: 13px; color: var(--pc-text-secondary);">PPE安全检测</span>
+                                        <span class="pc-badge pc-badge-success" id="ppeStatus">已连接</span>
+                                    </div>
+                                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                                        <span style="font-size: 13px; color: var(--pc-text-secondary);">检测方式</span>
+                                        <span class="pc-badge pc-badge-primary" id="detectSource">本地部署</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </main>
+    </div>
+
+    <script>
+        // ==================== 全局状态 ====================
+        let currentTab = 'image'; // image, video
+        let currentImage = null;
+        let currentVideo = null;
+        let isDetecting = false;
+        let videoDetectionTimer = null;
+        let detectionTypeEnabled = {
+            helmet: true,
+            belt: true,
+            vest: true,
+            phone: true,
+            smoking: true,
+            fire: true
+        };
+        let lastResult = null;
+
+        // 批量图片相关
+        let imageList = []; // {file, url, result, status: pending|processing|success|error
+        let currentImageIndex = -1;
+        let batchDetecting = false;
+
+        const API_BASE = '/api/vision';
+
+        // ==================== 初始化 ====================
+        function init() {
+            // 绑定文件上传事件
+            document.getElementById('imageInput').addEventListener('change', handleImageUpload);
+            document.getElementById('videoInput').addEventListener('change', handleVideoUpload);
+
+            // 检测类型点击切换
+            document.querySelectorAll('.detection-type').forEach(function(el) {
+                el.addEventListener('click', function() {
+                    const type = this.dataset.type;
+                    detectionTypeEnabled[type] = !detectionTypeEnabled[type];
+                    this.classList.toggle('active', detectionTypeEnabled[type]);
+                    
+                    // 切换后立即重绘检测框
+                    if (lastResult) {
+                        redrawDetections();
+                    }
+                    
+                    // 提示用户
+                    const label = this.querySelector('.detection-type-label');
+                    if (label) {
+                        const originalText = label.textContent;
+                        label.textContent = detectionTypeEnabled[type] ? '✓ 已开启' : '✗ 已关闭';
+                        setTimeout(function() {
+                            label.textContent = originalText;
+                        }, 800);
+                    }
+                });
+            });
+
+            // 视频进度更新
+            const video = document.getElementById('videoDisplay');
+            video.addEventListener('timeupdate', updateVideoProgress);
+            video.addEventListener('loadedmetadata', function() {
+                updateVideoTime();
+            });
+            video.addEventListener('ended', function() {
+                document.getElementById('btnPlayPause').innerHTML = '<svg viewBox="0 0 24 24" style="width: 14px; height: 14px; fill: currentColor;"><path d="M8 5v14l11-7z"/></svg>';
+                stopVideoDetection();
+            });
+
+            // 初始化侧边栏用户
+            initSidebarUser();
+            checkAuth();
+            
+            // 检查模型状态
+            checkModelStatus();
+        }
+
+        // ==================== 认证和侧边栏 ====================
+        function checkAuth() {
+            const token = localStorage.getItem('token');
+            const username = localStorage.getItem('username');
+            if (!token) {
+                window.location.href = 'index.html';
+                return;
+            }
+            if (username) {
+                const usernameDisplay = document.getElementById('usernameDisplay');
+                if (usernameDisplay) usernameDisplay.textContent = username;
+                const avatar = document.getElementById('userAvatar');
+                if (avatar) avatar.textContent = username.charAt(0).toUpperCase();
+            }
+        }
+
+        function initSidebarUser() {
+            const userEl = document.querySelector('.pc-sidebar-user');
+            if (userEl) {
+                userEl.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    this.classList.toggle('open');
+                });
+                document.addEventListener('click', function(e) {
+                    if (!e.target.closest('.pc-sidebar-user')) {
+                        userEl.classList.remove('open');
+                    }
+                });
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem('token');
+            localStorage.removeItem('username');
+            window.location.href = 'index.html';
+        }
+
+        function showProfile() {
+            alert('个人信息功能开发中...');
+        }
+
+        // ==================== 模型状态检查 ====================
+        async function checkModelStatus() {
+            try {
+                const token = localStorage.getItem('token');
+                // 检测API可用性
+                const resp = await fetch(API_BASE + '/detect', {
+                    method: 'OPTIONS',
+                    headers: { 'Authorization': 'Bearer ' + token }
+                });
+                document.getElementById('yoloStatus').textContent = '已就绪';
+                document.getElementById('ppeStatus').textContent = '已就绪';
+            } catch(e) {
+                document.getElementById('yoloStatus').textContent = '检测中';
+                document.getElementById('ppeStatus').textContent = '检测中';
+            }
+        }
+
+        // ==================== 上传类型切换 ====================
+        function switchUploadTab(tab) {
+            currentTab = tab;
+            clearAll();
+
+            document.querySelectorAll('.upload-tab').forEach(function(el) {
+                el.classList.toggle('active', el.dataset.tab === tab);
+            });
+
+            const imgBtn = document.getElementById('btnUploadImage');
+            const vidBtn = document.getElementById('btnUploadVideo');
+
+            if (tab === 'image') {
+                imgBtn.style.display = 'flex';
+                vidBtn.style.display = 'none';
+                document.getElementById('videoControls').classList.remove('show');
+            } else {
+                imgBtn.style.display = 'none';
+                vidBtn.style.display = 'flex';
+            }
+        }
+
+        // ==================== 图片上传处理 ====================
+        function handleImageUpload(event) {
+            const files = event.target.files;
+            if (!files || files.length === 0) return;
+
+            // 添加多张图片到列表（自动转换为JPEG格式，确保后端能解码）
+            const processFile = async (file, index) => {
+                try {
+                    // 检查是否是Java ImageIO支持的格式
+                    const supportedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/bmp'];
+                    let processedFile = file;
+                    
+                    if (!supportedTypes.includes(file.type) && file.type.startsWith('image/')) {
+                        // WebP等格式，转换为JPEG
+                        processedFile = await convertToJpeg(file);
+                    } else {
+                        // 即使是支持的格式，也用canvas重新编码一次，避免损坏的图片
+                        try {
+                            processedFile = await convertToJpeg(file, 0.92);
+                        } catch(e) {
+                            // 转换失败就用原始文件
+                            console.warn('图片预处理失败，使用原始文件:', e.message);
+                        }
+                    }
+                    
+                    const url = URL.createObjectURL(processedFile);
+                    imageList.push({
+                        file: processedFile,
+                        originalName: file.name,
+                        url: url,
+                        result: null,
+                        status: 'pending'
+                    });
+                } catch(e) {
+                    console.error('处理图片失败:', e);
+                    // 失败了也添加原始文件，让后端尝试
+                    const url = URL.createObjectURL(file);
+                    imageList.push({
+                        file: file,
+                        originalName: file.name,
+                        url: url,
+                        result: null,
+                        status: 'pending'
+                    });
+                }
+            };
+
+            // 处理所有文件
+            const promises = [];
+            for (let i = 0; i < files.length; i++) {
+                promises.push(processFile(files[i], i));
+            }
+            
+            Promise.all(promises).then(() => {
+                // 如果是第一次上传，显示第一张
+                if (currentImageIndex === -1 && imageList.length > 0) {
+                    showImage(0);
+                }
+
+                updateThumbList();
+                updateImageCountBadge();
+
+                const placeholder = document.getElementById('mediaPlaceholder');
+                const video = document.getElementById('videoDisplay');
+
+                video.style.display = 'none';
+                video.pause();
+                placeholder.style.display = 'none';
+
+                document.getElementById('btnDetect').disabled = false;
+                document.getElementById('detectStatusBadge').textContent = '待检测';
+                document.getElementById('detectStatusBadge').className = 'pc-badge pc-badge-warning';
+                clearCanvas();
+            });
+
+            event.target.value = '';
+        }
+
+        // 将图片转换为JPEG格式（确保后端ImageIO能解码）
+        function convertToJpeg(file, quality) {
+            return new Promise((resolve, reject) => {
+                const q = quality || 0.92;
+                const img = new Image();
+                img.onload = function() {
+                    try {
+                        const canvas = document.createElement('canvas');
+                        canvas.width = img.naturalWidth;
+                        canvas.height = img.naturalHeight;
+                        const ctx = canvas.getContext('2d');
+                        ctx.fillStyle = '#ffffff';
+                        ctx.fillRect(0, 0, canvas.width, canvas.height);
+                        ctx.drawImage(img, 0, 0);
+                        canvas.toBlob(function(blob) {
+                            if (blob) {
+                                const newFile = new File([blob], 
+                                    file.name.replace(/\.[^.]+$/, '.jpg'), 
+                                    { type: 'image/jpeg' });
+                                resolve(newFile);
+                            } else {
+                                reject(new Error('canvas.toBlob返回null'));
+                            }
+                        }, 'image/jpeg', q);
+                    } catch(e) {
+                        reject(e);
+                    }
+                };
+                img.onerror = function() {
+                    reject(new Error('图片加载失败'));
+                };
+                img.src = URL.createObjectURL(file);
+            });
+        }
+
+        // 显示指定索引的图片
+        function showImage(index) {
+            if (index < 0 || index >= imageList.length) return;
+
+            currentImageIndex = index;
+            const item = imageList[index];
+            currentImage = item.file;
+
+            const img = document.getElementById('imageDisplay');
+            img.src = item.url;
+            img.style.display = 'block';
+
+            // 更新检测结果显示
+            if (item.result) {
+                lastResult = item.result;
+                drawDetections(item.result);
+                updateResultDisplay(item.result);
+                document.getElementById('detectStatusBadge').textContent = '检测完成';
+                document.getElementById('detectStatusBadge').className = 'pc-badge pc-badge-success';
+            } else {
+                lastResult = null;
+                clearCanvas();
+                document.getElementById('currentResult').innerHTML = '<div class="no-data">点击开始检测按钮进行检测</div>';
+                document.getElementById('detectStatusBadge').textContent = '待检测';
+                document.getElementById('detectStatusBadge').className = 'pc-badge pc-badge-warning';
+            }
+
+            updateThumbList();
+        }
+
+        // 更新缩略图列表
+        function updateThumbList() {
+            const listContainer = document.getElementById('imageThumbList');
+            const container = document.getElementById('thumbListContainer');
+            const countEl = document.getElementById('thumbListCount');
+
+            if (imageList.length === 0) {
+                listContainer.style.display = 'none';
+                return;
+            }
+
+            listContainer.style.display = 'block';
+            countEl.textContent = imageList.length + ' 张';
+
+            let html = '';
+            imageList.forEach(function(item, index) {
+                const statusIcon = {
+                    pending: '',
+                    processing: '◌',
+                    success: '✓',
+                    error: '✗'
+                }[item.status] || '';
+
+                const statusClass = item.status;
+
+                html += '<div class="thumb-item ' + (index === currentImageIndex ? 'active' : '') + '" onclick="showImage(' + index + ')" title="' + item.file.name + '">';
+                html += '<img src="' + item.url + '" alt="图片' + (index+1) + '">';
+                html += '<button class="thumb-remove-btn" onclick="event.stopPropagation(); removeImage(' + index + ')">×</button>';
+                if (statusIcon) {
+                    html += '<div class="thumb-item-status ' + statusClass + '">' + statusIcon + '</div>';
+                }
+                html += '<div class="thumb-item-index">' + (index+1) + '</div>';
+                html += '</div>';
+            });
+
+            container.innerHTML = html;
+        }
+
+        // 更新图片数量徽章
+        function updateImageCountBadge() {
+            const badge = document.getElementById('imageCountBadge');
+            if (imageList.length > 0) {
+                badge.style.display = 'inline-block';
+                badge.textContent = imageList.length + '张图片';
+            } else {
+                badge.style.display = 'none';
+            }
+        }
+
+        // 移除指定图片
+        function removeImage(index) {
+            if (index < 0 || index >= imageList.length) return;
+
+            // 释放URL对象
+            URL.revokeObjectURL(imageList[index].url);
+
+            imageList.splice(index, 1);
+
+            if (imageList.length === 0) {
+                // 没有图片了，重置
+                currentImageIndex = -1;
+                currentImage = null;
+                lastResult = null;
+                document.getElementById('imageDisplay').src = '';
+                document.getElementById('imageDisplay').style.display = 'none';
+                document.getElementById('mediaPlaceholder').style.display = 'block';
+                document.getElementById('btnDetect').disabled = true;
+                clearCanvas();
+                document.getElementById('currentResult').innerHTML = '<div class="no-data">上传图片或视频后开始检测</div>';
+                document.getElementById('detectStatusBadge').textContent = '待检测';
+                document.getElementById('detectStatusBadge').className = 'pc-badge pc-badge-default';
+                resetStats();
+            } else if (index === currentImageIndex) {
+                // 删除的是当前显示的图片，显示前一张或后一张
+                const newIndex = Math.min(index, imageList.length - 1);
+                showImage(newIndex);
+            } else if (index < currentImageIndex) {
+                // 删除的是当前图片前面的，调整索引
+                currentImageIndex--;
+            }
+
+            updateThumbList();
+            updateImageCountBadge();
+        }
+
+        // ==================== 视频上传处理 ====================
+        function handleVideoUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const url = URL.createObjectURL(file);
+            const video = document.getElementById('videoDisplay');
+            const placeholder = document.getElementById('mediaPlaceholder');
+            const img = document.getElementById('imageDisplay');
+
+            img.style.display = 'none';
+            video.src = url;
+            video.style.display = 'block';
+            placeholder.style.display = 'none';
+
+            currentVideo = file;
+            currentImage = null;
+
+            video.onloadedmetadata = function() {
+                document.getElementById('btnDetect').disabled = false;
+                document.getElementById('detectStatusBadge').textContent = '待检测';
+                document.getElementById('detectStatusBadge').className = 'pc-badge pc-badge-warning';
+                document.getElementById('videoControls').classList.add('show');
+                updateVideoTime();
+                clearCanvas();
+            };
+
+            event.target.value = '';
+        }
+
+        // ==================== 视频控制 ====================
+        function togglePlayPause() {
+            const video = document.getElementById('videoDisplay');
+            const btn = document.getElementById('btnPlayPause');
+
+            if (video.paused) {
+                video.play();
+                btn.innerHTML = '<svg viewBox="0 0 24 24" style="width: 14px; height: 14px; fill: currentColor;"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>';
+            } else {
+                video.pause();
+                btn.innerHTML = '<svg viewBox="0 0 24 24" style="width: 14px; height: 14px; fill: currentColor;"><path d="M8 5v14l11-7z"/></svg>';
+            }
+        }
+
+        function seekVideo(event) {
+            const video = document.getElementById('videoDisplay');
+            const progress = event.currentTarget;
+            const rect = progress.getBoundingClientRect();
+            const percent = (event.clientX - rect.left) / rect.width;
+            video.currentTime = percent * video.duration;
+        }
+
+        function updateVideoProgress() {
+            const video = document.getElementById('videoDisplay');
+            const progressBar = document.getElementById('videoProgressBar');
+            const percent = (video.currentTime / video.duration) * 100;
+            progressBar.style.width = percent + '%';
+            updateVideoTime();
+        }
+
+        function updateVideoTime() {
+            const video = document.getElementById('videoDisplay');
+            const timeEl = document.getElementById('videoTime');
+            const current = formatTime(video.currentTime);
+            const duration = formatTime(video.duration || 0);
+            timeEl.textContent = current + ' / ' + duration;
+        }
+
+        function formatTime(seconds) {
+            const m = Math.floor(seconds / 60);
+            const s = Math.floor(seconds % 60);
+            return String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
+        }
+
+        // ==================== 开始检测 ====================
+        async function startDetection() {
+            if (isDetecting || batchDetecting) return;
+
+            if (currentTab === 'image') {
+                if (imageList.length > 1) {
+                    // 多张图片，批量检测
+                    await batchDetectImages();
+                } else {
+                    // 单张图片检测
+                    await detectImage();
+                }
+            } else {
+                startVideoDetection();
+            }
+        }
+
+        // 批量检测所有图片
+        async function batchDetectImages() {
+            if (imageList.length === 0) return;
+
+            batchDetecting = true;
+            isDetecting = true;
+            document.getElementById('btnDetect').disabled = true;
+            document.getElementById('detectStatusBadge').textContent = '批量检测中 0/' + imageList.length;
+            document.getElementById('detectStatusBadge').className = 'pc-badge pc-badge-warning';
+
+            let successCount = 0;
+            let errorCount = 0;
+
+            for (let i = 0; i < imageList.length; i++) {
+                if (!batchDetecting) break;
+
+                const item = imageList[i];
+                if (item.status === 'success') {
+                    successCount++;
+                    continue; // 已检测成功的跳过
+                }
+
+                // 更新状态
+                item.status = 'processing';
+                updateThumbList();
+                document.getElementById('detectStatusBadge').textContent = '批量检测中 ' + (i+1) + '/' + imageList.length;
+
+                // 如果是当前显示的图片，切换过去
+                if (i === currentImageIndex) {
+                    showImage(i);
+                }
+
+                try {
+                    const token = localStorage.getItem('token');
+                    const formData = new FormData();
+                    formData.append('file', item.file);
+
+                    const resp = await fetch(API_BASE + '/detect', {
+                        method: 'POST',
+                        headers: { 'Authorization': 'Bearer ' + token },
+                        body: formData
+                    });
+
+                    if (!resp.ok) {
+                        let errorMsg = '检测请求失败: ' + resp.status;
+                        try {
+                            const errData = await resp.json();
+                            if (errData && errData.message) {
+                                errorMsg = errData.message;
+                            }
+                        } catch(e) {}
+                        throw new Error(errorMsg);
+                    }
+
+                    const result = await resp.json();
+
+                    if (result.success) {
+                        item.result = result;
+                        item.status = 'success';
+                        successCount++;
+
+                        // 如果是当前显示的图片，更新显示
+                        if (i === currentImageIndex) {
+                            lastResult = result;
+                            drawDetections(result);
+                            updateResultDisplay(result);
+                        }
+                    } else {
+                        throw new Error(result.message || '检测失败');
+                    }
+
+                } catch(err) {
+                    console.error('第' + (i+1) + '张图片检测失败:', err);
+                    item.status = 'error';
+                    item.errorMsg = err.message;
+                    errorCount++;
+                }
+
+                updateThumbList();
+            }
+
+            batchDetecting = false;
+            isDetecting = false;
+            document.getElementById('btnDetect').disabled = false;
+
+            if (errorCount === 0) {
+                document.getElementById('detectStatusBadge').textContent = '批量检测完成 (' + successCount + '/' + imageList.length + ')';
+                document.getElementById('detectStatusBadge').className = 'pc-badge pc-badge-success';
+            } else {
+                document.getElementById('detectStatusBadge').textContent = '检测完成 成功' + successCount + ' 失败' + errorCount;
+                document.getElementById('detectStatusBadge').className = 'pc-badge pc-badge-warning';
+            }
+        }
+
+        async function detectImage() {
+            if (!currentImage) return;
+
+            isDetecting = true;
+            document.getElementById('btnDetect').disabled = true;
+            document.getElementById('detectStatusBadge').textContent = '检测中...';
+            document.getElementById('detectStatusBadge').className = 'pc-badge pc-badge-warning';
+
+            try {
+                const token = localStorage.getItem('token');
+                const formData = new FormData();
+                formData.append('file', currentImage);
+
+                const resp = await fetch(API_BASE + '/detect', {
+                    method: 'POST',
+                    headers: { 'Authorization': 'Bearer ' + token },
+                    body: formData
+                });
+
+                if (!resp.ok) {
+                    let errorMsg = '检测请求失败: ' + resp.status;
+                    try {
+                        const errData = await resp.json();
+                        if (errData && errData.message) {
+                            errorMsg = errData.message;
+                        }
+                    } catch(e) {}
+                    throw new Error(errorMsg);
+                }
+
+                const result = await resp.json();
+                
+                if (result.success) {
+                    // 保存结果到当前图片
+                    if (currentImageIndex >= 0 && currentImageIndex < imageList.length) {
+                        imageList[currentImageIndex].result = result;
+                        imageList[currentImageIndex].status = 'success';
+                        updateThumbList();
+                    }
+
+                    updateResultDisplay(result);
+                    drawDetections(result);
+                    document.getElementById('detectStatusBadge').textContent = '检测完成';
+                    document.getElementById('detectStatusBadge').className = 'pc-badge pc-badge-success';
+                } else {
+                    throw new Error(result.message || '检测失败');
+                }
+
+            } catch(err) {
+                console.error('检测失败:', err);
+                // 标记当前图片为失败
+                if (currentImageIndex >= 0 && currentImageIndex < imageList.length) {
+                    imageList[currentImageIndex].status = 'error';
+                    imageList[currentImageIndex].errorMsg = err.message;
+                    updateThumbList();
+                }
+                alert('检测失败: ' + err.message);
+                document.getElementById('detectStatusBadge').textContent = '检测失败';
+                document.getElementById('detectStatusBadge').className = 'pc-badge pc-badge-danger';
+            } finally {
+                isDetecting = false;
+                document.getElementById('btnDetect').disabled = false;
+            }
+        }
+
+        function startVideoDetection() {
+            const video = document.getElementById('videoDisplay');
+            if (!currentVideo) return;
+
+            isDetecting = true;
+            document.getElementById('btnDetect').disabled = true;
+            document.getElementById('detectStatusBadge').textContent = '检测中...';
+            document.getElementById('detectStatusBadge').className = 'pc-badge pc-badge-warning';
+
+            // 开始播放并定时检测
+            if (video.paused) {
+                video.play();
+                document.getElementById('btnPlayPause').innerHTML = '<svg viewBox="0 0 24 24" style="width: 14px; height: 14px; fill: currentColor;"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>';
+            }
+
+            // 每2秒检测一帧
+            videoDetectionTimer = setInterval(detectVideoFrame, 2000);
+        }
+
+        function stopVideoDetection() {
+            if (videoDetectionTimer) {
+                clearInterval(videoDetectionTimer);
+                videoDetectionTimer = null;
+            }
+            isDetecting = false;
+            document.getElementById('btnDetect').disabled = false;
+            document.getElementById('detectStatusBadge').textContent = '检测完成';
+            document.getElementById('detectStatusBadge').className = 'pc-badge pc-badge-success';
+        }
+
+        async function detectVideoFrame() {
+            const video = document.getElementById('videoDisplay');
+            if (video.paused || video.ended) return;
+
+            // 捕获当前帧
+            const canvas = document.createElement('canvas');
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(video, 0, 0);
+
+            try {
+                canvas.toBlob(async function(blob) {
+                    const token = localStorage.getItem('token');
+                    const formData = new FormData();
+                    formData.append('file', blob, 'frame.jpg');
+
+                    try {
+                        const resp = await fetch(API_BASE + '/detect', {
+                            method: 'POST',
+                            headers: { 'Authorization': 'Bearer ' + token },
+                            body: formData
+                        });
+
+                        if (resp.ok) {
+                            const result = await resp.json();
+                            if (result.success) {
+                                updateResultDisplay(result);
+                                drawDetections(result);
+                            }
+                        }
+                    } catch(e) {
+                        console.warn('帧检测失败:', e);
+                    }
+                }, 'image/jpeg', 0.8);
+            } catch(e) {
+                console.warn('帧捕获失败:', e);
+            }
+        }
+
+        // ==================== 绘制检测结果 ====================
+        // 各类检测颜色配置
+        const DETECTION_COLORS = {
+            helmet: '#00B42A',   // 安全帽 - 绿色
+            belt: '#FF7D00',     // 安全带 - 橙色
+            vest: '#165DFF',     // 反光衣 - 蓝色
+            phone: '#F53F3F',    // 玩手机 - 红色
+            smoking: '#722ED1',  // 吸烟 - 紫色
+            fire: '#FF4D4F'      // 火灾 - 红橙色
+        };
+
+        // 检测类型中文标签
+        const DETECTION_LABELS = {
+            helmet: '安全帽',
+            belt: '安全带',
+            vest: '反光衣',
+            phone: '玩手机',
+            smoking: '吸烟',
+            fire: '火灾'
+        };
+
+        function getDrawParams(origWidth, origHeight) {
+            const container = document.querySelector('.media-container');
+            const containerWidth = container.clientWidth;
+            const containerHeight = container.clientHeight;
+
+            const imgRatio = origWidth / origHeight;
+            const containerRatio = containerWidth / containerHeight;
+
+            let drawWidth, drawHeight, offsetX, offsetY;
+            if (imgRatio > containerRatio) {
+                drawWidth = containerWidth;
+                drawHeight = containerWidth / imgRatio;
+                offsetX = 0;
+                offsetY = (containerHeight - drawHeight) / 2;
+            } else {
+                drawHeight = containerHeight;
+                drawWidth = containerHeight * imgRatio;
+                offsetX = (containerWidth - drawWidth) / 2;
+                offsetY = 0;
+            }
+
+            return { drawWidth, drawHeight, offsetX, offsetY, containerWidth, containerHeight };
+        }
+
+        // 重绘检测结果（切换检测类型开关时调用）
+        function redrawDetections() {
+            if (lastResult) {
+                drawDetections(lastResult);
+            }
+        }
+
+        function drawDetections(result) {
+            // 缓存最后一次检测结果
+            lastResult = result;
+
+            const canvas = document.getElementById('canvasOverlay');
+            const ctx = canvas.getContext('2d');
+
+            const origWidth = result.width;
+            const origHeight = result.height;
+
+            if (origWidth === 0 || origHeight === 0) return;
+
+            const params = getDrawParams(origWidth, origHeight);
+            canvas.width = params.containerWidth;
+            canvas.height = params.containerHeight;
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.textBaseline = 'middle'; // 文字垂直居中基准
+
+            const scaleX = params.drawWidth / origWidth;
+            const scaleY = params.drawHeight / origHeight;
+
+            // 绘制人员框和5类检测结果（安全帽/安全带/反光衣/玩手机/吸烟）
+            if (result.persons && result.persons.length > 0) {
+                result.persons.forEach(function(person, idx) {
+                    const x = person.x * origWidth * scaleX + params.offsetX;
+                    const y = person.y * origHeight * scaleY + params.offsetY;
+                    const w = person.width * origWidth * scaleX;
+                    const h = person.height * origHeight * scaleY;
+
+                    const worker = result.workers ? result.workers[idx] : null;
+                    const hasViolation = worker && worker.hasViolation;
+
+                    // 绘制人员外框（始终显示）
+                    ctx.strokeStyle = hasViolation ? '#F53F3F' : '#00B42A';
+                    ctx.lineWidth = 3;
+                    ctx.strokeRect(x, y, w, h);
+
+                    // 绘制人员标签（24px高，文字垂直居中）
+                    const personLabelH = 24;
+                    ctx.fillStyle = hasViolation ? '#F53F3F' : '#00B42A';
+                    ctx.fillRect(x, y - personLabelH, 100, personLabelH);
+                    ctx.fillStyle = '#fff';
+                    ctx.font = 'bold 12px sans-serif';
+                    ctx.textAlign = 'left';
+                    const conf = Math.round((person.confidence || 0) * 100);
+                    ctx.fillText('人员' + (idx+1) + ' ' + conf + '%', x + 8, y - personLabelH / 2);
+
+                    // 绘制各类检测标记（根据开关控制显示）
+                    if (worker) {
+                        let yOffset = y + 8;
+                        const tagH = 20;
+                        const tagW = 84;
+                        const typeChecks = [
+                            { key: 'helmet',  field: 'hasHelmet',        violation: !worker.hasHelmet },
+                            { key: 'belt',    field: 'hasSafetyBelt',    violation: !worker.hasSafetyBelt },
+                            { key: 'vest',    field: 'hasReflectiveVest', violation: !worker.hasReflectiveVest },
+                            { key: 'phone',   field: 'usingPhone',       violation: worker.usingPhone },
+                            { key: 'smoking', field: 'smoking',          violation: worker.smoking }
+                        ];
+
+                        typeChecks.forEach(function(item) {
+                            if (detectionTypeEnabled[item.key]) {
+                                const color = DETECTION_COLORS[item.key];
+                                const label = DETECTION_LABELS[item.key];
+                                const isViolation = item.violation;
+
+                                // 绘制小标签（20px高，文字垂直居中）
+                                ctx.fillStyle = isViolation ? 'rgba(245, 63, 63, 0.95)' : color;
+                                ctx.fillRect(x, yOffset, tagW, tagH);
+                                ctx.fillStyle = '#fff';
+                                ctx.font = '11px sans-serif';
+                                ctx.textAlign = 'left';
+                                const statusText = isViolation ? '✗ ' + label : '✓ ' + label;
+                                ctx.fillText(statusText, x + 6, yOffset + tagH / 2);
+                                yOffset += tagH + 2;
+                            }
+                        });
+                    }
+                });
+            }
+
+            // 绘制火灾检测框（独立绘制，只在fire开启时显示）
+            if (detectionTypeEnabled.fire && result.fires && result.fires.length > 0) {
+                result.fires.forEach(function(fire, idx) {
+                    const fx = fire.x * origWidth * scaleX + params.offsetX;
+                    const fy = fire.y * origHeight * scaleY + params.offsetY;
+                    const fw = fire.width * origWidth * scaleX;
+                    const fh = fire.height * origHeight * scaleY;
+
+                    // 绘制火焰图标框
+                    ctx.strokeStyle = DETECTION_COLORS.fire;
+                    ctx.lineWidth = 3;
+                    ctx.setLineDash([6, 4]);
+                    ctx.strokeRect(fx, fy, fw, fh);
+                    ctx.setLineDash([]);
+
+                    // 绘制火灾标签
+                    const fireLabelH = 24;
+                    ctx.fillStyle = DETECTION_COLORS.fire;
+                    ctx.fillRect(fx, fy - fireLabelH, 96, fireLabelH);
+                    ctx.fillStyle = '#fff';
+                    ctx.font = 'bold 12px sans-serif';
+                    ctx.textAlign = 'left';
+                    const fireConf = Math.round((fire.confidence || 0) * 100);
+                    ctx.fillText('🔥 火灾 ' + fireConf + '%', fx + 6, fy - fireLabelH / 2);
+                });
+            }
+        }
+
+        function clearCanvas() {
+            const canvas = document.getElementById('canvasOverlay');
+            const ctx = canvas.getContext('2d');
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+
+        // ==================== 更新结果显示 ====================
+        function updateResultDisplay(result) {
+            try {
+                // 更新统计
+                document.getElementById('statPersons').textContent = result.personCount || 0;
+
+                // 计算总违章数（人员违章 + 火灾）
+                let totalViolations = result.violationCount || 0;
+                const fireCount = (result.fires && result.fires.length) || 0;
+                if (fireCount > 0) {
+                    totalViolations += fireCount;
+                }
+                document.getElementById('statViolations').textContent = totalViolations;
+                document.getElementById('statLatency').textContent = (result.totalTimeMs || 0) + 'ms';
+
+                // 统计违章类型数量
+                const violationTypes = new Set();
+                if (result.workers) {
+                    result.workers.forEach(function(w) {
+                        (w.violationTypes || []).forEach(function(v) {
+                            violationTypes.add(v);
+                        });
+                    });
+                }
+                if (fireCount > 0) {
+                    violationTypes.add('火灾');
+                }
+                document.getElementById('statTypes').textContent = violationTypes.size;
+
+                // 更新检测源状态
+                const srcMap = { 'tencent': '腾讯云', 'local-yolo': '本地YOLO', 'local': '本地部署', 'error': '不可用', 'disabled': '不可用' };
+                document.getElementById('detectSource').textContent = srcMap[result.ppeSource] || '本地部署';
+
+                // 更新详情列表
+                const resultDiv = document.getElementById('currentResult');
+                if (!resultDiv) {
+                    console.warn('未找到currentResult元素');
+                    return;
+                }
+                
+                let html = '';
+
+                // 人员检测结果
+                if (result.workers && result.workers.length > 0) {
+                    result.workers.forEach(function(w, idx) {
+                        const violations = w.violationTypes || [];
+                        const hasV = violations.length > 0;
+
+                        html += '<div class="violation-result ' + (hasV ? 'has-violation' : 'no-violation') + '">';
+                        html += '<div class="violation-header">';
+                        html += '<span class="worker-tag">人员 ' + (idx+1) + '</span>';
+                        if (hasV) {
+                            html += '<span class="violation-status danger">发现违章</span>';
+                        } else {
+                            html += '<span class="violation-status success">合规</span>';
+                        }
+                        html += '</div>';
+                        html += '<div class="check-grid">';
+                        html += '<div class="check-item"><span class="check-icon ' + (w.hasHelmet ? 'pass' : 'fail') + '">' + (w.hasHelmet ? '✓' : '✗') + '</span>安全帽</div>';
+                        html += '<div class="check-item"><span class="check-icon ' + (w.hasSafetyBelt ? 'pass' : 'fail') + '">' + (w.hasSafetyBelt ? '✓' : '✗') + '</span>安全带</div>';
+                        html += '<div class="check-item"><span class="check-icon ' + (w.hasReflectiveVest ? 'pass' : 'fail') + '">' + (w.hasReflectiveVest ? '✓' : '✗') + '</span>反光衣</div>';
+                        html += '<div class="check-item"><span class="check-icon ' + (w.usingPhone ? 'fail' : 'pass') + '">' + (w.usingPhone ? '✗' : '✓') + '</span>玩手机</div>';
+                        html += '<div class="check-item"><span class="check-icon ' + (w.smoking ? 'fail' : 'pass') + '">' + (w.smoking ? '✗' : '✓') + '</span>吸烟</div>';
+                        html += '</div>';
+
+                        if (violations.length > 0) {
+                            html += '<div class="violation-badges">';
+                            violations.forEach(function(v) {
+                                html += '<span class="violation-badge">' + v + '</span>';
+                            });
+                            html += '</div>';
+                        }
+                        html += '</div>';
+                    });
+                }
+
+                // 火灾检测结果（独立显示）
+                if (result.fires && result.fires.length > 0) {
+                    result.fires.forEach(function(f, idx) {
+                        const conf = Math.round((f.confidence || 0) * 100);
+                        html += '<div class="violation-result has-violation">';
+                        html += '<div class="violation-header">';
+                        html += '<span class="worker-tag" style="background: rgba(255, 77, 79, 0.1); color: #FF4D4F;">🔥 火灾 ' + (idx+1) + '</span>';
+                        html += '<span class="violation-status danger">发现火情</span>';
+                        html += '</div>';
+                        html += '<div class="check-grid">';
+                        html += '<div class="check-item"><span class="check-icon fail">✗</span>明火/烟雾检测</div>';
+                        html += '<div class="check-item"><span class="check-icon" style="background: #FF7D00;">' + conf + '%</span>置信度</div>';
+                        html += '</div>';
+                        html += '<div class="violation-badges">';
+                        html += '<span class="violation-badge" style="background: rgba(255, 77, 79, 0.1); color: #FF4D4F; border-color: #FF4D4F;">火灾隐患</span>';
+                        html += '</div>';
+                        html += '</div>';
+                    });
+                }
+
+                if (html) {
+                    resultDiv.innerHTML = html;
+                } else if ((result.personCount === 0 || result.personCount === undefined) && fireCount === 0) {
+                    resultDiv.innerHTML = '<div class="no-data">画面中未检测到人员或火灾</div>';
+                } else {
+                    resultDiv.innerHTML = '<div class="no-data">检测完成，共检测到 ' + (result.personCount || 0) + ' 人</div>';
+                }
+            } catch (e) {
+                console.error('更新检测结果显示失败:', e);
+                const resultDiv = document.getElementById('currentResult');
+                if (resultDiv) {
+                    resultDiv.innerHTML = '<div class="no-data" style="color:#f00;">结果显示异常: ' + e.message + '</div>';
+                }
+            }
+        }
+
+        // ==================== 清除所有 ====================
+        function clearAll() {
+            stopVideoDetection();
+            batchDetecting = false;
+
+            // 释放所有图片URL
+            imageList.forEach(function(item) {
+                URL.revokeObjectURL(item.url);
+            });
+            imageList = [];
+            currentImageIndex = -1;
+
+            currentImage = null;
+            currentVideo = null;
+            lastResult = null;
+
+            document.getElementById('imageDisplay').src = '';
+            document.getElementById('imageDisplay').style.display = 'none';
+            document.getElementById('videoDisplay').src = '';
+            document.getElementById('videoDisplay').style.display = 'none';
+            document.getElementById('mediaPlaceholder').style.display = 'block';
+            document.getElementById('videoControls').classList.remove('show');
+            document.getElementById('btnDetect').disabled = true;
+            document.getElementById('detectStatusBadge').textContent = '待检测';
+            document.getElementById('detectStatusBadge').className = 'pc-badge pc-badge-default';
+
+            // 隐藏缩略图列表
+            document.getElementById('imageThumbList').style.display = 'none';
+            updateImageCountBadge();
+
+            clearCanvas();
+
+            resetStats();
+            document.getElementById('currentResult').innerHTML = '<div class="no-data">上传图片或视频后开始检测</div>';
+        }
+
+        function resetStats() {
+            document.getElementById('statPersons').textContent = '0';
+            document.getElementById('statViolations').textContent = '0';
+            document.getElementById('statTypes').textContent = '0';
+            document.getElementById('statLatency').textContent = '--ms';
+        }
+
+        // 页面加载完成后初始化
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', init);
+        } else {
+            init();
+        }
+    </script>
+</body>
+</html>

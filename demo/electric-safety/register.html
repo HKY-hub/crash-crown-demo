@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <script src="js/demo.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>用户注册 - 电力风险智能交底系统</title>
+    <link rel="stylesheet" href="css/pc-style.css">
+    <style>
+        .register-page {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #F0F2F5 0%, #E6EAF0 100%);
+            position: relative;
+            overflow: hidden;
+            padding: 20px;
+        }
+
+        .register-bg-decoration {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .bg-circle {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.3;
+        }
+
+        .bg-circle.c1 {
+            width: 400px;
+            height: 400px;
+            background: linear-gradient(135deg, rgba(0, 82, 204, 0.15) 0%, rgba(0, 82, 204, 0.05) 100%);
+            top: -100px;
+            right: -100px;
+        }
+
+        .bg-circle.c2 {
+            width: 300px;
+            height: 300px;
+            background: linear-gradient(135deg, rgba(0, 180, 42, 0.1) 0%, rgba(0, 180, 42, 0.03) 100%);
+            bottom: -50px;
+            left: -50px;
+        }
+
+        .bg-circle.c3 {
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(135deg, rgba(255, 125, 0, 0.1) 0%, rgba(255, 125, 0, 0.03) 100%);
+            top: 40%;
+            left: 20%;
+        }
+
+        .register-card {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 420px;
+            background: #fff;
+            border-radius: var(--pc-radius-xl);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+            padding: 40px;
+            animation: regFadeIn 0.6s ease;
+        }
+
+        @keyframes regFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .register-logo {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+
+        .register-logo-icon {
+            width: 56px;
+            height: 56px;
+            margin: 0 auto 12px;
+            background: linear-gradient(135deg, var(--pc-primary) 0%, var(--pc-primary-dark) 100%);
+            border-radius: var(--pc-radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 24px rgba(0, 82, 204, 0.3);
+        }
+
+        .register-logo-icon svg {
+            width: 28px;
+            height: 28px;
+            fill: #fff;
+        }
+
+        .register-logo h1 {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--pc-text-primary);
+            margin: 0 0 4px;
+        }
+
+        .register-logo p {
+            font-size: 12px;
+            color: var(--pc-text-tertiary);
+            margin: 0;
+        }
+
+        .register-form-group {
+            margin-bottom: 16px;
+        }
+
+        .register-form-label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--pc-text-secondary);
+            margin-bottom: 8px;
+        }
+
+        .register-input-wrapper {
+            position: relative;
+        }
+
+        .register-input-icon {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 18px;
+            height: 18px;
+            fill: var(--pc-text-tertiary);
+            pointer-events: none;
+        }
+
+        .register-input {
+            width: 100%;
+            padding: 11px 16px 11px 44px;
+            background: var(--pc-bg-page);
+            border: 1.5px solid var(--pc-border-primary);
+            border-radius: var(--pc-radius-md);
+            color: var(--pc-text-primary);
+            font-size: 14px;
+            transition: all 0.2s ease;
+            outline: none;
+            box-sizing: border-box;
+        }
+
+        .register-input:focus {
+            border-color: var(--pc-primary);
+            background: #fff;
+            box-shadow: 0 0 0 4px rgba(0, 82, 204, 0.08);
+        }
+
+        .register-input::placeholder {
+            color: var(--pc-text-quaternary);
+        }
+
+        .register-input.error {
+            border-color: var(--pc-danger);
+        }
+
+        .register-error-text {
+            color: var(--pc-danger);
+            font-size: 12px;
+            margin-top: 6px;
+            display: none;
+        }
+
+        .register-error-text.show {
+            display: block;
+        }
+
+        .register-btn {
+            width: 100%;
+            padding: 12px 24px;
+            background: linear-gradient(135deg, var(--pc-primary) 0%, var(--pc-primary-dark) 100%);
+            color: #fff;
+            border: none;
+            border-radius: var(--pc-radius-md);
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 12px rgba(0, 82, 204, 0.25);
+            margin-top: 8px;
+        }
+
+        .register-btn:hover:not(:disabled) {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(0, 82, 204, 0.35);
+        }
+
+        .register-btn:active:not(:disabled) {
+            transform: translateY(0);
+        }
+
+        .register-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .register-alert {
+            padding: 12px 16px;
+            border-radius: var(--pc-radius-md);
+            font-size: 13px;
+            margin-bottom: 16px;
+            display: none;
+        }
+
+        .register-alert.show {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .register-alert.success {
+            background: rgba(0, 180, 42, 0.08);
+            border: 1px solid rgba(0, 180, 42, 0.3);
+            color: var(--pc-success);
+        }
+
+        .register-alert.error {
+            background: rgba(245, 63, 63, 0.08);
+            border: 1px solid rgba(245, 63, 63, 0.3);
+            color: var(--pc-danger);
+        }
+
+        .register-divider {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 20px 0;
+            color: var(--pc-text-quaternary);
+            font-size: 12px;
+        }
+
+        .register-divider::before,
+        .register-divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--pc-border-secondary);
+        }
+
+        .register-footer {
+            text-align: center;
+            font-size: 13px;
+            color: var(--pc-text-secondary);
+        }
+
+        .register-footer a {
+            color: var(--pc-primary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: opacity 0.2s;
+        }
+
+        .register-footer a:hover {
+            opacity: 0.8;
+        }
+
+        .password-strength {
+            display: flex;
+            gap: 4px;
+            margin-top: 6px;
+        }
+
+        .strength-bar {
+            flex: 1;
+            height: 4px;
+            background: var(--pc-border-secondary);
+            border-radius: 2px;
+            transition: background 0.3s;
+        }
+
+        .strength-bar.active.weak { background: var(--pc-danger); }
+        .strength-bar.active.medium { background: var(--pc-warning); }
+        .strength-bar.active.strong { background: var(--pc-success); }
+
+        .strength-text {
+            font-size: 11px;
+            color: var(--pc-text-tertiary);
+            margin-top: 4px;
+        }
+    </style>
+    <link rel="stylesheet" href="css/demo.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%231677ff'/%3E%3Cpath d='M4 8l3 3 5-6' stroke='white' stroke-width='2' fill='none'/%3E%3C/svg%3E">
+</head>
+<body>
+    <div class="register-page">
+        <div class="register-bg-decoration">
+            <div class="bg-circle c1"></div>
+            <div class="bg-circle c2"></div>
+            <div class="bg-circle c3"></div>
+        </div>
+
+        <div class="register-card">
+            <div class="register-logo">
+                <div class="register-logo-icon">
+                    <svg viewBox="0 0 24 24"><path d="M13 3L4 14h7l-2 7 9-11h-7l2-7z"/></svg>
+                </div>
+                <h1>创建新账号</h1>
+                <p>电力风险智能交底系统</p>
+            </div>
+
+            <div class="register-alert" id="registerAlert"></div>
+
+            <form id="registerForm">
+                <div class="register-form-group">
+                    <label class="register-form-label" for="username">用户名</label>
+                    <div class="register-input-wrapper">
+                        <svg class="register-input-icon" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                        <input type="text" class="register-input" id="username" placeholder="3-20个字符" autocomplete="username">
+                    </div>
+                    <div class="register-error-text" id="usernameError">用户名至少3个字符</div>
+                </div>
+
+                <div class="register-form-group">
+                    <label class="register-form-label" for="email">邮箱</label>
+                    <div class="register-input-wrapper">
+                        <svg class="register-input-icon" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                        <input type="email" class="register-input" id="email" placeholder="用于找回密码" autocomplete="email">
+                    </div>
+                    <div class="register-error-text" id="emailError">请输入有效的邮箱地址</div>
+                </div>
+
+                <div class="register-form-group">
+                    <label class="register-form-label" for="password">密码</label>
+                    <div class="register-input-wrapper">
+                        <svg class="register-input-icon" viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+                        <input type="password" class="register-input" id="password" placeholder="至少6个字符" autocomplete="new-password">
+                    </div>
+                    <div class="password-strength" id="passwordStrength">
+                        <div class="strength-bar" id="bar1"></div>
+                        <div class="strength-bar" id="bar2"></div>
+                        <div class="strength-bar" id="bar3"></div>
+                    </div>
+                    <div class="strength-text" id="strengthText"></div>
+                    <div class="register-error-text" id="passwordError">密码至少6个字符</div>
+                </div>
+
+                <div class="register-form-group">
+                    <label class="register-form-label" for="confirmPassword">确认密码</label>
+                    <div class="register-input-wrapper">
+                        <svg class="register-input-icon" viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+                        <input type="password" class="register-input" id="confirmPassword" placeholder="再次输入密码" autocomplete="new-password">
+                    </div>
+                    <div class="register-error-text" id="confirmError">两次密码输入不一致</div>
+                </div>
+
+                <button type="submit" class="register-btn" id="registerBtn">注 册</button>
+            </form>
+
+            <div class="register-divider"><span>已有账号？</span></div>
+
+            <div class="register-footer">
+                返回 <a href="index.html">登录页面</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE_URL = '/api/auth';
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('registerForm');
+            const usernameInput = document.getElementById('username');
+            const emailInput = document.getElementById('email');
+            const passwordInput = document.getElementById('password');
+            const confirmInput = document.getElementById('confirmPassword');
+            const registerBtn = document.getElementById('registerBtn');
+
+            // 密码强度检测
+            passwordInput.addEventListener('input', function() {
+                const pwd = this.value;
+                let strength = 0;
+                if (pwd.length >= 6) strength++;
+                if (pwd.length >= 10 && /[A-Z]/.test(pwd)) strength++;
+                if (/[0-9]/.test(pwd) && /[^A-Za-z0-9]/.test(pwd)) strength++;
+
+                const bars = [
+                    document.getElementById('bar1'),
+                    document.getElementById('bar2'),
+                    document.getElementById('bar3')
+                ];
+                const textEl = document.getElementById('strengthText');
+
+                bars.forEach((bar, i) => {
+                    bar.className = 'strength-bar';
+                    if (i < strength) {
+                        if (strength === 1) bar.classList.add('active', 'weak');
+                        else if (strength === 2) bar.classList.add('active', 'medium');
+                        else if (strength === 3) bar.classList.add('active', 'strong');
+                    }
+                });
+
+                if (pwd.length === 0) {
+                    textEl.textContent = '';
+                } else if (strength === 1) {
+                    textEl.textContent = '密码强度：弱';
+                    textEl.style.color = 'var(--pc-danger)';
+                } else if (strength === 2) {
+                    textEl.textContent = '密码强度：中';
+                    textEl.style.color = 'var(--pc-warning)';
+                } else {
+                    textEl.textContent = '密码强度：强';
+                    textEl.style.color = 'var(--pc-success)';
+                }
+            });
+
+            usernameInput.addEventListener('input', clearError.bind(null, 'username'));
+            emailInput.addEventListener('input', clearError.bind(null, 'email'));
+            passwordInput.addEventListener('input', clearError.bind(null, 'password'));
+            confirmInput.addEventListener('input', clearError.bind(null, 'confirm'));
+
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                handleRegister();
+            });
+
+            async function handleRegister() {
+                const username = usernameInput.value.trim();
+                const email = emailInput.value.trim();
+                const password = passwordInput.value;
+                const confirmPwd = confirmInput.value;
+                let valid = true;
+
+                // 验证用户名
+                if (!username || username.length < 3) {
+                    showError('username', '用户名至少3个字符');
+                    valid = false;
+                } else if (username.length > 20) {
+                    showError('username', '用户名不能超过20个字符');
+                    valid = false;
+                } else if (!/^[a-zA-Z0-9_]+$/.test(username)) {
+                    showError('username', '用户名只能包含字母、数字和下划线');
+                    valid = false;
+                }
+
+                // 验证邮箱
+                const emailReg = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (email && !emailReg.test(email)) {
+                    showError('email', '请输入有效的邮箱地址');
+                    valid = false;
+                }
+
+                // 验证密码
+                if (!password || password.length < 6) {
+                    showError('password', '密码至少6个字符');
+                    valid = false;
+                }
+
+                // 验证确认密码
+                if (password !== confirmPwd) {
+                    showError('confirm', '两次密码输入不一致');
+                    valid = false;
+                }
+
+                if (!valid) return;
+
+                setLoading(true);
+                hideAlert();
+
+                try {
+                    const response = await fetch(API_BASE_URL + '/register', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ username, email, password, confirmPassword: confirmPwd })
+                    });
+
+                    const data = await response.json();
+
+                    if (response.ok) {
+                        showAlert('success', '注册成功！即将跳转到登录页...');
+                        setTimeout(() => {
+                            window.location.href = 'index.html';
+                        }, 1500);
+                    } else {
+                        showAlert('error', data.message || data.msg || '注册失败，请稍后重试');
+                    }
+                } catch (err) {
+                    showAlert('error', '网络连接失败，请检查服务器是否正常运行');
+                    console.error(err);
+                } finally {
+                    setLoading(false);
+                }
+            }
+
+            function showError(field, msg) {
+                const inputMap = {
+                    username: usernameInput,
+                    email: emailInput,
+                    password: passwordInput,
+                    confirm: confirmInput
+                };
+                const errorIdMap = {
+                    username: 'usernameError',
+                    email: 'emailError',
+                    password: 'passwordError',
+                    confirm: 'confirmError'
+                };
+                const input = inputMap[field];
+                const errorEl = document.getElementById(errorIdMap[field]);
+                if (input) input.classList.add('error');
+                if (errorEl) {
+                    errorEl.textContent = msg;
+                    errorEl.classList.add('show');
+                }
+            }
+
+            function clearError(field) {
+                const inputMap = {
+                    username: usernameInput,
+                    email: emailInput,
+                    password: passwordInput,
+                    confirm: confirmInput
+                };
+                const errorIdMap = {
+                    username: 'usernameError',
+                    email: 'emailError',
+                    password: 'passwordError',
+                    confirm: 'confirmError'
+                };
+                const input = inputMap[field];
+                const errorEl = document.getElementById(errorIdMap[field]);
+                if (input) input.classList.remove('error');
+                if (errorEl) errorEl.classList.remove('show');
+            }
+
+            function showAlert(type, msg) {
+                const alertEl = document.getElementById('registerAlert');
+                alertEl.className = 'register-alert ' + type + ' show';
+                alertEl.textContent = msg;
+            }
+
+            function hideAlert() {
+                document.getElementById('registerAlert').classList.remove('show');
+            }
+
+            function setLoading(loading) {
+                registerBtn.disabled = loading;
+                registerBtn.textContent = loading ? '注册中...' : '注 册';
+            }
+        });
+    </script>
+</body>
+</html>

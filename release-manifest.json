@@ -1,7 +1,7 @@
 {
   "version": "1.0",
   "target": "pages",
-  "preparedAt": "2026-10-18T22:26:19Z",
+  "preparedAt": "2026-10-18T23:08:53Z",
   "repository": "HKY-hub/crash-crown-demo",
   "gameBaselineSHA256": "7af8b62666c4b39ee74b353cd04780cfdd6fd11b18b91b28cf6d477567346725",
   "publicGameSHA256": "790941476cb57788566b2c3e5db19d00890be04a329a9a1517ac1363dcaef169",
@@ -305,8 +305,8 @@
     },
     {
       "file": "README.md",
-      "bytes": 1667,
-      "sha256": "bf6ae439ba4a320c799bfa53969de4a358b2e4b98270fffae89f19558ff08e79"
+      "bytes": 1907,
+      "sha256": "0e49244f67a8066f121996d0aaf64ccd061f963b79c3ade475ce1a6b2cfd7bc7"
     },
     {
       "file": "assets/audio-workbench.jpg",
@@ -605,8 +605,8 @@
     },
     {
       "file": "docs/index.html",
-      "bytes": 11486,
-      "sha256": "184ea65e70b9be63521d65af6666d9a24419019d46c13eaf4bb8481dedb62e00"
+      "bytes": 11474,
+      "sha256": "ad11c4fef3f0ef6b45de2e3cc173dc5861dd00aeeceb36d75c3868c43654711e"
     },
     {
       "file": "docs/撞击王座_同类市场数据与定位说明.md",
@@ -825,8 +825,8 @@
     },
     {
       "file": "index.html",
-      "bytes": 69273,
-      "sha256": "5be7ef121054e50b24f49762c4ebf174f800bfe0b38cd0f1a1ee162963b4e749"
+      "bytes": 75138,
+      "sha256": "c42de61e0862fe4fbe70294fdbb15ce97a00e0bae0e636e2c75db75a21be1873"
     },
     {
       "file": "release.html",
@@ -1457,6 +1457,181 @@
       "file": "biohazard/sounds/tikka.ogg",
       "bytes": 8158,
       "sha256": "23faf2c7aed2a20f70e7c2245f9e2310c93af6e663c649e55efb6aa619ca4cd0"
+    },
+    {
+      "file": "demo/electric-safety/accident-cases.html",
+      "bytes": 37149,
+      "sha256": "a0350f6e48bdf8ae91bd3f8183c643fee20d36412ea81be22de78620a38b5a95"
+    },
+    {
+      "file": "demo/electric-safety/agent-entry.html",
+      "bytes": 10642,
+      "sha256": "fe2264db7e115ac440d1bced9c4963c417f5c27300454724e0f3d69cc4a22060"
+    },
+    {
+      "file": "demo/electric-safety/agent-map.html",
+      "bytes": 39843,
+      "sha256": "219bc2b46a2c32e59986a09da653edc2ad86563d71996ce647412940771006ce"
+    },
+    {
+      "file": "demo/electric-safety/chat.html",
+      "bytes": 84696,
+      "sha256": "4bd005a58d162c76dd98d4798c2d77826a7f2341098b696a6ff43ad3df24d62e"
+    },
+    {
+      "file": "demo/electric-safety/dashboard.html",
+      "bytes": 57527,
+      "sha256": "0cea217b259e4612e11fec316954ccf8c288f98fbf22a7e43c6cc582e9deaf29"
+    },
+    {
+      "file": "demo/electric-safety/disclosure-detail.html",
+      "bytes": 37192,
+      "sha256": "f2468444f3d3198d1b3f74aa7376c19c73e555ed6b629dc9a66e32562a0aa099"
+    },
+    {
+      "file": "demo/electric-safety/index.html",
+      "bytes": 18373,
+      "sha256": "028363cd7441ca5ff333fa4ba2c3ffa87253d37b3a283b8b65e22ac7bfabc861"
+    },
+    {
+      "file": "demo/electric-safety/profile.html",
+      "bytes": 24714,
+      "sha256": "a6e04bd4e0d83d61a1c990dcfd6c66e5181a6d066444c10995b4de0a3094e6a1"
+    },
+    {
+      "file": "demo/electric-safety/register.html",
+      "bytes": 20606,
+      "sha256": "33ce62a18f72abad2b7d41b9886e63ea51028dc3dce539c6269b1fe7d56f0305"
+    },
+    {
+      "file": "demo/electric-safety/settings.html",
+      "bytes": 16978,
+      "sha256": "4b1cefe5faf68d30c3fdffc622c5f074f27bd1bc7eca179d7e27af7cf565f7e4"
+    },
+    {
+      "file": "demo/electric-safety/vision-monitor.html",
+      "bytes": 90005,
+      "sha256": "8ab7a1cb945a93b17871364fbb3ea41237de6de6fcf9ee35464d012d76f3f529"
+    },
+    {
+      "file": "demo/electric-safety/weather-risk.html",
+      "bytes": 54945,
+      "sha256": "2582b7447a07a32e218986bac4aaf0a669023a7214dc65b085b8e7ac3ff902d3"
+    },
+    {
+      "file": "demo/electric-safety/css/animations.css",
+      "bytes": 4707,
+      "sha256": "a654d9078dd130a21ce6bc03a436dd93f9d249bdf520d687b8c66b73f390b43a"
+    },
+    {
+      "file": "demo/electric-safety/css/demo.css",
+      "bytes": 5965,
+      "sha256": "ce0d0448564fd409d46012144c64f124f4307d46b4ad6617910f75f8a96f7492"
+    },
+    {
+      "file": "demo/electric-safety/css/pc-style.css",
+      "bytes": 76252,
+      "sha256": "dccfa6719d5e9b4286d847e9738708df9cfe50527084abd692ad0462489af855"
+    },
+    {
+      "file": "demo/electric-safety/css/style.css",
+      "bytes": 44680,
+      "sha256": "1a1bc45b724906c3f44cb1bbd70634245e80dd888ce9e27a8a9d29cbe16ddaff"
+    },
+    {
+      "file": "demo/electric-safety/js/dashboard.js",
+      "bytes": 74701,
+      "sha256": "1a6d3fcb81f08c162fb6e2ead6865a8e43e13e4002872b1cfefd9762dc0f0eb1"
+    },
+    {
+      "file": "demo/electric-safety/js/demo.js",
+      "bytes": 27677,
+      "sha256": "59d64d73feb15d23eaaafc964d16beb74685efa1eefa9c346002a8e08e3b1dd6"
+    },
+    {
+      "file": "demo/electric-safety/js/disclosure-detail.js",
+      "bytes": 17452,
+      "sha256": "3fc07c8dd95d3e84264455017b70ae0f088691ff061fce049a2943208aa7c03a"
+    },
+    {
+      "file": "demo/electric-safety/js/login.js",
+      "bytes": 3950,
+      "sha256": "a5b4edf20ab9dcc2e6f578ef3d323c9dbb4ba9a5542e34b830c194cf36fdac41"
+    },
+    {
+      "file": "demo/electric-safety/js/profile.js",
+      "bytes": 5782,
+      "sha256": "2270f4be556ad2c2e50617e4d41d39686c9232ef5673272991df3151675d69c9"
+    },
+    {
+      "file": "demo/electric-safety/js/register.js",
+      "bytes": 6100,
+      "sha256": "3528f55b520b6f59e4e2f5c7e79fc288bad47df85af39cb67026ffaae926b977"
+    },
+    {
+      "file": "demo/electric-safety/js/theme.js",
+      "bytes": 4282,
+      "sha256": "0b199beb9cd2cb154bcc1841318cfa5edc4a97878da8a062ef6c9b346935f5fd"
+    },
+    {
+      "file": "demo/electric-safety/js/weather-risk.js",
+      "bytes": 52920,
+      "sha256": "c08833c225cd34f9a96ee26cd5e64ecc943097cfe19989f8b1cda99c9dfadbd9"
+    },
+    {
+      "file": "demo/electric-safety/vendor/leaflet/leaflet.css",
+      "bytes": 14806,
+      "sha256": "a7837102824184820dfa198d1ebcd109ff6d0ff9a2672a074b9a1b4d147d04c6"
+    },
+    {
+      "file": "demo/electric-safety/vendor/leaflet/leaflet.js",
+      "bytes": 147552,
+      "sha256": "db49d009c841f5ca34a888c96511ae936fd9f5533e90d8b2c4d57596f4e5641a"
+    },
+    {
+      "file": "demo/electric-safety/vendor/leaflet/images/layers-2x.png",
+      "bytes": 1259,
+      "sha256": "066daca850d8ffbef007af00b06eac0015728dee279c51f3cb6c716df7c42edf"
+    },
+    {
+      "file": "demo/electric-safety/vendor/leaflet/images/layers.png",
+      "bytes": 696,
+      "sha256": "1dbbe9d028e292f36fcba8f8b3a28d5e8932754fc2215b9ac69e4cdecf5107c6"
+    },
+    {
+      "file": "demo/electric-safety/vendor/leaflet/images/marker-icon-2x.png",
+      "bytes": 2464,
+      "sha256": "00179c4c1ee830d3a108412ae0d294f55776cfeb085c60129a39aa6fc4ae2528"
+    },
+    {
+      "file": "demo/electric-safety/vendor/leaflet/images/marker-icon.png",
+      "bytes": 1466,
+      "sha256": "574c3a5cca85f4114085b6841596d62f00d7c892c7b03f28cbfa301deb1dc437"
+    },
+    {
+      "file": "demo/electric-safety/vendor/leaflet/images/marker-shadow.png",
+      "bytes": 618,
+      "sha256": "264f5c640339f042dd729062cfc04c17f8ea0f29882b538e3848ed8f10edb4da"
+    },
+    {
+      "file": "demo/teaching-video/index.html",
+      "bytes": 682,
+      "sha256": "d1390ad3645a572031be0fe370423733456a5fb60f1a406817f81634bff8d413"
+    },
+    {
+      "file": "demo/teaching-video/vite.svg",
+      "bytes": 1497,
+      "sha256": "4a748afd443918bb16591c834c401dae33e87861ab5dbad0811c3a3b4a9214fb"
+    },
+    {
+      "file": "demo/teaching-video/assets/index-BVLJDtIB.css",
+      "bytes": 18628,
+      "sha256": "300abb31cd7916da57ae6368b787ef33fe8ff9ca6176a0259fd5af38b4e07cf5"
+    },
+    {
+      "file": "demo/teaching-video/assets/index-Ctrbv9Wa.js",
+      "bytes": 369963,
+      "sha256": "de3a7168cb9758732a863677bd676b51d688534230c7e35beb69b676002bb688"
     }
   ]
 }

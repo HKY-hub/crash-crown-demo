@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <script src="js/demo.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>系统设置 - 电力风险智能交底系统</title>
+    <link rel="stylesheet" href="css/pc-style.css">
+    <script src="js/theme.js"></script>
+    <style>
+        .settings-page {
+            padding: 32px 40px;
+            max-width: 720px;
+        }
+        .settings-page-title {
+            margin-bottom: 24px;
+        }
+        .settings-page-title h1 {
+            font-size: 22px;
+            font-weight: 600;
+            color: var(--pc-text-primary);
+            margin: 0 0 6px 0;
+        }
+        .settings-page-title p {
+            color: var(--pc-text-secondary);
+            font-size: 14px;
+            margin: 0;
+        }
+        .settings-card {
+            background: var(--pc-bg-card);
+            border: 1px solid var(--pc-border-light);
+            border-radius: var(--pc-radius-lg);
+            padding: 24px;
+            margin-bottom: 16px;
+        }
+        .settings-card h2 {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--pc-text-primary);
+            margin: 0 0 16px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .settings-card h2 svg {
+            width: 20px;
+            height: 20px;
+            fill: var(--pc-primary);
+        }
+        .theme-section-desc {
+            color: var(--pc-text-tertiary);
+            font-size: 13px;
+            margin: 0 0 16px 0;
+        }
+        .theme-options {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+        }
+        .theme-option {
+            cursor: pointer;
+            border-radius: var(--pc-radius-md);
+            padding: 16px;
+            border: 2px solid var(--pc-border-light);
+            transition: all 0.25s;
+            text-align: center;
+            background: var(--pc-bg-body);
+        }
+        .theme-option:hover {
+            border-color: var(--pc-primary);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+        .theme-option.active {
+            border-color: var(--pc-primary);
+            background: var(--pc-primary-pale);
+        }
+        .theme-preview {
+            width: 100%;
+            aspect-ratio: 1;
+            border-radius: var(--pc-radius-sm);
+            margin-bottom: 10px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--pc-border-light);
+        }
+        .theme-preview-bar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 30%;
+        }
+        .theme-preview-bg {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 70%;
+        }
+        .theme-name {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--pc-text-primary);
+        }
+        .setting-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 0;
+            border-bottom: 1px solid var(--pc-border-light);
+        }
+        .setting-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+        .setting-item:first-child {
+            padding-top: 0;
+        }
+        .setting-info h3 {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--pc-text-primary);
+            margin: 0 0 4px 0;
+        }
+        .setting-info p {
+            font-size: 12px;
+            color: var(--pc-text-tertiary);
+            margin: 0;
+        }
+        .setting-value {
+            color: var(--pc-text-secondary);
+            font-size: 13px;
+        }
+        .version-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            background: var(--pc-primary-pale);
+            color: var(--pc-primary);
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+    </style>
+    <link rel="stylesheet" href="css/demo.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%231677ff'/%3E%3Cpath d='M4 8l3 3 5-6' stroke='white' stroke-width='2' fill='none'/%3E%3C/svg%3E">
+</head>
+<body>
+    <div class="pc-sidebar-layout">
+        <!-- 侧边栏 -->
+        <aside class="pc-sidebar">
+            <div class="pc-sidebar-header">
+                <a href="dashboard.html?module=home" class="pc-sidebar-logo">
+                    <div class="pc-sidebar-logo-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M13 3L4 14h7l-2 7 9-11h-7l2-7z"/>
+                        </svg>
+                    </div>
+                    <div class="pc-sidebar-logo-text">
+                        <span class="pc-sidebar-logo-title">电力风险智能交底</span>
+                        <span class="pc-sidebar-logo-subtitle">RISK DISCLOSURE</span>
+                    </div>
+                </a>
+            </div>
+            <ul class="pc-sidebar-menu">
+                <li class="pc-sidebar-item">
+                    <a href="dashboard.html?module=home" class="pc-sidebar-link">
+                        <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+                        首页
+                    </a>
+                </li>
+                <li class="pc-sidebar-item">
+                    <a href="dashboard.html?module=tasks" class="pc-sidebar-link">
+                        <svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+                        任务管理
+                    </a>
+                </li>
+                <li class="pc-sidebar-item">
+                    <a href="dashboard.html?module=hazards" class="pc-sidebar-link">
+                        <svg viewBox="0 0 24 24"><path d="M12 2L1 21h22L12 2zm0 3.84L18.09 19H5.91L12 5.84zM11 10v4h2v-4h-2zm0 6v2h2v-2h-2z"/></svg>
+                        风险辨识
+                    </a>
+                </li>
+                <li class="pc-sidebar-item">
+                    <a href="dashboard.html?module=disclosures" class="pc-sidebar-link">
+                        <svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+                        安全交底
+                    </a>
+                </li>
+                <li class="pc-sidebar-item">
+                    <a href="vision-monitor.html" class="pc-sidebar-link">
+                        <svg viewBox="0 0 24 24"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/></svg>
+                        视觉监控
+                    </a>
+                </li>
+                <li class="pc-sidebar-item">
+                    <a href="weather-risk.html" class="pc-sidebar-link">
+                        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                        天气预警
+                    </a>
+                </li>
+                <li class="pc-sidebar-item">
+                    <a href="dashboard.html?module=cases" class="pc-sidebar-link">
+                        <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+                        事故案例
+                    </a>
+                </li>
+                <li class="pc-sidebar-item">
+                    <a href="agent-entry.html" class="pc-sidebar-link">
+                        <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/></svg>
+                        智能交底Agent
+                    </a>
+                </li>
+                <li class="pc-sidebar-item">
+                    <a href="dashboard.html?module=dict" class="pc-sidebar-link">
+                        <svg viewBox="0 0 24 24"><path d="M11 17h2v-1h1c.55 0 1-.45 1-1v-3c0-.55-.45-1-1-1h-3v-1h4v-2h-4V7h-2v1h-1c-.55 0-1 .45-1 1v3c0 .55.45 1 1 1h3v1H9v2h2v1zm1-15C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg>
+                        字典管理
+                    </a>
+                </li>
+            </ul>
+            <div class="pc-sidebar-footer">
+                <div class="pc-sidebar-user" id="userDropdown">
+                    <div class="pc-sidebar-avatar" id="userAvatar">用</div>
+                    <div class="pc-sidebar-user-info">
+                        <div class="pc-sidebar-user-name" id="usernameDisplay">用户</div>
+                        <div class="pc-sidebar-user-role">系统操作员</div>
+                    </div>
+                    <div class="pc-sidebar-dropdown-menu">
+                        <a href="profile.html" class="pc-sidebar-dropdown-item">
+                            <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                            个人信息
+                        </a>
+                        <a href="settings.html" class="pc-sidebar-dropdown-item active">
+                            <svg viewBox="0 0 24 24"><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg>
+                            系统设置
+                        </a>
+                        <div class="pc-sidebar-divider"></div>
+                        <a href="#" class="pc-sidebar-dropdown-item logout" onclick="logout()">
+                            <svg viewBox="0 0 24 24"><path d="M10.09 15.59L11.5 17l5-5-5-5-1.41 1.41L12.67 11H3v2h9.67l-2.58 2.59zM19 3H5c-1.11 0-2 .9-2 2v4h2V5h14v14H5v-4H3v4c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"/></svg>
+                            退出登录
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <main class="pc-main-content">
+            <div class="settings-page">
+                <div class="settings-page-title">
+                    <h1>系统设置</h1>
+                    <p>个性化您的界面外观</p>
+                </div>
+
+                <!-- 主题设置 -->
+                <div class="settings-card">
+                    <h2>
+                        <svg viewBox="0 0 24 24"><path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9c.83 0 1.5-.67 1.5-1.5 0-.39-.15-.74-.39-1.01-.23-.26-.38-.61-.38-.99 0-.83.67-1.5 1.5-1.5H16c2.76 0 5-2.24 5-5 0-4.42-4.03-8-9-8zm-5.5 9c-.83 0-1.5-.67-1.5-1.5S5.67 9 6.5 9 8 9.67 8 10.5 7.33 12 6.5 12zm3-4C8.67 8 8 7.33 8 6.5S8.67 5 9.5 5s1.5.67 1.5 1.5S10.33 8 9.5 8zm5 0c-.83 0-1.5-.67-1.5-1.5S13.67 5 14.5 5s1.5.67 1.5 1.5S15.33 8 14.5 8zm3 4c-.83 0-1.5-.67-1.5-1.5S16.67 9 17.5 9s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>
+                        主题颜色
+                    </h2>
+                    <p class="theme-section-desc">选择您喜欢的主题色，应用到整个系统</p>
+                    <div class="theme-options">
+                        <div class="theme-option active" data-theme="blue" onclick="setTheme('blue')">
+                            <div class="theme-preview">
+                                <div class="theme-preview-bar" style="background: #0052CC;"></div>
+                                <div class="theme-preview-bg" style="background: #f0f2f5;"></div>
+                            </div>
+                            <div class="theme-name">科技蓝</div>
+                        </div>
+                        <div class="theme-option" data-theme="green" onclick="setTheme('green')">
+                            <div class="theme-preview">
+                                <div class="theme-preview-bar" style="background: #00B42A;"></div>
+                                <div class="theme-preview-bg" style="background: #f0f2f5;"></div>
+                            </div>
+                            <div class="theme-name">安全绿</div>
+                        </div>
+                        <div class="theme-option" data-theme="orange" onclick="setTheme('orange')">
+                            <div class="theme-preview">
+                                <div class="theme-preview-bar" style="background: #FF7D00;"></div>
+                                <div class="theme-preview-bg" style="background: #f0f2f5;"></div>
+                            </div>
+                            <div class="theme-name">警示橙</div>
+                        </div>
+                        <div class="theme-option" data-theme="dark" onclick="setTheme('dark')">
+                            <div class="theme-preview">
+                                <div class="theme-preview-bar" style="background: #1d2129;"></div>
+                                <div class="theme-preview-bg" style="background: #2a2f3a;"></div>
+                            </div>
+                            <div class="theme-name">暗黑模式</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 系统信息 -->
+                <div class="settings-card">
+                    <h2>
+                        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+                        系统信息
+                    </h2>
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <h3>系统版本</h3>
+                            <p>当前运行的软件版本</p>
+                        </div>
+                        <span class="version-badge">v1.0.0</span>
+                    </div>
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <h3>部署模式</h3>
+                            <p>私有化本地部署</p>
+                        </div>
+                        <div class="setting-value">本地部署</div>
+                    </div>
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <h3>数据库</h3>
+                            <p>内置H2数据库</p>
+                        </div>
+                        <div class="setting-value">H2 (默认)</div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // 应用主题
+        function applyTheme(themeName) {
+            ThemeManager.applyTheme(themeName);
+            document.querySelectorAll('.theme-option').forEach(el => {
+                el.classList.toggle('active', el.dataset.theme === themeName);
+            });
+        }
+
+        function setTheme(themeName) {
+            applyTheme(themeName);
+        }
+
+        // 检查登录状态
+        function checkAuth() {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                window.location.href = 'index.html';
+                return false;
+            }
+            const username = localStorage.getItem('username');
+            if (username) {
+                document.getElementById('usernameDisplay').textContent = username;
+                document.getElementById('userAvatar').textContent = username.charAt(0).toUpperCase();
+            }
+            return true;
+        }
+
+        // 用户下拉菜单
+        const userDropdown = document.getElementById('userDropdown');
+        userDropdown.addEventListener('click', function(e) {
+            e.stopPropagation();
+            this.classList.toggle('open');
+        });
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.pc-sidebar-user')) {
+                userDropdown.classList.remove('open');
+            }
+        });
+
+        // 退出登录
+        function logout() {
+            localStorage.removeItem('token');
+            localStorage.removeItem('username');
+            window.location.href = 'index.html';
+        }
+
+        // 初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            checkAuth();
+            const savedTheme = ThemeManager.getCurrentTheme();
+            applyTheme(savedTheme);
+        });
+    </script>
+</body>
+</html>
