@@ -1,7 +1,7 @@
 {
   "version": "1.0",
   "target": "pages",
-  "preparedAt": "2026-10-18T20:41:59Z",
+  "preparedAt": "2026-10-18T21:35:12Z",
   "repository": "HKY-hub/crash-crown-demo",
   "gameBaselineSHA256": "7af8b62666c4b39ee74b353cd04780cfdd6fd11b18b91b28cf6d477567346725",
   "publicGameSHA256": "790941476cb57788566b2c3e5db19d00890be04a329a9a1517ac1363dcaef169",
@@ -305,8 +305,13 @@
     },
     {
       "file": "README.md",
-      "bytes": 1040,
-      "sha256": "12e6e16ff946e3ed8003dc20f91e09193e11b14f809a82a5844d3ec10edb0089"
+      "bytes": 1120,
+      "sha256": "1213c41c86c154a4a1074cf21e6d37443406f0648470b5436cedd76797287b2a"
+    },
+    {
+      "file": "assets/audio-workbench.jpg",
+      "bytes": 39663,
+      "sha256": "d73006895dcb6a7b6f8c4d7e6d8b1023252154eb87ed5fb6e38992af4b44f8a7"
     },
     {
       "file": "assets/audio-workbench.png",
@@ -322,6 +327,11 @@
       "file": "assets/cs2.jpg",
       "bytes": 315288,
       "sha256": "0c9f0b1381a51b63d418c0ca7b23bf58d3ed7101f69594ea63df4d84d3a98c68"
+    },
+    {
+      "file": "assets/electric-dashboard.jpg",
+      "bytes": 68949,
+      "sha256": "d9c5f586127a7bb45ffba6ee55b6ee30ff17b5da2daa2f46b98080c2f00c84f3"
     },
     {
       "file": "assets/electric-dashboard.png",
@@ -815,8 +825,8 @@
     },
     {
       "file": "index.html",
-      "bytes": 17572,
-      "sha256": "deb25ef43c61158ff29d47cd6104b13f2be65915594310104a6a1565243e690f"
+      "bytes": 52975,
+      "sha256": "216218ba3630fb9f5c4774164ea9bac7c91eb9d9c3fdb08af333ed1de7dc3806"
     },
     {
       "file": "release.html",

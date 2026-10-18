@@ -1,19 +1,822 @@
 <!doctype html>
-<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#121719"><meta name="description" content="HKY 作品档案：原创游戏、应用系统、策划拆解与配置表格。试玩、查看源码、阅读与下载。"><title>HKY · 游戏策划作品档案</title><link rel="icon" href="assets/crown.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/site.css"><script defer src="assets/site.js"></script></head>
-<body class="portfolio"><a class="skip" href="#main">跳到作品目录</a><div class="reading-progress" aria-hidden="true"></div>
-<svg class="icon-definitions" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 19 19 5M5 5h14v14"/></symbol><symbol id="i-play" viewBox="0 0 24 24"><path d="m9 5 11 7-11 7Z"/></symbol><symbol id="i-folder" viewBox="0 0 24 24"><path d="M3 7V4h7l3 3h8v13H3Z"/></symbol><symbol id="i-sheet" viewBox="0 0 24 24"><path d="M5 3h10l4 4v14H5ZM14 3v5h5M8 12h8M8 16h8M11 10v9"/></symbol><symbol id="i-down" viewBox="0 0 24 24"><path d="M12 3v13m-5-5 5 5 5-5M4 16v5h16v-5"/></symbol></svg>
-<header class="site-header shell"><a class="identity" href="./" aria-label="HKY 作品集首页"><span class="identity-mark">HKY<span>.</span></span><span class="identity-name">游戏策划<br>作品档案</span></a><nav aria-label="主导航"><a href="#works">作品目录</a><a href="#gallery">实机图库</a><a href="#about">关于设计</a></nav><div class="header-tools"><button id="motion-toggle" type="button" aria-pressed="true">动态效果 <span>开</span></button><a class="header-demo" href="game/">试玩 1.0 <svg class="icon"><use href="#i-arrow"/></svg></a></div></header>
-<main id="main"><section class="archive-intro shell" aria-labelledby="title"><h1 id="title">把想法，<br><span>做成可玩的规则。</span></h1><div class="intro-note"><p>从玩法原型到系统拆解，<br>让每一份设计，都有迹可循。</p><a href="#about">HKY · 游戏策划 <svg class="icon"><use href="#i-arrow"/></svg></a></div></section>
-<section class="directory shell" aria-label="按作品类型浏览"><div class="category-list" aria-label="作品分类"><button class="category" data-category="game" aria-pressed="false" aria-controls="category-preview catalog"><span class="category-count">01 项</span><span class="category-name">原创游戏</span><span class="category-note">玩法原型 · 模型与规则 · 浏览器试玩</span><svg class="icon category-arrow"><use href="#i-arrow"/></svg></button><button class="category" data-category="applications" aria-pressed="false" aria-controls="category-preview catalog"><span class="category-count">02 项</span><span class="category-name">应用系统</span><span class="category-note">两套独立应用 · Docker 本地运行</span><svg class="icon category-arrow"><use href="#i-arrow"/></svg></button><button class="category " data-category="research" aria-pressed="false" aria-controls="category-preview catalog"><span class="category-count">03 册</span><span class="category-name">系统拆解</span><span class="category-note">原创项目双册 · 商业游戏研究</span><svg class="icon category-arrow"><use href="#i-arrow"/></svg></button><button class="category " data-category="sheets" aria-pressed="false" aria-controls="category-preview catalog"><span class="category-count">02 份</span><span class="category-name">配置表格</span><span class="category-note">系统交付 · 配置规则 · 经济预算</span><svg class="icon category-arrow"><use href="#i-arrow"/></svg></button></div><div id="category-preview" class="preview-stage">
-<div class="preview-pane" data-preview="game"><img class="preview-photo" src="assets/gameplay.jpg" alt="撞击王座正式1.0第三人称实机" width="1600" height="1000" fetchpriority="high"><div class="preview-caption"><h2>撞击王座</h2><span class="version-label">原创项目 · 正式 1.0</span><p>用角度与动量，把对手送出场外。</p><div class="preview-actions"><a class="action" href="game/">立即试玩 <svg class="icon"><use href="#i-play"/></svg></a><a href="#project">查看项目 <svg class="icon"><use href="#i-arrow"/></svg></a></div></div><span class="preview-source">正式游戏实机画面</span></div>
-<div class="preview-pane" data-preview="research" hidden><img class="preview-photo" src="assets/cs2.jpg" alt="CS2拆解案收录的Dust II战斗HUD实机参考图" width="1920" height="1080"><div class="preview-caption"><h2>CS2 系统拆解</h2><span class="version-label">商业游戏研究 · 含图阅读版</span><p>从一次决策，追到系统之间的关系。</p><div class="preview-actions"><a class="action" href="cs2/">在线阅读 <svg class="icon"><use href="#i-arrow"/></svg></a><a href="#research">查看全部三册</a></div></div><span class="preview-source">研究资料配图 · 来源与日期见正文</span></div>
-<div class="preview-pane sheet-preview" data-preview="sheets" hidden><div class="sheet-spine"><svg class="icon"><use href="#i-sheet"/></svg><span>XLSX</span></div><div class="sheet-preview-body"><h2>把规则<br>落在表格里。</h2><span class="version-label">可编辑工作簿 · 配套附件</span><p>配置、状态、来源和验收，<br>连成可回查的交付记录。</p><a class="action action-dark" href="spreadsheets/">查看两份工作簿 <svg class="icon"><use href="#i-down"/></svg></a></div><div class="sheet-index" aria-hidden="true"><span>配置</span><span>规则</span><span>验收</span><span>来源</span></div></div><div class="preview-pane" data-preview="applications" hidden><img class="preview-photo" src="assets/electric-dashboard.png" alt="电力风险辨识系统的仪表盘界面" width="1270" height="714" loading="lazy"><div class="preview-caption"><h2>应用系统</h2><span class="version-label">两套独立项目 · Docker 本地运行</span><p>从教学音视频转写，到电力作业风险辨识与安全交底。</p><div class="preview-actions"><a class="action" href="#applications">查看两套系统 <svg class="icon"><use href="#i-arrow"/></svg></a><a href="https://github.com/HKY-hub/teaching-video-transcription" target="_blank" rel="noopener">GitHub 源码 <svg class="icon"><use href="#i-arrow"/></svg></a></div></div><span class="preview-source">截图来自独立测试环境</span></div></div></section>
-<span id="documents" aria-hidden="true"></span><section id="works" class="works-section shell"><div class="catalog-heading"><div><h2>作品目录</h2><p id="catalog-status" role="status" aria-live="polite">全部作品 · 1 个游戏 / 2 套应用 / 3 册研究 / 2 份表格</p></div><button id="show-all" class="text-button" aria-pressed="true">显示全部作品 <svg class="icon"><use href="#i-folder"/></svg></button></div><div id="catalog">
-<section class="work-group" id="project" data-group="game" aria-labelledby="game-heading"><div class="group-heading"><h3 id="game-heading">原创游戏</h3><span>从想法到可玩的原型</span></div><article class="game-case"><a class="case-image" href="game/" aria-label="试玩撞击王座1.0"><img loading="lazy" src="assets/overhead.jpg" alt="撞击王座大逃杀地图俯视实机" width="1440" height="810"><span>进入浏览器试玩 <svg class="icon"><use href="#i-arrow"/></svg></span></a><div class="case-copy"><h4>撞击王座</h4><div class="case-meta"><span>浏览器竞技原型</span><span>正式 1.0</span></div><p>以车辆撞击为核心，把接近角度、冲势时机、耐久稳定和场地边界，组织成反复博弈的空间。</p><dl class="case-facts"><div><dt>设计内容</dt><dd>车型与技能 / 地图机制 / 模式与成长</dd></div><div><dt>体验方式</dt><dd>电脑与手机操作 · 免登录 · 本机存档</dd></div></dl><div class="case-links"><a class="action" href="game/">试玩 1.0 <svg class="icon"><use href="#i-play"/></svg></a><a href="docs/">配套策划双册 <svg class="icon"><use href="#i-arrow"/></svg></a></div></div></article></section>
-<section class="work-group" id="applications" data-group="applications" aria-labelledby="applications-heading"><div class="group-heading"><h3 id="applications-heading">应用系统</h3><span>完整源码 · 本地 Docker 部署</span></div><div class="research-list"><article class="research-case"><a class="research-cover" href="https://github.com/HKY-hub/teaching-video-transcription" target="_blank" rel="noopener" aria-label="查看教学视频语音文本提取系统源码"><img loading="lazy" src="assets/audio-workbench.png" alt="教学视频语音提取工作台的实机界面" width="1272" height="716"><span>FastAPI · Whisper</span></a><div><h4><a href="https://github.com/HKY-hub/teaching-video-transcription" target="_blank" rel="noopener">教学视频语音文本提取系统 <svg class="icon"><use href="#i-arrow"/></svg></a></h4><div class="case-meta"><span>React + FastAPI</span><span>Docker 轻量作品集版</span></div><p>上传教学视频或录音，提取音轨并转写为带时间戳的文本，支持编辑、历史记录与多格式导出。界面可在未安装模型时启动；实际转写需自行准备 Whisper 模型。</p><div class="case-links"><a class="action" href="https://github.com/HKY-hub/teaching-video-transcription" target="_blank" rel="noopener">查看源码与部署说明 <svg class="icon"><use href="#i-arrow"/></svg></a><a href="https://github.com/HKY-hub/teaching-video-transcription/tree/main/docs" target="_blank" rel="noopener">验证记录</a></div></div></article><article class="research-case"><a class="research-cover" href="https://github.com/HKY-hub/ELeDangerCheck" target="_blank" rel="noopener" aria-label="查看电力风险辨识与安全交底系统源码"><img loading="lazy" src="assets/electric-dashboard.png" alt="电力风险辨识系统的仪表盘界面" width="1270" height="714"><span>Spring Boot · ONNX</span></a><div><h4><a href="https://github.com/HKY-hub/ELeDangerCheck" target="_blank" rel="noopener">电力作业风险辨识与安全交底系统 <svg class="icon"><use href="#i-arrow"/></svg></a></h4><div class="case-meta"><span>Spring Boot + MySQL</span><span>Docker 轻量作品集版</span></div><p>围绕作业任务串联危险源、安全措施和交底材料，并提供本地 ONNX PPE 图片检测。云端服务需另行配置；仓库内置演示统计不代表生产监控结果。</p><div class="case-links"><a class="action" href="https://github.com/HKY-hub/ELeDangerCheck" target="_blank" rel="noopener">查看源码与部署说明 <svg class="icon"><use href="#i-arrow"/></svg></a><a href="https://github.com/HKY-hub/ELeDangerCheck/tree/develop/docs" target="_blank" rel="noopener">验证记录</a></div></div></article></div><p>两个系统都需要 Docker 环境启动；本页面提供作品介绍与源码入口，不托管在线运行服务。</p></section>
-<section class="work-group" id="research" data-group="research" aria-labelledby="research-heading"><div class="group-heading"><h3 id="research-heading">系统拆解与策划</h3><span>理解现状，也说明如何制作</span></div><div class="research-list"><article class="research-case"><a class="research-cover" href="cs2/" tabindex="-1" aria-hidden="true"><img loading="lazy" src="assets/cs2.jpg" alt="" width="1440" height="810"><span>CS2</span></a><div><h4><a href="cs2/">CS2 整体架构及八大系统拆解 <svg class="icon"><use href="#i-arrow"/></svg></a></h4><div class="case-meta"><span>商业游戏研究</span><span>含实机配图与来源</span></div><p>核心对抗、武器、经济、地图、模式与成长，从体验目标追到规则关系。研究内容不表示参与原游戏制作。</p></div></article><article class="research-case"><a class="research-cover" href="docs/撞击王座_最新版本_系统策划案_阅读版.html" tabindex="-1" aria-hidden="true"><img loading="lazy" src="assets/pass.jpg" alt="" width="1440" height="810"><span>规则与验收</span></a><div><h4><a href="docs/撞击王座_最新版本_系统策划案_阅读版.html">撞击王座：把规则写成可执行的需求 <svg class="icon"><use href="#i-arrow"/></svg></a></h4><div class="case-meta"><span>原创项目 · 系统策划案</span><span>需求与制作说明</span></div><p>从玩法循环到车型、模式、成长与经济，说明系统职责、制作要求与验证条件。</p></div></article><article class="research-case"><a class="research-cover" href="docs/撞击王座_最新版本_系统拆解案_阅读版.html" tabindex="-1" aria-hidden="true"><img loading="lazy" src="assets/gacha.jpg" alt="" width="1440" height="810"><span>结构与链路</span></a><div><h4><a href="docs/撞击王座_最新版本_系统拆解案_阅读版.html">撞击王座：从一次操作追到系统 <svg class="icon"><use href="#i-arrow"/></svg></a></h4><div class="case-meta"><span>原创项目 · 系统拆解案</span><span>界面与规则链路</span></div><p>结合实机截图和架构关系，拆解输入、状态、反馈与结果如何关联。</p></div></article></div><p>各册说明适用范围与资料来源，现行规则与设计要求分别标注。</p></section>
-<section class="work-group" id="spreadsheets" data-group="sheets" aria-labelledby="sheets-heading"><div class="group-heading"><h3 id="sheets-heading">配置与预算表格</h3><span>下载原件，沿着 ID 与来源回查</span></div><div class="file-list"><a class="file-row" href="spreadsheets/撞击王座_系统策划交付表.xlsx" download><svg class="icon file-symbol"><use href="#i-sheet"/></svg><div><h4>撞击王座 · 系统策划交付表</h4><p>功能与能力规格 / 界面状态 / 数值来源 / 待验收记录</p></div><span class="file-format">XLSX · 301 KB</span><svg class="icon"><use href="#i-down"/></svg></a><a class="file-row" href="spreadsheets/CS2_经济系统配置与预算.xlsx" download><svg class="icon file-symbol"><use href="#i-sheet"/></svg><div><h4>CS2 · 经济系统配置与预算</h4><p>配装预算 / 回合预算 / 现金账本 / 配置与来源</p></div><span class="file-format">XLSX · 62 KB</span><svg class="icon"><use href="#i-down"/></svg></a></div><a class="inline-link" href="spreadsheets/">阅读适用范围与工作簿使用说明 <svg class="icon"><use href="#i-arrow"/></svg></a></section>
-</div></section>
-<section id="gallery" class="gallery-band"><div class="shell"><div class="section-top"><div><h2>设计背后的实机</h2><p>《撞击王座》正式 1.0 · 点击放大查看</p></div><a href="game/">自己上手 <svg class="icon"><use href="#i-arrow"/></svg></a></div><div class="evidence-gallery"><figure><button class="image-button" data-image="assets/gameplay.jpg" data-caption="正式1.0 · 第三人称实机画面" aria-label="放大第三人称实机画面"><img loading="lazy" src="assets/gameplay.jpg" alt="第三人称实机画面" width="1440" height="810"></button><figcaption>第三人称 · 车辆与场地关系</figcaption></figure><figure><button class="image-button" data-image="assets/garage.jpg" data-caption="正式1.0 · 车库画面" aria-label="放大车库画面"><img loading="lazy" src="assets/garage.jpg" alt="车库画面" width="1440" height="810"></button><figcaption>车库 · 模型与能力说明</figcaption></figure><figure><button class="image-button" data-image="assets/gacha.jpg" data-caption="正式1.0 · 抽奖画面" aria-label="放大抽奖画面"><img loading="lazy" src="assets/gacha.jpg" alt="抽奖画面" width="1440" height="810"></button><figcaption>抽奖 · 类别、保底与记录</figcaption></figure><figure><button class="image-button" data-image="assets/pass.jpg" data-caption="正式1.0 · 通行证画面" aria-label="放大通行证画面"><img loading="lazy" src="assets/pass.jpg" alt="通行证画面" width="1440" height="810"></button><figcaption>通行证 · 进度与领取状态</figcaption></figure></div></div></section>
-<section id="about" class="about-section shell"><div class="about-name"><h2>设计的边界，<br>也写清楚。</h2><span>HKY · 游戏策划</span></div><div class="about-copy"><h3>我负责的设计</h3><p class="responsibility">游戏的整体玩法、车型与技能、地图机制、模式、界面体验和成长系统由我设计；具体数值配置不在我的负责范围内。</p><p>这里收录原创项目的试玩与策划、商业游戏拆解研究和配套表格。游戏展示正式 1.0；资料按对应规则与来源阅读。</p><p>试玩免登录，进度只保存在当前浏览器。目录含 56 辆车、188 套皮肤，目录展示不等于永久解锁。手机建议横屏，设备表现以实际体验为准。</p><div class="about-links"><a href="release.html">版本与试玩说明 <svg class="icon"><use href="#i-arrow"/></svg></a><a href="credits.html">版权与素材来源 <svg class="icon"><use href="#i-arrow"/></svg></a></div></div></section>
-</main><footer class="site-footer shell"><a class="footer-logo" href="#title">HKY<span>.</span></a><p>原创内容 © HKY<br>第三方游戏、组件与素材保留各自权利及来源。</p><a href="#title">回到顶部 <svg class="icon"><use href="#i-arrow"/></svg></a></footer><dialog id="image-dialog" aria-label="实机画面放大"><div class="dialog-top"><p id="image-caption"></p><button id="image-close" type="button" autofocus>关闭 ×</button></div><img id="image-full" src="assets/gameplay.jpg" alt=""></dialog></body></html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HKY · 游戏策划作品集 / EXECUTIVE</title>
+<meta name="description" content="HKY 的游戏策划作品集：原创游戏《撞击王座》正式 1.0、CS2 八大系统拆解、两套应用系统、策划双册与配置工作簿。">
+<meta property="og:title" content="HKY · 把想法，做成可玩的规则。">
+<meta property="og:description" content="游戏策划 / 系统策划作品集：用可试玩的版本、可回查的文档和写清楚的边界交付设计。">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#0c2140">
+<!--
+  模板 09 · EXECUTIVE CLEAN
+  零依赖单文件，图片全部引用同目录 assets/。
+  联系入口指向公开 GitHub 主页，不公开私人邮箱。
+  所有作品链接指向公开的 GitHub Pages / GitHub 仓库。
+  本页包含打印样式，可直接用浏览器「打印为 PDF」生成作品集附件。
+-->
+<style>
+:root{
+  --navy:#0c2140;
+  --navy-2:#15365e;
+  --ink:#172033;
+  --muted:#5d6879;
+  --line:#dfe4ec;
+  --line-dark:#c7d0de;
+  --paper:#f5f7fa;
+  --white:#ffffff;
+  --blue:#1d4ed8;
+  --blue-soft:#eaf0ff;
+  --sand:#b3873d;
+  --sand-soft:#f6efe2;
+  --sans:"Helvetica Neue",Arial,"PingFang SC","Microsoft YaHei",sans-serif;
+  --serif:"Songti SC","Times New Roman",Georgia,serif;
+  --mono:"SFMono-Regular",Consolas,"Liberation Mono",Menlo,monospace;
+  --side:302px;
+  --ease:cubic-bezier(.2,.7,.2,1);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:32px;overflow-x:clip}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.7;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit}
+::selection{background:var(--navy);color:#fff}
+:focus-visible{outline:3px solid var(--blue);outline-offset:3px}
+.skip{position:fixed;left:16px;top:-80px;z-index:200;background:var(--navy);color:#fff;padding:10px 18px;border-radius:4px;
+  text-decoration:none;font-size:13px;font-weight:700;transition:top .2s}
+.skip:focus{top:16px}
+.shell{max-width:1180px;margin:0 auto;padding:0 48px}
+.progress{position:fixed;top:0;left:var(--side);right:0;height:2px;background:transparent;z-index:100}
+.progress i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--blue),#7aa2ff);transition:width .1s linear}
+
+/* layout */
+.layout{display:grid;grid-template-columns:var(--side) minmax(0,1fr);min-height:100vh}
+.side{
+  position:sticky;top:0;height:100vh;overflow-y:auto;
+  padding:40px 34px 30px;
+  background:var(--white);border-right:1px solid var(--line);
+  display:flex;flex-direction:column;
+}
+.mark{display:inline-flex;align-items:center;gap:10px;text-decoration:none}
+.mark i{width:34px;height:34px;border-radius:50%;background:var(--navy);color:#fff;display:grid;place-items:center;
+  font-family:var(--mono);font-style:normal;font-size:11px;letter-spacing:.02em;font-weight:700}
+.mark span{font-family:var(--mono);font-size:10px;letter-spacing:.18em;color:var(--muted);text-transform:uppercase}
+.side-name{margin:26px 0 0;font-size:34px;line-height:1;letter-spacing:-.04em;font-weight:800;color:var(--navy)}
+.side-name em{font-style:normal;color:var(--blue)}
+.side-role{margin:10px 0 0;font-size:13.5px;color:var(--ink);font-weight:600;letter-spacing:.01em}
+.side-bio{margin:14px 0 0;font-size:12.5px;color:var(--muted);line-height:1.8}
+.side-status{display:flex;align-items:center;gap:8px;margin:20px 0 0;padding:9px 12px;
+  border:1px solid #d9e4d6;background:#f2f8ef;border-radius:6px;font-size:11.5px;color:#35542b;font-weight:600}
+.side-status i{width:6px;height:6px;border-radius:50%;background:#4e8a3c;box-shadow:0 0 0 3px rgba(78,138,60,.14);flex:none}
+.side-cta{display:flex;align-items:center;justify-content:space-between;margin:16px 0 0;text-decoration:none;
+  background:var(--navy);color:#fff;padding:12px 14px;border-radius:6px;font-size:12.5px;font-weight:700;
+  transition:background .2s;letter-spacing:.01em}
+.side-cta:hover{background:var(--blue)}
+.side-cta span{font-family:var(--mono);font-size:11px}
+.side-nav{margin:34px 0 0;padding:0;list-style:none;border-top:1px solid var(--line)}
+.side-nav li{border-bottom:1px solid var(--line)}
+.side-nav a{display:flex;align-items:baseline;gap:12px;padding:12px 2px;text-decoration:none;color:var(--muted);
+  font-size:12.5px;transition:color .2s;position:relative}
+.side-nav a b{font-family:var(--mono);font-weight:400;font-size:9.5px;letter-spacing:.06em;color:#9aa5b5;width:18px;flex:none;transition:color .2s}
+.side-nav a:hover{color:var(--navy)}
+.side-nav a:hover b{color:var(--blue)}
+.side-nav a.active{color:var(--navy);font-weight:700}
+.side-nav a.active b{color:var(--blue)}
+.side-nav a.active::before{content:"";position:absolute;left:-18px;top:50%;width:3px;height:20px;transform:translateY(-50%);background:var(--blue)}
+.side-foot{margin-top:auto;padding-top:32px}
+.side-foot a{display:flex;justify-content:space-between;text-decoration:none;font-size:11.5px;color:var(--muted);
+  padding:7px 0;border-bottom:1px solid transparent;transition:.2s}
+.side-foot a:hover{color:var(--navy);border-color:var(--line)}
+.side-foot a span{font-family:var(--mono);font-size:10px;color:#9aa5b5}
+.side-foot p{margin:16px 0 0;font-family:var(--mono);font-size:9.5px;line-height:1.9;color:#9aa5b5;letter-spacing:.03em}
+
+main{min-width:0;background:var(--paper)}
+.hero{padding:86px 0 62px;border-bottom:1px solid var(--line);position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;right:-120px;top:-140px;width:420px;height:420px;border-radius:50%;
+  background:radial-gradient(circle,rgba(29,78,216,.07),transparent 65%);pointer-events:none}
+.hero-grid{display:grid;grid-template-columns:1.16fr .84fr;gap:60px;align-items:center}
+.eyebrow{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;color:var(--blue);margin:0;display:flex;align-items:center;gap:10px;text-transform:uppercase}
+.eyebrow::before{content:"";width:26px;height:1px;background:var(--blue)}
+h1{margin:20px 0 0;font-size:clamp(46px,5vw,68px);line-height:1.1;letter-spacing:-.045em;font-weight:800;color:var(--navy)}
+h1 span{color:var(--blue)}
+.hero-lede{margin:24px 0 0;max-width:47ch;color:#455163;font-size:15px;line-height:1.85}
+.hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin:32px 0 0}
+.btn{display:inline-flex;align-items:center;gap:10px;text-decoration:none;font-size:13px;font-weight:700;
+  padding:12px 20px;border-radius:6px;border:1px solid transparent;transition:.2s;letter-spacing:.01em}
+.btn.primary{background:var(--navy);color:#fff}
+.btn.primary:hover{background:var(--blue)}
+.btn.ghost{border-color:var(--line-dark);color:var(--navy);background:#fff}
+.btn.ghost:hover{border-color:var(--navy);background:#fff}
+.btn .ar{font-family:var(--mono);font-size:12px}
+.hero-facts{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin:46px 0 0;border-top:1px solid var(--line)}
+.hero-facts div{padding:18px 18px 0 0;border-right:1px solid var(--line)}
+.hero-facts div:last-child{border-right:0}
+.hero-facts strong{display:block;font-size:26px;letter-spacing:-.03em;color:var(--navy);font-weight:800;line-height:1.2}
+.hero-facts span{font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;color:#8490a1;text-transform:uppercase}
+.hero-visual{position:relative}
+.portrait{border:1px solid var(--line);background:#fff;padding:10px;border-radius:8px;
+  box-shadow:0 24px 60px rgba(12,33,64,.12);transform:rotate(1.4deg)}
+.portrait img{width:100%;aspect-ratio:16/11;object-fit:cover;border-radius:4px}
+.portrait figcaption{display:flex;justify-content:space-between;gap:10px;padding:11px 4px 3px;
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.04em;color:var(--muted);flex-wrap:wrap}
+.portrait figcaption b{color:var(--navy)}
+.plate{position:absolute;right:-22px;top:48%;bottom:auto;background:var(--white);border:1px solid var(--line);
+  border-radius:6px;padding:14px 16px;min-width:190px;box-shadow:0 16px 40px rgba(12,33,64,.14)}
+.plate p{margin:0;font-family:var(--mono);font-size:9px;letter-spacing:.14em;color:#8490a1;text-transform:uppercase}
+.plate strong{display:block;margin-top:4px;font-size:14px;color:var(--navy);letter-spacing:-.01em}
+.plate small{display:block;margin-top:2px;font-size:10.5px;color:var(--muted)}
+
+section{padding:76px 0}
+.section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:30px;margin-bottom:38px;
+  border-bottom:1px solid var(--line-dark);padding-bottom:18px;flex-wrap:wrap}
+.section-head .left{display:flex;align-items:baseline;gap:16px}
+.section-no{font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:var(--blue);white-space:nowrap}
+.section-head h2{margin:0;font-size:clamp(27px,3vw,36px);line-height:1.2;letter-spacing:-.035em;color:var(--navy);font-weight:800}
+.section-head p{margin:0;max-width:40ch;font-size:12.5px;color:var(--muted)}
+.section-head a.aside-link{font-family:var(--mono);font-size:10.5px;color:var(--navy);text-decoration:none;border-bottom:1px solid var(--line-dark);padding-bottom:3px;white-space:nowrap}
+.section-head a.aside-link:hover{border-color:var(--blue);color:var(--blue)}
+
+/* summary */
+.summary-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--line);background:#fff;border-radius:8px;overflow:hidden}
+.summary-cell{padding:30px 28px;border-right:1px solid var(--line);position:relative}
+.summary-cell:last-child{border-right:0}
+.summary-cell .no{font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;color:var(--blue)}
+.summary-cell h3{margin:12px 0 0;font-size:17px;letter-spacing:-.02em;color:var(--navy);font-weight:800}
+.summary-cell p{margin:9px 0 0;font-size:12.5px;color:var(--muted);line-height:1.8}
+.summary-cell .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:16px}
+.summary-cell .tags span{font-family:var(--mono);font-size:9.5px;color:#4c586c;border:1px solid var(--line);padding:3px 7px;border-radius:3px;background:#fbfcfe}
+
+/* case */
+.case{background:#fff;border:1px solid var(--line);border-radius:8px;overflow:hidden;margin-top:24px}
+.case:first-of-type{margin-top:0}
+.case-head{display:flex;justify-content:space-between;align-items:flex-start;gap:24px;padding:26px 32px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.case-kicker{margin:0;font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;color:var(--blue)}
+.case-head h3{margin:9px 0 0;font-size:clamp(26px,3vw,34px);letter-spacing:-.035em;line-height:1.15;color:var(--navy);font-weight:800}
+.case-head .sub{margin:6px 0 0;font-size:12.5px;color:var(--muted)}
+.case-head .head-link{align-self:center;flex:none;display:inline-flex;align-items:center;gap:8px;text-decoration:none;
+  font-size:12px;font-weight:700;color:var(--navy);border-bottom:1px solid var(--navy);padding-bottom:3px}
+.case-head .head-link:hover{color:var(--blue);border-color:var(--blue)}
+.case-media{display:grid;grid-template-columns:1.55fr 1fr;border-bottom:1px solid var(--line)}
+.case-media .img-wrap{position:relative;background:#0c1524}
+.case-media img{width:100%;height:100%;min-height:320px;object-fit:cover}
+.case-media .img-wrap .badge{position:absolute;left:18px;top:18px;font-family:var(--mono);font-size:9px;letter-spacing:.1em;
+  background:rgba(255,255,255,.94);color:var(--navy);border-radius:3px;padding:5px 8px;font-weight:700}
+.case-media .side-facts{display:flex;flex-direction:column;justify-content:center;padding:28px 30px;background:#fbfcfd}
+.case-media .side-facts h4{margin:0;font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;color:#8490a1;text-transform:uppercase}
+.case-media .side-facts ul{list-style:none;margin:10px 0 0;padding:0}
+.case-media .side-facts li{display:flex;justify-content:space-between;gap:18px;padding:11px 0;border-bottom:1px solid var(--line);font-size:12px}
+.case-media .side-facts li:last-child{border-bottom:0}
+.case-media .side-facts li b{font-weight:600;color:var(--navy)}
+.case-media .side-facts li span{font-family:var(--mono);font-size:10px;color:var(--muted);text-align:right}
+.case-steps{display:grid;grid-template-columns:repeat(3,1fr);border-bottom:1px solid var(--line)}
+.step{padding:26px 30px;border-right:1px solid var(--line)}
+.step:last-child{border-right:0}
+.step h4{margin:0;font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;color:var(--blue);text-transform:uppercase}
+.step p{margin:10px 0 0;font-size:12.5px;color:#455163;line-height:1.8}
+.case-foot{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:18px 32px;background:#fbfcfd;flex-wrap:wrap}
+.case-foot p{margin:0;font-size:11px;color:#8490a1;font-family:var(--mono)}
+.case-links{display:flex;gap:10px;flex-wrap:wrap}
+.case-links a{display:inline-flex;align-items:center;gap:7px;text-decoration:none;font-size:11.5px;font-weight:700;
+  border:1px solid var(--line-dark);border-radius:4px;padding:7px 12px;background:#fff;color:var(--navy);transition:.2s}
+.case-links a:hover{background:var(--navy);color:#fff;border-color:var(--navy)}
+.case-links a.lite{background:var(--blue-soft);border-color:#cedcff;color:var(--blue)}
+.case-links a.lite:hover{background:var(--blue);color:#fff}
+
+.case.split .case-body{display:grid;grid-template-columns:1fr 1fr}
+.case.split .case-copy{padding:30px 32px}
+.case.split .case-copy .case-kicker{margin:0}
+.case.split .case-copy h3{margin:9px 0 0;font-size:clamp(24px,2.6vw,30px);letter-spacing:-.03em;color:var(--navy);font-weight:800;line-height:1.2}
+.case.split .case-copy .sub{margin:6px 0 0;font-size:12px;color:var(--muted)}
+.case.split .case-copy>p.body{margin:16px 0 0;font-size:12.5px;color:#455163;line-height:1.85}
+.case.split .mini-steps{margin:20px 0 0;display:grid;gap:0;border-top:1px solid var(--line)}
+.case.split .mini-steps div{display:grid;grid-template-columns:54px 1fr;gap:12px;padding:10px 0;border-bottom:1px solid var(--line)}
+.case.split .mini-steps b{font-family:var(--mono);font-size:9px;letter-spacing:.1em;color:var(--blue);font-weight:400;padding-top:3px}
+.case.split .mini-steps p{margin:0;font-size:12px;color:#455163}
+.case.split .case-pic{position:relative;background:#0c1524;min-height:360px}
+.case.split .case-pic img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
+.case.split .case-pic figcaption{position:absolute;left:16px;bottom:16px;right:16px;font-family:var(--mono);font-size:9px;
+  letter-spacing:.06em;color:#fff;background:rgba(9,20,36,.78);backdrop-filter:blur(6px);padding:6px 9px;border-radius:3px}
+
+/* apps */
+.app-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.app-card{background:#fff;border:1px solid var(--line);border-radius:8px;overflow:hidden;display:flex;flex-direction:column;transition:box-shadow .25s,transform .25s}
+.app-card:hover{box-shadow:0 18px 46px rgba(12,33,64,.1);transform:translateY(-2px)}
+.app-card .shot{border-bottom:1px solid var(--line);background:#0c1524}
+.app-card .shot img{width:100%;aspect-ratio:16/9;object-fit:cover}
+.app-card .copy{padding:24px 26px 22px;display:flex;flex-direction:column;flex:1}
+.app-card .label{font-family:var(--mono);font-size:9px;letter-spacing:.14em;color:var(--blue);text-transform:uppercase}
+.app-card h3{margin:9px 0 0;font-size:17.5px;letter-spacing:-.02em;color:var(--navy);line-height:1.35;font-weight:800}
+.app-card p{margin:9px 0 0;font-size:12px;color:var(--muted);line-height:1.8}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:14px}
+.chips span{font-family:var(--mono);font-size:9px;padding:3px 7px;border-radius:3px;background:#f2f5fa;border:1px solid var(--line);color:#4c586c}
+.app-card .app-link{margin-top:auto;padding-top:18px}
+.app-card .app-link a{display:inline-flex;align-items:center;gap:8px;text-decoration:none;font-size:11.5px;font-weight:700;color:var(--navy);
+  border-bottom:1px solid var(--line-dark);padding-bottom:3px}
+.app-card .app-link a:hover{color:var(--blue);border-color:var(--blue)}
+.app-note{margin:18px 0 0;padding:14px 16px;border-left:2px solid var(--sand);background:var(--sand-soft);font-size:11.5px;color:#6c5a3a;line-height:1.8}
+.app-note b{color:#5a4a2d}
+
+/* files */
+.files{background:#fff;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.file-row{display:grid;grid-template-columns:44px minmax(0,1.4fr) minmax(0,1fr) 92px 28px;gap:18px;align-items:center;
+  padding:18px 24px;border-top:1px solid var(--line);text-decoration:none;transition:background .2s}
+.file-row:first-child{border-top:0}
+.file-row:hover{background:#f8fafc}
+.file-ico{width:36px;height:42px;border:1px solid var(--line-dark);border-radius:3px;background:#f4f7fb;
+  display:grid;place-items:center;font-family:var(--mono);font-size:8px;letter-spacing:.04em;color:var(--navy);font-weight:700;position:relative}
+.file-ico::after{content:"";position:absolute;right:-1px;top:-1px;border-width:0 8px 8px 0;border-style:solid;border-color:transparent #fff #dfe4ec transparent}
+.file-row h3{margin:0;font-size:13px;font-weight:700;color:var(--navy);letter-spacing:-.01em}
+.file-row .desc{font-family:var(--mono);font-size:9.5px;letter-spacing:.01em;color:#8490a1;margin:3px 0 0}
+.file-row .about{font-size:11.5px;color:var(--muted)}
+.file-row .size{font-family:var(--mono);font-size:10px;color:#8490a1;text-align:right}
+.file-row .go{font-family:var(--mono);font-size:14px;color:var(--navy);text-align:right}
+.files-foot{display:flex;justify-content:space-between;gap:16px;align-items:center;padding:16px 24px;border-top:1px solid var(--line);background:#fbfcfd;flex-wrap:wrap}
+.files-foot p{margin:0;font-size:10.5px;color:#8490a1}
+.files-foot a{font-family:var(--mono);font-size:10px;color:var(--navy);text-decoration:none;border-bottom:1px solid var(--line-dark);padding-bottom:2px}
+.files-foot a:hover{color:var(--blue);border-color:var(--blue)}
+
+/* gallery */
+.gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.gallery a{display:block;position:relative;overflow:hidden;border-radius:5px;background:#0c1524;text-decoration:none}
+.gallery img{width:100%;aspect-ratio:4/3;object-fit:cover;transition:transform .5s var(--ease),filter .5s}
+.gallery a:hover img{transform:scale(1.05);filter:brightness(1.08)}
+.gallery span{position:absolute;left:10px;bottom:10px;color:#fff;font-size:10px;letter-spacing:.04em;
+  background:rgba(9,20,36,.72);padding:4px 8px;border-radius:2px;backdrop-filter:blur(4px)}
+.gallery a::after{content:"↗";position:absolute;right:10px;top:8px;color:#fff;font-family:var(--mono);font-size:12px;opacity:0;transition:opacity .2s}
+.gallery a:hover::after{opacity:1}
+
+/* scope */
+.scope{display:grid;grid-template-columns:1.1fr .9fr;gap:28px;align-items:start}
+.scope-quote{background:var(--navy);color:#fff;border-radius:8px;padding:36px 34px;position:relative;overflow:hidden}
+.scope-quote::after{content:"”";position:absolute;right:18px;top:-28px;font-family:var(--serif);font-size:160px;line-height:1;color:rgba(255,255,255,.07)}
+.scope-quote .q-label{font-family:var(--mono);font-size:9px;letter-spacing:.16em;color:#8fb0e8}
+.scope-quote blockquote{margin:18px 0 0;font-size:20px;line-height:1.65;letter-spacing:-.01em;font-weight:600;position:relative;z-index:1}
+.scope-quote blockquote em{font-style:normal;color:#ffd891}
+.scope-quote p{position:relative;z-index:1;margin:20px 0 0;font-size:11.5px;color:#a9bddc;line-height:1.8}
+.scope-lists{display:grid;gap:14px}
+.scope-list{border:1px solid var(--line);background:#fff;border-radius:6px;padding:20px 22px}
+.scope-list h3{margin:0;font-family:var(--mono);font-size:9.5px;letter-spacing:.13em;color:var(--blue);text-transform:uppercase}
+.scope-list ul{margin:10px 0 0;padding:0;list-style:none;display:grid;gap:7px}
+.scope-list li{font-size:12px;color:#455163;display:flex;gap:9px;line-height:1.7}
+.scope-list li::before{content:"";width:4px;height:4px;background:var(--blue);border-radius:50%;margin-top:8px;flex:none}
+.scope-list.caution li::before{background:var(--sand)}
+.scope-note{font-size:10.5px;color:#8490a1;line-height:1.8;margin:0}
+.scope-note a{color:var(--navy);text-decoration:none;border-bottom:1px solid var(--line-dark)}
+
+/* contact */
+.contact{padding:0 0 84px}
+.contact-inner{background:var(--navy);border-radius:10px;padding:52px 48px;color:#fff;display:grid;grid-template-columns:1.2fr .8fr;gap:44px;position:relative;overflow:hidden}
+.contact-inner::before{content:"";position:absolute;right:-80px;bottom:-160px;width:380px;height:380px;border-radius:50%;
+  background:radial-gradient(circle,rgba(65,120,255,.35),transparent 65%)}
+.contact-kicker{font-family:var(--mono);font-size:9.5px;letter-spacing:.18em;color:#8fb0e8;margin:0}
+.contact h2{margin:16px 0 0;font-size:clamp(30px,3.8vw,44px);line-height:1.15;letter-spacing:-.04em;font-weight:800;position:relative;z-index:1}
+.contact p.lede{margin:16px 0 0;color:#b6c6de;font-size:13px;max-width:46ch;line-height:1.85;position:relative;z-index:1}
+.contact .mail{display:inline-flex;align-items:center;gap:12px;margin-top:26px;text-decoration:none;background:#fff;color:var(--navy);
+  padding:13px 20px;border-radius:5px;font-weight:700;font-size:13px;position:relative;z-index:1;transition:.2s}
+.contact .mail:hover{background:#ffd891;color:var(--navy)}
+.contact .mail span{font-family:var(--mono);font-size:11px}
+.contact .mail-note{margin:10px 0 0;font-family:var(--mono);font-size:9px;color:#7e96bb}
+.contact-links{position:relative;z-index:1;border-left:1px solid rgba(255,255,255,.18);padding-left:34px;align-self:center}
+.contact-links h3{margin:0 0 8px;font-family:var(--mono);font-size:9px;letter-spacing:.14em;color:#8fb0e8}
+.contact-links a{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:11px 0;text-decoration:none;
+  border-bottom:1px solid rgba(255,255,255,.14);font-size:12px;color:#e7edf7;transition:.2s}
+.contact-links a:last-of-type{border-bottom:0}
+.contact-links a:hover{color:#ffd891}
+.contact-links a span{font-family:var(--mono);font-size:9px;color:#7e96bb}
+footer{padding:0 0 44px}
+.footer-inner{display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap;
+  border-top:1px solid var(--line);padding-top:22px;font-size:10px;color:#8490a1}
+.footer-inner .fl{display:flex;align-items:center;gap:10px;font-family:var(--mono);letter-spacing:.08em;color:var(--navy)}
+.footer-inner .fl i{width:20px;height:20px;border-radius:50%;background:var(--navy);color:#fff;display:grid;place-items:center;
+  font-style:normal;font-size:7px;font-weight:700}
+.footer-inner a{text-decoration:none;border-bottom:1px solid var(--line-dark);color:var(--navy)}
+.footer-inner a:hover{color:var(--blue);border-color:var(--blue)}
+
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+
+@media(max-width:1120px){
+  :root{--side:264px}
+  .shell{padding:0 34px}
+  .side{padding:32px 26px 24px}
+  .side-nav a.active::before{left:-26px}
+  .hero-grid{gap:36px}
+  .hero-facts{grid-template-columns:repeat(2,1fr)}
+  .hero-facts div{padding:16px 16px 12px 0}
+  .hero-facts div:nth-child(2){border-right:0}
+  .hero-facts div:nth-child(3),.hero-facts div:nth-child(4){border-top:1px solid var(--line);padding-top:16px}
+  .portrait{transform:none}
+  .plate{left:-14px}
+  .case-media{grid-template-columns:1.35fr 1fr}
+  .scope{grid-template-columns:1fr}
+  .contact-inner{grid-template-columns:1fr;gap:30px}
+  .contact-links{border-left:0;border-top:1px solid rgba(255,255,255,.18);padding-left:0;padding-top:22px}
+}
+@media(max-width:860px){
+  .layout{grid-template-columns:minmax(0,1fr)}
+  .side{position:static;height:auto;overflow:visible;min-width:0;border-right:0;border-bottom:1px solid var(--line);
+    display:block;padding:24px 24px 18px}
+  .side-head{display:flex;align-items:center;gap:16px}
+  .side-name{margin:0;font-size:26px}
+  .side-role{margin:2px 0 0;font-size:11.5px}
+  .side-bio,.side-status,.side-cta,.side-foot{display:none}
+  .side-top{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+  .side-nav{margin:18px 0 0;border-top:0;display:flex;gap:4px;overflow-x:auto;padding-bottom:2px;scrollbar-width:none}
+  .side-nav::-webkit-scrollbar{display:none}
+  .side-nav li{border-bottom:0;flex:none}
+  .side-nav a{padding:7px 10px;border:1px solid var(--line);border-radius:4px;font-size:11px;background:#fff;white-space:nowrap}
+  .side-nav a b{display:none}
+  .side-nav a.active::before{display:none}
+  .side-nav a.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+  .progress{left:0}
+  .shell{padding:0 24px}
+  .hero{padding:54px 0 46px}
+  .hero-grid{grid-template-columns:1fr;gap:34px}
+  .hero-visual{max-width:540px}
+  .plate{right:0}
+  .hero-facts{margin-top:36px}
+  .case-media{grid-template-columns:1fr}
+  .case-media img{min-height:240px}
+  .case-media .side-facts{padding:22px 24px}
+  .case-steps{grid-template-columns:1fr}
+  .step{border-right:0;border-bottom:1px solid var(--line);padding:22px 24px}
+  .step:last-child{border-bottom:0}
+  .case.split .case-body{grid-template-columns:1fr}
+  .case.split .case-pic{min-height:260px;order:-1}
+  .case.split .case-pic img{position:static;height:auto;aspect-ratio:16/10}
+  .case-head,.case-foot{padding-left:24px;padding-right:24px}
+  .app-grid{grid-template-columns:1fr}
+  .gallery{grid-template-columns:repeat(2,1fr)}
+  .file-row{grid-template-columns:38px 1fr auto;padding:16px 18px;gap:14px}
+  .file-row .about{display:none}
+  .file-row .size{grid-column:2;grid-row:2;text-align:left;font-size:9px}
+  .file-row .go{grid-column:3;grid-row:1/3}
+  .summary-grid{grid-template-columns:1fr}
+  .summary-cell{border-right:0;border-bottom:1px solid var(--line)}
+  .summary-cell:last-child{border-bottom:0}
+  .contact{padding-bottom:56px}
+  .contact-inner{padding:32px 24px}
+  section{padding:54px 0}
+  .section-head{gap:12px;margin-bottom:26px}
+  .section-head p{max-width:none}
+  .scope-quote{padding:28px 24px}
+  .scope-quote blockquote{font-size:17.5px}
+  .footer-inner{padding-top:18px}
+}
+@media(max-width:480px){
+  .shell{padding:0 18px}
+  .side{padding:20px 18px 14px}
+  .side-name{font-size:22px}
+  .mark span{display:none}
+  h1{font-size:clamp(38px,11vw,48px)}
+  .hero-lede{font-size:14px}
+  .hero-facts strong{font-size:22px}
+  .hero-facts span{font-size:8.5px}
+  .portrait figcaption{font-size:8.5px}
+  .plate{position:static;margin:12px 0 0;box-shadow:none}
+  .case-head h3{font-size:23px}
+  .case-links{gap:7px}
+  .case-links a{font-size:10.5px}
+  .case-foot{padding:16px 18px}
+  .case-head{padding:22px 20px}
+  .case-media .side-facts{padding:18px 20px}
+  .case.split .case-copy{padding:22px 20px}
+  .app-card .copy{padding:20px}
+  .file-row{padding:14px;gap:10px}
+  .gallery{gap:8px}
+  .contact-inner{padding:26px 20px}
+  .contact .mail{font-size:12px;padding:11px 14px;word-break:break-all}
+  .scope-list{padding:16px}
+  .summary-cell{padding:22px 20px}
+}
+
+@media print{
+  :root{--side:0px}
+  body{background:#fff;font-size:11px}
+  .layout{display:block}
+  .side,.progress,.skip,.hero-actions,.hero-visual,.case-head .head-link,.case-links,.side-cta{display:none!important}
+  .shell{padding:0;max-width:none}
+  .hero,.contact{padding:0 0 22px;border-bottom:1px solid #ccc}
+  section{padding:22px 0;break-inside:avoid}
+  .hero-grid{grid-template-columns:1fr}
+  .hero-facts{margin-top:18px}
+  .case,.app-card,.files,.scope-quote,.scope-list{break-inside:avoid;box-shadow:none}
+  .contact-inner{background:#fff;color:#111;border:1px solid #ccc;padding:22px}
+  .contact-kicker,.contact h2,.contact p.lede,.contact-links a,.contact .mail{color:#111!important}
+  .contact-links{border-color:#ccc}
+  .contact .mail{background:#fff;border:1px solid #999}
+  .reveal{opacity:1;transform:none}
+  .gallery img{filter:none}
+  .case-media img{min-height:0}
+  .app-card:hover{transform:none;box-shadow:none}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .reveal{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">跳到主要内容</a>
+<div class="progress" aria-hidden="true"><i id="progressBar"></i></div>
+
+<div class="layout">
+  <aside class="side" aria-label="个人信息与导航">
+    <div class="side-top">
+      <div class="side-head">
+        <a class="mark" href="#top" aria-label="HKY 首页"><i>HKY</i><span>Portfolio 2026</span></a>
+        <div>
+          <p class="side-name">HKY<em>.</em></p>
+          <p class="side-role">游戏策划 / 系统策划</p>
+        </div>
+      </div>
+      <p class="side-bio">从玩法原型到系统拆解，让每一份设计，都有迹可循。关注玩法循环、界面体验与可验收的交付文档。</p>
+      <div class="side-status"><i aria-hidden="true"></i>正在寻找游戏策划 / 系统策划岗位</div>
+      <a class="side-cta" href="#contact">发起沟通 <span aria-hidden="true">→</span></a>
+    </div>
+
+    <nav aria-label="页面章节">
+      <ul class="side-nav">
+        <li><a href="#profile"><b>01</b>职业摘要</a></li>
+        <li><a href="#work"><b>02</b>代表作品</a></li>
+        <li><a href="#applications"><b>03</b>应用系统</a></li>
+        <li><a href="#files"><b>04</b>设计与文档</a></li>
+        <li><a href="#gallery"><b>05</b>实机记录</a></li>
+        <li><a href="#scope"><b>06</b>设计边界</a></li>
+        <li><a href="#contact"><b>07</b>联系方式</a></li>
+      </ul>
+    </nav>
+
+    <div class="side-foot">
+      <a href="https://hky-hub.github.io/crash-crown-demo/" target="_blank" rel="noopener">现行作品站 <span>↗</span></a>
+      <a href="https://github.com/HKY-hub" target="_blank" rel="noopener">GitHub <span>↗</span></a>
+      <a href="https://hky-hub.github.io/crash-crown-demo/docs/" target="_blank" rel="noopener">策划双册 <span>↗</span></a>
+      <p>原创内容 © <span data-year>2026</span> HKY<br>第三方素材保留各自权利及来源</p>
+    </div>
+  </aside>
+
+  <main id="main">
+    <div id="top"></div>
+
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="shell">
+        <div class="hero-grid">
+          <div class="reveal">
+            <p class="eyebrow">Game Design Portfolio · System Design</p>
+            <h1 id="hero-title">把想法，<br>做成<span>可玩</span>的规则。</h1>
+            <p class="hero-lede">我是 HKY，一名游戏策划。我的工作从玩法循环出发，落到车型与技能、地图机制、模式与成长，再用可试玩的版本、可回查的文档和明确的验收条件，把设计交给团队。</p>
+            <div class="hero-actions">
+              <a class="btn primary" href="#work">查看代表作品 <span class="ar" aria-hidden="true">↓</span></a>
+              <a class="btn ghost" href="https://hky-hub.github.io/crash-crown-demo/game/" target="_blank" rel="noopener">试玩《撞击王座》 <span class="ar" aria-hidden="true">↗</span></a>
+            </div>
+            <div class="hero-facts">
+              <div><strong>01</strong><span>原创游戏 · 正式 1.0</span></div>
+              <div><strong>56</strong><span>车辆 · 目录规模</span></div>
+              <div><strong>188</strong><span>皮肤 · 目录规模</span></div>
+              <div><strong>02</strong><span>份可下载工作簿</span></div>
+            </div>
+          </div>
+          <div class="hero-visual reveal">
+            <figure class="portrait">
+              <img src="assets/overhead.jpg" alt="《撞击王座》大逃杀地图俯视实机画面" width="1440" height="810">
+              <figcaption><span>CRASH CROWN · 正式 1.0</span><b>BROWSER ARENA</b></figcaption>
+            </figure>
+            <div class="plate">
+              <p>Design Scope</p>
+              <strong>玩法 / 系统 / 界面</strong>
+              <small>数值配置不在负责范围内</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="profile" aria-labelledby="profile-title">
+      <div class="shell">
+        <div class="section-head reveal">
+          <div class="left"><span class="section-no">01 / PROFILE</span><h2 id="profile-title">职业摘要</h2></div>
+          <p>三条工作线索：把玩法说明白、把系统串起来、把边界写清楚。</p>
+        </div>
+        <div class="summary-grid reveal">
+          <div class="summary-cell">
+            <span class="no">A / GAMEPLAY</span>
+            <h3>玩法与系统设计</h3>
+            <p>从核心体验到对局循环，定义车型、技能、地图机制、模式与成长之间的规则关系，并用原型验证可玩性。</p>
+            <div class="tags"><span>核心循环</span><span>车辆对抗</span><span>模式设计</span><span>成长系统</span></div>
+          </div>
+          <div class="summary-cell">
+            <span class="no">B / INTERFACE</span>
+            <h3>界面与体验</h3>
+            <p>把输入、状态、反馈与结果组织成可读的流程：车库、抽奖、通行证与对局内信息，都服务于玩家理解。</p>
+            <div class="tags"><span>交互流程</span><span>状态反馈</span><span>信息层级</span></div>
+          </div>
+          <div class="summary-cell">
+            <span class="no">C / DOCUMENTATION</span>
+            <h3>文档与交付</h3>
+            <p>用系统策划案、拆解案和交付表说明职责、制作要求与验证条件，让实现与验收有共同依据。</p>
+            <div class="tags"><span>策划案</span><span>功能规格</span><span>验收条件</span><span>来源标注</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="work" style="padding-top:0" aria-labelledby="work-title">
+      <div class="shell">
+        <div class="section-head reveal">
+          <div class="left"><span class="section-no">02 / SELECTED WORK</span><h2 id="work-title">代表作品</h2></div>
+          <a class="aside-link" href="https://hky-hub.github.io/crash-crown-demo/" target="_blank" rel="noopener">现行作品站 ↗</a>
+        </div>
+
+        <article class="case reveal" aria-labelledby="case-crash">
+          <div class="case-head">
+            <div>
+              <p class="case-kicker">CASE 01 · ORIGINAL GAME · 2026</p>
+              <h3 id="case-crash">撞击王座</h3>
+              <p class="sub">浏览器竞技原型 · 正式 1.0 · 车辆撞击对抗</p>
+            </div>
+            <a class="head-link" href="https://hky-hub.github.io/crash-crown-demo/game/" target="_blank" rel="noopener">进入试玩 <span aria-hidden="true">↗</span></a>
+          </div>
+          <div class="case-media">
+            <div class="img-wrap">
+              <img src="assets/gameplay.jpg" alt="《撞击王座》第三人称实机画面" width="1600" height="1000" loading="lazy">
+              <span class="badge">正式 1.0 · PLAYABLE</span>
+            </div>
+            <div class="side-facts">
+              <h4>At a glance</h4>
+              <ul>
+                <li><b>设计内容</b><span>车型与技能 / 地图 / 模式 / 成长</span></li>
+                <li><b>体验方式</b><span>电脑与手机 · 免登录</span></li>
+                <li><b>存档</b><span>仅保存在当前浏览器</span></li>
+                <li><b>目录规模</b><span>56 辆车 · 188 套皮肤</span></li>
+                <li><b>交付</b><span>可试玩版本 + 策划双册 + 交付表</span></li>
+              </ul>
+            </div>
+          </div>
+          <div class="case-steps">
+            <div class="step">
+              <h4>问题 / Challenge</h4>
+              <p>车辆对抗如果只有“撞上去”，很快会退化成互撞。需要让接近角度、冲势时机、耐久与场地边界共同构成可读、可反复博弈的决策空间。</p>
+            </div>
+            <div class="step">
+              <h4>方法 / Approach</h4>
+              <p>以撞击角度与动量为核心，串联车型与技能差异、地图机制、模式目标与成长节奏；用实机界面把状态、反馈与结果讲清楚，并配套写作可执行的需求。</p>
+            </div>
+            <div class="step">
+              <h4>交付 / Outcome</h4>
+              <p>完成正式 1.0 可试玩版本；沉淀系统策划案、系统拆解案与系统策划交付表，覆盖功能规格、界面状态、数值来源与待验收记录。</p>
+            </div>
+          </div>
+          <div class="case-foot">
+            <p>试玩免登录，进度只保存在当前浏览器。目录展示不等于永久解锁。</p>
+            <div class="case-links">
+              <a class="lite" href="https://hky-hub.github.io/crash-crown-demo/game/" target="_blank" rel="noopener">试玩 1.0 ↗</a>
+              <a href="https://hky-hub.github.io/crash-crown-demo/docs/" target="_blank" rel="noopener">策划双册</a>
+              <a href="https://hky-hub.github.io/crash-crown-demo/release.html" target="_blank" rel="noopener">版本说明</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="case split reveal" aria-labelledby="case-cs2">
+          <div class="case-body">
+            <div class="case-copy">
+              <p class="case-kicker">CASE 02 · COMMERCIAL GAME STUDY</p>
+              <h3 id="case-cs2">CS2 整体架构及八大系统拆解</h3>
+              <p class="sub">核心对抗 · 武器 · 经济 · 地图 · 模式与成长</p>
+              <p class="body">一份从体验目标追到规则关系的商业游戏研究。把“为什么这样设计”落回到系统职责与彼此约束，并配实机画面与资料来源，方便回查。</p>
+              <div class="mini-steps">
+                <div><b>SCOPE</b><p>以公开资料与实机体验为据，梳理八大系统的结构与联动。</p></div>
+                <div><b>METHOD</b><p>先定义核心对抗，再逐层分析武器、经济、地图、模式与成长。</p></div>
+                <div><b>RESULT</b><p>形成可阅读、可回查的系统拆解册；不表示参与原游戏制作。</p></div>
+              </div>
+              <div class="case-links" style="margin-top:20px">
+                <a class="lite" href="https://hky-hub.github.io/crash-crown-demo/cs2/" target="_blank" rel="noopener">阅读研究 ↗</a>
+                <a href="https://hky-hub.github.io/crash-crown-demo/spreadsheets/" target="_blank" rel="noopener">配套经济工作簿</a>
+              </div>
+            </div>
+            <figure class="case-pic">
+              <img src="assets/cs2.jpg" alt="CS2 实机画面" width="1920" height="1080" loading="lazy">
+              <figcaption>CS2 · 商业游戏研究配图 / 来源见原册</figcaption>
+            </figure>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="applications" aria-labelledby="apps-title">
+      <div class="shell">
+        <div class="section-head reveal">
+          <div class="left"><span class="section-no">03 / APPLICATIONS</span><h2 id="apps-title">应用系统</h2></div>
+          <p>完整源码 · 本地 Docker 部署，不提供在线运行服务。</p>
+        </div>
+        <div class="app-grid">
+          <article class="app-card reveal">
+            <div class="shot"><img src="assets/audio-workbench.jpg" alt="教学视频语音提取工作台界面" width="1272" height="716" loading="lazy"></div>
+            <div class="copy">
+              <span class="label">Application 01 · Speech to Text</span>
+              <h3>教学视频语音文本提取系统</h3>
+              <p>上传教学视频或录音，提取音轨并转写为带时间戳的文本，支持编辑、历史记录与多格式导出。界面可在未安装模型时启动。</p>
+              <div class="chips"><span>React</span><span>FastAPI</span><span>Whisper</span><span>Docker</span></div>
+              <div class="app-link"><a href="https://github.com/HKY-hub/teaching-video-transcription" target="_blank" rel="noopener">查看源码与部署说明 ↗</a></div>
+            </div>
+          </article>
+          <article class="app-card reveal">
+            <div class="shot"><img src="assets/electric-dashboard.jpg" alt="电力风险辨识系统仪表盘界面" width="1270" height="714" loading="lazy"></div>
+            <div class="copy">
+              <span class="label">Application 02 · Safety Workflow</span>
+              <h3>电力作业风险辨识与安全交底系统</h3>
+              <p>围绕作业任务串联危险源、安全措施和交底材料，并提供本地 ONNX PPE 图片检测。云端服务需另行配置。</p>
+              <div class="chips"><span>Spring Boot</span><span>MySQL</span><span>ONNX</span><span>Docker</span></div>
+              <div class="app-link"><a href="https://github.com/HKY-hub/ELeDangerCheck" target="_blank" rel="noopener">查看源码与部署说明 ↗</a></div>
+            </div>
+          </article>
+        </div>
+        <p class="app-note reveal"><b>阅读前提：</b>两个系统都需 Docker 环境启动；实际转写需自行准备 Whisper 模型。电力系统仓库内置演示统计不代表生产监控结果。本页提供介绍与源码入口，不托管在线运行服务。</p>
+      </div>
+    </section>
+
+    <section id="files" aria-labelledby="files-title">
+      <div class="shell">
+        <div class="section-head reveal">
+          <div class="left"><span class="section-no">04 / DOCUMENTS</span><h2 id="files-title">设计与文档</h2></div>
+          <p>下载原件，沿着 ID 与来源回查；每个文件都说明适用范围。</p>
+        </div>
+        <div class="files reveal">
+          <a class="file-row" href="https://hky-hub.github.io/crash-crown-demo/docs/%E6%92%9E%E5%87%BB%E7%8E%8B%E5%BA%A7_%E6%9C%80%E6%96%B0%E7%89%88%E6%9C%AC_%E7%B3%BB%E7%BB%9F%E7%AD%96%E5%88%92%E6%A1%88_%E9%98%85%E8%AF%BB%E7%89%88.html" target="_blank" rel="noopener">
+            <span class="file-ico" aria-hidden="true">DOC</span>
+            <div><h3>撞击王座 · 系统策划案</h3><p class="desc">SYSTEM DESIGN DOCUMENT / READER EDITION</p></div>
+            <span class="about">玩法循环 → 车型、模式、成长与经济；系统职责、制作要求与验证条件。</span>
+            <span class="size">HTML · 阅读版</span>
+            <span class="go" aria-hidden="true">↗</span>
+          </a>
+          <a class="file-row" href="https://hky-hub.github.io/crash-crown-demo/docs/%E6%92%9E%E5%87%BB%E7%8E%8B%E5%BA%A7_%E6%9C%80%E6%96%B0%E7%89%88%E6%9C%AC_%E7%B3%BB%E7%BB%9F%E6%8B%86%E8%A7%A3%E6%A1%88_%E9%98%85%E8%AF%BB%E7%89%88.html" target="_blank" rel="noopener">
+            <span class="file-ico" aria-hidden="true">DOC</span>
+            <div><h3>撞击王座 · 系统拆解案</h3><p class="desc">SYSTEM TEARDOWN / READER EDITION</p></div>
+            <span class="about">结合实机截图与架构关系，拆解输入、状态、反馈与结果如何关联。</span>
+            <span class="size">HTML · 阅读版</span>
+            <span class="go" aria-hidden="true">↗</span>
+          </a>
+          <a class="file-row" href="https://hky-hub.github.io/crash-crown-demo/spreadsheets/%E6%92%9E%E5%87%BB%E7%8E%8B%E5%BA%A7_%E7%B3%BB%E7%BB%9F%E7%AD%96%E5%88%92%E4%BA%A4%E4%BB%98%E8%A1%A8.xlsx" download>
+            <span class="file-ico" aria-hidden="true">XLS</span>
+            <div><h3>撞击王座 · 系统策划交付表</h3><p class="desc">FUNCTION SPEC / UI STATES / SOURCES / ACCEPTANCE</p></div>
+            <span class="about">功能与能力规格 / 界面状态 / 数值来源 / 待验收记录。</span>
+            <span class="size">XLSX · 301 KB</span>
+            <span class="go" aria-hidden="true">↓</span>
+          </a>
+          <a class="file-row" href="https://hky-hub.github.io/crash-crown-demo/spreadsheets/CS2_%E7%BB%8F%E6%B5%8E%E7%B3%BB%E7%BB%9F%E9%85%8D%E7%BD%AE%E4%B8%8E%E9%A2%84%E7%AE%97.xlsx" download>
+            <span class="file-ico" aria-hidden="true">XLS</span>
+            <div><h3>CS2 · 经济系统配置与预算</h3><p class="desc">LOADOUT / ROUND BUDGET / CASH LEDGER / SOURCES</p></div>
+            <span class="about">配装预算 / 回合预算 / 现金账本 / 配置与来源。</span>
+            <span class="size">XLSX · 62 KB</span>
+            <span class="go" aria-hidden="true">↓</span>
+          </a>
+          <div class="files-foot">
+            <p>工作簿可下载原件；适用范围与使用说明见表格目录。</p>
+            <a href="https://hky-hub.github.io/crash-crown-demo/spreadsheets/" target="_blank" rel="noopener">打开表格目录 ↗</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="gallery" aria-labelledby="gallery-title">
+      <div class="shell">
+        <div class="section-head reveal">
+          <div class="left"><span class="section-no">05 / SCREEN RECORD</span><h2 id="gallery-title">实机记录</h2></div>
+          <p>《撞击王座》正式 1.0 · 点击查看原图。</p>
+        </div>
+        <div class="gallery reveal">
+          <a href="assets/gameplay.jpg" target="_blank" rel="noopener" aria-label="查看第三人称实机原图">
+            <img src="assets/gameplay.jpg" alt="第三人称实机画面：车辆与场地关系" width="1600" height="1000" loading="lazy">
+            <span>第三人称 · 对局</span>
+          </a>
+          <a href="assets/garage.jpg" target="_blank" rel="noopener" aria-label="查看车库画面原图">
+            <img src="assets/garage.jpg" alt="车库画面：模型与能力说明" width="1440" height="810" loading="lazy">
+            <span>车库 · 能力说明</span>
+          </a>
+          <a href="assets/gacha.jpg" target="_blank" rel="noopener" aria-label="查看抽奖画面原图">
+            <img src="assets/gacha.jpg" alt="抽奖画面：类别、保底与记录" width="1440" height="810" loading="lazy">
+            <span>抽奖 · 保底与记录</span>
+          </a>
+          <a href="assets/pass.jpg" target="_blank" rel="noopener" aria-label="查看通行证画面原图">
+            <img src="assets/pass.jpg" alt="通行证画面：进度与领取状态" width="1440" height="810" loading="lazy">
+            <span>通行证 · 进度与领取</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section id="scope" style="padding-top:0" aria-labelledby="scope-title">
+      <div class="shell">
+        <div class="section-head reveal">
+          <div class="left"><span class="section-no">06 / SCOPE</span><h2 id="scope-title">设计的边界</h2></div>
+          <p>知道什么由自己负责，也知道哪些前提必须说明。</p>
+        </div>
+        <div class="scope">
+          <div class="scope-quote reveal">
+            <p class="q-label">A NOTE ON RESPONSIBILITY</p>
+            <blockquote>游戏的整体玩法、车型与技能、地图机制、模式、界面体验和成长系统由我设计；<em>具体数值配置不在我的负责范围内。</em></blockquote>
+            <p>这句话不是免责声明，而是协作边界：它让设计职责、实现细节与验收口径各自清楚，减少交付中的误读。</p>
+          </div>
+          <div class="scope-lists reveal">
+            <div class="scope-list">
+              <h3>Design Scope / 由我负责</h3>
+              <ul>
+                <li>整体玩法框架与对局循环</li>
+                <li>车型、技能与相互克制关系</li>
+                <li>地图机制与场地边界规则</li>
+                <li>模式目标、界面体验与成长系统</li>
+              </ul>
+            </div>
+            <div class="scope-list caution">
+              <h3>Read With Context / 阅读前提</h3>
+              <ul>
+                <li>试玩免登录，进度只保存在当前浏览器</li>
+                <li>目录含 56 辆车、188 套皮肤，展示不等于永久解锁</li>
+                <li>手机建议横屏，设备表现以实际体验为准</li>
+                <li>CS2 研究不表示参与原游戏制作；资料按对应来源阅读</li>
+                <li>应用系统的部署与运行需满足各自前提</li>
+              </ul>
+            </div>
+            <p class="scope-note">了解更多：<a href="https://hky-hub.github.io/crash-crown-demo/release.html" target="_blank" rel="noopener">版本与试玩说明</a> · <a href="https://hky-hub.github.io/crash-crown-demo/credits.html" target="_blank" rel="noopener">版权与素材来源</a></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="contact" style="padding-top:0" aria-labelledby="contact-title">
+      <div class="shell">
+        <div class="contact-inner reveal">
+          <div>
+            <p class="contact-kicker">07 / GET IN TOUCH</p>
+            <h2 id="contact-title">一起把下一套规则，<br>做成可玩的样子。</h2>
+            <p class="lede">如果你在找一位能把玩法、界面、成长与文档串起来的游戏策划，欢迎聊一聊。也可以先试玩、翻文档，再判断我是否合适。</p>
+            <a class="mail" href="https://github.com/HKY-hub" target="_blank" rel="noopener">通过 GitHub 联系 / 查看项目 <span aria-hidden="true">↗</span></a>
+            
+          </div>
+          <div class="contact-links">
+            <h3>QUICK LINKS</h3>
+            <a href="https://hky-hub.github.io/crash-crown-demo/" target="_blank" rel="noopener">现行作品站 <span>↗</span></a>
+            <a href="https://github.com/HKY-hub" target="_blank" rel="noopener">GitHub <span>↗</span></a>
+            <a href="https://hky-hub.github.io/crash-crown-demo/game/" target="_blank" rel="noopener">试玩《撞击王座》 <span>↗</span></a>
+            <a href="https://hky-hub.github.io/crash-crown-demo/spreadsheets/" target="_blank" rel="noopener">配置与预算表格 <span>↗</span></a>
+          </div>
+        </div>
+        <footer>
+          <div class="footer-inner">
+            <span class="fl"><i>HKY</i>GAME DESIGNER · 2026</span>
+            <p>原创内容 © HKY · 第三方游戏、组件与素材保留各自权利及来源</p>
+            <a href="#top">回到顶部 ↑</a>
+          </div>
+        </footer>
+      </div>
+    </section>
+  </main>
+</div>
+
+<script>
+(function(){
+  var yearEls=document.querySelectorAll('[data-year]');
+  yearEls.forEach(function(el){el.textContent=new Date().getFullYear();});
+
+  var reveals=document.querySelectorAll('.reveal');
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){entry.target.classList.add('in');io.unobserve(entry.target);}
+      });
+    },{threshold:.06,rootMargin:'0px 0px -30px 0px'});
+    reveals.forEach(function(el){io.observe(el);});
+  }else{
+    reveals.forEach(function(el){el.classList.add('in');});
+  }
+
+  var bar=document.getElementById('progressBar');
+  var navLinks=Array.prototype.slice.call(document.querySelectorAll('.side-nav a'));
+  var targets=navLinks.map(function(a){
+    var id=a.getAttribute('href');
+    return {link:a,target:id&&id.length>1?document.querySelector(id):null};
+  }).filter(function(x){return x.target;});
+
+  var ticking=false;
+  function update(){
+    ticking=false;
+    var doc=document.documentElement;
+    var max=doc.scrollHeight-doc.clientHeight;
+    var y=window.pageYOffset||doc.scrollTop;
+    if(bar){bar.style.width=(max>0?Math.min(100,Math.max(0,y/max*100)):0)+'%';}
+    var marker=y+Math.min(220,window.innerHeight*.32);
+    var current=null;
+    targets.forEach(function(x){
+      if(x.target.offsetTop<=marker){current=x.link;}
+    });
+    if(!current&&targets.length){current=targets[0].link;}
+    navLinks.forEach(function(a){a.classList.toggle('active',a===current);});
+  }
+  function onScroll(){if(!ticking){ticking=true;window.requestAnimationFrame(update);}}
+  window.addEventListener('scroll',onScroll,{passive:true});
+  window.addEventListener('resize',onScroll);
+  update();
+})();
+</script>
+</body>
+</html>
