@@ -1,7 +1,7 @@
 {
   "version": "1.0",
   "target": "pages",
-  "preparedAt": "2026-10-18T23:08:53Z",
+  "preparedAt": "2026-10-18T23:39:29Z",
   "repository": "HKY-hub/crash-crown-demo",
   "gameBaselineSHA256": "7af8b62666c4b39ee74b353cd04780cfdd6fd11b18b91b28cf6d477567346725",
   "publicGameSHA256": "790941476cb57788566b2c3e5db19d00890be04a329a9a1517ac1363dcaef169",
@@ -305,8 +305,8 @@
     },
     {
       "file": "README.md",
-      "bytes": 1907,
-      "sha256": "0e49244f67a8066f121996d0aaf64ccd061f963b79c3ade475ce1a6b2cfd7bc7"
+      "bytes": 2401,
+      "sha256": "c10bac58f4e33dc0051dc1231a7f888ddd08f02eec58acf4ad765bbcfe634cb3"
     },
     {
       "file": "assets/audio-workbench.jpg",
@@ -344,6 +344,16 @@
       "sha256": "d2dea6b42d3de706598637f3910a6d07e0a06cee8ce2318df60165277c6a0f3f"
     },
     {
+      "file": "assets/game-client.css",
+      "bytes": 47761,
+      "sha256": "7d08a8c27334590e88582a0a778d39eb79a1c5359bc81ba448e35ac2d423ea54"
+    },
+    {
+      "file": "assets/game-client.js",
+      "bytes": 44220,
+      "sha256": "3dfc2d1c6b74edd142b1afae3ef7c89844a8eaa16456161c5e573001bd11942e"
+    },
+    {
       "file": "assets/gameplay.jpg",
       "bytes": 192648,
       "sha256": "425748941433eda1f674597e9eb287a1cfc871ffa0143ad54b37856e6a4cf2fe"
@@ -374,9 +384,19 @@
       "sha256": "055145f29c17f9a4f76a3720ad26119a8602fb8acb20b4af4a19168f8673b204"
     },
     {
+      "file": "assets/strike-hero.jpg",
+      "bytes": 33694,
+      "sha256": "95b80ce271c9b021531866acfc5bde914169537b1ad6a63e41379309424f47ba"
+    },
+    {
       "file": "assets/title.ttf",
       "bytes": 7876,
       "sha256": "9f692404c763e69cac191819a3ea81b22ce3ed7dbe3125ac4b8e4e7098c5e35d"
+    },
+    {
+      "file": "assets/wave-hero.jpg",
+      "bytes": 19685,
+      "sha256": "f9e9694d4fd918191f0a6984b58240fc5dc90cc23d2f5c5e4a07b4b4efa405ed"
     },
     {
       "file": "credits.html",
@@ -819,19 +839,24 @@
       "sha256": "0c36c3b5f309a60deea5bfac48a8fb06f448671690ef3ce297f7f353951cb77c"
     },
     {
+      "file": "game/client.html",
+      "bytes": 5566,
+      "sha256": "68f979c7f25223fc66c775868c4ed97b8bcfe889ee6576a18f2a228d71b5c670"
+    },
+    {
       "file": "game/index.html",
       "bytes": 36874015,
       "sha256": "790941476cb57788566b2c3e5db19d00890be04a329a9a1517ac1363dcaef169"
     },
     {
       "file": "index.html",
-      "bytes": 75138,
-      "sha256": "c42de61e0862fe4fbe70294fdbb15ce97a00e0bae0e636e2c75db75a21be1873"
+      "bytes": 75357,
+      "sha256": "d1a1d63a3eea8deed99fefe54faae50a3bdfdb53f67b0be0aca9b4430e007663"
     },
     {
       "file": "release.html",
-      "bytes": 2345,
-      "sha256": "36aa36665477b60bbe34de78aa0b25e1168c68df87dc12b8839ab08f84ac2180"
+      "bytes": 2635,
+      "sha256": "2120c444c26084237ee59251416ecf3c4826ee15d315a1d8649fedc64344d7e4"
     },
     {
       "file": "spreadsheets/CS2_经济系统配置与预算.xlsx",
@@ -865,8 +890,8 @@
     },
     {
       "file": "wave-rider/index.html",
-      "bytes": 5008,
-      "sha256": "10354dc1b5506b5ce87c7db049095d1c1cc161a1619c53b8a722c0a863fa2242"
+      "bytes": 5108,
+      "sha256": "71d43a6c20ee432b276d95d43e387598f7fe1a8b2d2fc8743bf42acabe0ed98e"
     },
     {
       "file": "wave-rider/WaveRider-Offline.html",
@@ -1632,6 +1657,11 @@
       "file": "demo/teaching-video/assets/index-Ctrbv9Wa.js",
       "bytes": 369963,
       "sha256": "de3a7168cb9758732a863677bd676b51d688534230c7e35beb69b676002bb688"
+    },
+    {
+      "file": "wave-rider/versions.html",
+      "bytes": 5008,
+      "sha256": "10354dc1b5506b5ce87c7db049095d1c1cc161a1619c53b8a722c0a863fa2242"
     }
   ]
 }

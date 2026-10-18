@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>撞击王座 · 游戏客户端</title>
+<link rel="icon" href="../assets/crown.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/game-client.css">
+</head>
+<body class="game-client">
+<div id="gc-root"></div>
+<script>
+window.GAME_CLIENT = {
+  key: 'strike',
+  theme: 'strike',
+  title: '撞击王座',
+  titleEn: 'CRASH CROWN',
+  subtitle: '车辆撞击竞技场',
+  season: 'SEASON 01 · 霓虹角斗场',
+  version: 'CLIENT 1.0.0',
+  server: '霓虹竞技场 · CN-01',
+  serverMeta: '在线 · 18ms · 稳定',
+  loginKicker: 'HKY ONLINE / ARENA CLIENT',
+  loginTitle: '把对手，<br>送出场外。',
+  loginLede: '在 48 车淘汰赛里，用角度、动量和时机把对手送出场外。登录客户端，进入霓虹角斗场。',
+  loginBullets: ['56 辆车 · 188 套皮肤', '8 张地图 · 8 类 30 个机关', '正式 1.0 · 本地账号 · 本地存档'],
+  defaultName: '新晋车手',
+  guestLabel: '访客接入',
+  background: '../assets/strike-hero.jpg',
+  loginBackground: '../assets/strike-hero.jpg',
+  heroImage: '../assets/strike-hero.jpg',
+  gameUrl: 'index.html',
+  startSelector: '#btn-start',
+  confirmInputPrompt: true,
+  waitForReady: '__GAME_READY',
+  verifyLaunch: true,
+  flow: 'strike',
+  exitUrl: '../',
+  allCount: '展示 8 / 56 辆',
+  collectionNote: '车库展示样张 · 对局内可完整切换车型、技能与地图',
+  gameNote: '真实对局由《撞击王座》1.0 提供；客户端负责账号、大厅、仓库与新手流程。',
+  player: { level: 12, exp: 640, expMax: 1000, title: '霓虹新秀' },
+  currencies: [
+    { key: 'coins', label: '金币', value: '129,400', icon: 'coin' },
+    { key: 'diamonds', label: '钻石', value: '2,480', icon: 'gem' },
+    { key: 'pass', label: '通行证', value: 'LV.12', icon: 'pass' }
+  ],
+  modes: [
+    { id: 'quick', name: '快速对局', meta: '3 分钟 · 8 人', desc: '即开即战，用角度与动量决出最后一人。', icon: 'bolt', hot: true },
+    { id: 'ranked', name: '排位竞技', meta: '赛季积分 · 真人对局', desc: '带着你的座驾冲进更高段位。', icon: 'trophy' },
+    { id: 'training', name: '训练场', meta: '无压力 · 熟悉手感', desc: '熟悉车型、技能、机关与终局规则。', icon: 'target' }
+  ],
+  items: [
+    { id: 'hammer_common_1', name: '重锤型·标准型', tag: '重装 · 冲撞', rarity: 'common', level: 1, stats: [72, 82, 56, 60], desc: '训练营里最常见的重装座驾，正面冲撞稳定，适合学习角度与冲势。' },
+    { id: 'hammer_common_2', name: '铆钉冲车', tag: '突进 · 耐久', rarity: 'common', level: 3, stats: [76, 70, 62, 58], desc: '车身布满铆钉的轻型冲车，起步快，擅长用短距离爆发打乱对手节奏。' },
+    { id: 'hammer_rare_1', name: '重轨犀牛', tag: '重装 · 碾压', rarity: 'rare', level: 6, stats: [82, 90, 48, 72], desc: '像轨道车一样压低重心，硬吃碰撞后仍能把对手顶出场外。' },
+    { id: 'spin_common_1', name: '旋刃型·标准型', tag: '旋刃 · 控场', rarity: 'common', level: 2, stats: [66, 58, 84, 64], desc: '旋刃结构的标准型，转向灵活，适合从侧后方切入制造角度。' },
+    { id: 'spin_rare_1', name: '磁环斩车', tag: '旋刃 · 追击', rarity: 'rare', level: 7, stats: [74, 64, 88, 74], desc: '磁环稳住车身，在连续转向中保持切割角度，是一名难缠的追猎者。' },
+    { id: 'spin_rare_2', name: '风切三棱', tag: '轻量 · 机动', rarity: 'rare', level: 8, stats: [84, 52, 92, 66], desc: '三棱车身切开气流，极速与转向兼备，代价是正面抗撞能力。' },
+    { id: 'titan', name: '泰坦坦克', tag: '泰坦 · 壁垒', rarity: 'titan', level: 12, stats: [88, 96, 42, 86], desc: '泰坦级重装座驾，车身就是规则。用它守住终局，或者把整个场地推平。' },
+    { id: 'hr', name: '环刃天枢', tag: '泰坦 · 环刃', rarity: 'titan', level: 15, stats: [92, 78, 80, 94], desc: '环刃天枢把速度、旋刃与冲撞合成一套完整终局答案，是车库里最亮的名字。' }
+  ],
+  missions: [
+    { id: 'match', label: '完成 1 场对局', reward: '+120 金币', metric: 'matches', target: 1 },
+    { id: 'equip', label: '在车库装备一次座驾', reward: '+80 金币', metric: 'equips', target: 1 },
+    { id: 'tutorial', label: '完成新手引导', reward: '+200 金币', metric: 'tutorialDone', target: 1 }
+  ],
+  tutorial: [
+    { screen: 'lobby', target: '.gc-hero', title: '欢迎来到撞击王座', text: '这里是你的大厅：查看当前座驾、等级和赛季信息。左侧是功能区，右侧是每日任务。' },
+    { screen: 'lobby', target: '.gc-play', title: '开始你的第一场对局', text: '点击开始对局，客户端会自动载入真实游戏并切入对局。' },
+    { screen: 'lobby', target: '.gc-nav [data-nav="garage"]', title: '车库与仓库', text: '在仓库查看车辆档案、稀有度与属性，选择你明天要开的那一辆。' },
+    { screen: 'garage', target: '.gc-item-card', title: '选择你的座驾', text: '点击车辆卡片查看详情，按“装备座驾”更新大厅展示。' },
+    { screen: 'lobby', target: '.gc-missions', title: '每日任务', text: '完成对局、装备和引导任务，领取客户端内的演示奖励。' }
+  ]
+};
+</script>
+<script src="../assets/game-client.js"></script>
+</body>
+</html>
