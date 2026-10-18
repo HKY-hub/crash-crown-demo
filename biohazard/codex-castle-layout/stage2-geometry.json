@@ -1,0 +1,5629 @@
+{
+  "version": 2,
+  "state": "STAGE_2_FIXED_GREYBOX",
+  "sourceState": "STAGE_1_DESIGN_ONLY",
+  "seedPolicy": "seed changes decoration only; this geometry ignores seed",
+  "world": {
+    "w": 8200,
+    "h": 2240,
+    "viewportW": 960,
+    "viewportH": 540,
+    "scaleAnchorHumanArt": 62,
+    "humanBody": [
+      22,
+      36
+    ],
+    "motherTitanBody": [
+      62,
+      86
+    ]
+  },
+  "levels": {
+    "SP": 860,
+    "RW": 1030,
+    "U2": 1180,
+    "U1": 1330,
+    "G2": 1470,
+    "G1": 1620,
+    "C1": 1780,
+    "C0": 1950
+  },
+  "regions": [
+    {
+      "id": "WG",
+      "name": "西岸门楼",
+      "x0": 0,
+      "x1": 1340,
+      "ground": "G1",
+      "exterior": "西岸河滩、外门前场、露天内庭",
+      "below": "水门与拱券排水渠 C1；深潭支路 C0",
+      "structure": "吊桥接门楼双层墙体，绞盘室在门洞上方，兵舍靠内城墙；地下拱券承担上层墙重。",
+      "chase": "地面进门最快但受门洞火力；水门可绕守点，返场有独立上行。"
+    },
+    {
+      "id": "WK",
+      "name": "西部主堡",
+      "x0": 1340,
+      "x1": 2700,
+      "ground": "G2",
+      "exterior": "岩台露台与东侧通天缝",
+      "below": "墓室 C1、储水地窖 C0",
+      "structure": "大厅通高，军械室贴厚墙，东西两个楼梯间服务不同立面；楼板由承重墙和拱柱支撑。",
+      "chase": "大厅视线远却有东西楼梯、地下墓室和东侧露台三种撤离；军械室可被上下包抄。"
+    },
+    {
+      "id": "CT",
+      "name": "中央中庭与塔楼",
+      "x0": 2700,
+      "x1": 4400,
+      "ground": "G1/G2",
+      "exterior": "露天内庭、塔前岩台、塔侧断墙",
+      "below": "塔基监牢 C1、熔炉洞 C0",
+      "structure": "中庭是主堡与塔楼间的采光、集结空间；塔身两侧独立楼梯间逐层承托塔顶。",
+      "chase": "低地快穿但容易被塔俯视；东西双塔梯不能被单个守点同时封锁。"
+    },
+    {
+      "id": "CG",
+      "name": "中央峡谷与双桥",
+      "x0": 4400,
+      "x1": 5200,
+      "ground": "G2/U1",
+      "exterior": "峡谷、两座桥面、开放天光",
+      "below": "桥下岩洞与水道 C1",
+      "structure": "两岸各有实体桥头堡；G2 石桥与 U1 高廊分别落在承重墩，桥下洞口避开桥墩。",
+      "chase": "上桥暴露、下洞隐蔽且绕行；两岸都能从桥面回到桥下。"
+    },
+    {
+      "id": "EL",
+      "name": "东部书库与礼拜堂",
+      "x0": 5200,
+      "x1": 6700,
+      "ground": "G2/G1",
+      "exterior": "墓园前庭与礼拜堂侧廊",
+      "below": "藏骨室与地下祭室 C1",
+      "structure": "书库接城墙台地，礼拜堂中殿局部通高，钟楼贴东承重墙；地下通道沿旧墓室绕行。",
+      "chase": "书库高处可守但有台地、侧廊和藏骨室三面入口；礼拜堂长视线有祭坛掩体。"
+    },
+    {
+      "id": "EW",
+      "name": "东旧翼与城墙",
+      "x0": 6700,
+      "x1": 8200,
+      "ground": "G1/G2",
+      "exterior": "倒塌旧翼庭院与城墙平台",
+      "below": "水牢 C1、蓄水池 C0、东排水洞",
+      "structure": "医务室和军械间围庭院布置；城墙靠独立基础，不把整段地下画成一条砖带。",
+      "chase": "旧翼双向走廊可撤到城墙或水牢；高位弹药点保留两条不同换层出口。"
+    }
+  ],
+  "volumes": [
+    {
+      "id": "V_GATE_WEST_STAIR",
+      "x0": 0,
+      "x1": 360,
+      "top": 1320,
+      "base": 1620,
+      "use": "门楼西侧露天外墙梯支座，不压G1主门"
+    },
+    {
+      "id": "V_GATE",
+      "x0": 360,
+      "x1": 1340,
+      "top": 1000,
+      "base": 1780,
+      "use": "门楼、兵舍、绞盘与水门"
+    },
+    {
+      "id": "V_KEEP",
+      "x0": 1340,
+      "x1": 2700,
+      "top": 980,
+      "base": 1950,
+      "use": "西主堡与岩台墓室"
+    },
+    {
+      "id": "V_COURT_W_PIER",
+      "x0": 2920,
+      "x1": 2950,
+      "top": 1120,
+      "base": 1780,
+      "use": "中庭残桥西断口实体支座"
+    },
+    {
+      "id": "V_COURT_PIER",
+      "x0": 3120,
+      "x1": 3500,
+      "top": 1120,
+      "base": 1780,
+      "use": "中庭东连廊支座与折梯井"
+    },
+    {
+      "id": "V_TOWER",
+      "x0": 3500,
+      "x1": 4400,
+      "top": 790,
+      "base": 1950,
+      "use": "中央塔与双楼梯间"
+    },
+    {
+      "id": "V_WEST_BRIDGEHEAD",
+      "x0": 4400,
+      "x1": 4600,
+      "top": 1120,
+      "base": 1780,
+      "use": "西桥头堡"
+    },
+    {
+      "id": "V_EAST_BRIDGEHEAD",
+      "x0": 5000,
+      "x1": 5200,
+      "top": 1120,
+      "base": 1780,
+      "use": "东桥头堡"
+    },
+    {
+      "id": "V_LIBRARY",
+      "x0": 5200,
+      "x1": 5900,
+      "top": 1140,
+      "base": 1780,
+      "use": "书库、誊写室与藏骨室"
+    },
+    {
+      "id": "V_CHAPEL",
+      "x0": 5900,
+      "x1": 6500,
+      "top": 1010,
+      "base": 1780,
+      "use": "礼拜堂与地下祭室"
+    },
+    {
+      "id": "V_BELL",
+      "x0": 6500,
+      "x1": 6700,
+      "top": 900,
+      "base": 1780,
+      "use": "钟楼"
+    },
+    {
+      "id": "V_WING_MED",
+      "x0": 6700,
+      "x1": 7110,
+      "top": 1140,
+      "base": 1950,
+      "use": "旧翼医务室与水牢西段"
+    },
+    {
+      "id": "V_WING_ARM",
+      "x0": 7300,
+      "x1": 7600,
+      "top": 1140,
+      "base": 1950,
+      "use": "旧翼军械库与水牢东段"
+    },
+    {
+      "id": "V_EAST_WALL",
+      "x0": 7600,
+      "x1": 8200,
+      "top": 1190,
+      "base": 1780,
+      "use": "东墙守望室与排水洞"
+    }
+  ],
+  "rooms": [
+    {
+      "id": "WG_GATE",
+      "region": "WG",
+      "name": "落闸门厅",
+      "x0": 360,
+      "x1": 760,
+      "top": 1460,
+      "floor": 1620,
+      "role": "主通道与闸门维护",
+      "access": [
+        "D_WG_OUT",
+        "D_WG_IN",
+        "S_WATER"
+      ]
+    },
+    {
+      "id": "WG_WINCH",
+      "region": "WG",
+      "name": "绞盘室",
+      "x0": 380,
+      "x1": 780,
+      "top": 1150,
+      "floor": 1330,
+      "role": "吊桥机械与上层观察",
+      "access": [
+        "S_GATE_HIGH"
+      ]
+    },
+    {
+      "id": "WG_BARRACK",
+      "region": "WG",
+      "name": "守门兵舍",
+      "x0": 780,
+      "x1": 1050,
+      "top": 1330,
+      "floor": 1470,
+      "role": "睡铺、器械与侧翼出入口",
+      "access": [
+        "D_WG_BARRACK",
+        "S_GATE_HIGH"
+      ]
+    },
+    {
+      "id": "WG_BALCONY",
+      "region": "WG",
+      "name": "兵舍西墙露台",
+      "x0": 700,
+      "x1": 780,
+      "top": 1330,
+      "floor": 1470,
+      "role": "兵舍西侧门外的实体短廊",
+      "access": [
+        "D_WG_BARRACK"
+      ]
+    },
+    {
+      "id": "WG_WATER",
+      "region": "WG",
+      "name": "水门机房",
+      "x0": 360,
+      "x1": 780,
+      "top": 1620,
+      "floor": 1780,
+      "role": "地下门闸与返场石阶",
+      "access": [
+        "D_WG_WATER",
+        "S_WATER"
+      ]
+    },
+    {
+      "id": "WG_DRAIN",
+      "region": "WG",
+      "name": "西排水拱廊",
+      "x0": 780,
+      "x1": 1095,
+      "top": 1620,
+      "floor": 1780,
+      "role": "拱券排水路在深潭井口下降，不形成井东侧断头楼板",
+      "access": [
+        "S_POOL"
+      ]
+    },
+    {
+      "id": "WG_POOL",
+      "region": "WG",
+      "name": "西深潭岩室",
+      "x0": 1080,
+      "x1": 1340,
+      "top": 1780,
+      "floor": 1950,
+      "role": "水道下层回环，有实体岩顶",
+      "access": [
+        "D_WK_POOL",
+        "S_POOL"
+      ]
+    },
+    {
+      "id": "WK_HALL",
+      "region": "WK",
+      "name": "主堡大厅",
+      "x0": 1610,
+      "x1": 2080,
+      "top": 1180,
+      "floor": 1470,
+      "role": "西部通高集会空间与楼梯井",
+      "access": [
+        "D_WK_WEST",
+        "D_WK_ARM_W",
+        "S_KEEP_WEST"
+      ]
+    },
+    {
+      "id": "WK_ARMORY",
+      "region": "WK",
+      "name": "军械间",
+      "x0": 2080,
+      "x1": 2500,
+      "top": 1300,
+      "floor": 1470,
+      "role": "高价值补给与双侧撤离",
+      "access": [
+        "D_WK_ARM_W",
+        "D_WK_ARM_E",
+        "S_KEEP_EAST"
+      ]
+    },
+    {
+      "id": "WK_CRYPT",
+      "region": "WK",
+      "name": "拱顶墓室",
+      "x0": 1842,
+      "x1": 2700,
+      "top": 1620,
+      "floor": 1780,
+      "role": "由深层储水室返C1，东接塔基监牢、西接主堡服务廊",
+      "access": [
+        "D_WK_CRYPT_E",
+        "S_KEEP_CRYPT",
+        "S_KEEP_DEEP"
+      ]
+    },
+    {
+      "id": "WK_SERVICE",
+      "region": "WK",
+      "name": "主堡底层服务廊",
+      "x0": 1500,
+      "x1": 2350,
+      "top": 1470,
+      "floor": 1620,
+      "role": "两座分开的G1至G2楼梯间",
+      "access": [
+        "S_KEEP_WEST",
+        "S_KEEP_EAST",
+        "S_KEEP_CRYPT"
+      ]
+    },
+    {
+      "id": "WK_WATER_TUNNEL",
+      "region": "WK",
+      "name": "主堡岩层水洞",
+      "x0": 1340,
+      "x1": 1530,
+      "top": 1780,
+      "floor": 1950,
+      "role": "西深潭至储水室的短岩洞，实体拱券承担上层岩台",
+      "access": [
+        "D_WK_POOL",
+        "D_WK_WATER_STORE"
+      ]
+    },
+    {
+      "id": "WK_DEEP",
+      "region": "WK",
+      "name": "主堡储水地窖",
+      "x0": 1530,
+      "x1": 1712,
+      "top": 1780,
+      "floor": 1950,
+      "role": "C0返场宽阶的西侧平地转身室，东端2px与首级平接",
+      "access": [
+        "D_WK_WATER_STORE"
+      ]
+    },
+    {
+      "id": "CT_AUDIENCE",
+      "region": "CT",
+      "name": "塔前觐见厅",
+      "x0": 3500,
+      "x1": 3980,
+      "top": 1180,
+      "floor": 1470,
+      "role": "西侧局部通高，岩台守点与双塔梯分流",
+      "access": [
+        "D_CT_WEST",
+        "D_CT_PASSAGE",
+        "S_TOWER_W"
+      ]
+    },
+    {
+      "id": "CT_ENGINE",
+      "region": "CT",
+      "name": "钟机传动室",
+      "x0": 3980,
+      "x1": 4400,
+      "top": 1180,
+      "floor": 1330,
+      "role": "塔内机械与桥面观察",
+      "access": [
+        "D_CT_EAST",
+        "S_TOWER_E"
+      ]
+    },
+    {
+      "id": "CT_EAST_PASSAGE",
+      "region": "CT",
+      "name": "塔东桥面通道",
+      "x0": 3980,
+      "x1": 4400,
+      "top": 1330,
+      "floor": 1470,
+      "role": "石桥西岸的有顶穿堂",
+      "access": [
+        "D_CT_PASSAGE",
+        "D_CT_BRIDGE_G2",
+        "S_TOWER_E",
+        "S_TOWER_BASE"
+      ]
+    },
+    {
+      "id": "CT_TOWER_BASE",
+      "region": "CT",
+      "name": "塔基侧廊",
+      "x0": 3980,
+      "x1": 4400,
+      "top": 1470,
+      "floor": 1620,
+      "role": "东侧独立返场梯下厅",
+      "access": [
+        "S_TOWER_BASE"
+      ]
+    },
+    {
+      "id": "CT_PRISON",
+      "region": "CT",
+      "name": "塔基监牢",
+      "x0": 3500,
+      "x1": 4400,
+      "top": 1620,
+      "floor": 1780,
+      "role": "地下追击与地面返程",
+      "access": [
+        "D_CT_PRISON_W",
+        "D_CG_CAVE_W",
+        "S_TOWER_BASE"
+      ]
+    },
+    {
+      "id": "CT_CELLAR",
+      "region": "CT",
+      "name": "中庭地窖",
+      "x0": 2700,
+      "x1": 3500,
+      "top": 1620,
+      "floor": 1780,
+      "role": "主堡墓室到塔基的地下拐廊",
+      "access": [
+        "D_WK_CRYPT_E",
+        "D_CT_PRISON_W"
+      ]
+    },
+    {
+      "id": "CT_FORGE",
+      "region": "CT",
+      "name": "塔下熔炉洞",
+      "x0": 3900,
+      "x1": 4400,
+      "top": 1780,
+      "floor": 1950,
+      "role": "岩层折返接桥下洞穴",
+      "access": [
+        "S_FORGE"
+      ]
+    },
+    {
+      "id": "CG_WEST_HOUSE",
+      "region": "CG",
+      "name": "西桥头堡",
+      "x0": 4400,
+      "x1": 4600,
+      "top": 1290,
+      "floor": 1470,
+      "role": "桥头闸门与西岸换层",
+      "access": [
+        "D_CT_BRIDGE_G2",
+        "D_CG_WEST"
+      ]
+    },
+    {
+      "id": "CG_WEST_UP",
+      "region": "CG",
+      "name": "西桥头高层门室",
+      "x0": 4400,
+      "x1": 4600,
+      "top": 1180,
+      "floor": 1330,
+      "role": "塔东高门的真正落脚空间",
+      "access": [
+        "D_CT_EAST"
+      ]
+    },
+    {
+      "id": "CG_EAST_HOUSE",
+      "region": "CG",
+      "name": "东桥头堡",
+      "x0": 5000,
+      "x1": 5200,
+      "top": 1290,
+      "floor": 1470,
+      "role": "桥头闸门与东岸换层",
+      "access": [
+        "D_CG_EAST",
+        "D_EL_LIBRARY_W"
+      ]
+    },
+    {
+      "id": "CG_EAST_UP",
+      "region": "CG",
+      "name": "东桥头高层门室",
+      "x0": 5000,
+      "x1": 5200,
+      "top": 1180,
+      "floor": 1330,
+      "role": "高桥东岸有顶落脚与书库上廊接口",
+      "access": [
+        "D_CG_HIGH_E"
+      ]
+    },
+    {
+      "id": "CG_CAVE",
+      "region": "CG",
+      "name": "桥下岩洞",
+      "x0": 4400,
+      "x1": 5200,
+      "top": 1620,
+      "floor": 1780,
+      "role": "桥拱下有连续顶板；由西塔基和东书库分别返桥面",
+      "access": [
+        "D_CG_CAVE_W",
+        "D_CG_CAVE_E"
+      ]
+    },
+    {
+      "id": "EL_LIBRARY",
+      "region": "EL",
+      "name": "主书库地面层",
+      "x0": 5200,
+      "x1": 5790,
+      "top": 1330,
+      "floor": 1470,
+      "role": "可绕书架的军械侧路",
+      "access": [
+        "D_EL_LIBRARY_W",
+        "S_LIBRARY",
+        "S_LIBRARY_FRONT"
+      ]
+    },
+    {
+      "id": "EL_LIBRARY_UP",
+      "region": "EL",
+      "name": "书库上层回廊",
+      "x0": 5200,
+      "x1": 5790,
+      "top": 1180,
+      "floor": 1330,
+      "role": "书架上层、东侧高路出口",
+      "access": [
+        "D_CG_HIGH_E",
+        "D_LIB_UP_E",
+        "S_LIBRARY"
+      ]
+    },
+    {
+      "id": "EL_NAVE",
+      "region": "EL",
+      "name": "礼拜堂中殿",
+      "x0": 6060,
+      "x1": 6500,
+      "top": 1160,
+      "floor": 1620,
+      "role": "通高礼拜空间与祭坛掩体",
+      "access": [
+        "D_EL_NAVE_W",
+        "D_EL_NAVE_E"
+      ]
+    },
+    {
+      "id": "EL_OSSUARY",
+      "region": "EL",
+      "name": "藏骨室",
+      "x0": 5200,
+      "x1": 5900,
+      "top": 1620,
+      "floor": 1780,
+      "role": "地下伏击与西侧洞口",
+      "access": [
+        "D_CG_CAVE_E",
+        "D_EL_OSS_E",
+        "S_LIBRARY_BASE"
+      ]
+    },
+    {
+      "id": "EL_CRYPT",
+      "region": "EL",
+      "name": "祭室地穴",
+      "x0": 5900,
+      "x1": 6500,
+      "top": 1620,
+      "floor": 1780,
+      "role": "地下祭室和东墓廊",
+      "access": [
+        "D_EL_OSS_E",
+        "D_BELL_CRYPT_W"
+      ]
+    },
+    {
+      "id": "EL_GALLERY_E",
+      "region": "EL",
+      "name": "礼拜堂东侧廊",
+      "x0": 6350,
+      "x1": 6500,
+      "top": 1180,
+      "floor": 1330,
+      "role": "东扶壁和钟室连接",
+      "access": [
+        "D_EL_BELL"
+      ]
+    },
+    {
+      "id": "EL_BELL_BASE",
+      "region": "EL",
+      "name": "钟楼底室",
+      "x0": 6500,
+      "x1": 6700,
+      "top": 1470,
+      "floor": 1620,
+      "role": "礼拜堂东口和旧翼西口",
+      "access": [
+        "D_EL_NAVE_E",
+        "D_EW_MED_W"
+      ]
+    },
+    {
+      "id": "EL_BELL_CRYPT",
+      "region": "EL",
+      "name": "钟楼地下承重券廊",
+      "x0": 6500,
+      "x1": 6700,
+      "top": 1620,
+      "floor": 1780,
+      "role": "祭室和旧翼水牢的C1实体过渡",
+      "access": [
+        "D_BELL_CRYPT_W",
+        "D_BELL_CRYPT_E"
+      ]
+    },
+    {
+      "id": "EL_DEEP_DRAIN",
+      "region": "EL",
+      "name": "祭室深排水渠",
+      "x0": 6300,
+      "x1": 6700,
+      "top": 1780,
+      "floor": 1950,
+      "role": "旧翼水池西侧返程",
+      "access": [
+        "D_EW_DRAIN_W"
+      ]
+    },
+    {
+      "id": "EL_BELL",
+      "region": "EL",
+      "name": "钟室",
+      "x0": 6500,
+      "x1": 6700,
+      "top": 1080,
+      "floor": 1330,
+      "role": "观察与高廊接点",
+      "access": [
+        "D_EL_BELL"
+      ]
+    },
+    {
+      "id": "EW_INFIRMARY",
+      "region": "EW",
+      "name": "旧医务室",
+      "x0": 6700,
+      "x1": 7110,
+      "top": 1470,
+      "floor": 1620,
+      "role": "医疗补给及庭院侧门",
+      "access": [
+        "D_EW_MED_W",
+        "D_EW_MED_E",
+        "S_WING"
+      ]
+    },
+    {
+      "id": "EW_INFIRMARY_UP",
+      "region": "EW",
+      "name": "医务室上廊",
+      "x0": 6700,
+      "x1": 7110,
+      "top": 1180,
+      "floor": 1330,
+      "role": "钟楼高路的东段落脚",
+      "access": [
+        "S_WING"
+      ]
+    },
+    {
+      "id": "EW_ARMORY",
+      "region": "EW",
+      "name": "旧翼军械库",
+      "x0": 7300,
+      "x1": 7600,
+      "top": 1470,
+      "floor": 1620,
+      "role": "东侧高价值据点",
+      "access": [
+        "D_EW_ARM_W",
+        "D_EW_ARM_E",
+        "S_ARMORY"
+      ]
+    },
+    {
+      "id": "EW_ARMORY_UP",
+      "region": "EW",
+      "name": "军械库上廊",
+      "x0": 7300,
+      "x1": 7600,
+      "top": 1180,
+      "floor": 1330,
+      "role": "东墙高路与军械第二出口",
+      "access": [
+        "S_ARMORY"
+      ]
+    },
+    {
+      "id": "EW_WATCH",
+      "region": "EW",
+      "name": "城墙守望室",
+      "x0": 7600,
+      "x1": 8160,
+      "top": 1310,
+      "floor": 1470,
+      "role": "城墙高路与东端观察",
+      "access": [
+        "D_EW_WALL",
+        "S_EAST_WALL"
+      ]
+    },
+    {
+      "id": "EW_WATCH_BASE",
+      "region": "EW",
+      "name": "守望室底层",
+      "x0": 7600,
+      "x1": 8160,
+      "top": 1470,
+      "floor": 1620,
+      "role": "旧翼地面东出口",
+      "access": [
+        "D_EW_ARM_E",
+        "S_EAST_WALL",
+        "S_EAST_DRAIN"
+      ]
+    },
+    {
+      "id": "EW_CISTERN",
+      "region": "EW",
+      "name": "旧翼蓄水池",
+      "x0": 6700,
+      "x1": 7600,
+      "top": 1780,
+      "floor": 1950,
+      "role": "地下蓄水与排洪绕行",
+      "access": [
+        "D_EW_DRAIN_W",
+        "D_EW_DRAIN_E",
+        "S_WING_POOL"
+      ]
+    },
+    {
+      "id": "EW_DRAIN",
+      "region": "EW",
+      "name": "东排水暗渠",
+      "x0": 7600,
+      "x1": 8200,
+      "top": 1780,
+      "floor": 1950,
+      "role": "水池东出口和上行石阶",
+      "access": [
+        "D_EW_DRAIN_E",
+        "S_DEEP_DRAIN"
+      ]
+    },
+    {
+      "id": "EW_WATERLOCK",
+      "region": "EW",
+      "name": "旧翼水牢",
+      "x0": 6700,
+      "x1": 7110,
+      "top": 1620,
+      "floor": 1780,
+      "role": "医务室下方有顶回廊",
+      "access": [
+        "D_BELL_CRYPT_E",
+        "D_EW_ARM_BASE_W",
+        "S_WING_BASE",
+        "S_WING_POOL"
+      ]
+    },
+    {
+      "id": "EW_ARM_BASE",
+      "region": "EW",
+      "name": "军械地下库",
+      "x0": 7110,
+      "x1": 7600,
+      "top": 1620,
+      "floor": 1780,
+      "role": "双侧水牢旁路，不再用正上方军械间假梯返场",
+      "access": [
+        "D_EW_ARM_BASE_W",
+        "D_EW_ARM_BASE_E"
+      ]
+    },
+    {
+      "id": "EW_WALL_DRAIN",
+      "region": "EW",
+      "name": "东墙排水洞",
+      "x0": 7600,
+      "x1": 8200,
+      "top": 1620,
+      "floor": 1780,
+      "role": "东侧出生与返程入口",
+      "access": [
+        "D_EW_ARM_BASE_E",
+        "S_EAST_DRAIN",
+        "S_DEEP_DRAIN"
+      ]
+    }
+  ],
+  "openSpaces": [
+    {
+      "id": "O_MOAT",
+      "x0": 0,
+      "x1": 360,
+      "floor": "G1",
+      "sky": false,
+      "connects": [
+        "WG_GATE"
+      ]
+    },
+    {
+      "id": "O_BAILEY",
+      "x0": 760,
+      "x1": 1340,
+      "floor": "G1",
+      "sky": true,
+      "connects": [
+        "WG_GATE",
+        "WK_HALL"
+      ]
+    },
+    {
+      "id": "O_KEEP_TERRACE",
+      "x0": 1510,
+      "x1": 1610,
+      "floor": "G2",
+      "sky": false,
+      "connects": [
+        "WK_HALL"
+      ]
+    },
+    {
+      "id": "O_KEEP_EAST",
+      "x0": 2500,
+      "x1": 2620,
+      "floor": "G2",
+      "sky": false,
+      "connects": [
+        "WK_ARMORY"
+      ]
+    },
+    {
+      "id": "O_COURT",
+      "x0": 2700,
+      "x1": 3500,
+      "floor": "G1",
+      "sky": true,
+      "connects": [
+        "WK_HALL",
+        "CT_AUDIENCE"
+      ]
+    },
+    {
+      "id": "O_TOWER_TERRACE",
+      "x0": 3470,
+      "x1": 3500,
+      "floor": "G2",
+      "sky": false,
+      "connects": [
+        "CT_AUDIENCE"
+      ]
+    },
+    {
+      "id": "O_STONE_BRIDGE",
+      "x0": 4600,
+      "x1": 5000,
+      "floor": "G2",
+      "sky": false,
+      "connects": [
+        "CG_WEST_HOUSE",
+        "CG_EAST_HOUSE"
+      ]
+    },
+    {
+      "id": "O_LIBRARY_FOOT",
+      "x0": 5560,
+      "x1": 5900,
+      "floor": "G1",
+      "sky": false,
+      "connects": []
+    },
+    {
+      "id": "O_CEMETERY",
+      "x0": 5900,
+      "x1": 6060,
+      "floor": "G1",
+      "sky": true,
+      "connects": [
+        "EL_NAVE"
+      ]
+    },
+    {
+      "id": "O_CHAP_WEST_PORTICO",
+      "x0": 5790,
+      "x1": 5900,
+      "floor": "U1",
+      "sky": false,
+      "connects": [
+        "EL_LIBRARY_UP"
+      ]
+    },
+    {
+      "id": "O_EAST_YARD",
+      "x0": 7110,
+      "x1": 7300,
+      "floor": "G1",
+      "sky": true,
+      "connects": [
+        "EW_INFIRMARY",
+        "EW_ARMORY"
+      ]
+    },
+    {
+      "id": "O_EAST_RAMP",
+      "x0": 7500,
+      "x1": 7600,
+      "floor": "G2",
+      "sky": false,
+      "connects": [
+        "EW_WATCH"
+      ]
+    },
+    {
+      "id": "O_WEST_WATER",
+      "x0": 0,
+      "x1": 360,
+      "floor": "C1",
+      "sky": false,
+      "connects": [
+        "WG_WATER"
+      ]
+    },
+    {
+      "id": "O_GATE_ROOF",
+      "x0": 900,
+      "x1": 1050,
+      "floor": "RW",
+      "sky": true,
+      "connects": []
+    },
+    {
+      "id": "O_KEEP_ROOF",
+      "x0": 2250,
+      "x1": 2640,
+      "floor": "RW",
+      "sky": true,
+      "connects": []
+    },
+    {
+      "id": "O_COURT_SKY",
+      "x0": 3400,
+      "x1": 3500,
+      "floor": "U2",
+      "sky": true,
+      "connects": []
+    },
+    {
+      "id": "O_HIGH_BRIDGE",
+      "x0": 4600,
+      "x1": 5000,
+      "floor": "U1",
+      "sky": true,
+      "connects": []
+    },
+    {
+      "id": "O_BELL_ROOF",
+      "x0": 6450,
+      "x1": 6700,
+      "floor": "RW",
+      "sky": true,
+      "connects": []
+    },
+    {
+      "id": "O_WALL_SKY",
+      "x0": 7600,
+      "x1": 7910,
+      "floor": "U1",
+      "sky": true,
+      "connects": []
+    }
+  ],
+  "groundSkyPatches": [
+    {
+      "id": "SKY_BAILEY_G1",
+      "openSpace": "O_BAILEY",
+      "region": "WG",
+      "x0": 1050,
+      "x1": 1190,
+      "groundLevel": "G1",
+      "carriersCut": [
+        "V_GATE"
+      ],
+      "walkable": true,
+      "reason": "兵舍和角塔止于x1050，主堡城墙始于x1190；两者间保留140px平地内庭，U2仅由E109跨越。",
+      "status": "PLANNED_UNVERIFIED"
+    },
+    {
+      "id": "SKY_COURT_G1",
+      "openSpace": "O_COURT",
+      "region": "CT",
+      "x0": 3221,
+      "x1": 3361,
+      "groundLevel": "G1",
+      "carriersCut": [
+        "V_COURT_PIER"
+      ],
+      "walkable": true,
+      "reason": "E14止于x3210，E19从x3361起步；G1保留140px真实天光，U1高廊由E23_JUMP跨过同一条天光缝。",
+      "status": "PLANNED_UNVERIFIED"
+    },
+    {
+      "id": "SKY_CEMETERY_G1",
+      "openSpace": "O_CEMETERY",
+      "region": "EL",
+      "x0": 5910,
+      "x1": 6050,
+      "groundLevel": "G1",
+      "carriersCut": [
+        "V_CHAPEL"
+      ],
+      "walkable": true,
+      "reason": "E46下口止于x5910，礼拜堂从x6060起；墓园保留140px真实天光，E115在其东侧复接。",
+      "status": "PLANNED_UNVERIFIED"
+    },
+    {
+      "id": "SKY_EAST_YARD_G1",
+      "openSpace": "O_EAST_YARD",
+      "region": "EW",
+      "x0": 7135,
+      "x1": 7275,
+      "groundLevel": "G1",
+      "carriersCut": [
+        "P_WING_U2"
+      ],
+      "walkable": true,
+      "reason": "医务室与军械库之间保留140px地面庭院天光，U1高路由两侧短桥头和E60可见断口组成。",
+      "status": "PLANNED_UNVERIFIED"
+    }
+  ],
+  "platforms": [
+    {
+      "id": "P_GATE_G2",
+      "region": "WG",
+      "x0": 0,
+      "x1": 780,
+      "lv": "G2",
+      "sky": true,
+      "role": "外墙梯上口到兵舍的实心女儿墙步道"
+    },
+    {
+      "id": "P_GATE_U2",
+      "region": "WG",
+      "x0": 780,
+      "x1": 1050,
+      "lv": "U2",
+      "sky": true,
+      "role": "门楼城墙步道，东端是真实断口起跳板"
+    },
+    {
+      "id": "P_GATE_WALL_U2",
+      "region": "WG",
+      "x0": 1190,
+      "x1": 1340,
+      "lv": "U2",
+      "sky": true,
+      "role": "门楼到主堡的有支撑城墙顶"
+    },
+    {
+      "id": "P_GATE_U1",
+      "region": "WG",
+      "x0": 780,
+      "x1": 1050,
+      "lv": "U1",
+      "sky": false,
+      "role": "绞盘室向城墙步道的实体折梯落脚"
+    },
+    {
+      "id": "P_GATE_RW",
+      "region": "WG",
+      "x0": 900,
+      "x1": 1050,
+      "lv": "RW",
+      "sky": true,
+      "role": "门楼角塔屋脊，不跨越内庭天光"
+    },
+    {
+      "id": "P_KEEP_U1",
+      "region": "WK",
+      "x0": 1800,
+      "x1": 2600,
+      "lv": "U1",
+      "sky": false,
+      "role": "大厅局部上廊"
+    },
+    {
+      "id": "P_KEEP_U2",
+      "region": "WK",
+      "x0": 1500,
+      "x1": 2700,
+      "lv": "U2",
+      "sky": true,
+      "role": "承重墙上的屋顶步道"
+    },
+    {
+      "id": "P_KEEP_WALL_U2",
+      "region": "WK",
+      "x0": 1340,
+      "x1": 1500,
+      "lv": "U2",
+      "sky": true,
+      "role": "主堡西侧城墙顶，与门楼步道连续"
+    },
+    {
+      "id": "P_KEEP_RW",
+      "region": "WK",
+      "x0": 2250,
+      "x1": 2640,
+      "lv": "RW",
+      "sky": true,
+      "role": "高阁屋脊"
+    },
+    {
+      "id": "P_COURT_U1",
+      "region": "CT",
+      "x0": 2700,
+      "x1": 2950,
+      "lv": "U1",
+      "sky": true,
+      "role": "东桥墩承托的中庭高廊"
+    },
+    {
+      "id": "P_COURT_U2",
+      "region": "CT",
+      "x0": 3400,
+      "x1": 3500,
+      "lv": "U2",
+      "sky": true,
+      "role": "中庭断墙上缘"
+    },
+    {
+      "id": "P_TOWER_U1_W",
+      "region": "CT",
+      "x0": 3500,
+      "x1": 3880,
+      "lv": "U1",
+      "sky": false,
+      "role": "塔西二层门前平台与落脚"
+    },
+    {
+      "id": "P_TOWER_U1_CROSS",
+      "region": "CT",
+      "x0": 3880,
+      "x1": 4100,
+      "lv": "U1",
+      "sky": false,
+      "role": "塔内窄横廊，不封锁下方G2穿堂"
+    },
+    {
+      "id": "P_TOWER_U1_E",
+      "region": "CT",
+      "x0": 4100,
+      "x1": 4400,
+      "lv": "U1",
+      "sky": false,
+      "role": "塔东二层落脚"
+    },
+    {
+      "id": "P_TOWER_U2_W",
+      "region": "CT",
+      "x0": 3550,
+      "x1": 3880,
+      "lv": "U2",
+      "sky": false,
+      "role": "塔西三层落脚"
+    },
+    {
+      "id": "P_TOWER_U2_E",
+      "region": "CT",
+      "x0": 4100,
+      "x1": 4400,
+      "lv": "U2",
+      "sky": false,
+      "role": "塔东三层落脚"
+    },
+    {
+      "id": "P_TOWER_RW_W",
+      "region": "CT",
+      "x0": 3550,
+      "x1": 3910,
+      "lv": "RW",
+      "sky": false,
+      "role": "塔西环廊"
+    },
+    {
+      "id": "P_TOWER_RW_E",
+      "region": "CT",
+      "x0": 4090,
+      "x1": 4400,
+      "lv": "RW",
+      "sky": false,
+      "role": "塔东环廊"
+    },
+    {
+      "id": "P_TOWER_SP_W",
+      "region": "CT",
+      "x0": 3650,
+      "x1": 3910,
+      "lv": "SP",
+      "sky": true,
+      "role": "塔顶西独立落脚板"
+    },
+    {
+      "id": "P_TOWER_SP_DECK",
+      "region": "CT",
+      "x0": 3910,
+      "x1": 4090,
+      "lv": "SP",
+      "sky": true,
+      "role": "塔顶军火中央台"
+    },
+    {
+      "id": "P_TOWER_SP_E",
+      "region": "CT",
+      "x0": 4090,
+      "x1": 4360,
+      "lv": "SP",
+      "sky": true,
+      "role": "塔顶东独立落脚板"
+    },
+    {
+      "id": "P_CHAP_U1",
+      "region": "EL",
+      "x0": 6060,
+      "x1": 6350,
+      "lv": "U1",
+      "sky": false,
+      "role": "中殿窄悬廊，下方通高且不铺满楼板"
+    },
+    {
+      "id": "P_CHAP_U2",
+      "region": "EL",
+      "x0": 6060,
+      "x1": 6350,
+      "lv": "U2",
+      "sky": true,
+      "role": "礼拜堂天幕步道"
+    },
+    {
+      "id": "P_LIBRARY_U2",
+      "region": "EL",
+      "x0": 5560,
+      "x1": 5800,
+      "lv": "U2",
+      "sky": true,
+      "role": "书库岩台露台"
+    },
+    {
+      "id": "P_BELL_U2",
+      "region": "EL",
+      "x0": 6450,
+      "x1": 6700,
+      "lv": "U2",
+      "sky": false,
+      "role": "钟楼高廊"
+    },
+    {
+      "id": "P_CHAP_TO_BELL_U2",
+      "region": "EL",
+      "x0": 6350,
+      "x1": 6450,
+      "lv": "U2",
+      "sky": true,
+      "role": "礼拜堂外扶壁接钟楼高廊"
+    },
+    {
+      "id": "P_BELL_RW",
+      "region": "EL",
+      "x0": 6450,
+      "x1": 6700,
+      "lv": "RW",
+      "sky": true,
+      "role": "钟楼屋脊"
+    },
+    {
+      "id": "P_WING_G2",
+      "region": "EW",
+      "x0": 6720,
+      "x1": 7050,
+      "lv": "G2",
+      "sky": false,
+      "role": "医务室G1到U1折梯中平台"
+    },
+    {
+      "id": "P_ARM_G2",
+      "region": "EW",
+      "x0": 7300,
+      "x1": 7550,
+      "lv": "G2",
+      "sky": false,
+      "role": "军械库G1到U1折梯中平台"
+    },
+    {
+      "id": "P_EAST_WALL_U1",
+      "region": "EW",
+      "x0": 7580,
+      "x1": 7910,
+      "lv": "U1",
+      "sky": true,
+      "role": "军械上廊至城墙的扶壁阶上口"
+    },
+    {
+      "id": "P_WING_U2",
+      "region": "EW",
+      "x0": 6900,
+      "x1": 7160,
+      "lv": "U2",
+      "sky": true,
+      "role": "旧翼破损瞭望层"
+    },
+    {
+      "id": "P_EAST_BRIDGE_W",
+      "region": "EW",
+      "x0": 7110,
+      "x1": 7135,
+      "lv": "U1",
+      "sky": true,
+      "role": "医务侧残桥落脚板，由旧翼厚墙承托"
+    },
+    {
+      "id": "P_EAST_BRIDGE_E",
+      "region": "EW",
+      "x0": 7275,
+      "x1": 7300,
+      "lv": "U1",
+      "sky": true,
+      "role": "军械侧残桥落脚板，由军械西墙承托"
+    },
+    {
+      "id": "P_GATE_POOL_C0",
+      "x0": 720,
+      "x1": 1080,
+      "lv": "C0",
+      "region": "WG",
+      "sky": false,
+      "role": "west drain stair lower approach"
+    },
+    {
+      "id": "P_KEEP_G2_APPROACH",
+      "x0": 1460,
+      "x1": 2500,
+      "lv": "G2",
+      "region": "WK",
+      "sky": false,
+      "role": "main-keep G2 approach carrier"
+    },
+    {
+      "id": "P_KEEP_G1_APPROACH",
+      "x0": 1340,
+      "x1": 2300,
+      "lv": "G1",
+      "region": "WK",
+      "sky": false,
+      "role": "main-keep G1 service gallery"
+    },
+    {
+      "id": "P_KEEP_C1_APPROACH",
+      "x0": 1340,
+      "x1": 1842,
+      "lv": "C1",
+      "region": "WK",
+      "sky": false,
+      "role": "water-return C1 landing"
+    },
+    {
+      "id": "P_KEEP_G1_SIDE",
+      "x0": 2610,
+      "x1": 2700,
+      "lv": "G1",
+      "region": "WK",
+      "sky": false,
+      "role": "long service gallery to side stair"
+    },
+    {
+      "id": "P_KEEP_G2_SIDE",
+      "x0": 5200,
+      "x1": 5352,
+      "lv": "G2",
+      "region": "EL",
+      "sky": false,
+      "role": "library-side stair lower gallery"
+    },
+    {
+      "id": "P_KEEP_FORGE_C0",
+      "x0": 1660,
+      "x1": 1980,
+      "lv": "C0",
+      "region": "WK",
+      "sky": false,
+      "role": "forge stair lower approach"
+    },
+    {
+      "id": "P_KEEP_DEEP_C0",
+      "x0": 1660,
+      "x1": 2700,
+      "lv": "C0",
+      "region": "WK",
+      "sky": false,
+      "role": "deep-keep return gallery"
+    },
+    {
+      "id": "P_KEEP_DEEP_C1",
+      "x0": 2463,
+      "x1": 2700,
+      "lv": "C1",
+      "region": "WK",
+      "sky": false,
+      "role": "deep-keep upper landing"
+    },
+    {
+      "id": "P_E14_G1",
+      "x0": 2700,
+      "x1": 2800,
+      "lv": "G1",
+      "region": "CT",
+      "sky": false,
+      "role": "east keep stair lower landing"
+    },
+    {
+      "id": "P_E19_G1",
+      "x0": 3010,
+      "x1": 3470,
+      "lv": "G1",
+      "region": "CT",
+      "sky": false,
+      "role": "tower approach landing"
+    },
+    {
+      "id": "P_E19_G2",
+      "x0": 2870,
+      "x1": 2940,
+      "lv": "G2",
+      "region": "CT",
+      "sky": false,
+      "role": "tower upper approach landing"
+    },
+    {
+      "id": "P_E22_G1",
+      "x0": 3730,
+      "x1": 4250,
+      "lv": "G1",
+      "region": "CT",
+      "sky": false,
+      "role": "tower passage landing"
+    },
+    {
+      "id": "P_E22_G2",
+      "x0": 3470,
+      "x1": 3990,
+      "lv": "G2",
+      "region": "CT",
+      "sky": false,
+      "role": "tower passage upper approach"
+    },
+    {
+      "id": "P_LIBRARY_G1_APPROACH",
+      "x0": 5480,
+      "x1": 5560,
+      "lv": "G1",
+      "region": "EL",
+      "sky": false,
+      "role": "library shaft east landing"
+    },
+    {
+      "id": "P_LIBRARY_G1_SHAFT",
+      "x0": 5317,
+      "x1": 5480,
+      "lv": "G1",
+      "region": "EL",
+      "sky": false,
+      "role": "library C1 return shaft head"
+    },
+    {
+      "id": "P_LIBRARY_G2_AFTER",
+      "x0": 5787,
+      "x1": 5900,
+      "lv": "G2",
+      "region": "EL",
+      "sky": false,
+      "role": "library front stair upper landing"
+    },
+    {
+      "id": "P_E58_G1_AFTER",
+      "x0": 7300,
+      "x1": 7350,
+      "lv": "G1",
+      "region": "EW",
+      "sky": false,
+      "role": "old-wing water stair landing"
+    },
+    {
+      "id": "P_E58_C1_APPROACH",
+      "x0": 6700,
+      "x1": 6950,
+      "lv": "C1",
+      "region": "EW",
+      "sky": false,
+      "role": "old-wing water stair lower approach"
+    },
+    {
+      "id": "P_E73_C1_SHAFT",
+      "x0": 6600,
+      "x1": 6700,
+      "lv": "C1",
+      "region": "EL",
+      "sky": false,
+      "role": "waterlock pool shaft head"
+    },
+    {
+      "id": "P_E75_C1_SHAFT",
+      "x0": 7350,
+      "x1": 7676,
+      "lv": "C1",
+      "region": "EW",
+      "sky": false,
+      "role": "east deep-drain shaft head"
+    },
+    {
+      "id": "P_E67_G1_APPROACH",
+      "x0": 7300,
+      "x1": 7872,
+      "lv": "G1",
+      "region": "EW",
+      "sky": false,
+      "role": "east wall service gallery"
+    },
+    {
+      "id": "P_E65_G2_SHAFT",
+      "x0": 8104,
+      "x1": 8200,
+      "lv": "G2",
+      "region": "EW",
+      "sky": false,
+      "role": "east wall upper shaft"
+    },
+    {
+      "id": "P_KEEP_G2_AFTER",
+      "x0": 2500,
+      "x1": 2690,
+      "lv": "G2",
+      "region": "WK",
+      "sky": false,
+      "role": "fixed G2 landing beyond the west service stair"
+    },
+    {
+      "id": "P_GATE_C1_AFTER",
+      "x0": 1080,
+      "x1": 1180,
+      "lv": "C1",
+      "region": "WG",
+      "sky": false,
+      "role": "water stair upper-side return landing"
+    },
+    {
+      "id": "P_KEEP_C1_WEST",
+      "x0": 1340,
+      "x1": 1842,
+      "lv": "C1",
+      "region": "WK",
+      "sky": false,
+      "role": "C1 approach before the deep-keep shaft"
+    },
+    {
+      "id": "P_TOWER_G2_AFTER",
+      "x0": 3470,
+      "x1": 3990,
+      "lv": "G2",
+      "region": "CT",
+      "sky": false,
+      "role": "continuous G2 tower approach carrier"
+    },
+    {
+      "id": "P_TOWER_G1_APPROACH",
+      "x0": 3730,
+      "x1": 4250,
+      "lv": "G1",
+      "region": "CT",
+      "sky": false,
+      "role": "fixed G1 tower landing carrier"
+    },
+    {
+      "id": "P_E73_C1_SHAFT_EW",
+      "x0": 6700,
+      "x1": 6950,
+      "lv": "C1",
+      "region": "EW",
+      "sky": false,
+      "role": "waterlock west shaft approach"
+    },
+    {
+      "id": "P_E14_G2_APPROACH",
+      "x0": 2690,
+      "x1": 2700,
+      "lv": "G2",
+      "region": "WK",
+      "sky": false,
+      "role": "G2 carrier before the east keep stair"
+    },
+    {
+      "id": "P_E14_G2_APPROACH_CT",
+      "x0": 2700,
+      "x1": 2950,
+      "lv": "G2",
+      "region": "CT",
+      "sky": false,
+      "role": "central-side G2 approach before the east keep stair"
+    },
+    {
+      "id": "P_COURT_U1_E",
+      "region": "CT",
+      "x0": 3090,
+      "x1": 3221,
+      "lv": "U1",
+      "sky": true,
+      "role": "中庭残桥东侧落脚板至高廊断口"
+    },
+    {
+      "id": "P_COURT_U1_E2",
+      "region": "CT",
+      "x0": 3361,
+      "x1": 3500,
+      "lv": "U1",
+      "sky": true,
+      "role": "中庭东跳台至塔前高廊"
+    },
+    {
+      "id": "P_E37_G2_W",
+      "region": "CG",
+      "x0": 5100,
+      "x1": 5200,
+      "lv": "G2",
+      "sky": false,
+      "role": "东桥头堡至书库外台地的承重接缝"
+    }
+  ],
+  "bridges": [
+    {
+      "id": "B_COURT",
+      "edge": "E15",
+      "x0": 2540,
+      "x1": 2939,
+      "deck": "U1",
+      "below": "G1",
+      "westAbutment": "V_KEEP",
+      "eastAbutment": "V_COURT_W_PIER",
+      "underside": "O_COURT",
+      "exits": [
+        "E94",
+        "E111",
+        "E14",
+        "E19"
+      ],
+      "risk": "西残桥止于可见断口；桥下G1由两端外露石阶双向绕行。"
+    },
+    {
+      "id": "B_STONE",
+      "edge": "E36",
+      "x0": 4500,
+      "x1": 5100,
+      "deck": "G2",
+      "below": "C1",
+      "westAbutment": "V_WEST_BRIDGEHEAD",
+      "eastAbutment": "V_EAST_BRIDGEHEAD",
+      "underside": "CG_CAVE",
+      "exits": [
+        "E21",
+        "E22",
+        "E35",
+        "E37",
+        "E46",
+        "E89",
+        "E39"
+      ],
+      "risk": "最短路但侧向火力与高桥俯射明显；两岸经塔基/书库各自返桥面。"
+    },
+    {
+      "id": "B_HIGH",
+      "edge": "E33",
+      "x0": 4500,
+      "x1": 5100,
+      "deck": "U1",
+      "below": "G2/C1",
+      "westAbutment": "V_WEST_BRIDGEHEAD",
+      "eastAbutment": "V_EAST_BRIDGEHEAD",
+      "underside": "B_STONE",
+      "exits": [
+        "E88",
+        "E34",
+        "E21",
+        "E46",
+        "E89",
+        "E39"
+      ],
+      "risk": "视野长、隐蔽少；下方石桥有实体桥面遮挡。"
+    }
+  ],
+  "surfaces": [
+    {
+      "id": "surface:P_TOWER_SP_W:0",
+      "sourceId": "P_TOWER_SP_W",
+      "sourceKind": "platform",
+      "lv": "SP",
+      "y": 860,
+      "x0": 3650,
+      "x1": 3910,
+      "sky": true
+    },
+    {
+      "id": "surface:P_TOWER_SP_DECK:0",
+      "sourceId": "P_TOWER_SP_DECK",
+      "sourceKind": "platform",
+      "lv": "SP",
+      "y": 860,
+      "x0": 3910,
+      "x1": 4090,
+      "sky": true
+    },
+    {
+      "id": "surface:P_TOWER_SP_E:0",
+      "sourceId": "P_TOWER_SP_E",
+      "sourceKind": "platform",
+      "lv": "SP",
+      "y": 860,
+      "x0": 4090,
+      "x1": 4360,
+      "sky": true
+    },
+    {
+      "id": "surface:O_GATE_ROOF:0",
+      "sourceId": "O_GATE_ROOF",
+      "sourceKind": "openSpace",
+      "lv": "RW",
+      "y": 1030,
+      "x0": 900,
+      "x1": 1050,
+      "sky": true
+    },
+    {
+      "id": "surface:P_GATE_RW:0",
+      "sourceId": "P_GATE_RW",
+      "sourceKind": "platform",
+      "lv": "RW",
+      "y": 1030,
+      "x0": 900,
+      "x1": 1050,
+      "sky": true
+    },
+    {
+      "id": "surface:O_KEEP_ROOF:0",
+      "sourceId": "O_KEEP_ROOF",
+      "sourceKind": "openSpace",
+      "lv": "RW",
+      "y": 1030,
+      "x0": 2250,
+      "x1": 2640,
+      "sky": true
+    },
+    {
+      "id": "surface:P_KEEP_RW:0",
+      "sourceId": "P_KEEP_RW",
+      "sourceKind": "platform",
+      "lv": "RW",
+      "y": 1030,
+      "x0": 2250,
+      "x1": 2640,
+      "sky": true
+    },
+    {
+      "id": "surface:P_TOWER_RW_W:0",
+      "sourceId": "P_TOWER_RW_W",
+      "sourceKind": "platform",
+      "lv": "RW",
+      "y": 1030,
+      "x0": 3550,
+      "x1": 3910,
+      "sky": false
+    },
+    {
+      "id": "surface:P_TOWER_RW_E:0",
+      "sourceId": "P_TOWER_RW_E",
+      "sourceKind": "platform",
+      "lv": "RW",
+      "y": 1030,
+      "x0": 4090,
+      "x1": 4400,
+      "sky": false
+    },
+    {
+      "id": "surface:O_BELL_ROOF:0",
+      "sourceId": "O_BELL_ROOF",
+      "sourceKind": "openSpace",
+      "lv": "RW",
+      "y": 1030,
+      "x0": 6450,
+      "x1": 6700,
+      "sky": true
+    },
+    {
+      "id": "surface:P_BELL_RW:0",
+      "sourceId": "P_BELL_RW",
+      "sourceKind": "platform",
+      "lv": "RW",
+      "y": 1030,
+      "x0": 6450,
+      "x1": 6700,
+      "sky": true
+    },
+    {
+      "id": "surface:P_GATE_U2:0",
+      "sourceId": "P_GATE_U2",
+      "sourceKind": "platform",
+      "lv": "U2",
+      "y": 1180,
+      "x0": 780,
+      "x1": 1050,
+      "sky": true
+    },
+    {
+      "id": "surface:P_GATE_WALL_U2:0",
+      "sourceId": "P_GATE_WALL_U2",
+      "sourceKind": "platform",
+      "lv": "U2",
+      "y": 1180,
+      "x0": 1190,
+      "x1": 1340,
+      "sky": true
+    },
+    {
+      "id": "surface:P_KEEP_WALL_U2:0",
+      "sourceId": "P_KEEP_WALL_U2",
+      "sourceKind": "platform",
+      "lv": "U2",
+      "y": 1180,
+      "x0": 1340,
+      "x1": 1500,
+      "sky": true
+    },
+    {
+      "id": "surface:P_KEEP_U2:0",
+      "sourceId": "P_KEEP_U2",
+      "sourceKind": "platform",
+      "lv": "U2",
+      "y": 1180,
+      "x0": 1500,
+      "x1": 2700,
+      "sky": true
+    },
+    {
+      "id": "surface:O_COURT_SKY:0",
+      "sourceId": "O_COURT_SKY",
+      "sourceKind": "openSpace",
+      "lv": "U2",
+      "y": 1180,
+      "x0": 3400,
+      "x1": 3500,
+      "sky": true
+    },
+    {
+      "id": "surface:P_COURT_U2:0",
+      "sourceId": "P_COURT_U2",
+      "sourceKind": "platform",
+      "lv": "U2",
+      "y": 1180,
+      "x0": 3400,
+      "x1": 3500,
+      "sky": true
+    },
+    {
+      "id": "surface:P_TOWER_U2_W:0",
+      "sourceId": "P_TOWER_U2_W",
+      "sourceKind": "platform",
+      "lv": "U2",
+      "y": 1180,
+      "x0": 3550,
+      "x1": 3880,
+      "sky": false
+    },
+    {
+      "id": "surface:P_TOWER_U2_E:0",
+      "sourceId": "P_TOWER_U2_E",
+      "sourceKind": "platform",
+      "lv": "U2",
+      "y": 1180,
+      "x0": 4100,
+      "x1": 4400,
+      "sky": false
+    },
+    {
+      "id": "surface:P_LIBRARY_U2:0",
+      "sourceId": "P_LIBRARY_U2",
+      "sourceKind": "platform",
+      "lv": "U2",
+      "y": 1180,
+      "x0": 5560,
+      "x1": 5800,
+      "sky": true
+    },
+    {
+      "id": "surface:P_CHAP_U2:0",
+      "sourceId": "P_CHAP_U2",
+      "sourceKind": "platform",
+      "lv": "U2",
+      "y": 1180,
+      "x0": 6060,
+      "x1": 6350,
+      "sky": true
+    },
+    {
+      "id": "surface:P_CHAP_TO_BELL_U2:0",
+      "sourceId": "P_CHAP_TO_BELL_U2",
+      "sourceKind": "platform",
+      "lv": "U2",
+      "y": 1180,
+      "x0": 6350,
+      "x1": 6450,
+      "sky": true
+    },
+    {
+      "id": "surface:P_BELL_U2:0",
+      "sourceId": "P_BELL_U2",
+      "sourceKind": "platform",
+      "lv": "U2",
+      "y": 1180,
+      "x0": 6450,
+      "x1": 6700,
+      "sky": false
+    },
+    {
+      "id": "surface:P_WING_U2:0",
+      "sourceId": "P_WING_U2",
+      "sourceKind": "platform",
+      "lv": "U2",
+      "y": 1180,
+      "x0": 6900,
+      "x1": 7135,
+      "sky": true
+    },
+    {
+      "id": "surface:WG_WINCH:0",
+      "sourceId": "WG_WINCH",
+      "sourceKind": "room",
+      "lv": "U1",
+      "y": 1330,
+      "x0": 380,
+      "x1": 780,
+      "sky": false
+    },
+    {
+      "id": "surface:P_GATE_U1:0",
+      "sourceId": "P_GATE_U1",
+      "sourceKind": "platform",
+      "lv": "U1",
+      "y": 1330,
+      "x0": 780,
+      "x1": 1050,
+      "sky": false
+    },
+    {
+      "id": "surface:P_KEEP_U1:0",
+      "sourceId": "P_KEEP_U1",
+      "sourceKind": "platform",
+      "lv": "U1",
+      "y": 1330,
+      "x0": 1800,
+      "x1": 2600,
+      "sky": false
+    },
+    {
+      "id": "surface:B_COURT:0",
+      "sourceId": "B_COURT",
+      "sourceKind": "bridge",
+      "lv": "U1",
+      "y": 1330,
+      "x0": 2540,
+      "x1": 2939,
+      "sky": false
+    },
+    {
+      "id": "surface:P_COURT_U1:0",
+      "sourceId": "P_COURT_U1",
+      "sourceKind": "platform",
+      "lv": "U1",
+      "y": 1330,
+      "x0": 2700,
+      "x1": 2950,
+      "sky": true
+    },
+    {
+      "id": "surface:P_COURT_U1_E:0",
+      "sourceId": "P_COURT_U1_E",
+      "sourceKind": "platform",
+      "lv": "U1",
+      "y": 1330,
+      "x0": 3090,
+      "x1": 3221,
+      "sky": true
+    },
+    {
+      "id": "surface:P_COURT_U1_E2:0",
+      "sourceId": "P_COURT_U1_E2",
+      "sourceKind": "platform",
+      "lv": "U1",
+      "y": 1330,
+      "x0": 3361,
+      "x1": 3500,
+      "sky": true
+    },
+    {
+      "id": "surface:P_TOWER_U1_W:0",
+      "sourceId": "P_TOWER_U1_W",
+      "sourceKind": "platform",
+      "lv": "U1",
+      "y": 1330,
+      "x0": 3500,
+      "x1": 3880,
+      "sky": false
+    },
+    {
+      "id": "surface:P_TOWER_U1_CROSS:0",
+      "sourceId": "P_TOWER_U1_CROSS",
+      "sourceKind": "platform",
+      "lv": "U1",
+      "y": 1330,
+      "x0": 3880,
+      "x1": 4100,
+      "sky": false
+    },
+    {
+      "id": "surface:CT_ENGINE:0",
+      "sourceId": "CT_ENGINE",
+      "sourceKind": "room",
+      "lv": "U1",
+      "y": 1330,
+      "x0": 3980,
+      "x1": 4400,
+      "sky": false
+    },
+    {
+      "id": "surface:P_TOWER_U1_E:0",
+      "sourceId": "P_TOWER_U1_E",
+      "sourceKind": "platform",
+      "lv": "U1",
+      "y": 1330,
+      "x0": 4100,
+      "x1": 4400,
+      "sky": false
+    },
+    {
+      "id": "surface:CG_WEST_UP:0",
+      "sourceId": "CG_WEST_UP",
+      "sourceKind": "room",
+      "lv": "U1",
+      "y": 1330,
+      "x0": 4400,
+      "x1": 4600,
+      "sky": false
+    },
+    {
+      "id": "surface:B_HIGH:0",
+      "sourceId": "B_HIGH",
+      "sourceKind": "bridge",
+      "lv": "U1",
+      "y": 1330,
+      "x0": 4500,
+      "x1": 5100,
+      "sky": false
+    },
+    {
+      "id": "surface:O_HIGH_BRIDGE:0",
+      "sourceId": "O_HIGH_BRIDGE",
+      "sourceKind": "openSpace",
+      "lv": "U1",
+      "y": 1330,
+      "x0": 4600,
+      "x1": 5000,
+      "sky": true
+    },
+    {
+      "id": "surface:CG_EAST_UP:0",
+      "sourceId": "CG_EAST_UP",
+      "sourceKind": "room",
+      "lv": "U1",
+      "y": 1330,
+      "x0": 5000,
+      "x1": 5200,
+      "sky": false
+    },
+    {
+      "id": "surface:EL_LIBRARY_UP:0",
+      "sourceId": "EL_LIBRARY_UP",
+      "sourceKind": "room",
+      "lv": "U1",
+      "y": 1330,
+      "x0": 5200,
+      "x1": 5790,
+      "sky": false
+    },
+    {
+      "id": "surface:O_CHAP_WEST_PORTICO:0",
+      "sourceId": "O_CHAP_WEST_PORTICO",
+      "sourceKind": "openSpace",
+      "lv": "U1",
+      "y": 1330,
+      "x0": 5790,
+      "x1": 5900,
+      "sky": false
+    },
+    {
+      "id": "surface:P_CHAP_U1:0",
+      "sourceId": "P_CHAP_U1",
+      "sourceKind": "platform",
+      "lv": "U1",
+      "y": 1330,
+      "x0": 6060,
+      "x1": 6350,
+      "sky": false
+    },
+    {
+      "id": "surface:EL_GALLERY_E:0",
+      "sourceId": "EL_GALLERY_E",
+      "sourceKind": "room",
+      "lv": "U1",
+      "y": 1330,
+      "x0": 6350,
+      "x1": 6500,
+      "sky": false
+    },
+    {
+      "id": "surface:EL_BELL:0",
+      "sourceId": "EL_BELL",
+      "sourceKind": "room",
+      "lv": "U1",
+      "y": 1330,
+      "x0": 6500,
+      "x1": 6700,
+      "sky": false
+    },
+    {
+      "id": "surface:EW_INFIRMARY_UP:0",
+      "sourceId": "EW_INFIRMARY_UP",
+      "sourceKind": "room",
+      "lv": "U1",
+      "y": 1330,
+      "x0": 6700,
+      "x1": 7110,
+      "sky": false
+    },
+    {
+      "id": "surface:P_EAST_BRIDGE_W:0",
+      "sourceId": "P_EAST_BRIDGE_W",
+      "sourceKind": "platform",
+      "lv": "U1",
+      "y": 1330,
+      "x0": 7110,
+      "x1": 7135,
+      "sky": true
+    },
+    {
+      "id": "surface:P_EAST_BRIDGE_E:0",
+      "sourceId": "P_EAST_BRIDGE_E",
+      "sourceKind": "platform",
+      "lv": "U1",
+      "y": 1330,
+      "x0": 7275,
+      "x1": 7300,
+      "sky": true
+    },
+    {
+      "id": "surface:EW_ARMORY_UP:0",
+      "sourceId": "EW_ARMORY_UP",
+      "sourceKind": "room",
+      "lv": "U1",
+      "y": 1330,
+      "x0": 7300,
+      "x1": 7600,
+      "sky": false
+    },
+    {
+      "id": "surface:P_EAST_WALL_U1:0",
+      "sourceId": "P_EAST_WALL_U1",
+      "sourceKind": "platform",
+      "lv": "U1",
+      "y": 1330,
+      "x0": 7580,
+      "x1": 7910,
+      "sky": true
+    },
+    {
+      "id": "surface:O_WALL_SKY:0",
+      "sourceId": "O_WALL_SKY",
+      "sourceKind": "openSpace",
+      "lv": "U1",
+      "y": 1330,
+      "x0": 7600,
+      "x1": 7910,
+      "sky": true
+    },
+    {
+      "id": "surface:P_GATE_G2:0",
+      "sourceId": "P_GATE_G2",
+      "sourceKind": "platform",
+      "lv": "G2",
+      "y": 1470,
+      "x0": 0,
+      "x1": 780,
+      "sky": true
+    },
+    {
+      "id": "surface:WG_BALCONY:0",
+      "sourceId": "WG_BALCONY",
+      "sourceKind": "room",
+      "lv": "G2",
+      "y": 1470,
+      "x0": 700,
+      "x1": 780,
+      "sky": false
+    },
+    {
+      "id": "surface:WG_BARRACK:0",
+      "sourceId": "WG_BARRACK",
+      "sourceKind": "room",
+      "lv": "G2",
+      "y": 1470,
+      "x0": 780,
+      "x1": 1050,
+      "sky": false
+    },
+    {
+      "id": "surface:P_KEEP_G2_APPROACH:0",
+      "sourceId": "P_KEEP_G2_APPROACH",
+      "sourceKind": "platform",
+      "lv": "G2",
+      "y": 1470,
+      "x0": 1460,
+      "x1": 2500,
+      "sky": false
+    },
+    {
+      "id": "surface:O_KEEP_TERRACE:0",
+      "sourceId": "O_KEEP_TERRACE",
+      "sourceKind": "openSpace",
+      "lv": "G2",
+      "y": 1470,
+      "x0": 1510,
+      "x1": 1610,
+      "sky": false
+    },
+    {
+      "id": "surface:WK_HALL:0",
+      "sourceId": "WK_HALL",
+      "sourceKind": "room",
+      "lv": "G2",
+      "y": 1470,
+      "x0": 1610,
+      "x1": 2080,
+      "sky": false
+    },
+    {
+      "id": "surface:WK_ARMORY:0",
+      "sourceId": "WK_ARMORY",
+      "sourceKind": "room",
+      "lv": "G2",
+      "y": 1470,
+      "x0": 2080,
+      "x1": 2500,
+      "sky": false
+    },
+    {
+      "id": "surface:O_KEEP_EAST:0",
+      "sourceId": "O_KEEP_EAST",
+      "sourceKind": "openSpace",
+      "lv": "G2",
+      "y": 1470,
+      "x0": 2500,
+      "x1": 2620,
+      "sky": false
+    },
+    {
+      "id": "surface:P_KEEP_G2_AFTER:0",
+      "sourceId": "P_KEEP_G2_AFTER",
+      "sourceKind": "platform",
+      "lv": "G2",
+      "y": 1470,
+      "x0": 2500,
+      "x1": 2690,
+      "sky": false
+    },
+    {
+      "id": "surface:P_E14_G2_APPROACH:0",
+      "sourceId": "P_E14_G2_APPROACH",
+      "sourceKind": "platform",
+      "lv": "G2",
+      "y": 1470,
+      "x0": 2690,
+      "x1": 2700,
+      "sky": false
+    },
+    {
+      "id": "surface:P_E14_G2_APPROACH_CT:0",
+      "sourceId": "P_E14_G2_APPROACH_CT",
+      "sourceKind": "platform",
+      "lv": "G2",
+      "y": 1470,
+      "x0": 2700,
+      "x1": 2950,
+      "sky": false
+    },
+    {
+      "id": "surface:P_E19_G2:0",
+      "sourceId": "P_E19_G2",
+      "sourceKind": "platform",
+      "lv": "G2",
+      "y": 1470,
+      "x0": 2870,
+      "x1": 2940,
+      "sky": false
+    },
+    {
+      "id": "surface:CT_AUDIENCE:0",
+      "sourceId": "CT_AUDIENCE",
+      "sourceKind": "room",
+      "lv": "G2",
+      "y": 1470,
+      "x0": 3621,
+      "x1": 3980,
+      "sky": false
+    },
+    {
+      "id": "surface:P_E22_G2:0",
+      "sourceId": "P_E22_G2",
+      "sourceKind": "platform",
+      "lv": "G2",
+      "y": 1470,
+      "x0": 3621,
+      "x1": 3990,
+      "sky": false
+    },
+    {
+      "id": "surface:P_TOWER_G2_AFTER:0",
+      "sourceId": "P_TOWER_G2_AFTER",
+      "sourceKind": "platform",
+      "lv": "G2",
+      "y": 1470,
+      "x0": 3621,
+      "x1": 3990,
+      "sky": false
+    },
+    {
+      "id": "surface:CT_EAST_PASSAGE:0",
+      "sourceId": "CT_EAST_PASSAGE",
+      "sourceKind": "room",
+      "lv": "G2",
+      "y": 1470,
+      "x0": 3980,
+      "x1": 3989,
+      "sky": false
+    },
+    {
+      "id": "surface:CT_EAST_PASSAGE:1",
+      "sourceId": "CT_EAST_PASSAGE",
+      "sourceKind": "room",
+      "lv": "G2",
+      "y": 1470,
+      "x0": 4180,
+      "x1": 4400,
+      "sky": false
+    },
+    {
+      "id": "surface:CG_WEST_HOUSE:0",
+      "sourceId": "CG_WEST_HOUSE",
+      "sourceKind": "room",
+      "lv": "G2",
+      "y": 1470,
+      "x0": 4400,
+      "x1": 4600,
+      "sky": false
+    },
+    {
+      "id": "surface:B_STONE:0",
+      "sourceId": "B_STONE",
+      "sourceKind": "bridge",
+      "lv": "G2",
+      "y": 1470,
+      "x0": 4500,
+      "x1": 5100,
+      "sky": false
+    },
+    {
+      "id": "surface:O_STONE_BRIDGE:0",
+      "sourceId": "O_STONE_BRIDGE",
+      "sourceKind": "openSpace",
+      "lv": "G2",
+      "y": 1470,
+      "x0": 4600,
+      "x1": 5000,
+      "sky": false
+    },
+    {
+      "id": "surface:CG_EAST_HOUSE:0",
+      "sourceId": "CG_EAST_HOUSE",
+      "sourceKind": "room",
+      "lv": "G2",
+      "y": 1470,
+      "x0": 5000,
+      "x1": 5200,
+      "sky": false
+    },
+    {
+      "id": "surface:P_E37_G2_W:0",
+      "sourceId": "P_E37_G2_W",
+      "sourceKind": "platform",
+      "lv": "G2",
+      "y": 1470,
+      "x0": 5100,
+      "x1": 5200,
+      "sky": false
+    },
+    {
+      "id": "surface:EL_LIBRARY:0",
+      "sourceId": "EL_LIBRARY",
+      "sourceKind": "room",
+      "lv": "G2",
+      "y": 1470,
+      "x0": 5200,
+      "x1": 5352,
+      "sky": false
+    },
+    {
+      "id": "surface:P_KEEP_G2_SIDE:0",
+      "sourceId": "P_KEEP_G2_SIDE",
+      "sourceKind": "platform",
+      "lv": "G2",
+      "y": 1470,
+      "x0": 5200,
+      "x1": 5352,
+      "sky": false
+    },
+    {
+      "id": "surface:EL_LIBRARY:1",
+      "sourceId": "EL_LIBRARY",
+      "sourceKind": "room",
+      "lv": "G2",
+      "y": 1470,
+      "x0": 5561,
+      "x1": 5656,
+      "sky": false
+    },
+    {
+      "id": "surface:P_WING_G2:0",
+      "sourceId": "P_WING_G2",
+      "sourceKind": "platform",
+      "lv": "G2",
+      "y": 1470,
+      "x0": 6720,
+      "x1": 7050,
+      "sky": false
+    },
+    {
+      "id": "surface:P_ARM_G2:0",
+      "sourceId": "P_ARM_G2",
+      "sourceKind": "platform",
+      "lv": "G2",
+      "y": 1470,
+      "x0": 7300,
+      "x1": 7550,
+      "sky": false
+    },
+    {
+      "id": "surface:O_EAST_RAMP:0",
+      "sourceId": "O_EAST_RAMP",
+      "sourceKind": "openSpace",
+      "lv": "G2",
+      "y": 1470,
+      "x0": 7500,
+      "x1": 7600,
+      "sky": false
+    },
+    {
+      "id": "surface:EW_WATCH:0",
+      "sourceId": "EW_WATCH",
+      "sourceKind": "room",
+      "lv": "G2",
+      "y": 1470,
+      "x0": 7600,
+      "x1": 7639,
+      "sky": false
+    },
+    {
+      "id": "surface:EW_WATCH:1",
+      "sourceId": "EW_WATCH",
+      "sourceKind": "room",
+      "lv": "G2",
+      "y": 1470,
+      "x0": 7821,
+      "x1": 8160,
+      "sky": false
+    },
+    {
+      "id": "surface:P_E65_G2_SHAFT:0",
+      "sourceId": "P_E65_G2_SHAFT",
+      "sourceKind": "platform",
+      "lv": "G2",
+      "y": 1470,
+      "x0": 8104,
+      "x1": 8200,
+      "sky": false
+    },
+    {
+      "id": "surface:O_MOAT:0",
+      "sourceId": "O_MOAT",
+      "sourceKind": "openSpace",
+      "lv": "G1",
+      "y": 1620,
+      "x0": 0,
+      "x1": 188,
+      "sky": false
+    },
+    {
+      "id": "surface:WG_GATE:0",
+      "sourceId": "WG_GATE",
+      "sourceKind": "room",
+      "lv": "G1",
+      "y": 1620,
+      "x0": 360,
+      "x1": 760,
+      "sky": false
+    },
+    {
+      "id": "surface:O_BAILEY:0",
+      "sourceId": "O_BAILEY",
+      "sourceKind": "openSpace",
+      "lv": "G1",
+      "y": 1620,
+      "x0": 760,
+      "x1": 1340,
+      "sky": true
+    },
+    {
+      "id": "surface:P_KEEP_G1_APPROACH:0",
+      "sourceId": "P_KEEP_G1_APPROACH",
+      "sourceKind": "platform",
+      "lv": "G1",
+      "y": 1620,
+      "x0": 1340,
+      "x1": 2300,
+      "sky": false
+    },
+    {
+      "id": "surface:WK_SERVICE:0",
+      "sourceId": "WK_SERVICE",
+      "sourceKind": "room",
+      "lv": "G1",
+      "y": 1620,
+      "x0": 1500,
+      "x1": 2350,
+      "sky": false
+    },
+    {
+      "id": "surface:P_KEEP_G1_SIDE:0",
+      "sourceId": "P_KEEP_G1_SIDE",
+      "sourceKind": "platform",
+      "lv": "G1",
+      "y": 1620,
+      "x0": 2660,
+      "x1": 2700,
+      "sky": false
+    },
+    {
+      "id": "surface:O_COURT:0",
+      "sourceId": "O_COURT",
+      "sourceKind": "openSpace",
+      "lv": "G1",
+      "y": 1620,
+      "x0": 2700,
+      "x1": 3500,
+      "sky": true
+    },
+    {
+      "id": "surface:P_E14_G1:0",
+      "sourceId": "P_E14_G1",
+      "sourceKind": "platform",
+      "lv": "G1",
+      "y": 1620,
+      "x0": 2700,
+      "x1": 2800,
+      "sky": false
+    },
+    {
+      "id": "surface:P_E19_G1:0",
+      "sourceId": "P_E19_G1",
+      "sourceKind": "platform",
+      "lv": "G1",
+      "y": 1620,
+      "x0": 3010,
+      "x1": 3470,
+      "sky": false
+    },
+    {
+      "id": "surface:P_E22_G1:0",
+      "sourceId": "P_E22_G1",
+      "sourceKind": "platform",
+      "lv": "G1",
+      "y": 1620,
+      "x0": 3881,
+      "x1": 4250,
+      "sky": false
+    },
+    {
+      "id": "surface:P_TOWER_G1_APPROACH:0",
+      "sourceId": "P_TOWER_G1_APPROACH",
+      "sourceKind": "platform",
+      "lv": "G1",
+      "y": 1620,
+      "x0": 3881,
+      "x1": 4250,
+      "sky": false
+    },
+    {
+      "id": "surface:CT_TOWER_BASE:0",
+      "sourceId": "CT_TOWER_BASE",
+      "sourceKind": "room",
+      "lv": "G1",
+      "y": 1620,
+      "x0": 3980,
+      "x1": 4400,
+      "sky": false
+    },
+    {
+      "id": "surface:P_LIBRARY_G1_SHAFT:0",
+      "sourceId": "P_LIBRARY_G1_SHAFT",
+      "sourceKind": "platform",
+      "lv": "G1",
+      "y": 1620,
+      "x0": 5317,
+      "x1": 5480,
+      "sky": false
+    },
+    {
+      "id": "surface:P_LIBRARY_G1_APPROACH:0",
+      "sourceId": "P_LIBRARY_G1_APPROACH",
+      "sourceKind": "platform",
+      "lv": "G1",
+      "y": 1620,
+      "x0": 5480,
+      "x1": 5560,
+      "sky": false
+    },
+    {
+      "id": "surface:O_LIBRARY_FOOT:0",
+      "sourceId": "O_LIBRARY_FOOT",
+      "sourceKind": "openSpace",
+      "lv": "G1",
+      "y": 1620,
+      "x0": 5560,
+      "x1": 5900,
+      "sky": false
+    },
+    {
+      "id": "surface:O_CEMETERY:0",
+      "sourceId": "O_CEMETERY",
+      "sourceKind": "openSpace",
+      "lv": "G1",
+      "y": 1620,
+      "x0": 5900,
+      "x1": 6060,
+      "sky": true
+    },
+    {
+      "id": "surface:EL_NAVE:0",
+      "sourceId": "EL_NAVE",
+      "sourceKind": "room",
+      "lv": "G1",
+      "y": 1620,
+      "x0": 6060,
+      "x1": 6500,
+      "sky": false
+    },
+    {
+      "id": "surface:EL_BELL_BASE:0",
+      "sourceId": "EL_BELL_BASE",
+      "sourceKind": "room",
+      "lv": "G1",
+      "y": 1620,
+      "x0": 6500,
+      "x1": 6700,
+      "sky": false
+    },
+    {
+      "id": "surface:EW_INFIRMARY:0",
+      "sourceId": "EW_INFIRMARY",
+      "sourceKind": "room",
+      "lv": "G1",
+      "y": 1620,
+      "x0": 6700,
+      "x1": 6888,
+      "sky": false
+    },
+    {
+      "id": "surface:EW_INFIRMARY:1",
+      "sourceId": "EW_INFIRMARY",
+      "sourceKind": "room",
+      "lv": "G1",
+      "y": 1620,
+      "x0": 7060,
+      "x1": 7110,
+      "sky": false
+    },
+    {
+      "id": "surface:O_EAST_YARD:0",
+      "sourceId": "O_EAST_YARD",
+      "sourceKind": "openSpace",
+      "lv": "G1",
+      "y": 1620,
+      "x0": 7110,
+      "x1": 7300,
+      "sky": true
+    },
+    {
+      "id": "surface:EW_ARMORY:0",
+      "sourceId": "EW_ARMORY",
+      "sourceKind": "room",
+      "lv": "G1",
+      "y": 1620,
+      "x0": 7300,
+      "x1": 7600,
+      "sky": false
+    },
+    {
+      "id": "surface:P_E58_G1_AFTER:0",
+      "sourceId": "P_E58_G1_AFTER",
+      "sourceKind": "platform",
+      "lv": "G1",
+      "y": 1620,
+      "x0": 7300,
+      "x1": 7350,
+      "sky": false
+    },
+    {
+      "id": "surface:P_E67_G1_APPROACH:0",
+      "sourceId": "P_E67_G1_APPROACH",
+      "sourceKind": "platform",
+      "lv": "G1",
+      "y": 1620,
+      "x0": 7300,
+      "x1": 7872,
+      "sky": false
+    },
+    {
+      "id": "surface:EW_WATCH_BASE:0",
+      "sourceId": "EW_WATCH_BASE",
+      "sourceKind": "room",
+      "lv": "G1",
+      "y": 1620,
+      "x0": 7600,
+      "x1": 8160,
+      "sky": false
+    },
+    {
+      "id": "surface:O_WEST_WATER:0",
+      "sourceId": "O_WEST_WATER",
+      "sourceKind": "openSpace",
+      "lv": "C1",
+      "y": 1780,
+      "x0": 0,
+      "x1": 360,
+      "sky": false
+    },
+    {
+      "id": "surface:WG_WATER:0",
+      "sourceId": "WG_WATER",
+      "sourceKind": "room",
+      "lv": "C1",
+      "y": 1780,
+      "x0": 360,
+      "x1": 780,
+      "sky": false
+    },
+    {
+      "id": "surface:WG_DRAIN:0",
+      "sourceId": "WG_DRAIN",
+      "sourceKind": "room",
+      "lv": "C1",
+      "y": 1780,
+      "x0": 780,
+      "x1": 916,
+      "sky": false
+    },
+    {
+      "id": "surface:P_GATE_C1_AFTER:0",
+      "sourceId": "P_GATE_C1_AFTER",
+      "sourceKind": "platform",
+      "lv": "C1",
+      "y": 1780,
+      "x0": 1080,
+      "x1": 1180,
+      "sky": false
+    },
+    {
+      "id": "surface:WG_DRAIN:1",
+      "sourceId": "WG_DRAIN",
+      "sourceKind": "room",
+      "lv": "C1",
+      "y": 1780,
+      "x0": 1080,
+      "x1": 1095,
+      "sky": false
+    },
+    {
+      "id": "surface:P_KEEP_C1_APPROACH:0",
+      "sourceId": "P_KEEP_C1_APPROACH",
+      "sourceKind": "platform",
+      "lv": "C1",
+      "y": 1780,
+      "x0": 1340,
+      "x1": 1842,
+      "sky": false
+    },
+    {
+      "id": "surface:P_KEEP_C1_WEST:0",
+      "sourceId": "P_KEEP_C1_WEST",
+      "sourceKind": "platform",
+      "lv": "C1",
+      "y": 1780,
+      "x0": 1340,
+      "x1": 1842,
+      "sky": false
+    },
+    {
+      "id": "surface:WK_CRYPT:0",
+      "sourceId": "WK_CRYPT",
+      "sourceKind": "room",
+      "lv": "C1",
+      "y": 1780,
+      "x0": 1842,
+      "x1": 2136,
+      "sky": false
+    },
+    {
+      "id": "surface:WK_CRYPT:1",
+      "sourceId": "WK_CRYPT",
+      "sourceKind": "room",
+      "lv": "C1",
+      "y": 1780,
+      "x0": 2300,
+      "x1": 2700,
+      "sky": false
+    },
+    {
+      "id": "surface:P_KEEP_DEEP_C1:0",
+      "sourceId": "P_KEEP_DEEP_C1",
+      "sourceKind": "platform",
+      "lv": "C1",
+      "y": 1780,
+      "x0": 2463,
+      "x1": 2700,
+      "sky": false
+    },
+    {
+      "id": "surface:CT_CELLAR:0",
+      "sourceId": "CT_CELLAR",
+      "sourceKind": "room",
+      "lv": "C1",
+      "y": 1780,
+      "x0": 2700,
+      "x1": 3500,
+      "sky": false
+    },
+    {
+      "id": "surface:CT_PRISON:0",
+      "sourceId": "CT_PRISON",
+      "sourceKind": "room",
+      "lv": "C1",
+      "y": 1780,
+      "x0": 3500,
+      "x1": 4400,
+      "sky": false
+    },
+    {
+      "id": "surface:CG_CAVE:0",
+      "sourceId": "CG_CAVE",
+      "sourceKind": "room",
+      "lv": "C1",
+      "y": 1780,
+      "x0": 4400,
+      "x1": 5200,
+      "sky": false
+    },
+    {
+      "id": "surface:EL_OSSUARY:0",
+      "sourceId": "EL_OSSUARY",
+      "sourceKind": "room",
+      "lv": "C1",
+      "y": 1780,
+      "x0": 5200,
+      "x1": 5900,
+      "sky": false
+    },
+    {
+      "id": "surface:EL_CRYPT:0",
+      "sourceId": "EL_CRYPT",
+      "sourceKind": "room",
+      "lv": "C1",
+      "y": 1780,
+      "x0": 5900,
+      "x1": 6500,
+      "sky": false
+    },
+    {
+      "id": "surface:EL_BELL_CRYPT:0",
+      "sourceId": "EL_BELL_CRYPT",
+      "sourceKind": "room",
+      "lv": "C1",
+      "y": 1780,
+      "x0": 6500,
+      "x1": 6700,
+      "sky": false
+    },
+    {
+      "id": "surface:P_E73_C1_SHAFT:0",
+      "sourceId": "P_E73_C1_SHAFT",
+      "sourceKind": "platform",
+      "lv": "C1",
+      "y": 1780,
+      "x0": 6600,
+      "x1": 6700,
+      "sky": false
+    },
+    {
+      "id": "surface:EW_WATERLOCK:0",
+      "sourceId": "EW_WATERLOCK",
+      "sourceKind": "room",
+      "lv": "C1",
+      "y": 1780,
+      "x0": 6700,
+      "x1": 7110,
+      "sky": false
+    },
+    {
+      "id": "surface:P_E58_C1_APPROACH:0",
+      "sourceId": "P_E58_C1_APPROACH",
+      "sourceKind": "platform",
+      "lv": "C1",
+      "y": 1780,
+      "x0": 6700,
+      "x1": 6950,
+      "sky": false
+    },
+    {
+      "id": "surface:P_E73_C1_SHAFT_EW:0",
+      "sourceId": "P_E73_C1_SHAFT_EW",
+      "sourceKind": "platform",
+      "lv": "C1",
+      "y": 1780,
+      "x0": 6700,
+      "x1": 6950,
+      "sky": false
+    },
+    {
+      "id": "surface:EW_ARM_BASE:0",
+      "sourceId": "EW_ARM_BASE",
+      "sourceKind": "room",
+      "lv": "C1",
+      "y": 1780,
+      "x0": 7110,
+      "x1": 7156,
+      "sky": false
+    },
+    {
+      "id": "surface:EW_ARM_BASE:1",
+      "sourceId": "EW_ARM_BASE",
+      "sourceKind": "room",
+      "lv": "C1",
+      "y": 1780,
+      "x0": 7320,
+      "x1": 7600,
+      "sky": false
+    },
+    {
+      "id": "surface:P_E75_C1_SHAFT:0",
+      "sourceId": "P_E75_C1_SHAFT",
+      "sourceKind": "platform",
+      "lv": "C1",
+      "y": 1780,
+      "x0": 7350,
+      "x1": 7676,
+      "sky": false
+    },
+    {
+      "id": "surface:EW_WALL_DRAIN:0",
+      "sourceId": "EW_WALL_DRAIN",
+      "sourceKind": "room",
+      "lv": "C1",
+      "y": 1780,
+      "x0": 7600,
+      "x1": 7676,
+      "sky": false
+    },
+    {
+      "id": "surface:EW_WALL_DRAIN:1",
+      "sourceId": "EW_WALL_DRAIN",
+      "sourceKind": "room",
+      "lv": "C1",
+      "y": 1780,
+      "x0": 7840,
+      "x1": 8200,
+      "sky": false
+    },
+    {
+      "id": "surface:P_GATE_POOL_C0:0",
+      "sourceId": "P_GATE_POOL_C0",
+      "sourceKind": "platform",
+      "lv": "C0",
+      "y": 1950,
+      "x0": 720,
+      "x1": 1080,
+      "sky": false
+    },
+    {
+      "id": "surface:WG_POOL:0",
+      "sourceId": "WG_POOL",
+      "sourceKind": "room",
+      "lv": "C0",
+      "y": 1950,
+      "x0": 1080,
+      "x1": 1340,
+      "sky": false
+    },
+    {
+      "id": "surface:WK_WATER_TUNNEL:0",
+      "sourceId": "WK_WATER_TUNNEL",
+      "sourceKind": "room",
+      "lv": "C0",
+      "y": 1950,
+      "x0": 1340,
+      "x1": 1530,
+      "sky": false
+    },
+    {
+      "id": "surface:WK_DEEP:0",
+      "sourceId": "WK_DEEP",
+      "sourceKind": "room",
+      "lv": "C0",
+      "y": 1950,
+      "x0": 1530,
+      "x1": 1712,
+      "sky": false
+    },
+    {
+      "id": "surface:P_KEEP_DEEP_C0:0",
+      "sourceId": "P_KEEP_DEEP_C0",
+      "sourceKind": "platform",
+      "lv": "C0",
+      "y": 1950,
+      "x0": 1660,
+      "x1": 2700,
+      "sky": false
+    },
+    {
+      "id": "surface:P_KEEP_FORGE_C0:0",
+      "sourceId": "P_KEEP_FORGE_C0",
+      "sourceKind": "platform",
+      "lv": "C0",
+      "y": 1950,
+      "x0": 1660,
+      "x1": 1980,
+      "sky": false
+    },
+    {
+      "id": "surface:CT_FORGE:0",
+      "sourceId": "CT_FORGE",
+      "sourceKind": "room",
+      "lv": "C0",
+      "y": 1950,
+      "x0": 3900,
+      "x1": 4400,
+      "sky": false
+    },
+    {
+      "id": "surface:EL_DEEP_DRAIN:0",
+      "sourceId": "EL_DEEP_DRAIN",
+      "sourceKind": "room",
+      "lv": "C0",
+      "y": 1950,
+      "x0": 6300,
+      "x1": 6700,
+      "sky": false
+    },
+    {
+      "id": "surface:EW_CISTERN:0",
+      "sourceId": "EW_CISTERN",
+      "sourceKind": "room",
+      "lv": "C0",
+      "y": 1950,
+      "x0": 6700,
+      "x1": 7600,
+      "sky": false
+    },
+    {
+      "id": "surface:EW_DRAIN:0",
+      "sourceId": "EW_DRAIN",
+      "sourceKind": "room",
+      "lv": "C0",
+      "y": 1950,
+      "x0": 7600,
+      "x1": 8200,
+      "sky": false
+    }
+  ],
+  "ramps": [
+    {
+      "id": "ramp:E02",
+      "edgeId": "E02",
+      "type": "heavySteps",
+      "bodies": "HM",
+      "x0": 1200,
+      "x1": 1460,
+      "upperAt": "right",
+      "upperLevel": "G2",
+      "lowerLevel": "G1",
+      "upperY": 1470,
+      "lowerY": 1620
+    },
+    {
+      "id": "ramp:E03",
+      "edgeId": "E03",
+      "type": "heavySteps",
+      "bodies": "HM",
+      "x0": 100,
+      "x1": 360,
+      "upperAt": "right",
+      "upperLevel": "G1",
+      "lowerLevel": "C1",
+      "upperY": 1620,
+      "lowerY": 1780
+    },
+    {
+      "id": "ramp:E06",
+      "edgeId": "E06",
+      "type": "heavySteps",
+      "bodies": "HM",
+      "x0": 2400,
+      "x1": 2660,
+      "upperAt": "right",
+      "upperLevel": "G1",
+      "lowerLevel": "C1",
+      "upperY": 1620,
+      "lowerY": 1780
+    },
+    {
+      "id": "ramp:E07",
+      "edgeId": "E07",
+      "type": "humanStair",
+      "bodies": "H",
+      "x0": 2690,
+      "x1": 2950,
+      "upperAt": "left",
+      "upperLevel": "G2",
+      "lowerLevel": "G1",
+      "upperY": 1470,
+      "lowerY": 1620
+    },
+    {
+      "id": "ramp:E08",
+      "edgeId": "E08",
+      "type": "humanStair",
+      "bodies": "H",
+      "x0": 20,
+      "x1": 250,
+      "upperAt": "left",
+      "upperLevel": "G2",
+      "lowerLevel": "G1",
+      "upperY": 1470,
+      "lowerY": 1620
+    },
+    {
+      "id": "ramp:E09",
+      "edgeId": "E09",
+      "type": "humanStair",
+      "bodies": "H",
+      "x0": 870,
+      "x1": 1030,
+      "upperAt": "right",
+      "upperLevel": "U2",
+      "lowerLevel": "U1",
+      "upperY": 1180,
+      "lowerY": 1330
+    },
+    {
+      "id": "ramp:E11",
+      "edgeId": "E11",
+      "type": "humanStair",
+      "bodies": "H",
+      "x0": 1800,
+      "x1": 2040,
+      "upperAt": "right",
+      "upperLevel": "U2",
+      "lowerLevel": "U1",
+      "upperY": 1180,
+      "lowerY": 1330
+    },
+    {
+      "id": "ramp:E12",
+      "edgeId": "E12",
+      "type": "humanStair",
+      "bodies": "H",
+      "x0": 2070,
+      "x1": 2310,
+      "upperAt": "left",
+      "upperLevel": "U1",
+      "lowerLevel": "G2",
+      "upperY": 1330,
+      "lowerY": 1470
+    },
+    {
+      "id": "ramp:E13",
+      "edgeId": "E13",
+      "type": "humanStair",
+      "bodies": "H",
+      "x0": 2330,
+      "x1": 2650,
+      "upperAt": "right",
+      "upperLevel": "U2",
+      "lowerLevel": "U1",
+      "upperY": 1180,
+      "lowerY": 1330
+    },
+    {
+      "id": "ramp:E14",
+      "edgeId": "E14",
+      "type": "heavySteps",
+      "bodies": "HM",
+      "x0": 2950,
+      "x1": 3210,
+      "upperAt": "left",
+      "upperLevel": "G2",
+      "lowerLevel": "G1",
+      "upperY": 1470,
+      "lowerY": 1620
+    },
+    {
+      "id": "ramp:E19",
+      "edgeId": "E19",
+      "type": "heavySteps",
+      "bodies": "HM",
+      "x0": 3361,
+      "x1": 3621,
+      "upperAt": "right",
+      "upperLevel": "G2",
+      "lowerLevel": "G1",
+      "upperY": 1470,
+      "lowerY": 1620
+    },
+    {
+      "id": "ramp:E21",
+      "edgeId": "E21",
+      "type": "heavySteps",
+      "bodies": "HM",
+      "x0": 3621,
+      "x1": 3881,
+      "upperAt": "right",
+      "upperLevel": "G1",
+      "lowerLevel": "C1",
+      "upperY": 1620,
+      "lowerY": 1780
+    },
+    {
+      "id": "ramp:E22",
+      "edgeId": "E22",
+      "type": "heavySteps",
+      "bodies": "HM",
+      "x0": 3990,
+      "x1": 4250,
+      "upperAt": "left",
+      "upperLevel": "G2",
+      "lowerLevel": "G1",
+      "upperY": 1470,
+      "lowerY": 1620
+    },
+    {
+      "id": "ramp:E24",
+      "edgeId": "E24",
+      "type": "humanStair",
+      "bodies": "H",
+      "x0": 3580,
+      "x1": 3850,
+      "upperAt": "right",
+      "upperLevel": "U1",
+      "lowerLevel": "G2",
+      "upperY": 1330,
+      "lowerY": 1470
+    },
+    {
+      "id": "ramp:E25",
+      "edgeId": "E25",
+      "type": "humanStair",
+      "bodies": "H",
+      "x0": 4140,
+      "x1": 4380,
+      "upperAt": "right",
+      "upperLevel": "U1",
+      "lowerLevel": "G2",
+      "upperY": 1330,
+      "lowerY": 1470
+    },
+    {
+      "id": "ramp:E26",
+      "edgeId": "E26",
+      "type": "humanStair",
+      "bodies": "H",
+      "x0": 3570,
+      "x1": 3810,
+      "upperAt": "left",
+      "upperLevel": "U2",
+      "lowerLevel": "U1",
+      "upperY": 1180,
+      "lowerY": 1330
+    },
+    {
+      "id": "ramp:E27",
+      "edgeId": "E27",
+      "type": "humanStair",
+      "bodies": "H",
+      "x0": 4140,
+      "x1": 4380,
+      "upperAt": "left",
+      "upperLevel": "U2",
+      "lowerLevel": "U1",
+      "upperY": 1180,
+      "lowerY": 1330
+    },
+    {
+      "id": "ramp:E28",
+      "edgeId": "E28",
+      "type": "humanStair",
+      "bodies": "H",
+      "x0": 3570,
+      "x1": 3810,
+      "upperAt": "left",
+      "upperLevel": "RW",
+      "lowerLevel": "U2",
+      "upperY": 1030,
+      "lowerY": 1180
+    },
+    {
+      "id": "ramp:E29",
+      "edgeId": "E29",
+      "type": "humanStair",
+      "bodies": "H",
+      "x0": 4140,
+      "x1": 4380,
+      "upperAt": "left",
+      "upperLevel": "RW",
+      "lowerLevel": "U2",
+      "upperY": 1030,
+      "lowerY": 1180
+    },
+    {
+      "id": "ramp:E30",
+      "edgeId": "E30",
+      "type": "humanStair",
+      "bodies": "H",
+      "x0": 3650,
+      "x1": 3910,
+      "upperAt": "right",
+      "upperLevel": "SP",
+      "lowerLevel": "RW",
+      "upperY": 860,
+      "lowerY": 1030
+    },
+    {
+      "id": "ramp:E31",
+      "edgeId": "E31",
+      "type": "humanStair",
+      "bodies": "H",
+      "x0": 4090,
+      "x1": 4360,
+      "upperAt": "left",
+      "upperLevel": "SP",
+      "lowerLevel": "RW",
+      "upperY": 860,
+      "lowerY": 1030
+    },
+    {
+      "id": "ramp:E45",
+      "edgeId": "E45",
+      "type": "humanStair",
+      "bodies": "H",
+      "x0": 5320,
+      "x1": 5560,
+      "upperAt": "left",
+      "upperLevel": "U1",
+      "lowerLevel": "G2",
+      "upperY": 1330,
+      "lowerY": 1470
+    },
+    {
+      "id": "ramp:E46",
+      "edgeId": "E46",
+      "type": "heavySteps",
+      "bodies": "HM",
+      "x0": 5656,
+      "x1": 5910,
+      "upperAt": "left",
+      "upperLevel": "G2",
+      "lowerLevel": "G1",
+      "upperY": 1470,
+      "lowerY": 1620
+    },
+    {
+      "id": "ramp:E51",
+      "edgeId": "E51",
+      "type": "humanStair",
+      "bodies": "H",
+      "x0": 6060,
+      "x1": 6310,
+      "upperAt": "right",
+      "upperLevel": "U2",
+      "lowerLevel": "U1",
+      "upperY": 1180,
+      "lowerY": 1330
+    },
+    {
+      "id": "ramp:E56",
+      "edgeId": "E56",
+      "type": "humanStair",
+      "bodies": "H",
+      "x0": 6720,
+      "x1": 7050,
+      "upperAt": "left",
+      "upperLevel": "U1",
+      "lowerLevel": "G2",
+      "upperY": 1330,
+      "lowerY": 1470
+    },
+    {
+      "id": "ramp:E58",
+      "edgeId": "E58",
+      "type": "heavySteps",
+      "bodies": "HM",
+      "x0": 6800,
+      "x1": 7060,
+      "upperAt": "right",
+      "upperLevel": "G1",
+      "lowerLevel": "C1",
+      "upperY": 1620,
+      "lowerY": 1780
+    },
+    {
+      "id": "ramp:E61",
+      "edgeId": "E61",
+      "type": "humanStair",
+      "bodies": "H",
+      "x0": 7300,
+      "x1": 7550,
+      "upperAt": "left",
+      "upperLevel": "U1",
+      "lowerLevel": "G2",
+      "upperY": 1330,
+      "lowerY": 1470
+    },
+    {
+      "id": "ramp:E65",
+      "edgeId": "E65",
+      "type": "heavySteps",
+      "bodies": "HM",
+      "x0": 7560,
+      "x1": 7821,
+      "upperAt": "right",
+      "upperLevel": "G2",
+      "lowerLevel": "G1",
+      "upperY": 1470,
+      "lowerY": 1620
+    },
+    {
+      "id": "ramp:E67",
+      "edgeId": "E67",
+      "type": "humanStair",
+      "bodies": "H",
+      "x0": 7872,
+      "x1": 8110,
+      "upperAt": "left",
+      "upperLevel": "G1",
+      "lowerLevel": "C1",
+      "upperY": 1620,
+      "lowerY": 1780
+    },
+    {
+      "id": "ramp:E68",
+      "edgeId": "E68",
+      "type": "heavySteps",
+      "bodies": "HM",
+      "x0": 820,
+      "x1": 1080,
+      "upperAt": "right",
+      "upperLevel": "C1",
+      "lowerLevel": "C0",
+      "upperY": 1780,
+      "lowerY": 1950
+    },
+    {
+      "id": "ramp:E70",
+      "edgeId": "E70",
+      "type": "heavySteps",
+      "bodies": "HM",
+      "x0": 2040,
+      "x1": 2300,
+      "upperAt": "right",
+      "upperLevel": "C1",
+      "lowerLevel": "C0",
+      "upperY": 1780,
+      "lowerY": 1950
+    },
+    {
+      "id": "ramp:E71",
+      "edgeId": "E71",
+      "type": "humanStair",
+      "bodies": "H",
+      "x0": 3900,
+      "x1": 4160,
+      "upperAt": "right",
+      "upperLevel": "C1",
+      "lowerLevel": "C0",
+      "upperY": 1780,
+      "lowerY": 1950
+    },
+    {
+      "id": "ramp:E73",
+      "edgeId": "E73",
+      "type": "heavySteps",
+      "bodies": "HM",
+      "x0": 7060,
+      "x1": 7320,
+      "upperAt": "right",
+      "upperLevel": "C1",
+      "lowerLevel": "C0",
+      "upperY": 1780,
+      "lowerY": 1950
+    },
+    {
+      "id": "ramp:E75",
+      "edgeId": "E75",
+      "type": "heavySteps",
+      "bodies": "HM",
+      "x0": 7580,
+      "x1": 7840,
+      "upperAt": "right",
+      "upperLevel": "C1",
+      "lowerLevel": "C0",
+      "upperY": 1780,
+      "lowerY": 1950
+    },
+    {
+      "id": "ramp:E77",
+      "edgeId": "E77",
+      "type": "humanStair",
+      "bodies": "H",
+      "x0": 850,
+      "x1": 1020,
+      "upperAt": "right",
+      "upperLevel": "RW",
+      "lowerLevel": "U2",
+      "upperY": 1030,
+      "lowerY": 1180
+    },
+    {
+      "id": "ramp:E78",
+      "edgeId": "E78",
+      "type": "humanStair",
+      "bodies": "H",
+      "x0": 3361,
+      "x1": 3450,
+      "upperAt": "right",
+      "upperLevel": "U2",
+      "lowerLevel": "U1",
+      "upperY": 1180,
+      "lowerY": 1330
+    },
+    {
+      "id": "ramp:E79",
+      "edgeId": "E79",
+      "type": "humanStair",
+      "bodies": "H",
+      "x0": 5560,
+      "x1": 5790,
+      "upperAt": "right",
+      "upperLevel": "U2",
+      "lowerLevel": "U1",
+      "upperY": 1180,
+      "lowerY": 1330
+    },
+    {
+      "id": "ramp:E83",
+      "edgeId": "E83",
+      "type": "humanStair",
+      "bodies": "H",
+      "x0": 6450,
+      "x1": 6680,
+      "upperAt": "left",
+      "upperLevel": "RW",
+      "lowerLevel": "U2",
+      "upperY": 1030,
+      "lowerY": 1180
+    },
+    {
+      "id": "ramp:E84",
+      "edgeId": "E84",
+      "type": "humanStair",
+      "bodies": "H",
+      "x0": 6920,
+      "x1": 7124,
+      "upperAt": "right",
+      "upperLevel": "U2",
+      "lowerLevel": "U1",
+      "upperY": 1180,
+      "lowerY": 1330
+    },
+    {
+      "id": "ramp:E85",
+      "edgeId": "E85",
+      "type": "humanStair",
+      "bodies": "H",
+      "x0": 7822,
+      "x1": 8092,
+      "upperAt": "left",
+      "upperLevel": "U1",
+      "lowerLevel": "G2",
+      "upperY": 1330,
+      "lowerY": 1470
+    },
+    {
+      "id": "ramp:E86",
+      "edgeId": "E86",
+      "type": "humanStair",
+      "bodies": "H",
+      "x0": 2380,
+      "x1": 2640,
+      "upperAt": "left",
+      "upperLevel": "RW",
+      "lowerLevel": "U2",
+      "upperY": 1030,
+      "lowerY": 1180
+    },
+    {
+      "id": "ramp:E89",
+      "edgeId": "E89",
+      "type": "heavySwitchback",
+      "bodies": "HM",
+      "x0": 5300,
+      "x1": 5561,
+      "upperAt": "right",
+      "upperLevel": "G2",
+      "lowerLevel": "C1",
+      "upperY": 1470,
+      "lowerY": 1780
+    },
+    {
+      "id": "ramp:E92",
+      "edgeId": "E92",
+      "type": "humanStair",
+      "bodies": "H",
+      "x0": 830,
+      "x1": 1040,
+      "upperAt": "left",
+      "upperLevel": "U1",
+      "lowerLevel": "G2",
+      "upperY": 1330,
+      "lowerY": 1470
+    },
+    {
+      "id": "ramp:E93",
+      "edgeId": "E93",
+      "type": "humanStair",
+      "bodies": "H",
+      "x0": 1740,
+      "x1": 2000,
+      "upperAt": "right",
+      "upperLevel": "G2",
+      "lowerLevel": "G1",
+      "upperY": 1470,
+      "lowerY": 1620
+    },
+    {
+      "id": "ramp:E100",
+      "edgeId": "E100",
+      "type": "humanStair",
+      "bodies": "H",
+      "x0": 6730,
+      "x1": 7040,
+      "upperAt": "left",
+      "upperLevel": "G2",
+      "lowerLevel": "G1",
+      "upperY": 1470,
+      "lowerY": 1620
+    },
+    {
+      "id": "ramp:E101",
+      "edgeId": "E101",
+      "type": "humanStair",
+      "bodies": "H",
+      "x0": 7300,
+      "x1": 7550,
+      "upperAt": "right",
+      "upperLevel": "G2",
+      "lowerLevel": "G1",
+      "upperY": 1470,
+      "lowerY": 1620
+    }
+  ],
+  "edges": [
+    {
+      "id": "E01",
+      "a": "WG_G1",
+      "b": "BA_G1",
+      "type": "walk",
+      "bodies": "HM",
+      "x0": 400,
+      "x1": 1100,
+      "status": "PLANNED_UNVERIFIED"
+    },
+    {
+      "id": "E02",
+      "a": "BA_G1",
+      "b": "WK_G2",
+      "type": "heavySteps",
+      "bodies": "HM",
+      "x0": 1200,
+      "x1": 1460,
+      "upperAt": "right",
+      "status": "PLANNED_UNVERIFIED"
+    },
+    {
+      "id": "E03",
+      "a": "WG_G1",
+      "b": "WG_C1",
+      "type": "heavySteps",
+      "bodies": "HM",
+      "x0": 100,
+      "x1": 360,
+      "upperAt": "right",
+      "status": "PLANNED_UNVERIFIED"
+    },
+    {
+      "id": "E04",
+      "a": "WG_C1",
+      "b": "BA_C1",
+      "type": "walk",
+      "bodies": "HM",
+      "x0": 580,
+      "x1": 820,
+      "status": "PLANNED_UNVERIFIED"
+    },
+    {
+      "id": "E06",
+      "a": "WK_C1",
+      "b": "KEEP_G1_SIDE",
+      "type": "heavySteps",
+      "bodies": "HM",
+      "x0": 2400,
+      "x1": 2660,
+      "upperAt": "right",
+      "status": "PLANNED_UNVERIFIED"
+    },
+    {
+      "id": "E07",
+      "a": "KEEP_G1_SIDE",
+      "b": "WK_G2",
+      "type": "humanStair",
+      "bodies": "H",
+      "x0": 2690,
+      "x1": 2950,
+      "upperAt": "left",
+      "status": "PLANNED_UNVERIFIED"
+    },
+    {
+      "id": "E08",
+      "a": "WG_STAIR_G1",
+      "b": "WG_STAIR_G2",
+      "type": "humanStair",
+      "bodies": "H",
+      "x0": 20,
+      "x1": 250,
+      "status": "PLANNED_UNVERIFIED"
+    },
+    {
+      "id": "E09",
+      "a": "WG_U1",
+      "b": "WG_U2",
+      "type": "humanStair",
+      "bodies": "H",
+      "x0": 870,
+      "x1": 1030,
+      "status": "PLANNED_UNVERIFIED"
+    },
+    {
+      "id": "E10",
+      "a": "WG_U2",
+      "b": "GATE_GAP_W_U2",
+      "type": "walk",
+      "bodies": "H",
+      "x0": 890,
+      "x1": 1039,
+      "status": "PLANNED_UNVERIFIED"
+    },
+    {
+      "id": "E109",
+      "a": "GATE_GAP_W_U2",
+      "b": "GATE_GAP_E_U2",
+      "type": "gapJump",
+      "bodies": "H",
+      "x0": 1050,
+      "x1": 1190,
+      "status": "PLANNED_UNVERIFIED"
+    },
+    {
+      "id": "E110",
+      "a": "GATE_GAP_E_U2",
+      "b": "WK_U2",
+      "type": "walk",
+      "bodies": "H",
+      "x0": 1201,
+      "x1": 1970,
+      "status": "PLANNED_UNVERIFIED"
+    },
+    {
+      "id": "E11",
+      "a": "WK_U2",
+      "b": "WK_U1",
+      "type": "humanStair",
+      "bodies": "H",
+      "x0": 1800,
+      "x1": 2040,
+      "status": "PLANNED_UNVERIFIED"
+    },
+    {
+      "id": "E12",
+      "a": "WK_G2",
+      "b": "WK_U1",
+      "type": "humanStair",
+      "bodies": "H",
+      "x0": 2070,
+      "x1": 2310,
+      "status": "PLANNED_UNVERIFIED"
+    },
+    {
+      "id": "E13",
+      "a": "WK_U1_E",
+      "b": "WK_U2_E",
+      "type": "humanStair",
+      "bodies": "H",
+      "x0": 2330,
+      "x1": 2650,
+      "status": "PLANNED_UNVERIFIED"
+    },
+    {
+      "id": "E14",
+      "a": "WK_G2",
+      "b": "CT_G1",
+      "type": "heavySteps",
+      "bodies": "HM",
+      "x0": 2950,
+      "x1": 3210,
+      "upperAt": "left",
+      "status": "PLANNED_UNVERIFIED"
+    },
+    {
+      "id": "E15",
+      "a": "WK_BRIDGE_U1",
+      "b": "CT_BRIDGE_W_U1",
+      "type": "bridge",
+      "bodies": "H",
+      "x0": 2540,
+      "x1": 2939,
+      "status": "PLANNED_UNVERIFIED"
+    },
+    {
+      "id": "E111",
+      "a": "CT_BRIDGE_W_U1",
+      "b": "CT_BRIDGE_E_U1",
+      "type": "gapJump",
+      "bodies": "H",
+      "x0": 2950,
+      "x1": 3090,
+      "status": "PLANNED_UNVERIFIED"
+    },
+    {
+      "id": "E112",
+      "a": "CT_BRIDGE_E_U1",
+      "b": "CT_U1",
+      "type": "walk",
+      "bodies": "H",
+      "x0": 3101,
+      "x1": 3160,
+      "status": "PLANNED_UNVERIFIED"
+    },
+    {
+      "id": "E17",
+      "a": "WK_C1",
+      "b": "CT_C1",
+      "type": "walk",
+      "bodies": "HM",
+      "x0": 2650,
+      "x1": 3040,
+      "status": "PLANNED_UNVERIFIED"
+    },
+    {
+      "id": "E19",
+      "a": "CT_G1",
+      "b": "TW_G2",
+      "type": "heavySteps",
+      "bodies": "HM",
+      "x0": 3361,
+      "x1": 3621,
+      "upperAt": "right",
+      "status": "PLANNED_UNVERIFIED"
+    },
+    {
+      "id": "E20",
+      "a": "CT_C1",
+      "b": "TW_C1",
+      "type": "walk",
+      "bodies": "HM",
+      "x0": 3040,
+      "x1": 3400,
+      "status": "PLANNED_UNVERIFIED"
+    },
+    {
+      "id": "E21",
+      "a": "TW_C1",
+      "b": "TW_G1",
+      "type": "heavySteps",
+      "bodies": "HM",
+      "x0": 3621,
+      "x1": 3881,
+      "upperAt": "right",
+      "status": "PLANNED_UNVERIFIED"
+    },
+    {
+      "id": "E22",
+      "a": "TW_G1",
+      "b": "TW_G2",
+      "type": "heavySteps",
+      "bodies": "HM",
+      "x0": 3990,
+      "x1": 4250,
+      "upperAt": "left",
+      "status": "PLANNED_UNVERIFIED"
+    },
+    {
+      "id": "E23",
+      "a": "CT_U1",
+      "b": "CT_U1_JUMP_W",
+      "type": "walk",
+      "bodies": "H",
+      "x0": 3160,
+      "x1": 3221,
+      "status": "PLANNED_UNVERIFIED"
+    },
+    {
+      "id": "E24",
+      "a": "TW_G2",
+      "b": "TW_U1_W",
+      "type": "humanStair",
+      "bodies": "H",
+      "x0": 3580,
+      "x1": 3850,
+      "status": "PLANNED_UNVERIFIED"
+    },
+    {
+      "id": "E25",
+      "a": "TW_G2",
+      "b": "TW_U1_E",
+      "type": "humanStair",
+      "bodies": "H",
+      "x0": 4140,
+      "x1": 4380,
+      "status": "PLANNED_UNVERIFIED"
+    },
+    {
+      "id": "E26",
+      "a": "TW_U1_W",
+      "b": "TW_U2_W",
+      "type": "humanStair",
+      "bodies": "H",
+      "x0": 3570,
+      "x1": 3810,
+      "status": "PLANNED_UNVERIFIED"
+    },
+    {
+      "id": "E27",
+      "a": "TW_U1_E",
+      "b": "TW_U2_E",
+      "type": "humanStair",
+      "bodies": "H",
+      "x0": 4140,
+      "x1": 4380,
+      "status": "PLANNED_UNVERIFIED"
+    },
+    {
+      "id": "E28",
+      "a": "TW_U2_W",
+      "b": "TW_RW_W",
+      "type": "humanStair",
+      "bodies": "H",
+      "x0": 3570,
+      "x1": 3810,
+      "status": "PLANNED_UNVERIFIED"
+    },
+    {
+      "id": "E29",
+      "a": "TW_U2_E",
+      "b": "TW_RW_E",
+      "type": "humanStair",
+      "bodies": "H",
+      "x0": 4140,
+      "x1": 4380,
+      "status": "PLANNED_UNVERIFIED"
+    },
+    {
+      "id": "E30",
+      "a": "TW_RW_W",
+      "b": "TW_SP_W",
+      "type": "humanStair",
+      "bodies": "H",
+      "x0": 3650,
+      "x1": 3910,
+      "status": "PLANNED_UNVERIFIED"
+    },
+    {
+      "id": "E31",
+      "a": "TW_RW_E",
+      "b": "TW_SP_E",
+      "type": "humanStair",
+      "bodies": "H",
+      "x0": 4090,
+      "x1": 4360,
+      "status": "PLANNED_UNVERIFIED"
+    },
+    {
+      "id": "E32",
+      "a": "TW_U1_W",
+      "b": "BW_U1",
+      "type": "walk",
+      "bodies": "H",
+      "x0": 3750,
+      "x1": 4500,
+      "status": "PLANNED_UNVERIFIED"
+    },
+    {
+      "id": "E33",
+      "a": "BW_U1",
+      "b": "BE_U1",
+      "type": "bridge",
+      "bodies": "H",
+      "x0": 4500,
+      "x1": 5100,
+      "status": "PLANNED_UNVERIFIED"
+    },
+    {
+      "id": "E34",
+      "a": "BE_U1",
+      "b": "EL_U1",
+      "type": "walk",
+      "bodies": "H",
+      "x0": 5100,
+      "x1": 5510,
+      "status": "PLANNED_UNVERIFIED"
+    },
+    {
+      "id": "E35",
+      "a": "TW_G2",
+      "b": "BW_G2",
+      "type": "walk",
+      "bodies": "HM",
+      "x0": 4250,
+      "x1": 4500,
+      "status": "PLANNED_UNVERIFIED"
+    },
+    {
+      "id": "E36",
+      "a": "BW_G2",
+      "b": "BE_G2",
+      "type": "bridge",
+      "bodies": "HM",
+      "x0": 4500,
+      "x1": 5100,
+      "status": "PLANNED_UNVERIFIED"
+    },
+    {
+      "id": "E37",
+      "a": "BE_G2",
+      "b": "EL_G2",
+      "type": "walk",
+      "bodies": "HM",
+      "x0": 5100,
+      "x1": 5352,
+      "status": "PLANNED_UNVERIFIED"
+    },
+    {
+      "id": "E38",
+      "a": "TW_C1",
+      "b": "BW_C1",
+      "type": "walk",
+      "bodies": "HM",
+      "x0": 4250,
+      "x1": 4490,
+      "status": "PLANNED_UNVERIFIED"
+    },
+    {
+      "id": "E39",
+      "a": "BW_C1",
+      "b": "BE_C1",
+      "type": "cave",
+      "bodies": "HM",
+      "x0": 4490,
+      "x1": 5070,
+      "status": "PLANNED_UNVERIFIED"
+    },
+    {
+      "id": "E40",
+      "a": "BE_C1",
+      "b": "EL_C1",
+      "type": "walk",
+      "bodies": "HM",
+      "x0": 5410,
+      "x1": 5500,
+      "status": "PLANNED_UNVERIFIED"
+    },
+    {
+      "id": "E45",
+      "a": "EL_G2",
+      "b": "EL_U1",
+      "type": "humanStair",
+      "bodies": "H",
+      "x0": 5320,
+      "x1": 5560,
+      "status": "PLANNED_UNVERIFIED"
+    },
+    {
+      "id": "E46",
+      "a": "EL_G2",
+      "b": "EL_EAST_G1",
+      "type": "heavySteps",
+      "bodies": "HM",
+      "x0": 5656,
+      "x1": 5910,
+      "upperAt": "left",
+      "status": "PLANNED_UNVERIFIED"
+    },
+    {
+      "id": "E115",
+      "a": "EL_EAST_G1",
+      "b": "CH_G1",
+      "type": "walk",
+      "bodies": "HM",
+      "x0": 6060,
+      "x1": 6140,
+      "status": "PLANNED_UNVERIFIED"
+    },
+    {
+      "id": "E48",
+      "a": "EL_C1",
+      "b": "CH_C1",
+      "type": "cave",
+      "bodies": "HM",
+      "x0": 5480,
+      "x1": 6170,
+      "status": "PLANNED_UNVERIFIED"
+    },
+    {
+      "id": "E50",
+      "a": "EL_U1",
+      "b": "CEM_GAP_W_U1",
+      "type": "walk",
+      "bodies": "H",
+      "x0": 5510,
+      "x1": 5889,
+      "status": "PLANNED_UNVERIFIED"
+    },
+    {
+      "id": "E116",
+      "a": "CEM_GAP_W_U1",
+      "b": "CEM_GAP_E_U1",
+      "type": "gapJump",
+      "bodies": "H",
+      "x0": 5900,
+      "x1": 6060,
+      "status": "PLANNED_UNVERIFIED"
+    },
+    {
+      "id": "E117",
+      "a": "CEM_GAP_E_U1",
+      "b": "CH_U1",
+      "type": "walk",
+      "bodies": "H",
+      "x0": 6071,
+      "x1": 6170,
+      "status": "PLANNED_UNVERIFIED"
+    },
+    {
+      "id": "E51",
+      "a": "CH_U1",
+      "b": "CH_U2",
+      "type": "humanStair",
+      "bodies": "H",
+      "x0": 6060,
+      "x1": 6310,
+      "status": "PLANNED_UNVERIFIED"
+    },
+    {
+      "id": "E53",
+      "a": "BELL_G1",
+      "b": "EW_G1",
+      "type": "walk",
+      "bodies": "HM",
+      "x0": 6560,
+      "x1": 6880,
+      "status": "PLANNED_UNVERIFIED"
+    },
+    {
+      "id": "E54",
+      "a": "BELL_U1",
+      "b": "CH_U1",
+      "type": "walk",
+      "bodies": "H",
+      "x0": 6170,
+      "x1": 6570,
+      "status": "PLANNED_UNVERIFIED"
+    },
+    {
+      "id": "E55",
+      "a": "BELL_U1",
+      "b": "EW_U1",
+      "type": "walk",
+      "bodies": "H",
+      "x0": 6570,
+      "x1": 6950,
+      "status": "PLANNED_UNVERIFIED"
+    },
+    {
+      "id": "E56",
+      "a": "EW_U1",
+      "b": "EW_G2",
+      "type": "humanStair",
+      "bodies": "H",
+      "x0": 6720,
+      "x1": 7050,
+      "status": "PLANNED_UNVERIFIED"
+    },
+    {
+      "id": "E57",
+      "a": "CH_C1",
+      "b": "EW_C1",
+      "type": "cave",
+      "bodies": "HM",
+      "x0": 6170,
+      "x1": 6760,
+      "status": "PLANNED_UNVERIFIED"
+    },
+    {
+      "id": "E58",
+      "a": "EW_C1",
+      "b": "EW_G1",
+      "type": "heavySteps",
+      "bodies": "HM",
+      "x0": 6800,
+      "x1": 7060,
+      "upperAt": "right",
+      "status": "PLANNED_UNVERIFIED"
+    },
+    {
+      "id": "E59",
+      "a": "EW_G1",
+      "b": "ARM_G1",
+      "type": "walk",
+      "bodies": "HM",
+      "x0": 7060,
+      "x1": 7300,
+      "status": "PLANNED_UNVERIFIED"
+    },
+    {
+      "id": "E60",
+      "a": "EW_GAP_W_U1",
+      "b": "EW_GAP_E_U1",
+      "type": "gapJump",
+      "bodies": "H",
+      "x0": 7135,
+      "x1": 7275,
+      "status": "PLANNED_UNVERIFIED"
+    },
+    {
+      "id": "E113",
+      "a": "EW_BRIDGE_U1",
+      "b": "EW_GAP_W_U1",
+      "type": "walk",
+      "bodies": "H",
+      "x0": 7110,
+      "x1": 7124,
+      "status": "PLANNED_UNVERIFIED"
+    },
+    {
+      "id": "E114",
+      "a": "EW_GAP_E_U1",
+      "b": "ARM_BRIDGE_U1",
+      "type": "walk",
+      "bodies": "H",
+      "x0": 7286,
+      "x1": 7300,
+      "status": "PLANNED_UNVERIFIED"
+    },
+    {
+      "id": "E61",
+      "a": "ARM_U1",
+      "b": "ARM_G2",
+      "type": "humanStair",
+      "bodies": "H",
+      "x0": 7300,
+      "x1": 7550,
+      "status": "PLANNED_UNVERIFIED"
+    },
+    {
+      "id": "E62",
+      "a": "EW_C1",
+      "b": "ARM_C1",
+      "type": "cave",
+      "bodies": "HM",
+      "x0": 7360,
+      "x1": 7560,
+      "status": "PLANNED_UNVERIFIED"
+    },
+    {
+      "id": "E64",
+      "a": "ARM_G1",
+      "b": "WALL_G1",
+      "type": "walk",
+      "bodies": "HM",
+      "x0": 7872,
+      "x1": 8040,
+      "status": "PLANNED_UNVERIFIED"
+    },
+    {
+      "id": "E65",
+      "a": "WALL_G1",
+      "b": "WALL_G2",
+      "type": "heavySteps",
+      "bodies": "HM",
+      "x0": 7560,
+      "x1": 7821,
+      "upperAt": "right",
+      "status": "PLANNED_UNVERIFIED"
+    },
+    {
+      "id": "E66",
+      "a": "ARM_C1",
+      "b": "WALL_C1",
+      "type": "cave",
+      "bodies": "HM",
+      "x0": 7560,
+      "x1": 7676,
+      "status": "PLANNED_UNVERIFIED"
+    },
+    {
+      "id": "E67",
+      "a": "WALL_C1",
+      "b": "WALL_G1",
+      "type": "humanStair",
+      "bodies": "H",
+      "x0": 7872,
+      "x1": 8110,
+      "upperAt": "left",
+      "status": "PLANNED_UNVERIFIED"
+    },
+    {
+      "id": "E68",
+      "a": "BA_C1",
+      "b": "POOL_C0",
+      "type": "heavySteps",
+      "bodies": "HM",
+      "x0": 820,
+      "x1": 1080,
+      "upperAt": "right",
+      "status": "PLANNED_UNVERIFIED"
+    },
+    {
+      "id": "E69",
+      "a": "POOL_C0",
+      "b": "KEEP_C0",
+      "type": "cave",
+      "bodies": "HM",
+      "x0": 1270,
+      "x1": 1660,
+      "status": "PLANNED_UNVERIFIED"
+    },
+    {
+      "id": "E70",
+      "a": "KEEP_C0",
+      "b": "WK_C1",
+      "type": "heavySteps",
+      "bodies": "HM",
+      "x0": 2040,
+      "x1": 2300,
+      "upperAt": "right",
+      "status": "PLANNED_UNVERIFIED"
+    },
+    {
+      "id": "E71",
+      "a": "TW_C1",
+      "b": "TW_C0",
+      "type": "humanStair",
+      "bodies": "H",
+      "x0": 3900,
+      "x1": 4160,
+      "upperAt": "right",
+      "status": "PLANNED_UNVERIFIED"
+    },
+    {
+      "id": "E73",
+      "a": "EW_POOL_C1",
+      "b": "EW_C0",
+      "type": "heavySteps",
+      "bodies": "HM",
+      "x0": 7060,
+      "x1": 7320,
+      "upperAt": "right",
+      "status": "PLANNED_UNVERIFIED"
+    },
+    {
+      "id": "E74",
+      "a": "EW_C0",
+      "b": "WALL_C0",
+      "type": "cave",
+      "bodies": "HM",
+      "x0": 7400,
+      "x1": 7520,
+      "status": "PLANNED_UNVERIFIED"
+    },
+    {
+      "id": "E75",
+      "a": "WALL_C0",
+      "b": "WALL_C1",
+      "type": "heavySteps",
+      "bodies": "HM",
+      "x0": 7580,
+      "x1": 7840,
+      "upperAt": "right",
+      "status": "PLANNED_UNVERIFIED"
+    },
+    {
+      "id": "E77",
+      "a": "WG_U2",
+      "b": "WG_RW",
+      "type": "humanStair",
+      "bodies": "H",
+      "x0": 850,
+      "x1": 1020,
+      "status": "PLANNED_UNVERIFIED"
+    },
+    {
+      "id": "E78",
+      "a": "CT_U1_JUMP_E",
+      "b": "CT_U2",
+      "type": "humanStair",
+      "bodies": "H",
+      "x0": 3361,
+      "x1": 3450,
+      "status": "PLANNED_UNVERIFIED"
+    },
+    {
+      "id": "E79",
+      "a": "EL_U1",
+      "b": "EL_U2",
+      "type": "humanStair",
+      "bodies": "H",
+      "x0": 5560,
+      "x1": 5790,
+      "status": "PLANNED_UNVERIFIED"
+    },
+    {
+      "id": "E80",
+      "a": "CH_G1",
+      "b": "BELL_G1",
+      "type": "walk",
+      "bodies": "HM",
+      "x0": 6400,
+      "x1": 6560,
+      "status": "PLANNED_UNVERIFIED"
+    },
+    {
+      "id": "E83",
+      "a": "BELL_U2",
+      "b": "BELL_RW",
+      "type": "humanStair",
+      "bodies": "H",
+      "x0": 6450,
+      "x1": 6680,
+      "status": "PLANNED_UNVERIFIED"
+    },
+    {
+      "id": "E84",
+      "a": "EW_U1",
+      "b": "EW_U2",
+      "type": "humanStair",
+      "bodies": "H",
+      "x0": 6920,
+      "x1": 7124,
+      "status": "PLANNED_UNVERIFIED"
+    },
+    {
+      "id": "E85",
+      "a": "ARM_U1",
+      "b": "WALL_G2",
+      "type": "humanStair",
+      "bodies": "H",
+      "x0": 7822,
+      "x1": 8092,
+      "status": "PLANNED_UNVERIFIED"
+    },
+    {
+      "id": "E86",
+      "a": "WK_U2_E",
+      "b": "WK_RW",
+      "type": "humanStair",
+      "bodies": "H",
+      "x0": 2380,
+      "x1": 2640,
+      "status": "PLANNED_UNVERIFIED"
+    },
+    {
+      "id": "E88",
+      "a": "TW_U1_E",
+      "b": "BW_U1",
+      "type": "walk",
+      "bodies": "H",
+      "x0": 4270,
+      "x1": 4500,
+      "status": "PLANNED_UNVERIFIED"
+    },
+    {
+      "id": "E89",
+      "a": "EL_C1",
+      "b": "EL_G2",
+      "type": "heavySwitchback",
+      "bodies": "HM",
+      "x0": 5300,
+      "x1": 5561,
+      "upperAt": "right",
+      "status": "PLANNED_UNVERIFIED"
+    },
+    {
+      "id": "E90",
+      "a": "TW_SP_W",
+      "b": "TW_SP",
+      "type": "walk",
+      "bodies": "H",
+      "x0": 3810,
+      "x1": 4010,
+      "status": "PLANNED_UNVERIFIED"
+    },
+    {
+      "id": "E91",
+      "a": "TW_SP_E",
+      "b": "TW_SP",
+      "type": "walk",
+      "bodies": "H",
+      "x0": 4010,
+      "x1": 4210,
+      "status": "PLANNED_UNVERIFIED"
+    },
+    {
+      "id": "E92",
+      "a": "WG_G2",
+      "b": "WG_U1",
+      "type": "humanStair",
+      "bodies": "H",
+      "x0": 830,
+      "x1": 1040,
+      "status": "PLANNED_UNVERIFIED"
+    },
+    {
+      "id": "E93",
+      "a": "WK_G1",
+      "b": "WK_G2",
+      "type": "humanStair",
+      "bodies": "H",
+      "x0": 1740,
+      "x1": 2000,
+      "upperAt": "right",
+      "status": "PLANNED_UNVERIFIED"
+    },
+    {
+      "id": "E94",
+      "a": "WK_U1",
+      "b": "WK_BRIDGE_U1",
+      "type": "walk",
+      "bodies": "H",
+      "x0": 1920,
+      "x1": 2540,
+      "status": "PLANNED_UNVERIFIED"
+    },
+    {
+      "id": "E95",
+      "a": "EW_U1",
+      "b": "EW_BRIDGE_U1",
+      "type": "walk",
+      "bodies": "H",
+      "x0": 6950,
+      "x1": 7110,
+      "status": "PLANNED_UNVERIFIED"
+    },
+    {
+      "id": "E96",
+      "a": "ARM_BRIDGE_U1",
+      "b": "ARM_U1",
+      "type": "walk",
+      "bodies": "H",
+      "x0": 7300,
+      "x1": 7350,
+      "status": "PLANNED_UNVERIFIED"
+    },
+    {
+      "id": "E97",
+      "a": "WK_U1",
+      "b": "WK_U1_E",
+      "type": "walk",
+      "bodies": "H",
+      "x0": 1920,
+      "x1": 2440,
+      "status": "PLANNED_UNVERIFIED"
+    },
+    {
+      "id": "E100",
+      "a": "EW_G2",
+      "b": "EW_G1",
+      "type": "humanStair",
+      "bodies": "H",
+      "x0": 6730,
+      "x1": 7040,
+      "status": "PLANNED_UNVERIFIED"
+    },
+    {
+      "id": "E101",
+      "a": "ARM_G2",
+      "b": "ARM_G1",
+      "type": "humanStair",
+      "bodies": "H",
+      "x0": 7300,
+      "x1": 7550,
+      "status": "PLANNED_UNVERIFIED"
+    },
+    {
+      "id": "E107",
+      "a": "CH_U2",
+      "b": "BELL_U2",
+      "type": "walk",
+      "bodies": "H",
+      "x0": 6190,
+      "x1": 6570,
+      "status": "PLANNED_UNVERIFIED"
+    },
+    {
+      "id": "E103",
+      "a": "WK_U2",
+      "b": "WK_U2_E",
+      "type": "walk",
+      "bodies": "H",
+      "x0": 1970,
+      "x1": 2510,
+      "status": "PLANNED_UNVERIFIED"
+    },
+    {
+      "id": "E104",
+      "a": "WG_G1",
+      "b": "WG_STAIR_G1",
+      "type": "walk",
+      "bodies": "H",
+      "x0": 360,
+      "x1": 400,
+      "status": "PLANNED_UNVERIFIED"
+    },
+    {
+      "id": "E105",
+      "a": "WG_STAIR_G2",
+      "b": "WG_G2",
+      "type": "walk",
+      "bodies": "H",
+      "x0": 60,
+      "x1": 940,
+      "status": "PLANNED_UNVERIFIED"
+    },
+    {
+      "id": "E23_JUMP",
+      "a": "CT_U1_JUMP_W",
+      "b": "CT_U1_JUMP_E",
+      "type": "gapJump",
+      "bodies": "H",
+      "x0": 3221,
+      "x1": 3361,
+      "status": "PLANNED_UNVERIFIED"
+    },
+    {
+      "id": "E23_E",
+      "a": "CT_U1_JUMP_E",
+      "b": "TW_U1_W",
+      "type": "walk",
+      "bodies": "H",
+      "x0": 3461,
+      "x1": 3750,
+      "status": "PLANNED_UNVERIFIED"
+    }
+  ],
+  "openings": [
+    {
+      "id": "SHAFT_GATE_WATER_G1",
+      "via": "E03",
+      "level": "G1",
+      "x0": 188,
+      "x1": 360,
+      "cover": [
+        "O_MOAT"
+      ]
+    },
+    {
+      "id": "SHAFT_WING_WATER_G1",
+      "via": "E58",
+      "level": "G1",
+      "x0": 6888,
+      "x1": 7060,
+      "cover": [
+        "EW_INFIRMARY"
+      ]
+    },
+    {
+      "id": "SHAFT_GATE_DEEP_C1",
+      "via": "E68",
+      "level": "C1",
+      "x0": 916,
+      "x1": 1080,
+      "cover": [
+        "WG_DRAIN"
+      ]
+    },
+    {
+      "id": "SHAFT_KEEP_DEEP_C1",
+      "via": "E70",
+      "level": "C1",
+      "x0": 2136,
+      "x1": 2300,
+      "cover": [
+        "WK_CRYPT"
+      ]
+    },
+    {
+      "id": "SHAFT_WING_POOL_C1",
+      "via": "E73",
+      "level": "C1",
+      "x0": 7156,
+      "x1": 7320,
+      "cover": [
+        "EW_ARM_BASE"
+      ]
+    },
+    {
+      "id": "SHAFT_EAST_DEEP_C1",
+      "via": "E75",
+      "level": "C1",
+      "x0": 7676,
+      "x1": 7840,
+      "cover": [
+        "EW_WALL_DRAIN"
+      ]
+    },
+    {
+      "id": "SHAFT_LIBRARY_BASE_G1",
+      "via": "E89",
+      "level": "G2",
+      "x0": 5352,
+      "x1": 5561,
+      "cover": [
+        "EL_LIBRARY"
+      ]
+    },
+    {
+      "id": "SHAFT_EAST_WALL_G2",
+      "via": "E65",
+      "level": "G2",
+      "x0": 7639,
+      "x1": 7821,
+      "cover": [
+        "EW_WATCH"
+      ]
+    },
+    {
+      "id": "SHAFT_TOWER_PASS_G2",
+      "via": "E22",
+      "level": "G2",
+      "x0": 3989,
+      "x1": 4180,
+      "cover": [
+        "CT_EAST_PASSAGE"
+      ]
+    },
+    {
+      "id": "SHAFT_KEEP_CRYPT_G1",
+      "via": "E06",
+      "level": "G1",
+      "x0": 2610,
+      "x1": 2660,
+      "cover": [
+        "P_KEEP_G1_SIDE"
+      ]
+    },
+    {
+      "id": "SHAFT_LIBRARY_E_G2",
+      "via": "E46",
+      "level": "G2",
+      "x0": 5656,
+      "x1": 5900,
+      "cover": [
+        "EL_LIBRARY",
+        "P_LIBRARY_G2_AFTER"
+      ]
+    },
+    {
+      "id": "SHAFT_TOWER_APPROACH_G2",
+      "via": "E19",
+      "level": "G2",
+      "x0": 3441,
+      "x1": 3621,
+      "cover": [
+        "CT_AUDIENCE",
+        "O_TOWER_TERRACE",
+        "P_E22_G2",
+        "P_TOWER_G2_AFTER"
+      ]
+    },
+    {
+      "id": "SHAFT_TOWER_BASE_G1",
+      "via": "E21",
+      "level": "G1",
+      "x0": 3701,
+      "x1": 3881,
+      "cover": [
+        "P_E22_G1",
+        "P_TOWER_G1_APPROACH"
+      ]
+    }
+  ],
+  "doors": [
+    {
+      "id": "D_WK_POOL",
+      "x": 1340,
+      "lv": "C0",
+      "y": 1950,
+      "from": "WG_POOL",
+      "to": "WK_WATER_TUNNEL",
+      "clearHeight": 104
+    },
+    {
+      "id": "D_WK_WATER_STORE",
+      "x": 1530,
+      "lv": "C0",
+      "y": 1950,
+      "from": "WK_WATER_TUNNEL",
+      "to": "WK_DEEP",
+      "clearHeight": 104
+    },
+    {
+      "id": "D_WG_OUT",
+      "x": 360,
+      "lv": "G1",
+      "y": 1620,
+      "from": "O_MOAT",
+      "to": "WG_GATE",
+      "clearHeight": 118
+    },
+    {
+      "id": "D_WG_IN",
+      "x": 760,
+      "lv": "G1",
+      "y": 1620,
+      "from": "WG_GATE",
+      "to": "O_BAILEY",
+      "clearHeight": 104
+    },
+    {
+      "id": "D_WG_BARRACK",
+      "x": 780,
+      "lv": "G2",
+      "y": 1470,
+      "from": "WG_BALCONY",
+      "to": "WG_BARRACK",
+      "clearHeight": 96
+    },
+    {
+      "id": "D_WG_WATER",
+      "x": 360,
+      "lv": "C1",
+      "y": 1780,
+      "from": "O_WEST_WATER",
+      "to": "WG_WATER",
+      "clearHeight": 96
+    },
+    {
+      "id": "D_WK_WEST",
+      "x": 1610,
+      "lv": "G2",
+      "y": 1470,
+      "from": "O_KEEP_TERRACE",
+      "to": "WK_HALL",
+      "clearHeight": 118
+    },
+    {
+      "id": "D_WK_ARM_W",
+      "x": 2080,
+      "lv": "G2",
+      "y": 1470,
+      "from": "WK_HALL",
+      "to": "WK_ARMORY",
+      "clearHeight": 96
+    },
+    {
+      "id": "D_WK_ARM_E",
+      "x": 2500,
+      "lv": "G2",
+      "y": 1470,
+      "from": "WK_ARMORY",
+      "to": "O_KEEP_EAST",
+      "clearHeight": 96
+    },
+    {
+      "id": "D_WK_CRYPT_E",
+      "x": 2700,
+      "lv": "C1",
+      "y": 1780,
+      "from": "WK_CRYPT",
+      "to": "CT_CELLAR",
+      "clearHeight": 96
+    },
+    {
+      "id": "D_CT_WEST",
+      "x": 3500,
+      "lv": "G2",
+      "y": 1470,
+      "from": "O_TOWER_TERRACE",
+      "to": "CT_AUDIENCE",
+      "clearHeight": 110
+    },
+    {
+      "id": "D_CT_PASSAGE",
+      "x": 3980,
+      "lv": "G2",
+      "y": 1470,
+      "from": "CT_AUDIENCE",
+      "to": "CT_EAST_PASSAGE",
+      "clearHeight": 104
+    },
+    {
+      "id": "D_CT_BRIDGE_G2",
+      "x": 4400,
+      "lv": "G2",
+      "y": 1470,
+      "from": "CT_EAST_PASSAGE",
+      "to": "CG_WEST_HOUSE",
+      "clearHeight": 104
+    },
+    {
+      "id": "D_CT_EAST",
+      "x": 4400,
+      "lv": "U1",
+      "y": 1330,
+      "from": "CT_ENGINE",
+      "to": "CG_WEST_UP",
+      "clearHeight": 96
+    },
+    {
+      "id": "D_CT_PRISON_W",
+      "x": 3500,
+      "lv": "C1",
+      "y": 1780,
+      "from": "CT_CELLAR",
+      "to": "CT_PRISON",
+      "clearHeight": 96
+    },
+    {
+      "id": "D_CG_WEST",
+      "x": 4600,
+      "lv": "G2",
+      "y": 1470,
+      "from": "CG_WEST_HOUSE",
+      "to": "O_STONE_BRIDGE",
+      "clearHeight": 104
+    },
+    {
+      "id": "D_CG_EAST",
+      "x": 5000,
+      "lv": "G2",
+      "y": 1470,
+      "from": "O_STONE_BRIDGE",
+      "to": "CG_EAST_HOUSE",
+      "clearHeight": 104
+    },
+    {
+      "id": "D_CG_HIGH_E",
+      "x": 5200,
+      "lv": "U1",
+      "y": 1330,
+      "from": "CG_EAST_UP",
+      "to": "EL_LIBRARY_UP",
+      "clearHeight": 96
+    },
+    {
+      "id": "D_LIB_UP_E",
+      "x": 5790,
+      "lv": "U1",
+      "y": 1330,
+      "from": "EL_LIBRARY_UP",
+      "to": "O_CHAP_WEST_PORTICO",
+      "clearHeight": 96
+    },
+    {
+      "id": "D_CG_CAVE_W",
+      "x": 4400,
+      "lv": "C1",
+      "y": 1780,
+      "from": "CT_PRISON",
+      "to": "CG_CAVE",
+      "clearHeight": 96
+    },
+    {
+      "id": "D_CG_CAVE_E",
+      "x": 5200,
+      "lv": "C1",
+      "y": 1780,
+      "from": "CG_CAVE",
+      "to": "EL_OSSUARY",
+      "clearHeight": 96
+    },
+    {
+      "id": "D_EL_LIBRARY_W",
+      "x": 5200,
+      "lv": "G2",
+      "y": 1470,
+      "from": "CG_EAST_HOUSE",
+      "to": "EL_LIBRARY",
+      "clearHeight": 104
+    },
+    {
+      "id": "D_EL_OSS_E",
+      "x": 5900,
+      "lv": "C1",
+      "y": 1780,
+      "from": "EL_OSSUARY",
+      "to": "EL_CRYPT",
+      "clearHeight": 96
+    },
+    {
+      "id": "D_BELL_CRYPT_W",
+      "x": 6500,
+      "lv": "C1",
+      "y": 1780,
+      "from": "EL_CRYPT",
+      "to": "EL_BELL_CRYPT",
+      "clearHeight": 96
+    },
+    {
+      "id": "D_BELL_CRYPT_E",
+      "x": 6700,
+      "lv": "C1",
+      "y": 1780,
+      "from": "EL_BELL_CRYPT",
+      "to": "EW_WATERLOCK",
+      "clearHeight": 96
+    },
+    {
+      "id": "D_EW_ARM_BASE_W",
+      "x": 7110,
+      "lv": "C1",
+      "y": 1780,
+      "from": "EW_WATERLOCK",
+      "to": "EW_ARM_BASE",
+      "clearHeight": 96
+    },
+    {
+      "id": "D_EW_ARM_BASE_E",
+      "x": 7600,
+      "lv": "C1",
+      "y": 1780,
+      "from": "EW_ARM_BASE",
+      "to": "EW_WALL_DRAIN",
+      "clearHeight": 96
+    },
+    {
+      "id": "D_EL_NAVE_W",
+      "x": 6060,
+      "lv": "G1",
+      "y": 1620,
+      "from": "O_CEMETERY",
+      "to": "EL_NAVE",
+      "clearHeight": 320
+    },
+    {
+      "id": "D_EL_NAVE_E",
+      "x": 6500,
+      "lv": "G1",
+      "y": 1620,
+      "from": "EL_NAVE",
+      "to": "EL_BELL_BASE",
+      "clearHeight": 104
+    },
+    {
+      "id": "D_EL_BELL",
+      "x": 6500,
+      "lv": "U1",
+      "y": 1330,
+      "from": "EL_GALLERY_E",
+      "to": "EL_BELL",
+      "clearHeight": 96
+    },
+    {
+      "id": "D_EW_MED_W",
+      "x": 6700,
+      "lv": "G1",
+      "y": 1620,
+      "from": "EL_BELL_BASE",
+      "to": "EW_INFIRMARY",
+      "clearHeight": 104
+    },
+    {
+      "id": "D_EW_MED_E",
+      "x": 7110,
+      "lv": "G1",
+      "y": 1620,
+      "from": "EW_INFIRMARY",
+      "to": "O_EAST_YARD",
+      "clearHeight": 96
+    },
+    {
+      "id": "D_EW_ARM_W",
+      "x": 7300,
+      "lv": "G1",
+      "y": 1620,
+      "from": "O_EAST_YARD",
+      "to": "EW_ARMORY",
+      "clearHeight": 96
+    },
+    {
+      "id": "D_EW_ARM_E",
+      "x": 7600,
+      "lv": "G1",
+      "y": 1620,
+      "from": "EW_ARMORY",
+      "to": "EW_WATCH_BASE",
+      "clearHeight": 96
+    },
+    {
+      "id": "D_EW_WALL",
+      "x": 7600,
+      "lv": "G2",
+      "y": 1470,
+      "from": "EW_WATCH",
+      "to": "O_EAST_RAMP",
+      "clearHeight": 104
+    },
+    {
+      "id": "D_EW_DRAIN_W",
+      "x": 6700,
+      "lv": "C0",
+      "y": 1950,
+      "from": "EL_DEEP_DRAIN",
+      "to": "EW_CISTERN",
+      "clearHeight": 96
+    },
+    {
+      "id": "D_EW_DRAIN_E",
+      "x": 7600,
+      "lv": "C0",
+      "y": 1950,
+      "from": "EW_CISTERN",
+      "to": "EW_DRAIN",
+      "clearHeight": 96
+    }
+  ],
+  "points": [
+    {
+      "id": "H1",
+      "kind": "human",
+      "x": 540,
+      "y": 1620,
+      "lv": "G1",
+      "region": "WG",
+      "anchor": "WG_G1"
+    },
+    {
+      "id": "H2",
+      "kind": "human",
+      "x": 1100,
+      "y": 1620,
+      "lv": "G1",
+      "region": "WG",
+      "anchor": "BA_G1"
+    },
+    {
+      "id": "H3",
+      "kind": "human",
+      "x": 1630,
+      "y": 1470,
+      "lv": "G2",
+      "region": "WK",
+      "anchor": "WK_G2"
+    },
+    {
+      "id": "H4",
+      "kind": "human",
+      "x": 2000,
+      "y": 1470,
+      "lv": "G2",
+      "region": "WK",
+      "anchor": "WK_G2"
+    },
+    {
+      "id": "H5",
+      "kind": "human",
+      "x": 2320,
+      "y": 1330,
+      "lv": "U1",
+      "region": "WK",
+      "anchor": "WK_U1"
+    },
+    {
+      "id": "H6",
+      "kind": "human",
+      "x": 3040,
+      "y": 1620,
+      "lv": "G1",
+      "region": "CT",
+      "anchor": "CT_G1"
+    },
+    {
+      "id": "H7",
+      "kind": "human",
+      "x": 3820,
+      "y": 1470,
+      "lv": "G2",
+      "region": "CT",
+      "anchor": "TW_G2"
+    },
+    {
+      "id": "H8",
+      "kind": "human",
+      "x": 4770,
+      "y": 1470,
+      "lv": "G2",
+      "region": "CG",
+      "anchor": "BW_G2"
+    },
+    {
+      "id": "H9",
+      "kind": "human",
+      "x": 5645,
+      "y": 1470,
+      "lv": "G2",
+      "region": "EL",
+      "anchor": "EL_G2"
+    },
+    {
+      "id": "H10",
+      "kind": "human",
+      "x": 6130,
+      "y": 1620,
+      "lv": "G1",
+      "region": "EL",
+      "anchor": "CH_G1"
+    },
+    {
+      "id": "H11",
+      "kind": "human",
+      "x": 6750,
+      "y": 1620,
+      "lv": "G1",
+      "region": "EW",
+      "anchor": "EW_G1"
+    },
+    {
+      "id": "H12",
+      "kind": "human",
+      "x": 7900,
+      "y": 1470,
+      "lv": "G2",
+      "region": "EW",
+      "anchor": "WALL_G2"
+    },
+    {
+      "id": "Z1",
+      "kind": "infected",
+      "x": 240,
+      "y": 1780,
+      "lv": "C1",
+      "region": "WG",
+      "anchor": "WG_C1"
+    },
+    {
+      "id": "Z2",
+      "kind": "infected",
+      "x": 600,
+      "y": 1780,
+      "lv": "C1",
+      "region": "WG",
+      "anchor": "WG_C1"
+    },
+    {
+      "id": "Z3",
+      "kind": "infected",
+      "x": 820,
+      "y": 1780,
+      "lv": "C1",
+      "region": "WG",
+      "anchor": "BA_C1"
+    },
+    {
+      "id": "Z4",
+      "kind": "infected",
+      "x": 2050,
+      "y": 1780,
+      "lv": "C1",
+      "region": "WK",
+      "anchor": "WK_C1"
+    },
+    {
+      "id": "Z5",
+      "kind": "infected",
+      "x": 2380,
+      "y": 1780,
+      "lv": "C1",
+      "region": "WK",
+      "anchor": "WK_C1"
+    },
+    {
+      "id": "Z6",
+      "kind": "infected",
+      "x": 2920,
+      "y": 1780,
+      "lv": "C1",
+      "region": "CT",
+      "anchor": "CT_C1"
+    },
+    {
+      "id": "Z7",
+      "kind": "infected",
+      "x": 3860,
+      "y": 1780,
+      "lv": "C1",
+      "region": "CT",
+      "anchor": "TW_C1"
+    },
+    {
+      "id": "Z8",
+      "kind": "infected",
+      "x": 4760,
+      "y": 1780,
+      "lv": "C1",
+      "region": "CG",
+      "anchor": "BW_C1"
+    },
+    {
+      "id": "Z9",
+      "kind": "infected",
+      "x": 5430,
+      "y": 1780,
+      "lv": "C1",
+      "region": "EL",
+      "anchor": "EL_C1"
+    },
+    {
+      "id": "Z10",
+      "kind": "infected",
+      "x": 6200,
+      "y": 1780,
+      "lv": "C1",
+      "region": "EL",
+      "anchor": "CH_C1"
+    },
+    {
+      "id": "Z11",
+      "kind": "infected",
+      "x": 6900,
+      "y": 1780,
+      "lv": "C1",
+      "region": "EW",
+      "anchor": "EW_C1"
+    },
+    {
+      "id": "Z12",
+      "kind": "infected",
+      "x": 7350,
+      "y": 1780,
+      "lv": "C1",
+      "region": "EW",
+      "anchor": "ARM_C1"
+    },
+    {
+      "id": "Z13",
+      "kind": "infected",
+      "x": 5595,
+      "y": 1470,
+      "lv": "G2",
+      "region": "EL",
+      "anchor": "EL_G2"
+    },
+    {
+      "id": "Z14",
+      "kind": "infected",
+      "x": 4250,
+      "y": 1470,
+      "lv": "G2",
+      "region": "CT",
+      "anchor": "TW_G2"
+    },
+    {
+      "id": "Z15",
+      "kind": "infected",
+      "x": 7940,
+      "y": 1780,
+      "lv": "C1",
+      "region": "EW",
+      "anchor": "WALL_C1"
+    },
+    {
+      "id": "A1",
+      "kind": "supply",
+      "x": 2350,
+      "y": 1470,
+      "lv": "G2",
+      "region": "WK",
+      "anchor": "WK_G2"
+    },
+    {
+      "id": "A2",
+      "kind": "supply",
+      "x": 2990,
+      "y": 1620,
+      "lv": "G1",
+      "region": "CT",
+      "anchor": "CT_G1"
+    },
+    {
+      "id": "A3",
+      "kind": "supply",
+      "x": 5650,
+      "y": 1330,
+      "lv": "U1",
+      "region": "EL",
+      "anchor": "EL_U1"
+    },
+    {
+      "id": "A4",
+      "kind": "supply",
+      "x": 1280,
+      "y": 1950,
+      "lv": "C0",
+      "region": "WG",
+      "anchor": "POOL_C0"
+    },
+    {
+      "id": "A5",
+      "kind": "supply",
+      "x": 2500,
+      "y": 1780,
+      "lv": "C1",
+      "region": "WK",
+      "anchor": "WK_C1"
+    },
+    {
+      "id": "A6",
+      "kind": "supply",
+      "x": 6390,
+      "y": 1620,
+      "lv": "G1",
+      "region": "EL",
+      "anchor": "CH_G1"
+    },
+    {
+      "id": "A7",
+      "kind": "supply",
+      "x": 7410,
+      "y": 1330,
+      "lv": "U1",
+      "region": "EW",
+      "anchor": "ARM_U1"
+    },
+    {
+      "id": "A8",
+      "kind": "supply",
+      "x": 2430,
+      "y": 1030,
+      "lv": "RW",
+      "region": "WK",
+      "anchor": "WK_RW"
+    },
+    {
+      "id": "A9",
+      "kind": "supply",
+      "x": 990,
+      "y": 1180,
+      "lv": "U2",
+      "region": "WG",
+      "anchor": "WG_U2"
+    },
+    {
+      "id": "A10",
+      "kind": "supply",
+      "x": 4010,
+      "y": 860,
+      "lv": "SP",
+      "region": "CT",
+      "anchor": "TW_SP"
+    },
+    {
+      "id": "A11",
+      "kind": "supply",
+      "x": 4480,
+      "y": 1470,
+      "lv": "G2",
+      "region": "CG",
+      "anchor": "BW_G2"
+    },
+    {
+      "id": "A12",
+      "kind": "supply",
+      "x": 4260,
+      "y": 1330,
+      "lv": "U1",
+      "region": "CT",
+      "anchor": "TW_U1_E"
+    },
+    {
+      "id": "A13",
+      "kind": "supply",
+      "x": 8050,
+      "y": 1470,
+      "lv": "G2",
+      "region": "EW",
+      "anchor": "WALL_G2"
+    }
+  ],
+  "bodyContract": {
+    "human": {
+      "width": 22,
+      "height": 36
+    },
+    "motherTitan": {
+      "width": 62,
+      "height": 86
+    }
+  },
+  "droppedStairs": []
+}

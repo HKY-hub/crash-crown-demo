@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>生化追击 · 地图编辑器</title>
+<link rel="stylesheet" href="css/style.css">
+<style>
+  body { overflow:hidden; }
+  #wrap { flex-direction:column; gap:8px; padding:12px; }
+  #editorTop { width:100%; max-width:1200px; display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+  #editorTop h1 { color:#baff5c; font-size:20px; letter-spacing:3px; margin-right:auto; }
+  .btn { padding:7px 16px; border-radius:8px; border:1px solid #2c5a42; background:#0d1812; color:#9fceb0; cursor:pointer; font-size:13px; }
+  .btn:hover { background:#14301f; }
+  .btn.primary { background:linear-gradient(180deg,#7bff5e,#2fc85a); color:#0b1a10; font-weight:700; border:none; }
+  .btn.danger { border-color:#7a2c20; color:#ff9a7a; }
+  #editorBody { display:flex; gap:10px; width:100%; max-width:1200px; flex:1; min-height:0; }
+  #toolbar { width:148px; flex-shrink:0; background:rgba(12,18,16,.92); border:1px solid #2c5a42; border-radius:10px; padding:12px; overflow:auto; }
+  #toolbar h3 { color:#9fceb0; font-size:13px; margin-bottom:10px; letter-spacing:2px; }
+  .tool { display:block; width:100%; text-align:left; padding:8px 10px; margin-bottom:6px; border-radius:6px; border:1px solid #2c5a42; background:#0d1812; color:#bfe8cc; cursor:pointer; font-size:13px; }
+  .tool:hover { background:#14301f; }
+  .tool.active { background:#1d7a45; color:#eafff0; border-color:#3dff90; }
+  .tool .sw { display:inline-block; width:12px; height:12px; border-radius:3px; margin-right:8px; vertical-align:-1px; }
+  .toolbar-sep { height:1px; background:#24402f; margin:10px 0; }
+  #canvasBox { position:relative; flex:1; background:#05080a; border:1px solid #2c5a42; border-radius:10px; overflow:hidden; }
+  #mapCanvas { display:block; width:100%; height:100%; cursor:crosshair; }
+  #props { position:absolute; left:10px; bottom:10px; background:rgba(10,16,13,.92); border:1px solid #2c5a42; border-radius:8px; padding:8px 12px; display:flex; gap:14px; align-items:center; font-size:12px; color:#9fceb0; }
+  #props label { display:flex; align-items:center; gap:6px; }
+  #props input { width:64px; background:#0d1812; border:1px solid #2c5a42; color:#eafff0; border-radius:4px; padding:3px 6px; font-size:12px; }
+  #hint { position:absolute; right:10px; bottom:10px; color:#6f9a7d; font-size:12px; background:rgba(10,16,13,.85); padding:6px 10px; border-radius:6px; }
+  #modal { position:fixed; inset:0; display:none; align-items:center; justify-content:center; background:rgba(5,8,10,.6); z-index:50; }
+  #modal.show { display:flex; }
+  #modal .panel { max-width:640px; width:90%; text-align:left; }
+  #modal textarea { width:100%; height:220px; background:#0d1812; border:1px solid #2c5a42; color:#d8ffe2; border-radius:6px; padding:8px; font-size:12px; font-family:Consolas,monospace; resize:vertical; }
+  #modal .mbtn-row { display:flex; gap:10px; margin-top:12px; justify-content:center; }
+  #stat { color:#6f9a7d; font-size:12px; }
+  #cfgModal { position:fixed; inset:0; display:none; align-items:center; justify-content:center; background:rgba(5,8,10,.6); z-index:60; }
+  #cfgModal.show { display:flex; }
+  #cfgModal .cfg-panel { max-width:440px; width:92%; text-align:left; }
+  #cfgFields { margin:8px 0; }
+  #cfgFields .row { display:flex; align-items:center; gap:8px; margin:7px 0; font-size:13px; color:#bfe8cc; }
+  #cfgFields label { display:flex; align-items:center; gap:8px; margin:7px 0; font-size:13px; color:#bfe8cc; cursor:pointer; }
+  #cfgFields input[type=number] { width:70px; background:#0d1812; border:1px solid #2c5a42; color:#eafff0; border-radius:4px; padding:3px 6px; }
+  #cfgFields input[type=checkbox] { accent-color:#3dff90; }
+  #cfgFields .hint { color:#6f9a7d; font-size:11px; margin:2px 0 6px; }
+</style>
+</head>
+<body>
+<div id="wrap">
+  <div id="editorTop">
+    <h1>✎ 地图编辑器</h1>
+    <span id="stat"></span>
+    <button class="btn" id="clearBtn">清空</button>
+    <button class="btn" id="defaultBtn">恢复默认</button>
+    <button class="btn" id="importBtn">导入</button>
+    <button class="btn" id="exportBtn">导出</button>
+    <button class="btn primary" id="saveBtn">保存</button>
+    <button class="btn primary" id="testBtn">试玩</button>
+    <button class="btn" id="backBtn">返回</button>
+  </div>
+
+  <div id="editorBody">
+    <div id="toolbar">
+      <h3>工具</h3>
+      <button class="tool active" data-tool="ground"><span class="sw" style="background:#4a8f3f"></span>地面</button>
+      <button class="tool" data-tool="platform"><span class="sw" style="background:#5d6770"></span>平台</button>
+      <button class="tool" data-tool="oneway"><span class="sw" style="background:#a1887f"></span>单向平台</button>
+      <button class="tool" data-tool="erase"><span class="sw" style="background:#333"></span>删除</button>
+      <div class="toolbar-sep"></div>
+      <button class="tool" data-tool="spawnHuman"><span class="sw" style="background:#4d6fe0"></span>人类出生点</button>
+      <button class="tool" data-tool="spawnZombie"><span class="sw" style="background:#ff5252"></span>僵尸出生点</button>
+      <button class="tool" data-tool="escape"><span class="sw" style="background:#3dff90"></span>撤离点</button>
+      <div class="toolbar-sep"></div>
+      <button class="tool" data-tool="respawn"><span class="sw" style="background:#b388ff"></span>幽灵复活点</button>
+      <button class="tool" data-tool="shortcut"><span class="sw" style="background:#ff8a50"></span>近路出口</button>
+      <button class="tool" data-tool="trigger"><span class="sw" style="background:#4dd0e1"></span>踩线触发器</button>
+      <button class="tool" data-tool="portal"><span class="sw" style="background:#42a5f5"></span>传送门</button>
+      <div class="toolbar-sep"></div>
+      <button class="tool" data-tool="ammo"><span class="sw" style="background:#ffd740"></span>弹药箱</button>
+      <button class="tool" data-tool="weapon"><span class="sw" style="background:#ff8a65"></span>武器箱</button>
+      <button class="tool" data-tool="capsule"><span class="sw" style="background:#fff59d"></span>能量胶囊</button>
+      <button class="tool" data-tool="key"><span class="sw" style="background:#80cbc4"></span>钥匙</button>
+      <button class="tool" data-tool="crystal"><span class="sw" style="background:#ce93d8"></span>紫色水晶</button>
+      <div class="toolbar-sep"></div>
+      <button class="tool" data-tool="mechDoor"><span class="sw" style="background:#607d8b"></span>机关·大门</button>
+      <button class="tool" data-tool="mechTrap"><span class="sw" style="background:#e57373"></span>机关·陷阱</button>
+      <button class="tool" data-tool="mechWind"><span class="sw" style="background:#81d4fa"></span>机关·风场</button>
+      <button class="tool" data-tool="mechPlatform"><span class="sw" style="background:#aebfbe"></span>机关·平台</button>
+      <button class="tool" data-tool="mechBeam"><span class="sw" style="background:#a5d6a7"></span>机关·光线</button>
+    </div>
+    <div id="canvasBox">
+      <canvas id="mapCanvas"></canvas>
+      <div id="props">
+        <label>世界宽度 <input id="propW" type="number" min="400" step="50"></label>
+        <label>地面高度 <input id="propGround" type="number" min="200" step="10"></label>
+        <label>网格 <input id="propGrid" type="number" min="8" step="8"></label>
+      </div>
+      <div id="hint">拖动绘制 · 点类元素点击放置、再点删除 · 右键取消</div>
+    </div>
+  </div>
+</div>
+
+<div id="modal"><div class="panel">
+  <h2 id="modalTitle" class="title small">导出地图</h2>
+  <textarea id="modalText" spellcheck="false"></textarea>
+  <div class="mbtn-row">
+    <button class="btn primary" id="modalOk">确定</button>
+    <button class="btn" id="modalCancel">取消</button>
+  </div>
+</div></div>
+
+<div id="cfgModal"><div class="panel cfg-panel">
+  <h2 id="cfgTitle" class="title small">配置</h2>
+  <div id="cfgFields"></div>
+  <div class="mbtn-row">
+    <button class="btn primary" id="cfgOk">确定</button>
+    <button class="btn" id="cfgCancel">取消</button>
+  </div>
+</div></div>
+
+<script src="js/config.js"></script>
+<script src="js/level.js"></script>
+<script>
+// ============ 地图编辑器 ============
+const canvas = document.getElementById('mapCanvas');
+const ctx = canvas.getContext('2d');
+
+const STORE_KEY = 'zombie_custom_map';
+const state = {
+  solids: [], spawnHuman: { x: 140, y: 380 }, spawnZombie: { x: 780, y: 380 },
+  escapeZone: { x: 1400, y: 380, w: 240, h: 64 }, worldW: 2000, groundTop: CFG.GROUND_TOP,
+  stages: null,
+};
+let tool = 'ground';
+let grid = 16;
+let drag = null;            // 绘制中的矩形（世界坐标）
+let hoverSolid = -1;
+
+// ---------- 关卡（stage）数据：编辑器为单关，机制元素全部写入该关 ----------
+function makeStage() {
+  return {
+    idx: 0, startX: 0, endX: state.worldW, name: '单关',
+    spawnHuman: state.spawnHuman, respawns: [], shortcutSpawns: [],
+    ammoBoxes: [], weaponBoxes: [], capsules: [], keys: [], crystals: [],
+    triggers: [], mechanisms: [], portal: null, guardTimer: 45, escapeZone: state.escapeZone,
+  };
+}
+function curStage() {
+  if (!state.stages || !state.stages.length) state.stages = [makeStage()];
+  return state.stages[0];
+}
+function syncStage() {
+  const st = curStage();
+  st.endX = state.worldW;
+  st.spawnHuman = state.spawnHuman;
+  st.escapeZone = state.escapeZone;
+}
+
+// ---------- 存取 ----------
+function snapshot() {
+  syncStage();
+  state.solids.forEach(s => { s.x = Math.round(s.x); s.y = Math.round(s.y); s.w = Math.round(s.w); s.h = Math.round(s.h); });
+  return { solids: state.solids, spawnHuman: state.spawnHuman, spawnZombie: state.spawnZombie,
+           escapeZone: state.escapeZone, worldW: state.worldW, groundTop: state.groundTop,
+           stages: state.stages };
+}
+function applyMap(m) {
+  state.groundTop = m.groundTop || CFG.GROUND_TOP;
+  state.worldW = Math.max(400, m.worldW || 2000);
+  state.solids = (m.solids || []).map(s => ({ x: +s.x||0, y: +s.y||0, w: Math.max(1,+s.w||1), h: Math.max(1,+s.h||1), oneway: !!s.oneway }));
+  state.spawnHuman = m.spawnHuman || { x: 140, y: state.groundTop - 40 };
+  state.spawnZombie = m.spawnZombie || { x: 780, y: state.groundTop - 40 };
+  state.escapeZone = m.escapeZone || { x: 1200, y: state.groundTop - 64, w: 240, h: 64 };
+  if (Array.isArray(m.stages) && m.stages.length) {
+    state.stages = m.stages.map((s, i) => ({
+      idx: s.idx != null ? s.idx : i, startX: s.startX || 0, endX: s.endX || state.worldW,
+      name: s.name || ('第' + (i + 1) + '关'), spawnHuman: s.spawnHuman || state.spawnHuman,
+      respawns: (s.respawns || []).map(p => ({ ...p })), shortcutSpawns: (s.shortcutSpawns || []).map(p => ({ ...p })),
+      ammoBoxes: (s.ammoBoxes || []).map(p => ({ ...p })), weaponBoxes: (s.weaponBoxes || []).map(p => ({ ...p })),
+      capsules: (s.capsules || []).map(p => ({ ...p })), keys: (s.keys || []).map(p => ({ ...p })),
+      crystals: (s.crystals || []).map(p => ({ ...p })),
+      triggers: (s.triggers || []).map(t => ({ x: +t.x||0, y: +t.y||0, w: Math.max(8,+t.w||8), h: Math.max(8,+t.h||8), event: { ...(t.event || {}) } })),
+      mechanisms: (s.mechanisms || []).map(m0 => ({ ...m0 })),
+      portal: s.portal ? { ...s.portal } : null, guardTimer: s.guardTimer || 45, escapeZone: s.escapeZone || state.escapeZone,
+    }));
+  } else {
+    state.stages = [makeStage()];
+  }
+  syncProps(); resize();
+}
+function save() {
+  localStorage.setItem(STORE_KEY, JSON.stringify(snapshot()));
+  return snapshot();
+}
+function loadSaved() {
+  const raw = localStorage.getItem(STORE_KEY);
+  if (raw) { try { applyMap(JSON.parse(raw)); return; } catch (e) {} }
+  applyMap(Level.exportMap());   // 默认地图
+}
+
+// ---------- 画布 ----------
+function resize() {
+  canvas.width = state.worldW; canvas.height = CFG.WORLD_H;
+}
+function snap(v) { return Math.round(v / grid) * grid; }
+function worldFromEvent(e) {
+  const r = canvas.getBoundingClientRect();
+  const x = (e.clientX - r.left) / r.width * state.worldW;
+  const y = (e.clientY - r.top) / r.height * CFG.WORLD_H;
+  return { x, y };
+}
+function normRect(a, b) {
+  const x = Math.min(a.x, b.x), y = Math.min(a.y, b.y);
+  return { x: snap(x), y: snap(y), w: Math.max(grid, snap(Math.max(a.x, b.x)) - snap(x)), h: Math.max(grid, snap(Math.max(a.y, b.y)) - snap(y)) };
+}
+
+// ---------- 绘制 ----------
+function draw() {
+  ctx.clearRect(0, 0, state.worldW, CFG.WORLD_H);
+  // 背景
+  const g = ctx.createLinearGradient(0, 0, 0, CFG.WORLD_H);
+  g.addColorStop(0, '#0a1220'); g.addColorStop(0.55, '#101d17'); g.addColorStop(1, '#15261d');
+  ctx.fillStyle = g; ctx.fillRect(0, 0, state.worldW, CFG.WORLD_H);
+  // 网格
+  ctx.strokeStyle = 'rgba(120,200,150,0.08)'; ctx.lineWidth = 1;
+  ctx.beginPath();
+  for (let x = 0; x <= state.worldW; x += grid) { ctx.moveTo(x + .5, 0); ctx.lineTo(x + .5, CFG.WORLD_H); }
+  for (let y = 0; y <= CFG.WORLD_H; y += grid) { ctx.moveTo(0, y + .5); ctx.lineTo(state.worldW, y + .5); }
+  ctx.stroke();
+
+  // 地形
+  for (let i = 0; i < state.solids.length; i++) {
+    const s = state.solids[i];
+    const isGround = s.y + s.h >= CFG.WORLD_H - 1;
+    if (isGround) {
+      ctx.fillStyle = '#3c312c'; ctx.fillRect(s.x, s.y, s.w, s.h);
+      ctx.fillStyle = '#4a8f3f'; ctx.fillRect(s.x, s.y, s.w, 14);
+    } else if (s.oneway) {
+      ctx.fillStyle = '#8d6e63'; ctx.fillRect(s.x, s.y, s.w, s.h);
+      ctx.fillStyle = '#a1887f'; ctx.fillRect(s.x, s.y, s.w, 4);
+    } else {
+      ctx.fillStyle = '#5d6770'; ctx.fillRect(s.x, s.y, s.w, s.h);
+      ctx.strokeStyle = 'rgba(0,0,0,0.3)'; ctx.strokeRect(s.x + 1, s.y + 1, s.w - 2, s.h - 2);
+    }
+    if (i === hoverSolid) { ctx.strokeStyle = '#fff'; ctx.lineWidth = 2; ctx.strokeRect(s.x, s.y, s.w, s.h); }
+  }
+  // 撤离点
+  const ez = state.escapeZone;
+  const pulse = 0.5 + 0.5 * Math.sin(performance.now() / 400);
+  ctx.fillStyle = `rgba(60,255,140,${0.12 + pulse * 0.08})`; ctx.fillRect(ez.x, ez.y, ez.w, ez.h);
+  ctx.strokeStyle = `rgba(120,255,160,${0.5 + pulse * 0.4})`; ctx.lineWidth = 3; ctx.setLineDash([10, 6]);
+  ctx.strokeRect(ez.x + 3, ez.y + 3, ez.w - 6, ez.h - 6); ctx.setLineDash([]);
+  ctx.fillStyle = 'rgba(200,255,220,0.9)'; ctx.font = 'bold 15px sans-serif'; ctx.textAlign = 'center';
+  ctx.fillText('撤 离 点', ez.x + ez.w / 2, ez.y - 10);
+
+  // 出生点
+  marker(state.spawnHuman, '#4d6fe0', '人');
+  marker(state.spawnZombie, '#ff5252', '僵');
+
+  // ---------- 关卡机制元素 ----------
+  const st = curStage();
+  const sp = 0.5 + 0.5 * Math.sin(performance.now() / 400);
+
+  // 幽灵复活点（紫色）
+  for (const r of st.respawns) {
+    ctx.fillStyle = `rgba(179,136,255,${0.2 + sp * 0.18})`;
+    ctx.beginPath(); ctx.arc(r.x, r.y, 7, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = '#e1bee7'; ctx.font = 'bold 9px sans-serif'; ctx.textAlign = 'center';
+    ctx.fillText('复活', r.x, r.y - 12);
+  }
+  // 近路出口（橙色）
+  for (const r of st.shortcutSpawns) {
+    ctx.fillStyle = `rgba(255,138,80,${0.2 + sp * 0.18})`;
+    ctx.beginPath(); ctx.arc(r.x, r.y, 7, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = '#ffcc80'; ctx.font = 'bold 9px sans-serif'; ctx.textAlign = 'center';
+    ctx.fillText('近路', r.x, r.y - 12);
+  }
+  // 刷新点
+  for (const b of st.ammoBoxes) boxMark(b, '#ffd740', '弹');
+  for (const b of st.weaponBoxes) boxMark(b, '#ff8a65', '武');
+  for (const b of st.capsules) boxMark(b, '#fff59d', '能量');
+  for (const b of st.keys) boxMark(b, '#80cbc4', '钥');
+  for (const b of st.crystals) boxMark(b, '#ce93d8', '水');
+
+  // 踩线触发器（青色虚线框）
+  for (const tr of st.triggers) {
+    ctx.fillStyle = 'rgba(77,208,225,0.14)'; ctx.fillRect(tr.x, tr.y, tr.w, tr.h);
+    ctx.strokeStyle = 'rgba(77,208,225,0.85)'; ctx.lineWidth = 2; ctx.setLineDash([6, 4]);
+    ctx.strokeRect(tr.x + 1, tr.y + 1, tr.w - 2, tr.h - 2); ctx.setLineDash([]);
+    ctx.fillStyle = '#80deea'; ctx.font = 'bold 10px sans-serif'; ctx.textAlign = 'center';
+    ctx.fillText('踩线', tr.x + tr.w / 2, tr.y - 6);
+  }
+  // 传送门（蓝色）
+  if (st.portal) {
+    ctx.fillStyle = 'rgba(66,165,245,0.2)'; ctx.fillRect(st.portal.x, st.portal.y, st.portal.w, st.portal.h);
+    ctx.strokeStyle = 'rgba(100,181,246,0.9)'; ctx.lineWidth = 2;
+    ctx.strokeRect(st.portal.x + 1, st.portal.y + 1, st.portal.w - 2, st.portal.h - 2);
+    ctx.fillStyle = '#b3e5fc'; ctx.font = 'bold 10px sans-serif'; ctx.textAlign = 'center';
+    ctx.fillText('传送门', st.portal.x + st.portal.w / 2, st.portal.y - 6);
+  }
+  // 机关（大门/陷阱/风场/平台/光线）
+  for (const m of st.mechanisms) {
+    const mc = MECH_EDIT[m.type] || { name: m.type, color: '#ccc' };
+    ctx.fillStyle = 'rgba(255,255,255,0.08)'; ctx.fillRect(m.x, m.y, m.w, m.h);
+    ctx.strokeStyle = mc.color; ctx.lineWidth = 2;
+    ctx.strokeRect(m.x + 1, m.y + 1, m.w - 2, m.h - 2);
+    ctx.fillStyle = mc.color; ctx.font = 'bold 10px sans-serif'; ctx.textAlign = 'center';
+    ctx.fillText('机关·' + mc.name, m.x + m.w / 2, m.y - 6);
+  }
+
+  // 拖拽预览
+  if (drag) {
+    ctx.fillStyle = 'rgba(255,255,255,0.15)'; ctx.fillRect(drag.x, drag.y, drag.w, drag.h);
+    ctx.strokeStyle = '#fff'; ctx.lineWidth = 2; ctx.strokeRect(drag.x, drag.y, drag.w, drag.h);
+  }
+}
+const MECH_EDIT = {
+  door: { name: '大门', color: '#90a4ae' }, trap: { name: '陷阱', color: '#e57373' },
+  wind: { name: '风场', color: '#81d4fa' }, platform: { name: '平台', color: '#aebfbe' },
+  beam: { name: '光线', color: '#a5d6a7' }, bridge: { name: '断桥', color: '#8d6e63' },
+  rope: { name: '滑索', color: '#d7ccc8' }, lift: { name: '升降台', color: '#bcaaa4' },
+  shortcut: { name: '近路', color: '#ff8a50' },
+};
+function boxMark(b, color, label) {
+  ctx.fillStyle = color;
+  ctx.fillRect(b.x - 7, b.y - 7, 14, 14);
+  ctx.strokeStyle = '#fff'; ctx.lineWidth = 1; ctx.strokeRect(b.x - 7, b.y - 7, 14, 14);
+  ctx.fillStyle = '#000'; ctx.font = 'bold 8px sans-serif'; ctx.textAlign = 'center';
+  ctx.fillText(label, b.x, b.y + 3);
+}
+function marker(p, color, label) {
+  ctx.fillStyle = color; ctx.beginPath(); ctx.arc(p.x, p.y, 9, 0, Math.PI * 2); ctx.fill();
+  ctx.fillStyle = '#fff'; ctx.font = 'bold 10px sans-serif'; ctx.textAlign = 'center';
+  ctx.fillText(label, p.x, p.y + 3);
+  ctx.strokeStyle = color; ctx.setLineDash([4, 3]);
+  ctx.beginPath(); ctx.arc(p.x, p.y, 16, 0, Math.PI * 2); ctx.stroke(); ctx.setLineDash([]);
+}
+
+// ---------- 交互 ----------
+canvas.addEventListener('mousedown', e => {
+  if (e.button === 2) { drag = null; return; }
+  const p = worldFromEvent(e);
+  if (tool === 'ground') drag = { x: snap(p.x), y: 0, w: 0, h: 0, kind: 'ground' };
+  else if (tool === 'platform') drag = { x: snap(p.x), y: snap(p.y), w: 0, h: 0, kind: 'platform' };
+  else if (tool === 'oneway') drag = { x: snap(p.x), y: snap(p.y), w: 0, h: 0, kind: 'oneway' };
+  else if (tool === 'erase') eraseAt(p);
+  else if (tool === 'spawnHuman') { state.spawnHuman = { x: p.x, y: p.y }; draw(); }
+  else if (tool === 'spawnZombie') { state.spawnZombie = { x: p.x, y: p.y }; draw(); }
+  else if (tool === 'escape') drag = { x: snap(p.x), y: snap(p.y), w: 0, h: 0, kind: 'escape' };
+  else if (tool === 'respawn' || tool === 'shortcut' || tool === 'ammo' || tool === 'weapon' || tool === 'capsule' || tool === 'key' || tool === 'crystal') {
+    placePoint(tool, p); draw();
+  } else if (tool === 'trigger' || tool === 'portal' || tool.indexOf('mech') === 0) {
+    drag = { x: snap(p.x), y: snap(p.y), w: 0, h: 0, kind: tool };
+  }
+});
+function placePoint(kind, p) {
+  const st = curStage();
+  let arr;
+  if (kind === 'respawn') arr = st.respawns;
+  else if (kind === 'shortcut') arr = st.shortcutSpawns;
+  else if (kind === 'ammo') arr = st.ammoBoxes;
+  else if (kind === 'weapon') arr = st.weaponBoxes;
+  else if (kind === 'capsule') arr = st.capsules;
+  else if (kind === 'key') arr = st.keys;
+  else arr = st.crystals;
+  const hit = arr.findIndex(q => Math.abs(q.x - p.x) < 12 && Math.abs(q.y - p.y) < 12);
+  if (hit >= 0) { arr.splice(hit, 1); return; }   // 再次点击已存在点 = 删除
+  const b = { x: snap(p.x), y: snap(p.y) };
+  if (kind === 'weapon') { b.weapon = 'rpg7'; arr.push(b); openWeaponPick(b); return; }
+  arr.push(b);
+}
+canvas.addEventListener('mousemove', e => {
+  const p = worldFromEvent(e);
+  if (drag) {
+    if (drag.kind === 'ground') { drag.x = Math.min(p.x, drag.x); drag.w = Math.abs(p.x - drag.x); }
+    else { const r = normRect(drag, p); drag.x = r.x; drag.y = r.y; drag.w = r.w; drag.h = r.h; }
+    draw(); return;
+  }
+  if (tool === 'erase' || tool === 'platform' || tool === 'oneway') {
+    hoverSolid = state.solids.findIndex(s => p.x > s.x && p.x < s.x + s.w && p.y > s.y && p.y < s.y + s.h);
+    draw();
+  }
+});
+window.addEventListener('mouseup', e => {
+  if (!drag) return;
+  const d = drag; drag = null;
+  if (d.kind === 'ground') {
+    const x0 = snap(Math.min(d.x, d.x + d.w));
+    const w = Math.max(grid, snap(Math.max(d.x, d.x + d.w)) - x0);
+    if (w >= grid) state.solids.push({ x: x0, y: state.groundTop, w, h: CFG.WORLD_H - state.groundTop });
+  } else if (d.kind === 'platform' || d.kind === 'oneway') {
+    if (d.w >= grid && d.h >= grid) {
+      if (d.kind === 'oneway') d.h = Math.max(14, d.h);
+      state.solids.push({ x: d.x, y: d.y, w: d.w, h: d.h, oneway: d.kind === 'oneway' });
+    }
+  } else if (d.kind === 'escape') {
+    if (d.w >= grid && d.h >= grid) state.escapeZone = { x: d.x, y: d.y, w: d.w, h: d.h };
+  } else if (d.kind === 'trigger' || d.kind === 'portal' || (d.kind && d.kind.indexOf('mech') === 0)) {
+    if (d.w >= grid && d.h >= grid) {
+      const st = curStage();
+      if (d.kind === 'trigger') {
+        const tr = { x: d.x, y: d.y, w: d.w, h: d.h, event: { respawn: null, guard: null } };
+        st.triggers.push(tr);
+        draw(); openTriggerConfig(tr);
+      } else if (d.kind === 'portal') {
+        st.portal = { x: d.x, y: d.y, w: d.w, h: d.h, need: 'guard', opened: false };
+        draw(); openPortalConfig();
+      } else {
+        const m = { type: d.kind.slice(4), x: d.x, y: d.y, w: d.w, h: d.h };
+        if (m.type === 'door') { m.hp = 300; m.closed = true; }
+        if (m.type === 'wind') { m.dir = -1; m.power = 220; }
+        if (m.type === 'platform') { m.span = 150; m.speed = 60; }
+        if (m.type === 'beam') { m.tx = 200; }
+        st.mechanisms.push(m);
+      }
+    }
+  }
+  draw();
+});
+canvas.addEventListener('contextmenu', e => { e.preventDefault(); drag = null; });
+function eraseAt(p) {
+  for (let i = state.solids.length - 1; i >= 0; i--) {
+    const s = state.solids[i];
+    if (p.x >= s.x && p.x <= s.x + s.w && p.y >= s.y && p.y <= s.y + s.h) state.solids.splice(i, 1);
+  }
+  const ez = state.escapeZone;
+  if (ez && p.x > ez.x && p.x < ez.x + ez.w && p.y > ez.y && p.y < ez.y + ez.h) state.escapeZone = null;
+  const st = curStage();
+  if (st.portal && p.x > st.portal.x && p.x < st.portal.x + st.portal.w && p.y > st.portal.y && p.y < st.portal.y + st.portal.h) st.portal = null;
+  const inR = q => p.x > q.x - 12 && p.x < q.x + 12 && p.y > q.y - 12 && p.y < q.y + 12;
+  st.respawns = st.respawns.filter(q => !inR(q));
+  st.shortcutSpawns = st.shortcutSpawns.filter(q => !inR(q));
+  st.ammoBoxes = st.ammoBoxes.filter(q => !inR(q));
+  st.weaponBoxes = st.weaponBoxes.filter(q => !inR(q));
+  st.capsules = st.capsules.filter(q => !inR(q));
+  st.keys = st.keys.filter(q => !inR(q));
+  st.crystals = st.crystals.filter(q => !inR(q));
+  const inM = m => p.x > m.x && p.x < m.x + m.w && p.y > m.y && p.y < m.y + m.h;
+  st.triggers = st.triggers.filter(t => !inM(t));
+  st.mechanisms = st.mechanisms.filter(m => !inM(m));
+  draw();
+}
+
+// ---------- 工具栏 ----------
+document.querySelectorAll('.tool').forEach(b => b.addEventListener('click', () => {
+  document.querySelectorAll('.tool').forEach(x => x.classList.remove('active'));
+  b.classList.add('active'); tool = b.dataset.tool; drag = null;
+}));
+
+// ---------- 属性 ----------
+function syncProps() {
+  document.getElementById('propW').value = state.worldW;
+  document.getElementById('propGround').value = state.groundTop;
+  document.getElementById('propGrid').value = grid;
+}
+document.getElementById('propW').addEventListener('change', e => {
+  state.worldW = Math.max(400, parseInt(e.target.value, 10) || 400);
+  resize(); draw();
+});
+document.getElementById('propGround').addEventListener('change', e => {
+  state.groundTop = Math.max(200, parseInt(e.target.value, 10) || CFG.GROUND_TOP);
+  draw();
+});
+document.getElementById('propGrid').addEventListener('change', e => {
+  grid = Math.max(8, parseInt(e.target.value, 10) || 16);
+  syncProps(); draw();
+});
+
+// ---------- 顶栏按钮 ----------
+document.getElementById('clearBtn').addEventListener('click', () => {
+  state.solids = []; state.escapeZone = null; draw();
+});
+document.getElementById('defaultBtn').addEventListener('click', () => {
+  applyMap(Level.exportMap()); draw();
+});
+document.getElementById('saveBtn').addEventListener('click', () => {
+  save();
+  flashStat('已保存到本地');
+});
+document.getElementById('testBtn').addEventListener('click', () => {
+  save();
+  window.open('index.html?custom=1', '_blank');
+});
+document.getElementById('backBtn').addEventListener('click', () => { location.href = 'index.html'; });
+
+// 导入 / 导出弹窗
+const modal = document.getElementById('modal');
+function openModal(title, text, onOk) {
+  document.getElementById('modalTitle').textContent = title;
+  document.getElementById('modalText').value = text;
+  modal.classList.add('show');
+  modal._onOk = onOk;
+}
+document.getElementById('modalCancel').addEventListener('click', () => modal.classList.remove('show'));
+document.getElementById('modalOk').addEventListener('click', () => {
+  if (modal._onOk) modal._onOk(document.getElementById('modalText').value);
+  modal.classList.remove('show');
+});
+document.getElementById('exportBtn').addEventListener('click', () => {
+  openModal('导出地图 JSON（可分享给他人）', JSON.stringify(snapshot(), null, 2), () => flashStat('已导出'));
+});
+document.getElementById('importBtn').addEventListener('click', () => {
+  openModal('粘贴地图 JSON 导入', '', txt => {
+    try { applyMap(JSON.parse(txt)); draw(); flashStat('导入成功'); }
+    catch (e) { alert('JSON 解析失败：' + e.message); }
+  });
+});
+
+// ---------- 机制元素配置弹窗 ----------
+const cfgModal = document.getElementById('cfgModal');
+const PICKUP_CHOICES = [
+  ['rpg7', 'RPG-7 火箭筒'], ['gl', '榴弹发射器'], ['laser', '激光毁灭者'],
+  ['flamer', '火焰喷射器'], ['xuanyuan', '轩辕剑'], ['shock', '震撼弹'], ['adrenaline', '激素针'],
+];
+function openCfg(title, fields, onOk) {
+  document.getElementById('cfgTitle').textContent = title;
+  const box = document.getElementById('cfgFields');
+  box.innerHTML = '';
+  fields.forEach(f => {
+    if (f.type === 'bool') {
+      const lab = document.createElement('label');
+      lab.innerHTML = `<input type="checkbox" ${f.value ? 'checked' : ''}> <span>${f.label}</span>`;
+      lab.querySelector('input')._key = f.key;
+      box.appendChild(lab);
+    } else if (f.type === 'num') {
+      const row = document.createElement('div'); row.className = 'row';
+      row.innerHTML = `<span>${f.label}</span> <input type="number" value="${f.value != null ? f.value : ''}" step="${f.step || 1}">`;
+      row.querySelector('input')._key = f.key;
+      box.appendChild(row);
+    } else if (f.type === 'select') {
+      const row = document.createElement('div'); row.className = 'row';
+      const opts = f.choices.map(c => `<option value="${c[0]}" ${c[0] === f.value ? 'selected' : ''}>${c[1]}</option>`).join('');
+      row.innerHTML = `<span>${f.label}</span> <select style="flex:1;background:#0d1812;border:1px solid #2c5a42;color:#eafff0;border-radius:4px;padding:3px 6px;">${opts}</select>`;
+      row.querySelector('select')._key = f.key;
+      box.appendChild(row);
+    } else {
+      const hint = document.createElement('div'); hint.className = 'hint'; hint.textContent = f.label;
+      box.appendChild(hint);
+    }
+  });
+  cfgModal._onOk = onOk;
+  cfgModal.classList.add('show');
+}
+function cfgCollect() {
+  const out = {};
+  document.querySelectorAll('#cfgFields input, #cfgFields select').forEach(el => {
+    const k = el._key; if (!k) return;
+    if (el.type === 'checkbox') out[k] = el.checked;
+    else if (el.type === 'number') out[k] = el.value === '' ? null : parseFloat(el.value);
+    else out[k] = el.value;
+  });
+  return out;
+}
+document.getElementById('cfgOk').addEventListener('click', () => {
+  if (cfgModal._onOk) cfgModal._onOk(cfgCollect());
+  cfgModal.classList.remove('show');
+});
+document.getElementById('cfgCancel').addEventListener('click', () => cfgModal.classList.remove('show'));
+
+// 踩线触发器：事件配置
+function openTriggerConfig(tr) {
+  const ev = tr.event;
+  openCfg('踩线触发器 · 触发事件', [
+    { key: 'respawnIdx', type: 'num', label: '切换幽灵复活点到第几关？（留空 = 不切）', value: ev.respawn != null ? ev.respawn : 0 },
+    { key: 'guardIdx', type: 'num', label: '启动第几关防守倒计时？（留空 = 不启动）', value: ev.guard != null ? ev.guard : 0 },
+    { key: 'shortcut', type: 'bool', label: '开启幽灵近路', value: !!ev.shortcut },
+    { key: 'close', type: 'bool', label: '关闭大门（阻挡幽灵）', value: !!ev.close },
+    { key: 'bridge', type: 'bool', label: '摧毁断桥', value: !!ev.bridge },
+    { key: 'finale', type: 'bool', label: '最终关（finale）', value: !!ev.finale },
+  ], out => {
+    ev.respawn = out.respawnIdx != null ? out.respawnIdx : null;
+    ev.guard = out.guardIdx != null ? out.guardIdx : null;
+    ev.shortcut = !!out.shortcut; ev.close = !!out.close; ev.bridge = !!out.bridge; ev.finale = !!out.finale;
+    draw();
+  });
+}
+// 传送门：开门条件
+function openPortalConfig() {
+  const st = curStage();
+  openCfg('传送门 · 开启条件', [
+    { key: 'need', type: 'select', label: '开启条件：', value: st.portal.need || 'guard',
+      choices: [['guard', '防守倒计时结束'], ['key', '拾取钥匙'], ['none', '始终开启']] },
+  ], out => { st.portal.need = out.need; draw(); });
+}
+// 武器箱：选择特殊武器
+function openWeaponPick(b) {
+  openCfg('特殊武器箱 · 选择武器', [
+    { key: 'weapon', type: 'select', label: '武器：', value: b.weapon || 'rpg7', choices: PICKUP_CHOICES },
+  ], out => { b.weapon = out.weapon; draw(); });
+}
+
+let statTimer = null;
+function flashStat(msg) {
+  const el = document.getElementById('stat');
+  el.textContent = msg;
+  clearTimeout(statTimer); statTimer = setTimeout(() => el.textContent = '', 1800);
+}
+
+// ---------- 启动 ----------
+loadSaved();
+syncProps();
+resize();
+draw();
+requestAnimationFrame(function loop() { draw(); requestAnimationFrame(loop); });
+</script>
+</body>
+</html>

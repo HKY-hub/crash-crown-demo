@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>生化追击 · 横版</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><rect width='16' height='16' fill='%2304070a'/><rect x='3' y='3' width='4' height='4' fill='%2335f0a0'/><rect x='9' y='9' width='4' height='4' fill='%23ff3b3b'/></svg>">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/ui-shell.css">
+</head>
+<body>
+<div id="wrap">
+  <canvas id="game" width="960" height="540"></canvas>
+
+  <!-- 主菜单 -->
+  <div id="menu" class="overlay">
+    <div class="panel">
+      <h1 class="title">生 化 追 击</h1>
+      <p class="subtitle">HORIZONTAL · 横版逃亡</p>
+
+      <div class="select-row">
+        <div class="mp-tabs">
+          <button id="singleBtn" class="mp-tab active">单人游戏</button>
+          <button id="multiBtn" class="mp-tab">联网多人</button>
+          <button id="warehouseBtn" class="mp-tab">仓库</button>
+          <button id="trainingBtn" class="mp-tab">训练营</button>
+          <button id="settingsBtn" class="mp-tab">设置</button>
+        </div>
+      </div>
+
+      <div id="operatorSelectRow" class="select-row operator-row">
+        <label class="label" for="operatorSkin">特战队员外观</label>
+        <canvas id="operatorSkinPreview" width="44" height="64" aria-hidden="true"></canvas>
+        <select id="operatorSkin" class="mp-input"></select>
+      </div>
+
+      <!-- 单人 -->
+      <div id="singlePanel">
+        <div class="select-row">
+          <span class="label">游戏模式</span>
+          <div class="radios" id="modeRadios">
+            <label class="mode-vs"><input type="radio" name="mode" value="escape" checked><span>逃亡模式</span></label>
+            <label class="mode-arena"><input type="radio" name="mode" value="arena"><span>竞技模式</span></label>
+            <label class="mode-siege"><input type="radio" name="mode" value="siege"><span>战术攻防</span></label>
+            <label class="mode-villa"><input type="radio" name="mode" value="villa"><span>别墅突袭</span></label>
+            <!-- 疾驰列车走「逃亡」回合：它的玩法结构就是「跑到检查点 → 守住 N 秒 → 推进线开锁」，
+                 与主循环原生的 stage/guardTimer/advanceLine 同一件事，所以不借攻防回合。
+                 配色沿用 #modeRadios 的通用样式（css/style.css 是别人在改的文件，不往里加规则）。 -->
+            <label class="mode-train"><input type="radio" name="mode" value="train"><span>疾驰列车</span></label>
+          </div>
+        </div>
+        <div class="select-row">
+          <span class="label">房间人数（上限30）</span>
+          <div class="radios" id="roomRadios">
+            <label><input type="radio" name="room" value="8"><span>8 人</span></label>
+            <label><input type="radio" name="room" value="16"><span>16 人</span></label>
+            <label><input type="radio" name="room" value="24"><span>24 人</span></label>
+            <label><input type="radio" name="room" value="30" checked><span>30 人</span></label>
+          </div>
+        </div>
+        <div class="select-row">
+          <label class="custom-row">
+            <input type="checkbox" id="useCustomMap"><span>使用自定义地图（编辑器）</span>
+          </label>
+          <a class="editor-link" href="editor.html">✎ 打开地图编辑器</a>
+        </div>
+        <div class="select-row">
+          <label class="custom-row">
+            <input type="checkbox" id="backpackItem" checked><span>拥有生化追击背包道具（补给点 E 可切换背包，未勾选仅补弹药）</span>
+          </label>
+        </div>
+        <div class="select-row">
+          <span class="label">开局生化背包（大厅选装，进入对局直接使用）</span>
+          <select id="startBackpack" class="mp-input"></select>
+          <a class="editor-link" id="toWarehouseLink" href="javascript:void(0)">⚙ 配置仓库</a>
+        </div>
+        <!-- 战术攻防：干员选择（攻守各一套，换边时自动切换对应侧干员） -->
+        <div class="select-row siege-row">
+          <span class="label siege-label">攻防干员</span>
+          <div class="siege-cols">
+            <label class="siege-col"><em>攻方</em>
+              <select id="siegeAtkRole" class="mp-input"></select>
+            </label>
+            <label class="siege-col"><em>守方</em>
+              <select id="siegeDefRole" class="mp-input"></select>
+            </label>
+          </div>
+        </div>
+        <button id="startBtn" class="start-btn">开 始 游 戏</button>
+        <div class="controls">
+          <p><b>操作说明</b></p>
+          <p>A/D 或 ←/→ 移动　　W / Space 跳跃</p>
+          <p>鼠标 瞄准　　按住左键 射击 / 近战挥砍；投掷物 点按=直接丢 / 长按=蓄力（抛物线变远变直）　　R 换弹</p>
+          <p>数字键 1-4 切换槽位：1主武器 2副武器 3近战 4投掷（滚轮在武器类别内切换具体枪械）</p>
+          <p>滚轮 在类别内切换具体武器　　E 交互（弹药箱 / 武器箱 / 关门 / 断桥 / 滑索）</p>
+          <p>9 / 0 装备地面拾取武器　　G 丢弃拾取武器　　H 能量满变英雄</p>
+          <p>投掷物：切到投掷物显示抛物线预览；引信类（手雷 / 高爆 / 闪光 / 烟雾 / 烟气 / 治疗 / 冰冻）先按 <b>鼠标右键拔插销</b>，引信立即计时，可控制空爆 / 延迟引爆；拔销不丢会在原地引爆</p>
+          <p>鼠标右键 开镜：按当前倍率缩放并显示瞄准镜（配件入口已收起，见 config.js 的 配件入口开放）</p>
+          <p>生化背包：弹药补给点按 E 弹出背包界面，按 1-8 切换（3s 冷却）；B 键全图切换下一号背包（30s 冷却，人类状态可用）</p>
+          <p>幽灵：Q 释放主动 Buff（紫水晶获得）；死亡清空 Buff、切换关卡保留</p>
+        </div>
+        <p class="tip">开局全员人类：10 秒倒计时内可移动散开，结束后随机 4 名幸存者变异为母体。人类：踩线推进关卡 → 守住防守倒计时 → 越过绿色前线继续，逃到终点撤离获胜；被感染后化为僵尸作战。幽灵：死亡冷却后在当前激活复活点重生，随人类踩线前移形成追尾；关卡切换后强制在新关复活点出生。</p>
+      </div>
+
+      <!-- 联网多人 -->
+      <div id="multiPanel" class="hidden">
+        <div class="select-row">
+          <span class="label">服务器地址</span>
+          <input id="mpServer" class="mp-input" value="ws://localhost:8123" spellcheck="false">
+        </div>
+        <div class="mp-grid">
+          <div class="select-row">
+            <span class="label">昵称</span>
+            <input id="mpName" class="mp-input" value="玩家">
+          </div>
+          <div class="select-row">
+            <span class="label">房间名</span>
+            <input id="mpRoom" class="mp-input" value="生化一厅">
+          </div>
+        </div>
+        <div class="select-row">
+          <span class="label">房间人数（上限30，仅创建者生效）</span>
+          <div class="radios" id="mpRadios">
+            <label><input type="radio" name="mpSize" value="8"><span>8 人</span></label>
+            <label><input type="radio" name="mpSize" value="16"><span>16 人</span></label>
+            <label><input type="radio" name="mpSize" value="24"><span>24 人</span></label>
+            <label><input type="radio" name="mpSize" value="30" checked><span>30 人</span></label>
+          </div>
+        </div>
+        <div class="select-row">
+          <button id="mpHostBtn" class="start-btn">创建房间（主持）</button>
+          <button id="mpJoinBtn" class="start-btn ghost">加入房间</button>
+        </div>
+        <div id="mpStatus" class="mp-status"></div>
+        <div id="mpPlayers" class="mp-players"></div>
+        <div class="select-row mp-actions">
+          <button id="mpStartBtn" class="start-btn hidden">开 始 游 戏</button>
+          <button id="mpLeaveBtn" class="start-btn ghost hidden">离开房间</button>
+        </div>
+        <p class="tip">多人需先运行服务器（node server.js）再打开本页；主持者运行完整战局，其余玩家实时同步。</p>
+      </div>
+
+      <!-- 仓库（类似 CF 仓库 / 背包配置） -->
+      <div id="warehousePanel" class="hidden">
+        <div class="wh-head">
+          <div class="wh-title">仓 库 · 背 包 配 置</div>
+          <div class="wh-sub">为 8 个生化背包配置 <b>主武器 / 副武器 / 近战 / 投掷</b> 四槽装备；保存后进入对局立即生效，局内补给点 E / B 键切换同样适用<span id="whAttNote">（配件入口已收起）</span></div>
+        </div>
+        <div class="wh-body">
+          <div class="wh-side">
+            <div class="wh-label">选择背包</div>
+            <div id="whBackpackList" class="wh-bp-list"></div>
+            <div class="wh-actions">
+              <button id="whRenameBtn" class="wh-btn">✎ 重命名</button>
+              <button id="whStartBtn" class="wh-btn">设为开局背包</button>
+              <button id="whResetBtn" class="wh-btn ghost">恢复默认</button>
+            </div>
+            <div id="whStartHint" class="wh-hint">开局背包 = 出生即装备的 1-8 号背包，可在单人面板「开局生化背包」随时改选</div>
+          </div>
+          <div class="wh-main">
+            <div class="wh-label" id="whEditTitle">编辑 · 背包</div>
+            <div id="whSlots" class="wh-slots"></div>
+            <div class="wh-save-row">
+              <button id="whSaveBtn" class="start-btn">保 存 配 置</button>
+              <span id="whStatus" class="wh-status"></span>
+            </div>
+          </div>
+          <div class="wh-preview">
+            <div class="wh-label">武器预览</div>
+            <div class="wh-prev-stage"><canvas id="whPrevCanvas" width="252" height="110"></canvas></div>
+            <canvas id="whTrajCanvas" width="252" height="36"></canvas>
+            <div class="wh-prev-name" id="whPrevName"></div>
+            <div class="wh-prev-cat" id="whPrevCat"></div>
+            <div class="wh-prev-stars" id="whPrevStars"></div>
+            <div class="wh-prev-role" id="whPrevRole"></div>
+            <div class="wh-prev-fx" id="whPrevFx"></div>
+            <div class="wh-prev-flags" id="whPrevFlags"></div>
+          </div>
+        </div>
+      </div>
+      <!-- 训练营：枪械靶场（测试弹道/音效/特效）+ 僵尸技能测试 -->
+      <div id="trainingPanel" class="hidden">
+        <div class="select-row">
+          <span class="label">训练场景</span>
+          <div class="radios" id="trainingRadios">
+            <label><input type="radio" name="training" value="range" checked><span>枪械靶场</span></label>
+            <label><input type="radio" name="training" value="skill"><span>僵尸技能测试</span></label>
+          </div>
+        </div>
+        <div class="select-row" id="trainingZtypeRow">
+          <span class="label">变身僵尸</span>
+          <div class="radios" id="trainingZtypeRadios">
+            <label><input type="radio" name="trainingZtype" value="normal" checked><span>小僵尸</span></label>
+            <label><input type="radio" name="trainingZtype" value="sprinter"><span>疾行僵尸</span></label>
+            <label><input type="radio" name="trainingZtype" value="boomer"><span>自爆僵尸</span></label>
+            <label><input type="radio" name="trainingZtype" value="mother"><span>母体</span></label>
+          </div>
+        </div>
+        <div class="select-row" id="trainingWeaponRow">
+          <span class="label">测试武器</span>
+          <select id="trainingWeaponCat" class="mp-input"></select>
+          <select id="trainingWeapon" class="mp-input"></select>
+          <span class="wh-hint">入场直接手持所选武器（无限弹药，仍可用 1-4 / 滚轮切换其他枪）</span>
+        </div>
+        <div class="select-row">
+          <button id="trainingStartBtn" class="start-btn">开 始 训 练</button>
+          <button id="trainingBackBtn" class="start-btn ghost">返回</button>
+        </div>
+        <p class="tip"><b>枪械靶场</b>：上面选好测试武器后入场即手持，射击无敌木桩观察扩散 / 曳光 / 枪口火光 / 音色差异；命中即飘「减速!/燃烧!/中毒!/标记!/眩晕!」，木桩上方实时显示生命、速度、特效剩余时间。入场后屏幕顶部可切换木桩行为：<b>站立 / 左移动 / 右移动 / 跳跃</b>（左右移在木桩附近往返巡逻，类似无畏契约靶场）。<br><b>僵尸技能测试</b>：变身所选僵尸攻击人类沙包，E/右键 放技能，Q 放 Buff，同样实时显示伤害与特效数字。</p>
+      </div>
+
+      <!-- 设置 -->
+      <div id="settingsPanel" class="hidden">
+        <div class="set-host"></div>
+        <button id="settingsBackBtn" class="start-btn ghost">返 回</button>
+      </div>
+    </div>
+  </div>
+  <div id="over" class="overlay hidden">
+    <div class="panel">
+      <h2 id="overTitle" class="title small"></h2>
+      <p id="overStats" class="stats"></p>
+      <!-- 竞技模式 · 赛后击杀榜 + 回放入口 -->
+      <div id="killBoard" class="kb hidden"></div>
+      <div id="replayRow" class="replay-row hidden">
+        <button id="replayBtn" class="start-btn">▶ 看本局回放</button>
+      </div>
+      <button id="againBtn" class="start-btn">再 来 一 局</button>
+    </div>
+  </div>
+
+  <!-- 竞技模式 · 回放控制条（幽灵回放 / 播放控制 / 进度拖拽 / 变速） -->
+  <div id="replayBar" class="replay-bar hidden">
+    <div class="rp-controls">
+      <button id="rpExit" title="退出回放" class="rp-btn">退出</button>
+      <button id="rpRestart" title="重头播放" class="rp-btn">↺</button>
+      <button id="rpToggle" title="播放/暂停" class="rp-btn">▶</button>
+      <button id="rpSpeed" title="倍速" class="rp-btn">1x</button>
+      <span id="rpTime" class="rp-time">0:00 / 0:00</span>
+      <input type="range" id="rpScrub" min="0" max="0" value="0" class="rp-scrub">
+    </div>
+  </div>
+
+  <!-- 局内数值调试不再走「⚙ 全屏覆盖 + 暂停」那条路：训练营里按 F2 开侧栏调试器，不挡画面也不暂停。
+       主菜单的「设置」标签保留（玩家在那里调主音量 / 开镜方式，不影响对局）。 -->
+
+  <!-- 生化背包选择界面（弹药补给点 E 打开） -->
+  <div id="backpackUI" class="overlay hidden">
+    <div class="panel bp-panel">
+      <h3 class="bp-title">生化追击 · 背包选择</h3>
+      <p class="bp-sub">按 <b>1-8</b> 切换背包（3s 冷却）　·　按 <b>E</b> 关闭</p>
+      <div id="backpackGrid" class="bp-grid"></div>
+    </div>
+  </div>
+
+  <!-- HUD -->
+  <div id="hud" class="hidden">
+    <div id="hudLeft">
+      <div id="factionTag" class="faction human">人类阵营</div>
+      <div id="hpWrap"><div id="hpFill"></div><span id="hpText"></span></div>
+      <div id="energyWrap" class="hidden"><div id="energyFill"></div><span id="energyText"></span></div>
+      <div id="heroWrap" class="hidden"><div id="heroFill"></div><span id="heroText"></span></div>
+      <div id="pickupSlots" class="hidden"></div>
+      <div id="buffInfo" class="hidden"></div>
+      <div id="backpackInfo"></div>
+      <div id="weaponRow"><canvas id="hudWeaponIcon" width="92" height="40"></canvas><div id="weaponInfo"></div></div>
+      <div id="skillInfo" class="hidden"></div>
+    </div>
+    <div id="hudTop">
+      <div id="stageInfo"></div>
+      <div id="timer">3:00</div>
+      <div id="escapeBar" class="hidden"><div id="escapeFill"></div><span>撤离中…</span></div>
+    </div>
+    <!-- 竞技 / 攻防 比分牌 -->
+    <div id="vsBoard" class="hidden">
+      <div class="vs-team" id="vsTeamA"></div>
+      <div id="vsRound"></div>
+      <div class="vs-team" id="vsTeamB"></div>
+    </div>
+    <!-- 攻防干员角色行（干员名 + F 技能 + 准备阶段布防提示） -->
+    <div id="roleBar" class="hidden"></div>
+    <!-- 攻防目标点进度条 -->
+    <div id="objBar" class="hidden">
+      <div class="obj-track"><div class="obj-fill" id="objFill"></div></div>
+      <span class="obj-label" id="objText">目标点</span>
+    </div>
+    <!-- 训练营木桩行为控制栏（仅枪械靶场显示，无畏契约靶场式） -->
+    <div id="trainingCtl" class="hidden">
+      <span class="tctl-label">木桩行为</span>
+      <button class="tctl-btn active" data-mode="stand">站 立</button>
+      <button class="tctl-btn" data-mode="left">左 移 动</button>
+      <button class="tctl-btn" data-mode="right">右 移 动</button>
+      <button class="tctl-btn" data-mode="jump">跳 跃</button>
+    </div>
+    <div id="hudRight">
+      <button id="dbgGear" class="hud-gear hidden" title="数值调试器（F2）· 仅训练营">🛠</button>
+      <canvas id="minimap" width="200" height="0"></canvas>
+    </div>
+    <div id="killfeed"></div>
+    <div id="centerMsg"></div>
+    <div id="stageBanner" class="hidden">
+      <div class="sb-bar"></div>
+      <div class="sb-name"></div>
+      <div class="sb-sub"></div>
+      <div class="sb-bar"></div>
+    </div>
+  </div>
+
+  <!-- 对局加载中转页（子系统 2.5）。必须放在 #menu 之外：
+       startGame() 里的 UI.hideMenu() 会整体隐藏 #menu，加载页要在那之后仍然可见。 -->
+  <div id="page-loading" class="g-page g-page--load"></div>
+</div>
+
+<!-- 武器对比弹窗 -->
+<div id="whCompare" class="wh-compare-mask hidden">
+  <div class="wh-compare">
+    <div class="wh-compare-head">
+      <span>武 器 对 比</span>
+      <button id="whCmpClose" class="wh-cmp-close" title="关闭">✕</button>
+    </div>
+    <div class="wh-cmp-body">
+      <div class="wh-cmp-col">
+        <div class="wh-cmp-pick"><select id="whCmpA" class="wh-select"></select></div>
+        <div class="wh-cmp-stage"><canvas id="whCmpACanvas" width="220" height="96"></canvas></div>
+        <div class="wh-cmp-name" id="whCmpAName"></div>
+        <div class="wh-cmp-cat" id="whCmpACat"></div>
+        <div class="wh-cmp-fx" id="whCmpAFx"></div>
+        <div class="wh-cmp-stats" id="whCmpAStats"></div>
+        <div class="wh-cmp-flags" id="whCmpAFlags"></div>
+      </div>
+      <div class="wh-cmp-vs">VS</div>
+      <div class="wh-cmp-col">
+        <div class="wh-cmp-pick"><select id="whCmpB" class="wh-select"></select></div>
+        <div class="wh-cmp-stage"><canvas id="whCmpBCanvas" width="220" height="96"></canvas></div>
+        <div class="wh-cmp-name" id="whCmpBName"></div>
+        <div class="wh-cmp-cat" id="whCmpBCat"></div>
+        <div class="wh-cmp-fx" id="whCmpBFx"></div>
+        <div class="wh-cmp-stats" id="whCmpBStats"></div>
+        <div class="wh-cmp-flags" id="whCmpBFlags"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="js/config.js"></script>
+<script src="js/debugger-schema.js"></script>
+<script src="js/warehouse.js"></script>
+<script src="js/audio.js"></script>
+<script src="js/settings.js"></script>
+<script src="js/ui-kit.js"></script>
+<script src="js/ui-overlay.js"></script>
+<script src="js/input.js"></script>
+<script src="js/villa-gen.js"></script>
+<script src="js/castle-gen.js"></script>
+<script src="codex-castle-collision/compiler.js"></script>
+<script src="codex-castle-scale/model.js"></script>
+<script src="codex-castle-collision/sweep.js"></script>
+<script src="codex-castle-art-rebuild/browser-model.js"></script>
+<script src="codex-castle-art-rebuild/boot.js"></script>
+<script src="js/level.js"></script>
+<script src="js/entities.js"></script>
+<script src="js/pixel.js"></script>
+<script src="js/pixel-sprites.js"></script>
+<!-- 疾驰列车。顺序照 train.html 抄，不能想当然：train-draw 在**加载期**就取像素表与
+     TrainGen 常量，第一次把它插在 level.js 之前（pixel.js 还在后面）时整个脚本抛掉，
+     留下 `const TrainDraw` 的 TDZ，之后每次访问都是「Cannot access 'TrainDraw' before
+     initialization」—— 页面不报红、闸门等不到就绪，只表现为「地图没进来」。
+     day-night 也必须在 train-draw 之前，缺它 train-draw 只 warn 一句然后退回三档离散锚点。
+     train-play.js 故意**不加载**：那是独立页 train.html 私有的播放循环（自动驾驶/追兵/HUD），
+     主循环有自己的回合与 AI，两份循环同时跑必然抢 camera 与 entities。 -->
+<script src="js/day-night.js"></script>
+<script src="js/train-gen.js"></script>
+<script src="js/car-mat.js"></script>
+<script src="js/car-fit.js"></script>
+<script src="js/car-life.js"></script>
+<script src="js/car-light.js"></script>
+<script src="js/car-art.js"></script>
+<script src="js/train-draw.js"></script>
+<script src="js/train-level.js"></script>
+<script src="js/operator-vanguard.js"></script>
+<script src="js/operator-heavy-recon.js"></script>
+<script src="js/operator-medic-hazmat.js"></script>
+<script src="js/operator-skins.js"></script>
+<script src="js/art-core.js"></script>
+<script src="js/art-events.js"></script>
+<script src="js/art-hit.js"></script>
+<script src="js/art-draw.js"></script>
+<script src="js/art-guns.js"></script>
+<script src="js/art-melee.js"></script>
+<script src="js/art-melee-six.js"></script>
+<script src="js/art-melee-five.js"></script>
+<script src="js/art-throw-nine.js"></script>
+<script src="js/art-pickup.js"></script>
+<script src="js/art-hero.js"></script>
+<script src="js/art-views.js"></script>
+<script src="js/art-bullets.js"></script>
+<script src="js/ai.js"></script>
+<script src="js/villa-draw.js"></script>
+<script src="js/castle-draw.js"></script>
+<script src="js/castle-art-v2.js"></script>
+<script src="codex-castle-art-rebuild/modules/architecture.js"></script>
+<script src="codex-castle-art-rebuild/modules/props.js"></script>
+<script src="codex-castle-art-rebuild/modules/environment.js"></script>
+<script src="codex-castle-art-rebuild/modules/exterior.js"></script>
+<script src="codex-castle-art-rebuild/render.js"></script>
+<script src="codex-castle-collision/inspector.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/replay.js"></script>
+<script src="js/net.js"></script>
+<script src="js/game.js"></script>
+<script src="codex-castle-collision/bridge.js"></script>
+<script src="codex-castle-scale/controls.js"></script>
+<script src="js/debugger.js"></script>
+<script src="js/perf-probe.js"></script>
+<script>
+// ============ 原生控件选项填充（界面外壳与页面切换见 js/ui-shell.js） ============
+const operatorSelect = document.getElementById('operatorSkin');
+operatorSelect.innerHTML = OperatorSkins.ids.map(id =>
+  `<option value="${id}">${OperatorSkins.info[id].name}</option>`).join('');
+operatorSelect.value = OperatorSkins.normalize(localStorage.getItem('zombie_operator_skin'));
+function drawOperatorSelectPreview() {
+  const canvas = document.getElementById('operatorSkinPreview');
+  const ctx = canvas.getContext('2d');
+  const art = OperatorSkins.get(operatorSelect.value);
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.imageSmoothingEnabled = false;
+  if (art) ctx.drawImage(art.get('idle'), 2, 2, 40, 60);
+}
+operatorSelect.addEventListener('change', () => {
+  localStorage.setItem('zombie_operator_skin', OperatorSkins.normalize(operatorSelect.value));
+  drawOperatorSelectPreview();
+});
+drawOperatorSelectPreview();
+
+// 大厅生化背包选装（1-8 号，选项与开局记忆来自仓库配置）
+function refreshStartBackpackSelect() {
+  const sel = document.getElementById('startBackpack');
+  if (!sel) return;
+  sel.innerHTML = BACKPACKS.map((bp, i) => `<option value="${i}">${i + 1}号 · ${bp.name}</option>`).join('');
+  sel.value = String(getStartBackpackIdx());
+}
+refreshStartBackpackSelect();
+document.getElementById('startBackpack').addEventListener('change', e => {
+  saveStartBackpackIdx(parseInt(e.target.value, 10));
+});
+
+// 战术攻防干员选择（攻/守各一侧；选择记忆到 localStorage）
+(function initSiegeRoleSelects() {
+  const atk = document.getElementById('siegeAtkRole');
+  const def = document.getElementById('siegeDefRole');
+  if (!atk || !def || typeof SIEGE_ROLES === 'undefined') return;
+  const fill = (sel, team) => {
+    sel.innerHTML = Object.keys(SIEGE_ROLES)
+      .filter(k => SIEGE_ROLES[k].team === team)
+      .map(k => `<option value="${k}">${SIEGE_ROLES[k].name} — ${SIEGE_ROLES[k].desc}</option>`).join('');
+    sel.value = localStorage.getItem(team === 'ATK' ? 'zombie_siege_atk_role' : 'zombie_siege_def_role') || '';
+  };
+  fill(atk, 'ATK'); fill(def, 'DEF');
+  atk.addEventListener('change', e => localStorage.setItem('zombie_siege_atk_role', e.target.value));
+  def.addEventListener('change', e => localStorage.setItem('zombie_siege_def_role', e.target.value));
+})();
+
+// （原「单人 / 多人 / 设置 / 训练营」四个 tab 的显隐切换已删除：
+//   页面切换由 js/ui-shell.js 的 Router 负责，控件值仍写回本文件填充的这些原生元素。）
+
+// 训练营测试武器选择：类别（WEAPON_GROUPS）+ 具体武器；特殊武器（拾取/英雄）单独归类，保证能选到全部可测试枪械
+(function fillTrainingWeapons() {
+  const trCat = document.getElementById('trainingWeaponCat');
+  const trWeapon = document.getElementById('trainingWeapon');
+  if (!trCat || !trWeapon) return;
+  const groups = WEAPON_GROUPS.map(g => ({ id: g.id, name: g.name, keys: g.keys.slice() }));
+  const extra = WEAPON_KEYS.filter(k => !WEAPON_GROUP_OF[k]);
+  if (extra.length) groups.push({ id: 'special', name: '特殊武器', keys: extra });
+  trCat.innerHTML = groups.map(g => `<option value="${g.id}">${g.name}</option>`).join('');
+  function render() {
+    const g = groups.find(x => x.id === trCat.value) || groups[0];
+    trWeapon.innerHTML = g.keys.map(k => `<option value="${k}">${WEAPONS[k].name}</option>`).join('');
+  }
+  trCat.addEventListener('change', render);
+  render();
+})();
+
+// ============ 仓库：类似 CF 的背包配置编辑 ============
+let whSel = 0;        // 当前编辑的背包号
+let whDirty = false;  // 是否有未保存更改
+let whAttDraft = {};  // 配件编辑草稿（未保存的配件选择，key=gid）
+
+function whSetStatus(t) { const el = document.getElementById('whStatus'); if (el) el.textContent = t; }
+function whWeaponStats(k) {
+  const w = WEAPONS[k];
+  if (!w) return '';
+  if (w.grenade) return `数量${w.count || 1} · 伤害${w.dmg || 0}${w.splash ? ' · 范围' + w.splash : ''}`;
+  if (w.melee) return `伤害${w.dmg}`;
+  const parts = [`伤害${w.pellets > 1 ? w.dmg + '×' + w.pellets : w.dmg}`, `射速${w.rpm}/s`, `弹匣${w.mag}`];
+  if (w.fx && FX_META[w.fx]) parts.push(FX_META[w.fx].name);
+  return parts.join(' · ');
+}
+
+// ---------- 仓库武器预览 ----------
+function whShade(hex, amt) {
+  const n = parseInt(hex.slice(1), 16);
+  const r = Math.max(0, Math.min(255, (n >> 16) + amt));
+  const g = Math.max(0, Math.min(255, ((n >> 8) & 255) + amt));
+  const b = Math.max(0, Math.min(255, (n & 255) + amt));
+  return `rgb(${r},${g},${b})`;
+}
+// ---------- 武器素材图：已退役（照片停用，恒走程序化像素枪） ----------
+const WH_SPRITES = { load() {}, get() { return null; }, preload() {}, supported() { return false; } };
+// 仓库检视与正式游戏手持图共用 WeaponViews → 同一份 WeaponArt 档案，不再另画一套类别剪影
+// 配件也必须同源：这里按 computeHumanAttachments 的同一条式子推导（槽位取背包配件 → 再按该枪
+// 能装的槽过滤），草稿优先于已保存值，玩家刚下拉换了消音器预览就跟着变。
+// 原来这里不传 attachments：仓库里装好配件后预览一片干净，HUD 与实战却有 → 同一 ID 两个面不一致。
+function whPreviewAttachments(key) {
+  const gid = slotOfWeapon(key);
+  if (!gid) return [];                 // 英雄枪/拾取项不进背包槽：没有可显示的配件
+  return effectiveAttachments(key, whAttDraft[gid] || backpackAtts(BACKPACKS[whSel], gid));
+}
+// 检视格与对比卡共用同一个入口：中心 = 画布水平中心、垂直中心下移 4px（给底部状态条让位），
+// fit 必须按"从这个中心到最近的画布边"来给，否则居中的件会越出画布下沿——原先纵向固定按 96 供，
+// 而对比卡只有 96 高、中心却在 52，下缘只剩 44px，19 单位高的件在 5x 下就多出 4px。
+function whDrawWeapon(ctx, key) {
+  const cv = ctx.canvas || { width: 252, height: 110 };
+  const isThrow = WEAPONS[key] && WEAPONS[key].g === 'throw';
+  const centerY = cv.height / 2 + 4 - (isThrow ? (cv.height <= 96 ? 6 : 2) : 0);
+  const statusTop = cv.height - (cv.height <= 96 ? 10 : 12);
+  const fitY = isThrow ? Math.min(96, 2 * Math.min(centerY, statusTop - centerY)) : Math.min(96, cv.height - 8);
+  return WeaponViews.render(ctx, key, {
+    scale: 'inspect', x: cv.width / 2, y: centerY,
+    fit: [cv.width - 16, fitY],
+    attachments: whPreviewAttachments(key),
+  });
+}
+function whBar(v, hi) { return Math.max(0.05, Math.min(1, v / hi)); }
+// ---------- 仓库武器预览（CF 风格完整属性面板） ----------
+const WH_METRICS = {
+  gun:   [['dmg', '伤害'], ['rpm', '射速'], ['acc', '精准'], ['range', '射程'], ['mob', '便携']],
+  melee: [['dmg', '伤害'], ['rpm', '挥速'], ['range', '范围'], ['mob', '便携']],
+  throw: [['count', '数量'], ['dmg', '伤害'], ['splash', '范围']],
+};
+function whMobility(w) {
+  const base = { pistol: 4.6, smg: 4.1, assault: 3.3, shotgun: 2.9, sniper: 2.3, lmg: 1.6 }[w.g];
+  if (base == null) return 3;
+  return Math.max(0.5, base - (w.mag || 0) * (w.g === 'lmg' ? 0.012 : 0.008));
+}
+function whMetricVal(w, m) {
+  if (m === 'dmg') return (w.pellets || 1) * w.dmg;
+  if (m === 'rpm') return w.rpm;
+  if (m === 'range') return w.range || 0;
+  if (m === 'mob') return whMobility(w);
+  if (m === 'acc') return (1 - (w.spread || 0.03) / 0.07) * 0.7 + (1 - (w.recoil || 0.01) / 0.055) * 0.3;
+  if (m === 'count') return w.count || 1;
+  if (m === 'splash') return w.splash || 0;
+  return 0;
+}
+const WH_RANGES = (() => {
+  const rr = {};
+  for (const gr of WEAPON_GROUPS) {
+    const first = WEAPONS[gr.keys[0]];
+    const cat = first.grenade ? 'throw' : (first.melee ? 'melee' : 'gun');
+    const metrics = WH_METRICS[cat];
+    const agg = {};
+    for (const [m] of metrics) agg[m] = [];
+    for (const k of gr.keys) {
+      const w = WEAPONS[k];
+      for (const [m] of metrics) agg[m].push(whMetricVal(w, m));
+    }
+    rr[gr.id] = {};
+    for (const [m] of metrics) rr[gr.id][m] = { min: Math.min(...agg[m]), max: Math.max(...agg[m]) };
+  }
+  return rr;
+})();
+function whStarHTML(stars) {
+  const s = Math.max(1, Math.min(5, Math.round(stars)));
+  let h = '';
+  for (let i = 0; i < 5; i++) h += i < s ? '<span class="st on">★</span>' : '<span class="st">☆</span>';
+  return h;
+}
+function whMetricDisplay(w, m, v) {
+  if (m === 'dmg') return (w.pellets > 1 ? w.dmg + '×' + w.pellets : w.dmg) + '';
+  if (m === 'rpm') return v + '/s';
+  if (m === 'range') return v;
+  if (m === 'count') return v + '枚';
+  if (m === 'splash') return v;
+  return v.toFixed(1);
+}
+function whStarsFor(key) {
+  const w = WEAPONS[key];
+  if (!w) return '';
+  const cat = w.grenade ? 'throw' : (w.melee ? 'melee' : 'gun');
+  const metrics = WH_METRICS[cat];
+  const ranges = WH_RANGES[w.g] || {};
+  return metrics.map(([m, label]) => {
+    const v = whMetricVal(w, m);
+    const r = ranges[m] || { min: 0, max: 1 };
+    const stars = r.max === r.min ? 3 : 1 + (v - r.min) / (r.max - r.min) * 4;
+    return `<div class="wh-star-row">
+      <span class="ws-label2">${label}</span>
+      <span class="ws-stars">${whStarHTML(stars)}</span>
+      <span class="ws-val2">${whMetricDisplay(w, m, v)}</span>
+    </div>`;
+  }).join('');
+}
+function whRoleDesc(key) {
+  const w = WEAPONS[key];
+  if (!w) return '';
+  const cat = {
+    assault: '全自动突击，中近距离稳定压制',
+    sniper: '远距离精准狙杀',
+    smg: '极高射速的近战压制',
+    shotgun: '近距离爆发杀伤',
+    lmg: '持续火力压制',
+    pistol: '应急副武器',
+    melee: '近身格斗',
+    throw: '投掷爆破',
+  }[w.g] || '多用途武器';
+  const parts = [cat];
+  if (w.fx && FX_META[w.fx]) parts.push('特色·' + FX_META[w.fx].name + '：' + FX_META[w.fx].desc);
+  if (w.pierce) parts.push('子弹可穿透');
+  if (w.explode) parts.push('命中爆炸');
+  if (w.burst) parts.push('三连发');
+  if (w.windup) parts.push('持续开火加速');
+  if (w.flamer) parts.push('火焰喷射');
+  if (w.pickup) parts.push('地面拾取限定');
+  if (w.hero) parts.push('英雄专属');
+  return parts.join('　');
+}
+function whDrawTraj(key) {
+  const cvs = document.getElementById('whTrajCanvas');
+  const w = WEAPONS[key];
+  if (!cvs || !w) return;
+  const ctx = cvs.getContext('2d');
+  const W = cvs.width, H = cvs.height;
+  ctx.clearRect(0, 0, W, H);
+  if (w.melee) {
+    ctx.strokeStyle = 'rgba(120,180,140,.8)'; ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.arc(W * 0.5, H * 0.8, W * 0.26, Math.PI * 1.12, Math.PI * 1.88); ctx.stroke();
+    ctx.fillStyle = '#9fceb0'; ctx.font = '10px sans-serif'; ctx.textAlign = 'center';
+    ctx.fillText('近战范围', W * 0.5, 11); ctx.textAlign = 'left';
+    return;
+  }
+  if (w.grenade) {
+    ctx.strokeStyle = '#ffd740'; ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.moveTo(8, H - 4); ctx.quadraticCurveTo(W * 0.6, -6, W - 10, H - 4); ctx.stroke();
+    ctx.fillStyle = '#ffd740'; ctx.beginPath(); ctx.arc(W - 10, H - 4, 3, 0, 7); ctx.fill();
+    ctx.fillStyle = '#9fceb0'; ctx.font = '10px sans-serif'; ctx.textAlign = 'center';
+    ctx.fillText('投掷弹道', W * 0.5, 11); ctx.textAlign = 'left';
+    return;
+  }
+  const cy = H * 0.5, tx = W - 12;
+  ctx.strokeStyle = 'rgba(120,220,150,.5)'; ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(4, cy); ctx.lineTo(tx - 5, cy); ctx.stroke();
+  ctx.strokeStyle = '#3dff90';
+  ctx.beginPath(); ctx.moveTo(tx - 5, cy - 5); ctx.lineTo(tx - 5, cy + 5); ctx.moveTo(tx - 10, cy); ctx.lineTo(tx, cy); ctx.stroke();
+  const spread = w.spread != null ? w.spread : 0.03;
+  const radius = 1 + spread * 300;
+  ctx.fillStyle = 'rgba(255,255,255,.8)';
+  for (let i = 0; i < 12; i++) {
+    const a = Math.random() * Math.PI * 2;
+    const rr = (Math.random() + Math.random()) / 2 * radius;
+    ctx.beginPath(); ctx.arc(tx - 6 + Math.cos(a) * rr, cy + Math.sin(a) * rr, 1.1, 0, 7); ctx.fill();
+  }
+  const acc = 1 - spread / 0.07;
+  ctx.fillStyle = acc > 0.7 ? '#7bff5e' : (acc > 0.4 ? '#ffd740' : '#ff6b6b');
+  ctx.font = '10px sans-serif';
+  ctx.fillText('散布 ' + (spread * 1000).toFixed(0) + ' / 精准 ' + (acc >= 1 ? 100 : (acc * 100).toFixed(0)), 4, 11);
+}
+function whPrevFlags(key) {
+  const w = WEAPONS[key];
+  if (!w) return '';
+  const f = [];
+  if (w.auto) f.push('<span class="wh-flag hl">全自动</span>');
+  else if (!w.melee && !w.grenade) f.push('<span class="wh-flag">半自动</span>');
+  if (w.pierce) f.push('<span class="wh-flag hl">穿透</span>');
+  if (w.explode || (w.grenade && (w.effect === 'boom' || w.effect === 'impact'))) f.push('<span class="wh-flag hl">爆炸</span>');
+  if (w.burst) f.push('<span class="wh-flag hl">三连发</span>');
+  if (w.windup) f.push('<span class="wh-flag hl">预热</span>');
+  if (w.flamer) f.push('<span class="wh-flag hl">火焰喷射</span>');
+  if (w.grenade) f.push('<span class="wh-flag">投掷</span>');
+  if (w.melee) f.push('<span class="wh-flag">近战</span>');
+  if (w.pickup) f.push('<span class="wh-flag rare">地面拾取</span>');
+  if (w.hero) f.push('<span class="wh-flag rare">英雄专用</span>');
+  if (w.fx && FX_META[w.fx]) f.push(`<span class="wh-flag hl" style="border-color:${FX_META[w.fx].color};color:${FX_META[w.fx].color}">${FX_META[w.fx].name}</span>`);
+  return f.join('');
+}
+let whPrevKey = '';   // 当前预览武器键，素材图懒加载完成后据此重绘
+function whDrawPreview(key) {
+  const cvs = document.getElementById('whPrevCanvas');
+  const w = WEAPONS[key];
+  if (!cvs || !w) return;
+  whPrevKey = key;
+  const ctx = cvs.getContext('2d');
+  const W = cvs.width, H = cvs.height;
+  ctx.clearRect(0, 0, W, H);
+  ctx.fillStyle = 'rgba(0,255,120,0.07)'; ctx.fillRect(0, H - 12, W, 12);
+  ctx.fillStyle = 'rgba(61,255,144,0.5)'; ctx.fillRect(0, H - 12, W, 1.5);
+  whDrawWeapon(ctx, key);
+  WH_SPRITES.load(key);
+  document.getElementById('whPrevName').textContent = w.name;
+  const gm = GROUP_META[w.g];
+  document.getElementById('whPrevCat').innerHTML = `<span style="color:${gm ? gm.color : '#9fceb0'}">${gm ? gm.name : w.g}</span>`;
+  const fxEl = document.getElementById('whPrevFx');
+  if (w.fx && FX_META[w.fx]) fxEl.innerHTML = `<b style="color:${FX_META[w.fx].color}">特色 · ${FX_META[w.fx].name}</b>　${FX_META[w.fx].desc}`;
+  else fxEl.innerHTML = '<span style="opacity:.5">无特色效果</span>';
+  document.getElementById('whPrevStars').innerHTML = whStarsFor(key);
+  document.getElementById('whPrevRole').textContent = whRoleDesc(key);
+  whDrawTraj(key);
+  document.getElementById('whPrevFlags').innerHTML = whPrevFlags(key);
+}
+
+// ---------- 仓库武器对比弹窗 ----------
+function whCmpRows(key) {
+  const w = WEAPONS[key];
+  if (w.grenade) return [
+    { label: '数量', a: w.count || 1, hi: 6 },
+    { label: '伤害', a: w.dmg || 0, hi: 150 },
+    { label: '范围', a: w.splash || 0, hi: 160 },
+  ];
+  if (w.melee) return [
+    { label: '伤害', a: w.dmg, hi: 150 },
+    { label: '挥速', a: w.rpm, hi: 4 },
+    { label: '范围', a: w.range || 0, hi: 120 },
+  ];
+  return [
+    { label: '伤害', a: w.dmg, hi: 150 },
+    { label: '射速', a: w.rpm, hi: 20 },
+    { label: '弹匣', a: w.mag || 0, hi: 150 },
+    { label: '射程', a: w.range || 0, hi: 1500 },
+  ];
+}
+// 与对方同槽位逐项对比：高者 win、低者 lose、相等 tie
+function whCmpStats(key, otherKey) {
+  const rowsA = whCmpRows(key), rowsB = whCmpRows(otherKey);
+  const w = WEAPONS[key];
+  return rowsA.map((r, i) => {
+    const rb = rowsB[i] || { a: 0 };
+    const cls = r.a > rb.a ? ' win' : (r.a < rb.a ? ' lose' : ' tie');
+    return `<div class="wh-cmp-stat${cls}">
+      <span class="wc-label">${r.label}</span>
+      <div class="wc-track"><div class="wc-fill" style="width:${(whBar(r.a, r.hi) * 100).toFixed(0)}%;background:${w.color}"></div></div>
+      <span class="wc-val">${r.a}</span>
+    </div>`;
+  }).join('');
+}
+function whCmpCard(side, key) {
+  const w = WEAPONS[key];
+  if (!w) return;
+  const cvs = document.getElementById('whCmp' + side + 'Canvas');
+  const ctx = cvs.getContext('2d');
+  ctx.clearRect(0, 0, cvs.width, cvs.height);
+  ctx.fillStyle = 'rgba(0,255,120,0.07)'; ctx.fillRect(0, cvs.height - 10, cvs.width, 10);
+  ctx.fillStyle = 'rgba(61,255,144,0.5)'; ctx.fillRect(0, cvs.height - 10, cvs.width, 1.5);
+  whDrawWeapon(ctx, key);
+  WH_SPRITES.load(key);
+  document.getElementById('whCmp' + side + 'Name').textContent = w.name;
+  const gm = GROUP_META[w.g];
+  document.getElementById('whCmp' + side + 'Cat').innerHTML = gm ? `<span style="color:${gm.color}">${gm.name}</span>` : '';
+  const fxEl = document.getElementById('whCmp' + side + 'Fx');
+  fxEl.innerHTML = (w.fx && FX_META[w.fx])
+    ? `<b style="color:${FX_META[w.fx].color}">特色 · ${FX_META[w.fx].name}</b>　${FX_META[w.fx].desc}`
+    : '<span style="opacity:.5">无特色</span>';
+  document.getElementById('whCmp' + side + 'Flags').innerHTML = whPrevFlags(key);
+  const otherKey = side === 'A' ? document.getElementById('whCmpB').value : document.getElementById('whCmpA').value;
+  document.getElementById('whCmp' + side + 'Stats').innerHTML = whCmpStats(key, otherKey);
+}
+function whCmpRender() {
+  whCmpCard('A', document.getElementById('whCmpA').value);
+  whCmpCard('B', document.getElementById('whCmpB').value);
+}
+// 素材图懒加载完成后重绘预览与对比卡片
+function whRefresh() {
+  if (whPrevKey) whDrawPreview(whPrevKey);
+  const cmp = document.getElementById('whCompare');
+  if (cmp && !cmp.classList.contains('hidden')) whCmpRender();
+}
+function whSlotWeapons(gid) {
+  return WEAPON_KEYS.filter(k => slotOfWeapon(k) === gid);
+}
+function whOpenCompare(gid) {
+  const bp = BACKPACKS[whSel];
+  const cur = bp.loadout[gid];
+  const keys = whSlotWeapons(gid);
+  if (!keys.length) return;
+  const opts = keys.map(k => `<option value="${k}">${WEAPONS[k].name}</option>`).join('');
+  const selA = document.getElementById('whCmpA');
+  const selB = document.getElementById('whCmpB');
+  selA.innerHTML = opts; selB.innerHTML = opts;
+  selA.value = cur;
+  const idx = keys.indexOf(cur);
+  selB.value = keys[(idx + 1) % keys.length];   // 默认对比同组下一件
+  document.getElementById('whCompare').classList.remove('hidden');
+  whCmpRender();
+}
+document.getElementById('whCmpA').addEventListener('change', whCmpRender);
+document.getElementById('whCmpB').addEventListener('change', whCmpRender);
+document.getElementById('whCmpClose').addEventListener('click', () => document.getElementById('whCompare').classList.add('hidden'));
+document.getElementById('whCompare').addEventListener('click', e => { if (e.target === e.currentTarget) document.getElementById('whCompare').classList.add('hidden'); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') document.getElementById('whCompare').classList.add('hidden'); });
+function whRenderList() {
+  const list = document.getElementById('whBackpackList');
+  const start = getStartBackpackIdx();
+  list.innerHTML = BACKPACKS.map((bp, i) => `
+    <div class="wh-bp ${i === whSel ? 'active' : ''}" data-idx="${i}">
+      <span class="wh-bp-num">${i + 1}</span>
+      <span class="wh-bp-name">${bp.name}</span>
+      ${i === start ? '<span class="wh-bp-start">开局</span>' : ''}
+    </div>`).join('');
+  list.querySelectorAll('.wh-bp').forEach(el => el.addEventListener('click', () => {
+    const idx = parseInt(el.dataset.idx, 10);
+    const apply = () => { whSel = idx; whDirty = false; whRenderList(); whRenderSlots(); whSetStatus(''); };
+    // 原生 confirm 会卡住渲染循环且长得像浏览器弹窗，改走子系统 2.3 的优先级弹窗
+    if (whDirty) Overlay.confirm({
+      title: '放弃未保存的修改', alert: true, okText: '放弃并切换', cancelText: '留在当前背包',
+      text: `当前背包有未保存的装备更改，切到 ${idx + 1} 号背包会放弃这些更改。`,
+      onOk: apply,
+    });
+    else apply();
+  }));
+}
+function whRenderSlots() {
+  const title = document.getElementById('whEditTitle');
+  const slots = document.getElementById('whSlots');
+  const bp = BACKPACKS[whSel];
+  whAttDraft = {};   // 每次重渲染从已保存配置重新取草稿
+  title.textContent = `编辑 · ${whSel + 1}号 ${bp.name}`;
+  const equipHtml = Object.keys(EQUIP_SLOTS).map(slot => {
+    const meta = EQUIP_SLOTS[slot];
+    const keys = equipListForSlot(slot);
+    const cur = (bp.equip && bp.equip[slot]) || '';
+    return `<label class="wh-att" style="--ac:${meta.color}">
+      <span class="wh-att-ic">${meta.icon}</span>${meta.name}
+      <select data-equip-slot="${slot}">
+        <option value="">无</option>
+        ${keys.map(k => `<option value="${k}"${k === cur ? ' selected' : ''}>${EQUIP_META[k].name}</option>`).join('')}
+      </select>
+    </label>`;
+  }).join('');
+  slots.innerHTML = `<div class="wh-equip"><div class="wh-equip-label">人物装备</div>${equipHtml}</div>` + WEAPON_GROUP_ORDER.map(gid => {
+    const meta = SLOT_META[gid];
+    return `<div class="wh-slot" data-gid="${gid}">
+      <div class="wh-slot-head"><span class="wh-slot-name" style="color:${meta.color}">${meta.name}</span><span class="wh-slot-stats"></span></div>
+      <select class="wh-select" data-gid="${gid}"></select>
+      <div class="wh-attach" data-gid="${gid}"></div>
+      <button class="wh-cmp-btn" data-gid="${gid}">⚖ 对比同类武器</button>
+    </div>`;
+  }).join('');
+  slots.querySelectorAll('[data-equip-slot]').forEach(sel => {
+    sel.addEventListener('change', () => { whDirty = true; whSetStatus('有未保存的更改'); });
+  });
+  slots.querySelectorAll('.wh-select').forEach(sel => {
+    const gid = sel.dataset.gid;
+    const keys = whSlotWeapons(gid);
+    sel.innerHTML = keys.map(k => {
+      const w = WEAPONS[k];
+      const fx = w.fx && FX_META[w.fx] ? ` · ${FX_META[w.fx].name}` : '';
+      return `<option value="${k}">${w.name}${fx}</option>`;
+    }).join('');
+    sel.value = bp.loadout[gid];
+    sel.parentElement.querySelector('.wh-slot-stats').textContent = whWeaponStats(sel.value);
+    sel.addEventListener('change', () => {
+      sel.parentElement.querySelector('.wh-slot-stats').textContent = whWeaponStats(sel.value);
+      whDirty = true; whSetStatus('有未保存的更改');
+      whDrawPreview(sel.value);
+      whRenderAttach(gid);
+    });
+  });
+  slots.querySelectorAll('.wh-cmp-btn').forEach(btn => btn.addEventListener('click', () => whOpenCompare(btn.dataset.gid)));
+  for (const gid of WEAPON_GROUP_ORDER) whRenderAttach(gid);
+  whDrawPreview(bp.loadout.primary || Object.values(bp.loadout)[0]);
+}
+// ---------- 仓库配件配置：每槽位按武器可装配件槽渲染下拉（瞄具/枪管/握把/枪口/激光） ----------
+function whAttInitDraft(gid) {
+  const bp = BACKPACKS[whSel];
+  const cur = (bp.attachments && bp.attachments[gid]) ? bp.attachments[gid] : [];
+  whAttDraft[gid] = cur.slice();
+}
+function whRenderAttach(gid) {
+  const host = document.querySelector(`#whSlots .wh-slot[data-gid="${gid}"] .wh-attach`);
+  if (!host) return;
+  // 配件入口已按用户决定收起（见 config.js 的 配件入口开放）。整块摘掉而不是留个空框，
+  // 免得看起来像"这枪没有配件槽"。whSave 从已存配置起算，所以这里不渲染下拉也不会清空存档里的配件。
+  if (!配件入口开放) { host.remove(); return; }
+  const sel = document.querySelector(`#whSlots .wh-select[data-gid="${gid}"]`);
+  const wkey = sel ? sel.value : ((BACKPACKS[whSel].loadout[gid]) || '');
+  const slots = attachSlotsForWeapon(wkey);
+  if (!whAttDraft[gid]) whAttInitDraft(gid);
+  const draft = whAttDraft[gid];
+  if (!slots.length) { host.innerHTML = '<div class="wh-attach-none">此武器无配件槽</div>'; return; }
+  host.innerHTML = slots.map(slot => {
+    const meta = ATTACH_SLOTS[slot];
+    const keys = attachListForSlot(slot).filter(k => attachFitsWeapon(wkey, k));
+    const curKey = draft.find(k => ATTACH_META[k] && ATTACH_META[k].slot === slot) || '';
+    return `<label class="wh-att" style="--ac:${meta.color}">
+      <span class="wh-att-ic">${meta.icon}</span>${meta.name}
+      <select data-gid="${gid}" data-attr-slot="${slot}">
+        <option value="">无</option>
+        ${keys.map(k => `<option value="${k}"${k === curKey ? ' selected' : ''}>${ATTACH_META[k].name}</option>`).join('')}
+      </select>
+    </label>`;
+  }).join('');
+  host.querySelectorAll('select').forEach(s2 => {
+    s2.addEventListener('change', () => {
+      const g2 = s2.dataset.gid, slot = s2.dataset.attrSlot;
+      if (!whAttDraft[g2]) whAttInitDraft(g2);
+      whAttDraft[g2] = whAttDraft[g2].filter(k => ATTACH_META[k] && ATTACH_META[k].slot !== slot);
+      if (s2.value) whAttDraft[g2].push(s2.value);
+      whDirty = true; whSetStatus('有未保存的更改');
+      // 改配件要立刻在预览上可见（预览的正是这一槽位的枪），否则"装了看不到"要等保存重进
+      if (whPrevKey && slotOfWeapon(whPrevKey) === g2) whDrawPreview(whPrevKey);
+    });
+  });
+}
+function whSave() {
+  const configs = BACKPACKS.map(bp => ({
+    name: bp.name,
+    loadout: Object.assign({}, bp.loadout),
+    attachments: Object.fromEntries(WEAPON_GROUP_ORDER.map(g => [g, ((bp.attachments && bp.attachments[g]) || []).slice()])),
+    equip: Object.assign({}, bp.equip || {}),
+  }));
+  document.querySelectorAll('#whSlots .wh-select').forEach(sel => {
+    configs[whSel].loadout[sel.dataset.gid] = sel.value;
+  });
+  document.querySelectorAll('#whSlots .wh-attach select').forEach(s2 => {
+    const g2 = s2.dataset.gid, slot = s2.dataset.attrSlot;
+    const arr = (configs[whSel].attachments[g2] = (configs[whSel].attachments[g2] || []).filter(k => ATTACH_META[k] && ATTACH_META[k].slot !== slot));
+    if (s2.value) arr.push(s2.value);
+  });
+  const equip = {};
+  document.querySelectorAll('#whSlots [data-equip-slot]').forEach(s3 => { equip[s3.dataset.equipSlot] = s3.value || null; });
+  configs[whSel].equip = equip;
+  if (!saveWarehouseConfig(configs)) { whSetStatus('保存失败（浏览器不支持本地存储）'); return; }
+  BACKPACKS[whSel].loadout = Object.assign({}, configs[whSel].loadout);
+  BACKPACKS[whSel].attachments = Object.assign({}, configs[whSel].attachments);
+  BACKPACKS[whSel].equip = Object.assign({}, equip);
+  whAttDraft = {};
+  whDirty = false;
+  refreshStartBackpackSelect();
+  whRenderList(); whRenderSlots();
+  whSetStatus(`已保存 ${whSel + 1}号 ${BACKPACKS[whSel].name} 配置`);
+  // 清掉路由拦截器的脏标记，否则离开仓库仍会弹「放弃更改」
+  try { window.__uiDirtyClear && window.__uiDirtyClear(); } catch (e) { }
+}
+function whRename() {
+  const bp = BACKPACKS[whSel];
+  Overlay.prompt({
+    title: `重命名 ${whSel + 1} 号背包`, value: bp.name, maxLength: 12, hint: '最多 12 个字符',
+    onOk: raw => {
+      const n = (raw || '').trim().slice(0, 12);
+      if (!n) { Toast.warn('名称不能为空'); return; }
+      bp.name = n; whDirty = true;
+      refreshStartBackpackSelect();
+      whRenderList(); whRenderSlots();
+      whSetStatus('有未保存的更改');
+      Toast.ok(`已改名为「${n}」，记得保存`);
+    },
+  });
+}
+function whSetStart() {
+  saveStartBackpackIdx(whSel);
+  const sel = document.getElementById('startBackpack');
+  if (sel) sel.value = String(whSel);
+  whRenderList();
+  whSetStatus(`已设为开局背包（${whSel + 1}号 ${BACKPACKS[whSel].name}）`);
+}
+function whReset() {
+  Overlay.confirm({
+    title: '恢复默认配置', alert: true, okText: '全部恢复默认', cancelText: '取消',
+    text: '将把 8 个背包的武器、配件与人物装备全部恢复为出厂配置，此操作不可撤销。',
+    onOk: () => {
+      resetWarehouseConfig();
+      whDirty = false;
+      refreshStartBackpackSelect();
+      whRenderList(); whRenderSlots();
+      whSetStatus('已恢复默认配置');
+      Toast.ok('全部背包已恢复默认');
+    },
+  });
+}
+// 仓库页的渲染与保存由 js/ui-shell.js 的 Armory 直接调用下面这些函数，
+// 因此原先挂在 #warehouseBtn / #whRenameBtn / #whStartBtn / #whResetBtn / #whSaveBtn /
+// #toWarehouseLink 上的绑定已删除（那些按钮现在是壳层生成的游戏化控件）。
+
+// 预加载全部武器素材图（懒加载，不影响测试沙箱）
+WH_SPRITES.preload(Object.keys(WEAPONS));
+
+// ============ 联网多人 ============
+function mpSetStatus(t) { document.getElementById('mpStatus').textContent = t; }
+function mpRenderPlayers() {
+  const list = [...Net.players.entries()].map(([id, p]) =>
+    `<span class="mp-p">${p.name}${id === Net.myId ? '（我）' : ''}</span>`);
+  document.getElementById('mpPlayers').innerHTML = list.length ? '房间成员：' + list.join('') : '房间成员：等待加入…';
+}
+Net.onPlayers = mpRenderPlayers;
+Net.onDisconnect = () => {
+  mpSetStatus('已断开连接');
+  operatorSelect.disabled = false;
+  operatorSelect.title = '';
+  document.getElementById('mpStartBtn').classList.add('hidden');
+  document.getElementById('mpLeaveBtn').classList.add('hidden');
+};
+
+async function mpConnect(role) {
+  const url = document.getElementById('mpServer').value.trim() || 'ws://localhost:8123';
+  const name = document.getElementById('mpName').value.trim() || (role === 'host' ? '房主' : '玩家');
+  const room = document.getElementById('mpRoom').value.trim() || '生化一厅';
+  const size = parseInt(document.querySelector('input[name="mpSize"]:checked').value, 10);
+  const custom = document.getElementById('useCustomMap').checked ? localStorage.getItem('zombie_custom_map') : null;
+  try {
+    await Net.connect({ role, url, room, name, size, custom, operatorSkin: OperatorSkins.selected() });
+    operatorSelect.disabled = true;
+    operatorSelect.title = '离开房间后可更换外观';
+    if (role === 'host') {
+      mpSetStatus(`已创建房间「${room}」· ${size}人 · 等待玩家加入…`);
+      document.getElementById('mpStartBtn').classList.remove('hidden');
+    } else {
+      mpSetStatus('已加入房间，等待主持人开始…');
+    }
+    document.getElementById('mpLeaveBtn').classList.remove('hidden');
+    mpRenderPlayers();
+  } catch (e) {
+    mpSetStatus('失败：' + e.message);
+  }
+}
+
+document.getElementById('mpHostBtn').addEventListener('click', () => mpConnect('host'));
+document.getElementById('mpJoinBtn').addEventListener('click', () => mpConnect('client'));
+document.getElementById('mpStartBtn').addEventListener('click', () => {
+  startMPHost();
+  document.getElementById('mpStartBtn').classList.add('hidden');
+});
+document.getElementById('mpLeaveBtn').addEventListener('click', () => {
+  Net.disconnect();
+  document.getElementById('mpLeaveBtn').classList.add('hidden');
+});
+
+// 局内设置覆盖层（⚙ + 暂停）已移除：调数值改用训练营里的 F2 调试器，玩家设置留在大厅的「设置」页。
+
+// 说明：主菜单的五个 tab 与 .panel 居中卡片已由 js/ui-shell.js 的整屏客户端取代
+// （启动页 / 登录选服 / 大厅 / 仓库 / 训练营 / 多人 / 设置）。
+// 本内联脚本只保留两件事：给原生控件填选项，以及仓库的渲染与保存逻辑。
+// 上面那些 showSingle / showMulti / showSettings / showTraining / showWarehouse
+// 与 #menu .panel 的显隐切换已随之删除 —— 界面路由统一走 Router.go()。
+</script>
+<script src="js/ui-shell.js"></script>
+</body>
+</html>

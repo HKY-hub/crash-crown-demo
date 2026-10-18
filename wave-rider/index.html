@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wave Rider · 浪尖竞速</title>
+<link rel="icon" href="../assets/crown.svg" type="image/svg+xml">
+<meta name="description" content="Wave Rider 浪尖竞速：单文件 3D 水上摩托竞速，四层核心循环、6 艇型、6 水域、5 模式。离线版零网络请求。">
+<style>
+:root{--navy:#0b2a3d;--ink:#14212b;--paper:#f4efe3;--red:#b83a2d;--line:rgba(20,33,43,.18);--sans:"Helvetica Neue",Arial,"PingFang SC","Microsoft YaHei",sans-serif;--serif:"Songti SC","STSong","SimSun",Georgia,serif;--mono:"SFMono-Regular",Consolas,monospace}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{min-height:100%}
+body{background:radial-gradient(900px 500px at 70% 20%,#16445e,#0b2a3d 62%,#071d2a);color:var(--paper);font-family:var(--sans);line-height:1.6;-webkit-font-smoothing:antialiased;min-height:100vh;display:grid;place-items:center;padding:32px 20px}
+a{color:inherit}
+.wrap{width:min(1040px,100%);display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(24px,5vw,72px);align-items:center}
+.kicker{font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:#9bc5db;text-transform:uppercase;display:flex;align-items:center;gap:10px}
+.kicker:before{content:"";width:26px;height:1px;background:#d9a84a}
+h1{margin:18px 0 0;font:700 clamp(46px,7vw,86px)/.95 var(--serif);letter-spacing:-.045em;color:#fbf6ea}
+h1 span{display:block;margin-top:8px;font:400 clamp(18px,2.4vw,28px)/1.2 var(--sans);letter-spacing:.22em;color:#e9c477}
+.lede{margin:22px 0 0;max-width:48ch;font-size:14px;line-height:1.9;color:#c2d7e3}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+.btn{display:inline-flex;align-items:center;justify-content:space-between;gap:18px;min-width:220px;padding:13px 16px;text-decoration:none;font-size:13px;font-weight:700;border:1px solid rgba(244,239,227,.28);transition:background .2s,border-color .2s,transform .2s}
+.btn.primary{background:var(--red);border-color:var(--red);color:#fff;box-shadow:4px 4px 0 rgba(0,0,0,.28)}
+.btn.primary:hover{background:#d14836;border-color:#d14836;transform:translate(-1px,-1px)}
+.btn.ghost{background:rgba(244,239,227,.06);color:#e9f1f5}
+.btn.ghost:hover{background:rgba(244,239,227,.13);border-color:rgba(244,239,227,.55)}
+.btn span{font-family:var(--mono);font-size:11px}
+.note{margin-top:16px;font:9.5px/1.8 var(--mono);letter-spacing:.02em;color:#8fabb9}
+.note b{color:#e9c477;font-weight:400}
+.back{display:inline-block;margin-top:26px;font:10px var(--mono);letter-spacing:.08em;color:#9bc5db;text-decoration:none;border-bottom:1px solid rgba(155,197,219,.35);padding-bottom:3px}
+.back:hover{color:#fff;border-color:#fff}
+.poster{position:relative;border:1px solid rgba(244,239,227,.22);background:var(--paper);color:var(--ink);padding:14px;box-shadow:18px 20px 0 rgba(0,0,0,.22);transform:rotate(1.6deg)}
+.poster img{display:block;width:100%;height:auto}
+.poster:after{content:"单文件 · 3D · 程序化";position:absolute;right:-10px;bottom:-12px;background:#e9c477;color:#14212b;font:9px var(--mono);letter-spacing:.08em;padding:7px 10px;border:1px solid rgba(20,33,43,.25)}
+.cap{display:flex;justify-content:space-between;gap:10px;margin-top:10px;font:8.5px var(--mono);letter-spacing:.05em;color:#5d6b75}
+footer{position:fixed;left:20px;right:20px;bottom:16px;display:flex;justify-content:space-between;gap:12px;font:9px var(--mono);letter-spacing:.06em;color:#75909e;pointer-events:none}
+@media(max-width:780px){
+  body{display:block;padding:28px 18px 60px}
+  .wrap{grid-template-columns:1fr;gap:28px}
+  .poster{transform:none;max-width:620px}
+  footer{position:static;margin-top:36px}
+  .btn{width:100%;min-width:0}
+}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <section>
+    <p class="kicker">HKY · Original Game 02</p>
+    <h1>Wave Rider<span>浪 尖 竞 速</span></h1>
+    <p class="lede">单文件 3D 水上摩托竞速。四层核心循环——瞬间操作、单局名次、单次游玩、长期成长；6 艇型、6 水域、5 模式，以及 195 项内容注册表启动自检。程序化水面与水墨 UI。</p>
+    <div class="actions">
+      <a class="btn primary" href="WaveRider-Offline.html">进入游戏 · 离线版 <span>→</span></a>
+      <a class="btn ghost" href="WaveRider.html">在线版 · CDN <span>↗</span></a>
+    </div>
+    <p class="note"><b>建议离线版：</b>零网络请求，所有资源都在同一个 HTML 内；在线版从 CDN 加载 Three.js r160。进度保存在当前浏览器。</p>
+    <a class="back" href="../">← 返回作品集</a>
+  </section>
+  <figure class="poster">
+    <img src="../assets/wave-rider.jpg" width="1440" height="810" alt="Wave Rider 浪尖竞速实机画面">
+    <figcaption class="cap"><span>WAVE RIDER · RACE IN PROGRESS</span><span>3 LAPS</span></figcaption>
+  </figure>
+</main>
+<footer><span>HKY · GAME DESIGN / 2026</span><span>OFFLINE BUILD · ZERO NETWORK</span></footer>
+</body>
+</html>
