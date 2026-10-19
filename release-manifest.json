@@ -1,7 +1,7 @@
 {
   "version": "1.0",
   "target": "pages",
-  "preparedAt": "2026-10-19T00:59:00Z",
+  "preparedAt": "2026-10-19T01:19:59Z",
   "repository": "HKY-hub/crash-crown-demo",
   "gameBaselineSHA256": "7af8b62666c4b39ee74b353cd04780cfdd6fd11b18b91b28cf6d477567346725",
   "publicGameSHA256": "790941476cb57788566b2c3e5db19d00890be04a329a9a1517ac1363dcaef169",
@@ -350,8 +350,8 @@
     },
     {
       "file": "assets/game-client.js",
-      "bytes": 44220,
-      "sha256": "3dfc2d1c6b74edd142b1afae3ef7c89844a8eaa16456161c5e573001bd11942e"
+      "bytes": 44671,
+      "sha256": "138a14712ee6878fbd3a8d98cf20c5136f5c211f3e660be307855e163965590f"
     },
     {
       "file": "assets/gameplay.jpg",
@@ -855,8 +855,8 @@
     },
     {
       "file": "game/client.html",
-      "bytes": 5566,
-      "sha256": "68f979c7f25223fc66c775868c4ed97b8bcfe889ee6576a18f2a228d71b5c670"
+      "bytes": 5589,
+      "sha256": "fafcc859916ab27b0546523cdef800f9b9942c1fa33826df463a1ed55882a63e"
     },
     {
       "file": "game/index.html",
@@ -905,8 +905,8 @@
     },
     {
       "file": "wave-rider/index.html",
-      "bytes": 5108,
-      "sha256": "71d43a6c20ee432b276d95d43e387598f7fe1a8b2d2fc8743bf42acabe0ed98e"
+      "bytes": 5150,
+      "sha256": "f858bc58941f87ab7ce97f5f4b5a01b73344d851c70e9f3e10eacddc859c2958"
     },
     {
       "file": "wave-rider/WaveRider-Offline.html",

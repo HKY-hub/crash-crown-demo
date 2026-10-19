@@ -677,6 +677,7 @@
           return false;
         }
         var ready = !C.waitForReady || win[C.waitForReady] === true;
+        if (C.requireWR) ready = ready && !!win.__WR;
         if (C.flow === 'strike') {
           var flow = win.UI56ModeFlow;
           if (ready && flow && flow.installed && Date.now() - lastClickAt > 700) {
@@ -693,11 +694,20 @@
           }
         } else {
           var btn = doc.querySelector(C.startSelector);
+          if (C.requireWR) {
+            var phase = null;
+            try { phase = win.__WR.session() && win.__WR.session().phase; } catch (e) {}
+            if (phase === 'countdown' || phase === 'racing') {
+              markStarted();
+              return true;
+            }
+          }
           if (btn && btn.offsetParent !== null && ready && Date.now() - lastClickAt > 1600) {
             lastClickAt = Date.now();
             btn.click();
-            if (!C.verifyLaunch) { markStarted(); return true; }
+            if (!C.verifyLaunch && !C.requireWR) { markStarted(); return true; }
           }
+          if (C.requireWR) return false;
         }
         if (C.verifyLaunch || C.flow) {
           var gameState = null;
@@ -715,7 +725,7 @@
     matchTimer = setInterval(function () {
       if (started) return;
       clickStart();
-      if (!started && !nudged && Date.now() - begin > 14000) {
+      if (!started && !nudged && Date.now() - begin > (C.startTimeout || 14000)) {
         clearInterval(matchTimer);
         loader.classList.add('hidden');
         toast('已进入游戏界面；若未自动开局，请点击游戏内的开始按钮');
@@ -725,7 +735,7 @@
       if (!started && !loader.classList.contains('hidden')) {
         loader.classList.add('hidden');
       }
-    }, 16000);
+    }, (C.startTimeout || 14000) + 2000);
   }
 
   function backToLobby() {
