@@ -1,0 +1,320 @@
+/* ============ 局内暂停 / 移动端适配（不改原样式表的地基） ============ */
+#pauseMenu {
+  z-index: 60;
+  background: rgba(2, 8, 6, .78);
+  backdrop-filter: blur(4px);
+}
+#pauseMenu .pause-panel {
+  width: min(92vw, 420px);
+  padding: 26px 24px 22px;
+  border: 1px solid rgba(120, 255, 80, .38);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .6), 0 0 34px rgba(0, 220, 90, .18);
+}
+.pause-kicker {
+  margin: 0 0 6px;
+  color: #6f9a7d;
+  font-size: 11px;
+  letter-spacing: 3px;
+}
+#pauseMenu .title.small { display: block; margin: 0; }
+.pause-tip { margin: 8px 0 0; color: #7fa48c; font-size: 12px; }
+.pause-actions { display: grid; gap: 10px; margin-top: 20px; }
+#pauseMenu .start-btn {
+  width: 100%;
+  margin: 0;
+  padding: 12px 18px;
+  font-size: 16px;
+  letter-spacing: 2px;
+}
+#pauseMenu .start-btn.ghost { background: rgba(10, 24, 16, .7); }
+.pause-note { margin: 14px 0 0; color: #5d7d68; font-size: 11px; }
+
+#hudPause {
+  pointer-events: auto;
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(120, 255, 80, .34);
+  background: rgba(6, 20, 13, .82);
+  color: #baff9a;
+  font: 700 15px/1 monospace;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+#hudPause:hover { background: rgba(24, 60, 35, .9); }
+#hudPause:active { transform: translateY(1px); }
+
+/* 触屏专用提示 */
+.touch-help { display: none; margin: 14px 0 0; color: #86b598; font-size: 12px; line-height: 1.7; }
+body.touch-mode .touch-help { display: block; }
+body.touch-mode #menu .controls { display: none; }
+body.touch-mode .mp-tabs { flex-wrap: wrap; }
+body.touch-mode #game { border-width: 1px; }
+
+body.touch-mode #hudLeft { transform: scale(.84); transform-origin: top left; }
+body.touch-mode #hudRight { transform: scale(.82); transform-origin: top right; }
+body.touch-mode #hudTop { top: 8px; }
+body.touch-mode #hudTop #timer { font-size: 22px; }
+body.touch-mode #killfeed { font-size: 11px; }
+
+/* ============ 移动端控制层 ============ */
+#mobileControls {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 12;
+  pointer-events: none;
+  touch-action: none;
+}
+body.touch-mode.mobile-playing #mobileControls { display: block; }
+body.paused #mobileControls { display: none !important; }
+
+.mc-stick {
+  position: absolute;
+  left: calc(16px + env(safe-area-inset-left));
+  bottom: calc(16px + env(safe-area-inset-bottom));
+  width: 118px;
+  height: 118px;
+  border-radius: 50%;
+  border: 2px solid rgba(186, 255, 154, .5);
+  background: radial-gradient(circle, rgba(15, 40, 25, .5), rgba(5, 14, 9, .72));
+  box-shadow: 0 0 0 6px rgba(0, 0, 0, .18);
+  pointer-events: auto;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.mc-knob {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 48px;
+  height: 48px;
+  margin: -24px;
+  border-radius: 50%;
+  background: rgba(150, 255, 110, .72);
+  border: 2px solid #eaffd9;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, .45);
+  transform: translate(0, 0);
+  will-change: transform;
+}
+.mc-stick-cap {
+  position: absolute;
+  left: 50%;
+  bottom: 8px;
+  transform: translateX(-50%);
+  color: rgba(230, 255, 230, .62);
+  font: 9px/1 monospace;
+  letter-spacing: 2px;
+  white-space: nowrap;
+}
+
+.mc-aim {
+  position: absolute;
+  right: 0;
+  top: 64px;
+  bottom: 0;
+  width: 55%;
+  pointer-events: auto;
+  touch-action: none;
+  background: transparent;
+}
+.mc-aim::after {
+  content: "拖动瞄准 · 按住开火";
+  position: absolute;
+  right: 18px;
+  top: 12px;
+  color: rgba(230, 255, 230, .38);
+  font: 10px/1 monospace;
+  letter-spacing: 1px;
+  pointer-events: none;
+}
+.mc-reticle {
+  position: fixed;
+  z-index: 13;
+  width: 26px;
+  height: 26px;
+  margin: -13px;
+  border: 1.5px solid rgba(186, 255, 154, .9);
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(120, 255, 80, .5), inset 0 0 6px rgba(120, 255, 80, .35);
+  pointer-events: none;
+  display: none;
+}
+
+.mc-actions {
+  position: absolute;
+  right: calc(14px + env(safe-area-inset-right));
+  bottom: calc(14px + env(safe-area-inset-bottom));
+  z-index: 4;
+  display: grid;
+  grid-template-columns: repeat(2, 56px);
+  gap: 8px;
+  pointer-events: none;
+}
+.mc-btn {
+  pointer-events: auto;
+  width: 56px;
+  height: 50px;
+  border-radius: 8px;
+  border: 1px solid rgba(186, 255, 154, .4);
+  background: rgba(6, 20, 13, .8);
+  color: #d9ffcb;
+  font: 700 13px/1 sans-serif;
+  letter-spacing: 1px;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.mc-btn:active, .mc-btn.active { background: rgba(47, 200, 90, .55); color: #fff; }
+.mc-fire {
+  grid-column: 1 / -1;
+  height: 46px;
+  font-size: 14px;
+  background: rgba(90, 20, 20, .78);
+  border-color: rgba(255, 110, 110, .5);
+  color: #ffd5d5;
+}
+.mc-fire:active, .mc-fire.active { background: rgba(220, 60, 60, .7); }
+.mc-pause {
+  position: absolute;
+  right: calc(14px + env(safe-area-inset-right));
+  top: calc(10px + env(safe-area-inset-top));
+  z-index: 5;
+  width: 52px;
+  height: 44px;
+  border-radius: 8px;
+  border: 1px solid rgba(186, 255, 154, .4);
+  background: rgba(6, 20, 13, .82);
+  color: #d9ffcb;
+  font: 700 12px/1 sans-serif;
+  pointer-events: auto;
+  touch-action: none;
+}
+.mc-pause:active { background: rgba(47, 200, 90, .55); }
+
+/* 竖屏提示 */
+.rotate-hint {
+  display: none;
+  position: fixed;
+  left: 50%;
+  bottom: calc(16px + env(safe-area-inset-bottom));
+  transform: translateX(-50%);
+  z-index: 14;
+  align-items: center;
+  gap: 10px;
+  max-width: calc(100vw - 24px);
+  padding: 8px 10px;
+  border: 1px solid rgba(186, 255, 154, .34);
+  background: rgba(6, 20, 13, .92);
+  color: #cdebcf;
+  font-size: 11px;
+  white-space: nowrap;
+  pointer-events: auto;
+}
+.rotate-hint button {
+  pointer-events: auto;
+  min-height: 40px;
+  padding: 0 12px;
+  border: 1px solid rgba(47, 200, 90, .6);
+  background: rgba(32, 90, 52, .6);
+  color: #eaffdf;
+  font-size: 11px;
+}
+.rotate-hint.dismissed { display: none !important; }
+@media (orientation: portrait) and (pointer: coarse) {
+  body.touch-mode .rotate-hint:not(.dismissed) {
+    display: flex;
+    top: calc(112px + env(safe-area-inset-top));
+    bottom: auto;
+  }
+}
+
+@media (max-height: 430px) and (pointer: coarse) {
+  .mc-stick { width: 102px; height: 102px; bottom: calc(10px + env(safe-area-inset-bottom)); }
+  .mc-knob { width: 42px; height: 42px; margin: -21px; }
+  .mc-actions { grid-template-columns: repeat(4, 52px); bottom: calc(10px + env(safe-area-inset-bottom)); }
+  .mc-btn { width: 52px; height: 46px; }
+  .mc-fire { grid-column: auto; height: 46px; }
+  body.touch-mode #hudLeft { transform: scale(.72); }
+  body.touch-mode #hudRight { transform: scale(.68); }
+}
+
+/* ============ 大厅 / 登录等壳层的移动端重排 ============ */
+body.touch-mode .g-shell { overflow: hidden; }
+body.touch-mode .g-body {
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 0 10px calc(126px + env(safe-area-inset-bottom));
+}
+body.touch-mode .g-top {
+  height: auto;
+  min-height: 54px;
+  flex-wrap: wrap;
+  gap: 6px 8px;
+  padding: 7px 10px calc(7px + env(safe-area-inset-top));
+}
+body.touch-mode .g-top .tp-brand em { display: none; }
+body.touch-mode .g-top .tp-brand b { font-size: 14px; letter-spacing: 2px; }
+body.touch-mode .g-top .tp-spacer { display: none; }
+body.touch-mode .g-top .g-res--diam,
+body.touch-mode .g-top .g-res--stam { display: none; }
+body.touch-mode .g-top .g-ava .av-info { min-width: 0; max-width: 92px; }
+body.touch-mode .g-top .g-ava .av-name { font-size: 11px; }
+body.touch-mode .g-top .g-ava .av-exp { font-size: 8px; }
+
+body.touch-mode #page-lobby .lb-grid {
+  grid-template-columns: 1fr;
+  grid-template-rows: auto;
+  height: auto;
+  min-height: 0;
+  gap: 10px;
+}
+body.touch-mode #page-lobby .lb-col { min-height: 0; }
+body.touch-mode #page-lobby .lb-center {
+  grid-column: auto;
+  min-height: 250px;
+  order: -1;
+}
+body.touch-mode #page-lobby .lb-modes { overflow: visible; }
+body.touch-mode #page-lobby .lb-wpn { min-height: 0; }
+body.touch-mode #page-lobby .lb-wpn-prev { height: 96px; }
+body.touch-mode #page-lobby .lb-name b { font-size: 22px; letter-spacing: 4px; }
+body.touch-mode #page-lobby .lb-name { top: 8px; }
+body.touch-mode #page-lobby .lb-radar { width: 64px; height: 64px; right: 8px; top: 8px; }
+body.touch-mode #page-lobby .lb-stage { min-height: 250px; }
+
+body.touch-mode .g-nav {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 40;
+  height: auto;
+  min-height: 64px;
+  padding: 6px 8px calc(6px + env(safe-area-inset-bottom));
+  flex-wrap: wrap;
+  gap: 4px;
+  justify-content: center;
+}
+body.touch-mode .g-nav-item { min-width: 58px; height: 48px; padding: 0 6px; }
+body.touch-mode .g-nav-item i { font-size: 16px; }
+body.touch-mode .g-nav-item span { font-size: 9px; letter-spacing: 1px; }
+body.touch-mode #lbStartBtn {
+  order: -1;
+  flex: 1 1 100%;
+  width: 100%;
+  min-width: 0;
+  height: 48px;
+  font-size: 17px;
+  letter-spacing: 3px;
+}
+body.touch-mode #lbNav > .g-btn:not(.g-cta) { display: none; }
+body.touch-mode .g-nav .nv-spacer { display: none; }
+
+body.touch-mode .lg-box { max-height: calc(100vh - 16px); overflow-y: auto; }
+body.touch-mode .lg-box > .gf-in { padding: 18px 16px; }
+body.touch-mode .lg-channels { grid-template-columns: repeat(2, 1fr); }
+body.touch-mode .g-phead b { font-size: 18px; }
+body.touch-mode .g-phead { padding: 10px 0 8px; }

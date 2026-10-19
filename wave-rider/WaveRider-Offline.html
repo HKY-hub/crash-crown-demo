@@ -2,9 +2,10 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no" />
 <title>Wave Rider · 水上摩托竞速</title>
-<link rel="icon" href="../assets/crown.svg" type="image/svg+xml">
+<!-- 空 data URI 图标：离线版与本地验证都不会再去请求 /favicon.ico（不引入任何外部请求） -->
+<link rel="icon" href="data:," />
 <style>
   /* ============ 全局 / 水墨风 UI ============ */
   * { margin:0; padding:0; box-sizing:border-box; user-select:none; }
@@ -481,6 +482,191 @@
     border-bottom:1px solid rgba(127,232,255,.35); padding-bottom:3px; }
   #dev-panel .dev-sub { font-size:11px; font-weight:bold; color:#8fd6ee; margin-top:6px; }
   #dev-panel pre { white-space:pre-wrap; word-break:break-all; margin:3px 0 0; font:inherit; }
+
+  /* ==================================================================
+   * 移动端：左侧虚拟摇杆 + 右侧涡轮 / 极速 / 暂停（仅触屏或窄屏）
+   * 桌面 1440×900 不匹配下面的紧凑规则，也不加 .wr-mobile，键鼠体验不变。
+   * ================================================================== */
+  #game canvas { touch-action:none; }
+  body { overscroll-behavior:none; -webkit-tap-highlight-color:transparent; }
+  #touch-ui { position:absolute; inset:0; display:none; pointer-events:none; z-index:8; }
+  body.wr-mobile #touch-ui { display:block; }
+  #stick-zone, #stick-knob, .touch-btn, #rotate-hint, #rotate-hint * {
+    -webkit-user-select:none; user-select:none; -webkit-touch-callout:none; }
+  #stick-zone {
+    position:absolute; left:calc(10px + env(safe-area-inset-left, 0px));
+    bottom:calc(10px + env(safe-area-inset-bottom, 0px));
+    width:120px; height:120px; border-radius:50%; pointer-events:auto; touch-action:none;
+    background:radial-gradient(circle at 50% 46%, rgba(245,241,229,.26), rgba(245,241,229,.10) 66%, rgba(245,241,229,.20));
+    border:2.5px solid rgba(23,23,23,.78);
+    box-shadow:0 0 0 3px rgba(245,241,229,.16), 3px 3px 0 rgba(0,0,0,.22);
+  }
+  #stick-zone.on { background:radial-gradient(circle at 50% 46%, rgba(245,241,229,.38), rgba(245,241,229,.16) 66%, rgba(245,241,229,.24)); }
+  #stick-knob {
+    position:absolute; left:50%; top:50%; width:54px; height:54px; transform:translate(-50%,-50%);
+    border-radius:50%; pointer-events:none; background:rgba(245,241,229,.9);
+    border:2.5px solid #171717; box-shadow:2px 2px 0 rgba(0,0,0,.25);
+  }
+  #stick-cap {
+    position:absolute; left:0; right:0; bottom:8px; text-align:center; pointer-events:none;
+    font-size:9px; font-weight:bold; letter-spacing:1px; color:#171717; opacity:.72;
+  }
+  .touch-btn {
+    position:absolute; pointer-events:auto; touch-action:none; cursor:pointer;
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:1px;
+    font-family:inherit; font-weight:bold; line-height:1; color:#f6f2e6;
+    background:rgba(192,57,43,.9); border:2.5px solid #171717; border-radius:50%;
+    box-shadow:3px 3px 0 rgba(0,0,0,.28); padding:0; appearance:none;
+  }
+  .touch-btn small { font-size:8px; font-weight:bold; letter-spacing:0; opacity:.82; }
+  .touch-btn.on { transform:translate(2px,2px); box-shadow:1px 1px 0 rgba(0,0,0,.28); background:#a5281f; }
+  .touch-btn.skill { background:rgba(31,110,150,.92); }
+  .touch-btn.skill.on { background:#0d6b8a; }
+  .touch-btn.pause { background:rgba(245,241,229,.94); color:#171717; }
+  #btn-boost { right:calc(10px + env(safe-area-inset-right, 0px)); bottom:calc(10px + env(safe-area-inset-bottom, 0px));
+    width:76px; height:76px; font-size:15px; letter-spacing:1px; }
+  #btn-skill { right:calc(96px + env(safe-area-inset-right, 0px)); bottom:calc(18px + env(safe-area-inset-bottom, 0px));
+    width:58px; height:58px; font-size:13px; letter-spacing:1px; }
+  #btn-pause { right:calc(14px + env(safe-area-inset-right, 0px)); bottom:calc(96px + env(safe-area-inset-bottom, 0px));
+    width:48px; height:48px; font-size:13px; letter-spacing:1px; }
+
+  /* 竖屏提示：只给触屏 / 窄屏；桌面不出现 */
+  #rotate-hint { position:fixed; inset:0; z-index:70; display:none; align-items:center; justify-content:center;
+    padding:calc(16px + env(safe-area-inset-top, 0px)) 18px calc(16px + env(safe-area-inset-bottom, 0px));
+    background:rgba(6,20,32,.78); backdrop-filter:blur(2px); }
+  body.wr-mobile #rotate-hint.show { display:flex; }
+  .rotate-card { width:min(360px,92vw); padding:22px 22px 18px; text-align:center; }
+  .rotate-icon { font-size:38px; line-height:1; font-weight:bold; color:#0d3b56; }
+  .rotate-card b { display:block; margin-top:8px; font-size:22px; letter-spacing:3px; color:#0d3b56; }
+  .rotate-card p { margin:8px 2px 12px; font-size:13px; line-height:1.6; color:#4a4a55; }
+  .rotate-card .btn { display:block; width:100%; margin:8px 0 0; font-size:18px; letter-spacing:3px; padding:10px 12px; }
+  .rotate-card .btn-sec { background:transparent; color:#3a3a45; box-shadow:2px 2px 0 rgba(0,0,0,.18);
+    font-size:15px; letter-spacing:2px; }
+
+  /* ---- 窄屏 / 触屏：HUD 紧凑重排，避免互相遮挡与横向溢出 ---- */
+  @media (max-width: 900px), (pointer: coarse) and (max-width: 1180px) {
+    #lap-box { top:calc(6px + env(safe-area-inset-top, 0px)); left:calc(6px + env(safe-area-inset-left, 0px));
+      padding:3px 8px; font-size:14px; letter-spacing:1px; }
+    #time-box { top:calc(34px + env(safe-area-inset-top, 0px)); left:calc(6px + env(safe-area-inset-left, 0px));
+      padding:2px 8px; font-size:12px; letter-spacing:.5px; }
+    #mode-box { top:calc(58px + env(safe-area-inset-top, 0px)); left:calc(6px + env(safe-area-inset-left, 0px));
+      padding:3px 7px; font-size:10px; letter-spacing:.5px; max-width:min(250px, 58vw); }
+    #mode-name { font-size:10px; }
+    #mode-rule { margin-top:1px; font-size:8.5px; letter-spacing:0; white-space:nowrap; overflow:hidden;
+      text-overflow:ellipsis; max-width:min(238px, 54vw); }
+    #goal-box { top:calc(190px + env(safe-area-inset-top, 0px)); left:calc(6px + env(safe-area-inset-left, 0px));
+      padding:3px 7px; font-size:10px; min-width:0; max-width:min(238px, 54vw);
+      white-space:nowrap; overflow:hidden; }
+    #goal-label { font-size:9px; margin-right:4px; }
+    #goal-val { font-size:10px; }
+    #goal-track { height:5px; border-width:1.5px; margin-top:3px; }
+    #ghost-box { top:calc(222px + env(safe-area-inset-top, 0px)); left:calc(6px + env(safe-area-inset-left, 0px));
+      padding:2px 7px; font-size:10px; }
+    #ghost-tag { font-size:8px; margin-left:4px; }
+    #speed-box { left:calc(6px + env(safe-area-inset-left, 0px)); top:calc(100px + env(safe-area-inset-top, 0px));
+      bottom:auto; min-width:0; width:118px; padding:5px 8px; }
+    #speed-num { font-size:26px; }
+    #speed-unit { font-size:9px; letter-spacing:1px; }
+    #speed-box .hull-chip { display:block; margin:3px 0 0; padding:1px 5px; max-width:100%;
+      font-size:8px; letter-spacing:.5px; vertical-align:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    #boost-wrap { margin-top:3px; }
+    #boost-label { font-size:9px; letter-spacing:1px; }
+    #boost-track { height:8px; border-width:1.5px; margin-top:1px; }
+
+    #rank-box { top:calc(6px + env(safe-area-inset-top, 0px)); right:auto; left:50%; transform:translateX(-50%);
+      padding:3px 8px; min-width:0; max-width:min(300px, 66vw); }
+    #rank-box h3 { font-size:10px; letter-spacing:2px; padding-bottom:1px; margin-bottom:2px; }
+    #rank-me { font-size:11px; padding:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    #rank-list { max-height:46vh; overflow:auto; }
+    .rank-row { font-size:11px; line-height:1.35; gap:6px; }
+    .rank-row .pos { width:16px; }
+    .rank-hull { font-size:8px; margin-left:3px; }
+    #minimap-box { top:calc(6px + env(safe-area-inset-top, 0px)); right:calc(6px + env(safe-area-inset-right, 0px)); padding:3px; }
+    #minimap { width:88px; height:88px; }
+    #minimap-cap { max-width:88px; font-size:8px; letter-spacing:1px; margin-top:0; white-space:nowrap;
+      overflow:hidden; text-overflow:ellipsis; }
+    #weather-box { top:calc(116px + env(safe-area-inset-top, 0px)); right:calc(6px + env(safe-area-inset-right, 0px));
+      padding:2px 4px; width:58px; }
+    #weather-icon { width:30px; height:30px; margin:0 auto; }
+    #weather-name { font-size:9px; letter-spacing:1px; margin-top:0; }
+    #weather-fx { font-size:7.5px; line-height:1.3; margin-top:1px; }
+
+    #coach-card { top:calc(78px + env(safe-area-inset-top, 0px)); width:min(320px, 60vw); padding:5px 8px 6px; }
+    #coach-head { font-size:10px; }
+    #coach-name { font-size:14px; margin-top:1px; }
+    #coach-hint { font-size:10px; line-height:1.4; margin-top:1px; }
+    #coach-prog { font-size:10px; margin-top:2px; }
+    #coach-skip { font-size:9px; padding:0 5px; }
+
+    #vitals { bottom:calc(6px + env(safe-area-inset-bottom, 0px)); width:190px; gap:3px; }
+    .vital { padding:3px 8px 4px; }
+    .vital-label { font-size:9px; letter-spacing:1px; margin-bottom:1px; }
+    .vital-track { height:8px; border-width:1.5px; }
+
+    #track-warn { top:calc(46px + env(safe-area-inset-top, 0px)); padding:3px 10px; font-size:11px; letter-spacing:1px; }
+    #countdown { font-size:96px; letter-spacing:6px; }
+    #lapflash { font-size:34px; letter-spacing:4px; }
+    #toast { top:17%; font-size:22px; letter-spacing:3px; }
+
+    #train-screen { top:calc(58px + env(safe-area-inset-top, 0px)); right:calc(6px + env(safe-area-inset-right, 0px));
+      width:210px; max-height:calc(100vh - 76px); overflow:auto; padding:6px 8px; }
+    #train-title { font-size:11px; }
+    #train-list { font-size:9px; }
+    .tr-row b { font-size:9.5px; }
+    #train-foot { font-size:8.5px; }
+  }
+
+  /* ---- 竖屏 / 极窄：摇杆与按钮改成右侧纵向簇，避免压住居中耐久条 ---- */
+  @media (max-width: 520px) {
+    .paper { width:100%; max-width:calc(100vw - 20px); padding-left:16px; padding-right:16px; }
+    #skin-stage { width:calc(100vw - 20px); max-width:520px; padding:10px 12px 14px; }
+    #skin-preview { width:100%; height:auto; max-height:34vh; }
+    #skin-name { font-size:26px; letter-spacing:4px; }
+    #skin-hint { font-size:12px; letter-spacing:1px; }
+    #skin-count { top:10px; left:10px; padding:4px 10px; font-size:13px; }
+    #hull-screen .hg-btn { width:128px; }
+    #stick-zone { width:112px; height:112px; }
+    #stick-knob { width:50px; height:50px; }
+    #vitals { width:148px; }
+    #minimap { width:74px; height:74px; }
+    #minimap-cap { max-width:74px; }
+    #weather-box { top:calc(102px + env(safe-area-inset-top, 0px)); width:50px; }
+    #weather-icon { width:24px; height:24px; }
+    #speed-box { width:104px; }
+    #speed-num { font-size:22px; }
+    #mode-box, #goal-box, #ghost-box { max-width:min(210px, 56vw); }
+    #rank-box { max-width:70vw; }
+    #btn-boost { width:64px; height:64px; font-size:13px; }
+    #btn-skill { right:calc(8px + env(safe-area-inset-right, 0px)); bottom:calc(78px + env(safe-area-inset-bottom, 0px));
+      width:52px; height:52px; font-size:12px; }
+    #btn-pause { right:calc(10px + env(safe-area-inset-right, 0px)); bottom:calc(138px + env(safe-area-inset-bottom, 0px));
+      width:46px; height:46px; font-size:12px; }
+  }
+
+  /* ---- 矮视口（横屏手机）：所有覆盖层压缩，暂停菜单 5 个入口一屏可达 ---- */
+  @media (max-height: 480px) {
+    .overlay { padding:8px 0; }
+    .overlay .paper { max-height:calc(100vh - 16px); padding:14px 20px; }
+    .game-title { font-size:38px; }
+    .game-sub { font-size:13px; letter-spacing:5px; margin:2px 0 8px; }
+    .ink-divider { margin:6px auto; }
+    .btn { min-height:44px; margin-top:7px; padding:6px 18px; font-size:17px; letter-spacing:3px; }
+    .btn-primary { font-size:19px; padding:7px 24px; }
+    .home-nav { margin-top:4px; gap:6px; }
+    .home-nav .btn { min-height:44px; padding:5px 10px; font-size:13px; letter-spacing:1px; }
+    .page-title { font-size:22px; letter-spacing:4px; }
+    .help { font-size:12px; line-height:1.55; margin:4px; }
+    .help b { min-width:70px; }
+    #result-title { font-size:28px; }
+    .stand-row { font-size:14px; line-height:1.45; }
+    #result-time { font-size:13px; margin-top:2px; }
+    .setup-summary, .home-summary { font-size:11px; margin:3px 0 6px; }
+    .setup-rules { font-size:11px; line-height:1.5; margin:3px 0 5px; }
+    .set-row { font-size:12px; margin:4px 0; }
+    .set-row input[type=range] { width:120px; }
+    .set-kbd { font-size:11px; line-height:1.55; }
+    #load-tip { font-size:11px; margin-top:6px; }
+  }
 </style>
 </head>
 <body>
@@ -538,6 +724,23 @@
     </div>
   </div>
 
+  <!-- 移动端触控层：只在 .wr-mobile 时显示；摇杆写 __WR.keys，右侧复用现有涡轮 / 技能 / 暂停 -->
+  <div id="touch-ui" aria-hidden="true">
+    <div id="stick-zone" role="group" aria-label="虚拟摇杆：上下控制油门与刹车，左右转向">
+      <div id="stick-knob"></div>
+      <span id="stick-cap">转向 / 油门</span>
+    </div>
+    <button type="button" class="touch-btn pause" id="btn-pause" aria-label="暂停比赛">
+      <span>暂停</span><small>II</small>
+    </button>
+    <button type="button" class="touch-btn skill" id="btn-skill" aria-label="极速技能">
+      <span>极速</span><small>Shift</small>
+    </button>
+    <button type="button" class="touch-btn boost" id="btn-boost" aria-label="涡轮增压（按住）">
+      <span>涡轮</span><small>按住</small>
+    </button>
+  </div>
+
   <div id="track-warn"></div>
   <div id="steam-veil"></div>
   <div id="crit-vignette"></div>
@@ -548,6 +751,17 @@
 
 <!-- 提示条不在 #hud 内：车库与菜单里也要给出反馈 -->
 <div id="toast"></div>
+
+<!-- 竖屏提示：可尝试全屏 + 横屏锁定，失败时静默保留手动旋转提示 -->
+<div id="rotate-hint" role="dialog" aria-modal="true" aria-label="建议横屏游玩">
+  <div class="rotate-card ink-panel">
+    <div class="rotate-icon">⟳</div>
+    <b>建 议 横 屏 游 玩</b>
+    <p>横屏 844×390 是推荐姿态：赛道、摇杆与技能键都更顺手。竖屏下 HUD 会自动压缩，但视野较窄。</p>
+    <button type="button" class="btn btn-primary" id="rotate-fullscreen">全 屏 横 屏</button>
+    <button type="button" class="btn btn-sec" id="rotate-dismiss">仍 然 竖 屏 试 玩</button>
+  </div>
+</div>
 
 <!-- 主页：待出航的码头（一个主行动 + 少量稳定入口） -->
 <div class="overlay" id="title-screen">
@@ -59006,6 +59220,9 @@ function fmtTime(s){
 function fmtMs(ms){ return fmtTime(ms/1000); }
 function raceClock(){ return session? session.clock : 0; }
 function rankMeLabel(pos, total, collapsed){
+  // 移动端紧凑 HUD 用短标签，避免长句把顶部排名条撑出屏幕（桌面文案保持不变）
+  if(document.body.classList.contains('wr-mobile'))
+    return `第 ${pos}/${total} 名` + (collapsed?' · 展开':' · 收起');
   return `我的名次：第 ${pos} 名 / ${total}` + (collapsed?'（点击展开）':'（点击收起）');
 }
 function updateHUD(dt){
@@ -62633,9 +62850,252 @@ renderer.domElement.addEventListener('webglcontextlost', onGlLost, false);
 renderer.domElement.addEventListener('webglcontextrestored', onGlRestored, false);
 loop();
 
+/* ---------------- 22.9 移动端触控层 ----------------
+ * 只做输入与布局，不改物理：摇杆把模拟量折算成 KeyW/KeyS/KeyA/KeyD，
+ * 右侧按钮按住写 Space、点按调用现有 tryUseSkill、暂停沿用 UI.paused + apply()。
+ * 桌面（细指针且 >900px）完全不激活；窄屏或触屏才加 body.wr-mobile。
+ * 多指：每个控件按 pointerId 独立捕获，摇杆与涡轮可同时按住。 */
+const Mobile = (function(){
+  const root = document.getElementById('touch-ui');
+  const stick = document.getElementById('stick-zone');
+  const knob = document.getElementById('stick-knob');
+  const boostBtn = document.getElementById('btn-boost');
+  const skillBtn = document.getElementById('btn-skill');
+  const pauseBtn = document.getElementById('btn-pause');
+  const trainScreen = document.getElementById('train-screen');
+  const rotateHint = document.getElementById('rotate-hint');
+  const rotateFs = document.getElementById('rotate-fullscreen');
+  const rotateDismiss = document.getElementById('rotate-dismiss');
+  if(!root || !stick || !knob || !boostBtn || !skillBtn || !pauseBtn) return null;
+
+  // 无头夹具没有 matchMedia：退化成「非粗指针」，不改变桌面键鼠分支
+  const mqCoarse = (typeof matchMedia === 'function')
+    ? matchMedia('(pointer: coarse)')
+    : { matches:false, addEventListener:null };
+  const held = { KeyA:false, KeyD:false, KeyW:false, KeyS:false, Space:false };
+  let active = false, stickId = null, boostId = null;
+  let dismissed = false;
+  try { dismissed = sessionStorage.getItem('wr_rotate_dismiss') === '1'; } catch(e) {}
+
+  const STICK_KEYS = ['KeyA','KeyD','KeyW','KeyS'];
+  function setHeld(code, on){
+    if(held[code] === on) return;
+    held[code] = on;
+    keys[code] = on;
+  }
+  function releaseKeys(){
+    for(const c of STICK_KEYS.concat('Space')) if(held[c]){ held[c] = false; keys[c] = false; }
+  }
+  function capture(el, id){ try { el.setPointerCapture(id); } catch(e) {} }
+  function release(el, id){
+    try { if(el.hasPointerCapture && el.hasPointerCapture(id)) el.releasePointerCapture(id); } catch(e) {}
+  }
+
+  function isTouch(){ return navigator.maxTouchPoints > 0 || mqCoarse.matches; }
+  function computeActive(){
+    // 触屏 ≤1180 出控；窄屏（含鼠标窄窗）≤900 也出控；1440 桌面两者都不满足
+    return (isTouch() && innerWidth <= 1180) || innerWidth <= 900;
+  }
+  function isPortrait(){ return innerHeight > innerWidth; }
+  function canDrive(){
+    if(UI.paused || !session) return false;
+    if(game.mode !== MODE.RACING && game.mode !== MODE.COUNTDOWN && game.mode !== MODE.TRAIN) return false;
+    return session.phase === RacePhase.RACING || session.phase === RacePhase.COUNTDOWN;
+  }
+  function canPause(){
+    return !UI.paused && !!session &&
+      (game.mode === MODE.RACING || game.mode === MODE.COUNTDOWN);
+  }
+  // 训练场没有暂停菜单：同一个按钮改成「退出」，避免移动端进了训练场出不来
+  function syncPauseLabel(){
+    const training = !!(trainScreen && trainScreen.classList.contains('show'));
+    const cap = pauseBtn.querySelector ? pauseBtn.querySelector('span') : null;
+    const sub = pauseBtn.querySelector ? pauseBtn.querySelector('small') : null;
+    if(cap) cap.textContent = training ? '退出' : '暂停';
+    if(sub) sub.textContent = training ? '训练' : 'II';
+    if(typeof pauseBtn.setAttribute === 'function')
+      pauseBtn.setAttribute('aria-label', training ? '退出训练场' : '暂停比赛');
+  }
+  syncPauseLabel();
+  if(trainScreen && typeof MutationObserver === 'function')
+    new MutationObserver(syncPauseLabel).observe(trainScreen, { attributes:true, attributeFilter:['class'] });
+
+  function updateHint(){
+    const show = active && isPortrait() && !dismissed &&
+      (isTouch() || innerWidth <= 520);
+    if(rotateHint) rotateHint.classList.toggle('show', show);
+    document.body.classList.toggle('wr-portrait', active && isPortrait());
+  }
+  function update(){
+    const next = computeActive();
+    if(next !== active){
+      active = next;
+      document.body.classList.toggle('wr-mobile', active);
+      root.setAttribute('aria-hidden', active ? 'false' : 'true');
+    }
+    if(!active){ releaseAll(); }
+    updateHint();
+  }
+  function releaseStick(){
+    if(stickId !== null) release(stick, stickId);
+    stickId = null;
+    stick.classList.remove('on');
+    knob.style.transform = 'translate(-50%,-50%)';
+    setHeld('KeyA', false); setHeld('KeyD', false);
+    setHeld('KeyW', false); setHeld('KeyS', false);
+  }
+  function releaseBoost(){
+    if(boostId !== null) release(boostBtn, boostId);
+    boostId = null;
+    boostBtn.classList.remove('on');
+    setHeld('Space', false);
+  }
+  function releaseAll(){ releaseStick(); releaseBoost(); }
+
+  function stickMove(ev){
+    const r = stick.getBoundingClientRect();
+    const cx = r.left + r.width / 2, cy = r.top + r.height / 2;
+    let dx = ev.clientX - cx, dy = ev.clientY - cy;
+    const radius = Math.max(18, r.width * 0.34);
+    const len = Math.hypot(dx, dy);
+    if(len > radius){ dx = dx / len * radius; dy = dy / len * radius; }
+    knob.style.transform = `translate(calc(-50% + ${dx.toFixed(1)}px), calc(-50% + ${dy.toFixed(1)}px))`;
+    const nx = dx / radius, ny = dy / radius, dead = 0.24;
+    setHeld('KeyA', nx < -dead);
+    setHeld('KeyD', nx > dead);
+    setHeld('KeyW', ny < -dead);   // 屏幕向上 = 油门
+    setHeld('KeyS', ny > dead);    // 屏幕向下 = 刹车 / 倒退
+  }
+
+  stick.addEventListener('pointerdown', function(ev){
+    if(!active || !canDrive() || stickId !== null) return;
+    ev.preventDefault(); ev.stopPropagation();
+    stickId = ev.pointerId;
+    capture(stick, ev.pointerId);
+    stick.classList.add('on');
+    stickMove(ev);
+  });
+  stick.addEventListener('pointermove', function(ev){
+    if(ev.pointerId !== stickId) return;
+    ev.preventDefault();
+    stickMove(ev);
+  });
+  function endStick(ev){
+    if(ev.pointerId !== stickId) return;
+    ev.preventDefault();
+    releaseStick();
+  }
+  stick.addEventListener('pointerup', endStick);
+  stick.addEventListener('pointercancel', endStick);
+  stick.addEventListener('lostpointercapture', function(ev){
+    if(ev.pointerId === stickId) releaseStick();
+  });
+
+  boostBtn.addEventListener('pointerdown', function(ev){
+    if(!active || !canDrive() || boostId !== null) return;
+    ev.preventDefault(); ev.stopPropagation();
+    boostId = ev.pointerId;
+    capture(boostBtn, ev.pointerId);
+    boostBtn.classList.add('on');
+    setHeld('Space', true);
+  });
+  function endBoost(ev){
+    if(ev.pointerId !== boostId) return;
+    ev.preventDefault();
+    releaseBoost();
+  }
+  boostBtn.addEventListener('pointerup', endBoost);
+  boostBtn.addEventListener('pointercancel', endBoost);
+  boostBtn.addEventListener('lostpointercapture', function(ev){
+    if(ev.pointerId === boostId) releaseBoost();
+  });
+
+  skillBtn.addEventListener('pointerdown', function(ev){
+    if(!active || !canDrive()) return;
+    ev.preventDefault(); ev.stopPropagation();
+    skillBtn.classList.add('on');
+    if(player) tryUseSkill(player);          // 与 Shift 完全同一条边沿触发路径
+  });
+  function skillUp(ev){ if(ev) ev.preventDefault(); skillBtn.classList.remove('on'); }
+  skillBtn.addEventListener('pointerup', skillUp);
+  skillBtn.addEventListener('pointercancel', skillUp);
+  skillBtn.addEventListener('pointerleave', skillUp);
+
+  pauseBtn.addEventListener('pointerdown', function(ev){
+    if(!active) return;
+    if(game.mode === MODE.TRAIN){             // 训练场：退出回车库，复用现有 Train.stop
+      ev.preventDefault(); ev.stopPropagation();
+      releaseAll(); Train.stop(); showToast('已退出训练场');
+      return;
+    }
+    if(!canPause()) return;
+    ev.preventDefault(); ev.stopPropagation();
+    releaseAll();
+    UI.paused = true;
+    UI.apply();                               // 复用现有暂停层
+  });
+
+  // 阻止长按菜单 / 双击缩放 / 触控层上的页面滚动
+  root.addEventListener('contextmenu', function(ev){ ev.preventDefault(); });
+  document.addEventListener('contextmenu', function(ev){
+    if(active && ev.target && ev.target.closest && ev.target.closest('#touch-ui')) ev.preventDefault();
+  });
+  document.addEventListener('dblclick', function(ev){
+    if(active && ev.target && ev.target.closest && ev.target.closest('#touch-ui')) ev.preventDefault();
+  }, { passive:false });
+  document.addEventListener('touchmove', function(ev){
+    if(active && ev.target && ev.target.closest && ev.target.closest('#touch-ui')) ev.preventDefault();
+  }, { passive:false });
+
+  function dismissHint(){
+    dismissed = true;
+    try { sessionStorage.setItem('wr_rotate_dismiss', '1'); } catch(e) {}
+    updateHint();
+  }
+  if(rotateDismiss) rotateDismiss.addEventListener('click', dismissHint);
+  if(rotateFs) rotateFs.addEventListener('click', async function(){
+    rotateFs.disabled = true;
+    let ok = false;
+    try {
+      if(!document.fullscreenElement && document.documentElement.requestFullscreen)
+        await document.documentElement.requestFullscreen({ navigationUI:'hide' });
+      if(screen.orientation && screen.orientation.lock)
+        await screen.orientation.lock('landscape');
+      ok = true;
+    } catch(e) { /* 桌面浏览器 / 无头环境不支持时静默回退 */ }
+    rotateFs.disabled = false;
+    if(ok){ dismissHint(); }
+    else { rotateFs.textContent = '请 手 动 旋 转 设 备'; }
+    setTimeout(update, 120);
+  });
+
+  addEventListener('resize', update);
+  addEventListener('orientationchange', function(){ setTimeout(update, 120); });
+  if(mqCoarse.addEventListener) mqCoarse.addEventListener('change', update);
+  addEventListener('blur', releaseAll);
+  // 键盘暂停 / 退出（Escape / P / Q）也要松开触控按住状态，避免恢复后「手指还按着但键被清掉」
+  addEventListener('keydown', function(ev){
+    if(ev.code === 'Escape' || ev.code === 'KeyP' || ev.code === 'KeyQ') releaseAll();
+  });
+  document.addEventListener('visibilitychange', function(){ if(document.hidden) releaseAll(); });
+
+  update();
+  return {
+    update, releaseAll, dismissHint,
+    get active(){ return active; },
+    get hintShown(){ return !!(rotateHint && rotateHint.classList.contains('show')); },
+    state(){
+      return { active, touch:isTouch(), coarse:mqCoarse.matches, portrait:isPortrait(),
+        width:innerWidth, height:innerHeight, hint:!!(rotateHint && rotateHint.classList.contains('show')),
+        keys:Object.assign({}, keys) };
+    }
+  };
+})();
+
 /* ---------------- 23. 开发 / 验证接口（不属于玩家界面，不参与渲染） ---------------- */
 window.__WR = {
   CONTENT_VERSION, SCHEMA_VERSION, Registry, Events, RacePhase, Archive, Dev, UI, game, MODE, Quality, QUALITY_TIERS, Motion, CamFx, SPRAY_KIND, TRACK_TEMPLATE, Growth, XP_RULES, LEVEL_STEPS, LEVEL_UNLOCKS, MILESTONES, PROF_STEPS, PROF_TITLES,
+  mobile: Mobile,
   scaffoldTrack, zoneVis, particleStats, HULL_MARK_COLORS, drawHullMark, LANDMARK_KIT, growthResultHtml, careerGrowthHtml, renderCareer,
   Economy, CATALOG, ECON_KEYS, ECON_LIMITS, ECON_CAPS, ECON_PRICES, ECONOMY_NOTE, COSMETIC_KINDS,
   cdnProbe: globalThis.__KERNEL__ || { ok:false, tried:[], ms:[], winner:'未记录（无头夹具）' },

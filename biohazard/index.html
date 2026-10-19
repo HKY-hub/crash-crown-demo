@@ -2,11 +2,12 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <title>生化追击 · 横版</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><rect width='16' height='16' fill='%2304070a'/><rect x='3' y='3' width='4' height='4' fill='%2335f0a0'/><rect x='9' y='9' width='4' height='4' fill='%23ff3b3b'/></svg>">
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/ui-shell.css">
+<link rel="stylesheet" href="css/mobile.css">
 </head>
 <body>
 <div id="wrap">
@@ -99,6 +100,7 @@
           <p>生化背包：弹药补给点按 E 弹出背包界面，按 1-8 切换（3s 冷却）；B 键全图切换下一号背包（30s 冷却，人类状态可用）</p>
           <p>幽灵：Q 释放主动 Buff（紫水晶获得）；死亡清空 Buff、切换关卡保留</p>
         </div>
+        <p class="touch-help">触屏：左摇杆移动 · 右侧拖动瞄准并按住开火 · 右下角跳 / 换弹 / 交互 / 技能 · 右上角暂停</p>
         <p class="tip">开局全员人类：10 秒倒计时内可移动散开，结束后随机 4 名幸存者变异为母体。人类：踩线推进关卡 → 守住防守倒计时 → 越过绿色前线继续，逃到终点撤离获胜；被感染后化为僵尸作战。幽灵：死亡冷却后在当前激活复活点重生，随人类踩线前移形成追尾；关卡切换后强制在新关复活点出生。</p>
       </div>
 
@@ -229,6 +231,21 @@
     </div>
   </div>
 
+  <!-- 局内暂停 / 退出菜单（Esc 或右上角暂停按钮） -->
+  <div id="pauseMenu" class="overlay hidden" aria-hidden="true">
+    <div class="panel pause-panel" role="dialog" aria-modal="true" aria-labelledby="pauseTitle">
+      <p class="pause-kicker">LOCAL MATCH / 已暂停</p>
+      <h2 id="pauseTitle" class="title small">暂 停</h2>
+      <p class="pause-tip">按 ESC 或点击“继续游戏”返回对局</p>
+      <div class="pause-actions">
+        <button id="pauseResume" class="start-btn" type="button">继 续 游 戏</button>
+        <button id="pauseRestart" class="start-btn ghost" type="button">重 新 开 始</button>
+        <button id="pauseLobby" class="start-btn ghost" type="button">返 回 大 厅</button>
+      </div>
+      <p class="pause-note">返回大厅会结束当前对局。</p>
+    </div>
+  </div>
+
   <!-- 竞技模式 · 回放控制条（幽灵回放 / 播放控制 / 进度拖拽 / 变速） -->
   <div id="replayBar" class="replay-bar hidden">
     <div class="rp-controls">
@@ -293,6 +310,7 @@
       <button class="tctl-btn" data-mode="jump">跳 跃</button>
     </div>
     <div id="hudRight">
+      <button id="hudPause" class="hud-pause" type="button" title="暂停 / 退出（Esc）" aria-label="打开暂停菜单">Ⅱ</button>
       <button id="dbgGear" class="hud-gear hidden" title="数值调试器（F2）· 仅训练营">🛠</button>
       <canvas id="minimap" width="200" height="0"></canvas>
     </div>
@@ -304,6 +322,28 @@
       <div class="sb-sub"></div>
       <div class="sb-bar"></div>
     </div>
+  </div>
+
+  <!-- 触屏控制层：仅粗指针/窄屏显示；键盘与鼠标逻辑不变 -->
+  <div id="mobileControls" aria-hidden="true">
+    <div id="mcStick" class="mc-stick" aria-label="移动摇杆">
+      <div class="mc-knob" id="mcKnob"></div>
+      <span class="mc-stick-cap">移动</span>
+    </div>
+    <div class="mc-aim" id="mcAim" aria-label="拖动瞄准并按住开火"></div>
+    <div class="mc-actions">
+      <button type="button" class="mc-btn" data-mc="jump">跳</button>
+      <button type="button" class="mc-btn" data-mc="reload">换弹</button>
+      <button type="button" class="mc-btn" data-mc="interact">交互</button>
+      <button type="button" class="mc-btn" data-mc="skill">技能</button>
+    </div>
+    <button type="button" id="mcPause" class="mc-pause">暂停</button>
+  </div>
+  <div id="mcReticle" class="mc-reticle" aria-hidden="true"></div>
+  <div id="rotateHint" class="rotate-hint">
+    <span>建议横屏游玩</span>
+    <button type="button" id="rotateFullscreen">进入横屏</button>
+    <button type="button" id="rotateDismiss">继续竖屏</button>
   </div>
 
   <!-- 对局加载中转页（子系统 2.5）。必须放在 #menu 之外：
@@ -408,6 +448,8 @@
 <script src="js/replay.js"></script>
 <script src="js/net.js"></script>
 <script src="js/game.js"></script>
+<script src="js/pause-menu.js"></script>
+<script src="js/mobile-controls.js"></script>
 <script src="codex-castle-collision/bridge.js"></script>
 <script src="codex-castle-scale/controls.js"></script>
 <script src="js/debugger.js"></script>

@@ -1,7 +1,7 @@
 {
   "version": "1.0",
   "target": "pages",
-  "preparedAt": "2026-10-18T23:39:29Z",
+  "preparedAt": "2026-10-19T00:59:00Z",
   "repository": "HKY-hub/crash-crown-demo",
   "gameBaselineSHA256": "7af8b62666c4b39ee74b353cd04780cfdd6fd11b18b91b28cf6d477567346725",
   "publicGameSHA256": "790941476cb57788566b2c3e5db19d00890be04a329a9a1517ac1363dcaef169",
@@ -305,8 +305,8 @@
     },
     {
       "file": "README.md",
-      "bytes": 2401,
-      "sha256": "c10bac58f4e33dc0051dc1231a7f888ddd08f02eec58acf4ad765bbcfe634cb3"
+      "bytes": 2736,
+      "sha256": "f768184a00fb1d65613aa7884b556b5d5d47ddb866166e5d94a4193354d4ba13"
     },
     {
       "file": "assets/audio-workbench.jpg",
@@ -397,6 +397,21 @@
       "file": "assets/wave-hero.jpg",
       "bytes": 19685,
       "sha256": "f9e9694d4fd918191f0a6984b58240fc5dc90cc23d2f5c5e4a07b4b4efa405ed"
+    },
+    {
+      "file": "biohazard/css/mobile.css",
+      "bytes": 9284,
+      "sha256": "93dae6a356bbd3c358cab582e2323514f8ccf2f39a8ea98ccbc8be44ec8b351a"
+    },
+    {
+      "file": "biohazard/js/mobile-controls.js",
+      "bytes": 6501,
+      "sha256": "15c1ef4807da7406ccdb676a081c7e5e5ba95dd530233bdb415e7f91ec1181d1"
+    },
+    {
+      "file": "biohazard/js/pause-menu.js",
+      "bytes": 4028,
+      "sha256": "46510635b9effe6e18058aa121e4cbabd954b7f4958a00db52c5662fc3514463"
     },
     {
       "file": "credits.html",
@@ -895,13 +910,13 @@
     },
     {
       "file": "wave-rider/WaveRider-Offline.html",
-      "bytes": 1926528,
-      "sha256": "39e012cc6ea2c89be32def9ac7c9f7f064b4c3c6198a46bb60211c0138a20570"
+      "bytes": 1898103,
+      "sha256": "c95a7f0035ae07d1c04e3925ef582e3e21f73d6133462b185e2c86838e116dd0"
     },
     {
       "file": "wave-rider/WaveRider.html",
-      "bytes": 600453,
-      "sha256": "29142aa9990e1ab4cabea01d5cbde535576b3227947b52ea0bdbb914afad5797"
+      "bytes": 625075,
+      "sha256": "b29d2e0ed23fd751ae719305f151857ea000f8bb6f138d61fe013a04f3df85d0"
     },
     {
       "file": "biohazard/editor.html",
@@ -910,8 +925,8 @@
     },
     {
       "file": "biohazard/index.html",
-      "bytes": 55161,
-      "sha256": "7d17621240768ca444fbe048d935cb344e13e6114a82374dec7492b100856a80"
+      "bytes": 57639,
+      "sha256": "d1fc6b143d4dd1dff415705a1fc66e4a1a03711172ae08bcef9f29ecc92a144d"
     },
     {
       "file": "biohazard/codex-castle-art-rebuild/boot.js",
@@ -1220,8 +1235,8 @@
     },
     {
       "file": "biohazard/js/game.js",
-      "bytes": 152232,
-      "sha256": "360709e37e589c75f1ea6bddb4c9d0e85556d435a5bd0991cd1265945fd12307"
+      "bytes": 152337,
+      "sha256": "fcfbb682e0ed7cf4961440a8e912a284fcfb4e5b41eda5f7bd278df0a9a85f51"
     },
     {
       "file": "biohazard/js/input.js",

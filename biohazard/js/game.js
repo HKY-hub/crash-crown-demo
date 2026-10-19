@@ -3235,6 +3235,7 @@ const fps = { last: 0, frames: 0, time: 0 };
 function frame(now) {
   const dt = Math.min(0.033, (now - (fps.last || now)) / 1000);
   fps.last = now;
+  if (typeof PauseMenu !== 'undefined' && PauseMenu.active()) { requestAnimationFrame(frame); return; }
   update(dt);
   render();
   requestAnimationFrame(frame);
