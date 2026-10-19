@@ -6161,7 +6161,24 @@ const ui = {
   garageHull:document.getElementById('garage-hull-name'),
   mm:document.getElementById('minimap').getContext('2d')
 };
-let flashTimer=0, toastTimer=0;
+let flashTimer=0, toastTimer=0, hudMmAcc=0;
+// HUD 每帧都会刷新；只有值确实变化时才写 DOM，避免排名/模式/目标等静态文案
+// 每帧触发 HUD 的样式重算与合成。
+const hudTextCache=new WeakMap(), hudHtmlCache=new WeakMap(), hudStyleCache=new WeakMap();
+function hudText(el,value){
+  if(!el) return;
+  if(hudTextCache.get(el)!==value){ hudTextCache.set(el,value); el.textContent=value; }
+}
+function hudHtml(el,value){
+  if(!el) return;
+  if(hudHtmlCache.get(el)!==value){ hudHtmlCache.set(el,value); el.innerHTML=value; }
+}
+function hudStyle(el,prop,value){
+  if(!el) return;
+  let cache=hudStyleCache.get(el);
+  if(!cache){ cache={}; hudStyleCache.set(el,cache); }
+  if(cache[prop]!==value){ cache[prop]=value; el.style[prop]=value; }
+}
 function flashLap(txt){ ui.flash.textContent=txt; ui.flash.style.opacity=1; flashTimer=1.4; }
 function flashInvalid(txt){ flashLap(txt); ui.flash.style.color='#ffd6cf'; sound && sound.blip(200,0.18,'sawtooth',0.16); }
 function showToast(txt){ ui.toastEl.textContent=txt; ui.toastEl.style.opacity=1; toastTimer=1.3; }
@@ -6183,15 +6200,15 @@ function updateHUD(dt){
   if(ui.mmCap && ui.mmCap.dataset.track!==TRACK_DEF.id){        // 小地图标题跟着赛道走
     ui.mmCap.dataset.track=TRACK_DEF.id; ui.mmCap.textContent=TRACK_DEF.name;
   }
-  ui.lap.textContent = Math.min(rs.lap+1,raceLaps());
-  ui.time.textContent = fmtTime(raceClock());
-  ui.speed.textContent = Math.round(Math.abs(player.rs.gndSpeed||player.speed)*3.6);   // 对地速度：潮汐在帮还是在坑看得出来
+  hudText(ui.lap, Math.min(rs.lap+1,raceLaps()));
+  hudText(ui.time, fmtTime(raceClock()));
+  hudText(ui.speed, Math.round(Math.abs(player.rs.gndSpeed||player.speed)*3.6));   // 对地速度：潮汐在帮还是在坑看得出来
   const e=Math.round(player.energy/player.p.energyMax*100);
-  ui.fill.style.width=e+'%'; ui.pct.textContent=e+'%';
-  if(ui.hull) ui.hull.textContent=player.hull.name;
+  hudStyle(ui.fill,'width',e+'%'); hudText(ui.pct,e+'%');
+  if(ui.hull) hudText(ui.hull,player.hull.name);
   ui.fill.classList.toggle('low', e<25);
   // 天气对驾驶的量化提示（可从 HUD 预判抓地与浪况）
-  ui.wxFx.textContent = `抓地 ${Math.round(weather.cur.grip*100)}% · 浪 ${weather.cur.waveMul.toFixed(2)}×`;
+  hudText(ui.wxFx, `抓地 ${Math.round(weather.cur.grip*100)}% · 浪 ${weather.cur.waveMul.toFixed(2)}×`);
   // 排名
   const rl=rankList();
   let html='';
@@ -6214,33 +6231,34 @@ function updateHUD(dt){
     rankBox.insertBefore(meEl, rankBox.querySelector('h3').nextSibling);
     rankBox.classList.add('rank-collapsed');
   }
-  meEl.textContent=rankMeLabel(meIdx+1, rl.length, rankBox.classList.contains('rank-collapsed'));
+  hudText(meEl, rankMeLabel(meIdx+1, rl.length, rankBox.classList.contains('rank-collapsed')));
   /* 机关预警：越近越急。浅滩 / 风墙 / 驳船 / 蒸汽共用这条可见通道。 */
   if(ui.warn){
     const pz=zoneAheadOf(player, Math.max(45, Math.abs(player.speed)*2.6));
     if(pz){
       const secs=pz.distM/Math.max(8,Math.abs(player.speed));
-      ui.warn.textContent=`${pz.name} · ${secs.toFixed(1)}s`;
-      ui.warn.style.opacity = secs<=trackFx.warnS ? '1' : '0.55';
+      hudText(ui.warn,`${pz.name} · ${secs.toFixed(1)}s`);
+      hudStyle(ui.warn,'opacity', secs<=trackFx.warnS ? '1' : '0.55');
       ui.warn.classList.toggle('urgent', secs<=trackFx.warnS);
-    } else { ui.warn.style.opacity='0'; ui.warn.classList.remove('urgent'); }
+    } else { hudStyle(ui.warn,'opacity','0'); ui.warn.classList.remove('urgent'); }
   }
-  ui.rank.innerHTML=html;
-  drawMinimap(rl);
+  hudHtml(ui.rank,html);
+  hudMmAcc += dt;
+  if(hudMmAcc >= 0.08){ drawMinimap(rl); hudMmAcc = 0; }
   // ---- 耐久条：绿(健康) / 黄(轻伤) / 红(濒危) ----
   const hp=rs.durability;
-  ui.hpFill.style.width=hp+'%';
-  ui.hpPct.textContent=Math.round(hp)+'%';
-  ui.hpFill.style.background = hp>70?'#3ec46d':(hp>=30?'#f2c023':'#e8453c');
-  ui.vignette.style.opacity = hp<=0 ? 0.5 : (hp<30 ? 0.18+0.12*Math.sin(game.worldTime*6) : 0);
+  hudStyle(ui.hpFill,'width',hp+'%');
+  hudText(ui.hpPct,Math.round(hp)+'%');
+  hudStyle(ui.hpFill,'background',hp>70?'#3ec46d':(hp>=30?'#f2c023':'#e8453c'));
+  hudStyle(ui.vignette,'opacity',hp<=0 ? 0.5 : (hp<30 ? 0.18+0.12*Math.sin(game.worldTime*6) : 0));
   // ---- 极速能量条：满后高亮闪烁 ----
   const sk=rs.skillEnergy;
-  ui.skFill.style.width=sk+'%';
-  ui.skPct.textContent=Math.round(sk)+'%';
+  hudStyle(ui.skFill,'width',sk+'%');
+  hudText(ui.skPct,Math.round(sk)+'%');
   ui.skFill.classList.toggle('full', sk>=99.5&&!rs.skillActive);
   // ---- 冲刺蓝光 / 护盾气泡 ----
   const speedFx=hasSpeedFx(player);
-  ui.glow.style.opacity = speedFx?0.55:0;
+  hudStyle(ui.glow,'opacity',speedFx?0.55:0);
   shieldBubble.visible = isShielded(player);
   if(shieldBubble.visible){
     const p2=1+Math.sin(game.worldTime*6)*0.03;
@@ -9191,35 +9209,35 @@ function updateModeHud(){
   const cc=hudEl('coach-card');
   if(cc && !(session && session.onboard)) cc.classList.remove('show');
   // 总圈数在倒计时阶段就要正确：静态 HTML 里那个「3」只是占位
-  if(lt) lt.textContent=String(raceLaps());
+  if(lt) hudText(lt,String(raceLaps()));
   const r=session&&session.rule, showRace=!!(r && session.kind==='race' && !r.training);
   if(!showRace){ [mb,gb,hb].forEach(e=>e&&e.classList.remove('show')); return; }
   const def=Registry.get(r.modeId)||{};
   const act=r.activityId?Registry.get(r.activityId):null;
   if(mb){ mb.classList.add('show');
-    hudEl('mode-name').textContent=(act?'活动赛':(def.name||r.name));
-    hudEl('mode-rule').textContent=[act?('活动 · '+act.name):null, `${raceLaps()} 圈`,
+    hudText(hudEl('mode-name'),(act?'活动赛':(def.name||r.name)));
+    hudText(hudEl('mode-rule'),[act?('活动 · '+act.name):null, `${raceLaps()} 圈`,
       r.field>1?`${r.field} 艇`:'独自计时', r.pickups==='off'?'无漂流瓶':'有漂流瓶',
-      r.specAllowed?'可改装':'标准规格'].filter(Boolean).join(' · '); }
+      r.specAllowed?'可改装':'标准规格'].filter(Boolean).join(' · ')); }
   if(gb){
     if(act){ gb.classList.add('show');
       const pr=Activities.progress(act);
-      hudEl('goal-label').textContent=act.goalName+'（本机累计 · 不是全服）';
-      hudEl('goal-val').textContent=pr.got+' / '+pr.target+(pr.done?' · 已达成':'');
-      hudEl('goal-fill').style.width=Math.max(0,Math.min(100, pr.target? pr.got/pr.target*100 : 0)).toFixed(0)+'%';
+      hudText(hudEl('goal-label'),act.goalName+'（本机累计 · 不是全服）');
+      hudText(hudEl('goal-val'),pr.got+' / '+pr.target+(pr.done?' · 已达成':''));
+      hudStyle(hudEl('goal-fill'),'width',Math.max(0,Math.min(100, pr.target? pr.got/pr.target*100 : 0)).toFixed(0)+'%');
     } else if(r.goal){ gb.classList.add('show');
-      hudEl('goal-label').textContent=r.goal.name;
-      hudEl('goal-val').textContent=Goals.label(r.goal);
+      hudText(hudEl('goal-label'),r.goal.name);
+      hudText(hudEl('goal-val'),Goals.label(r.goal));
       const m=GOAL_METRICS[r.goal.metric], v=m?Goals.value(r.goal):0;
-      hudEl('goal-fill').style.width=Math.max(0, Math.min(100, r.goal.target? v/r.goal.target*100 : 0)).toFixed(0)+'%';
+      hudStyle(hudEl('goal-fill'),'width',Math.max(0, Math.min(100, r.goal.target? v/r.goal.target*100 : 0)).toFixed(0)+'%');
     } else gb.classList.remove('show');
   }
   if(hb){
     if(Ghost.playing){ hb.classList.add('show');
       const d=Ghost.deltaMs(), dn=hudEl('ghost-delta');
-      dn.textContent = d==null?'—':((d>0?'+':'−')+(Math.abs(d)/1000).toFixed(2)+'s');
-      dn.style.color = d==null?'':(d>0?'#b3552f':'#1c6f66');
-      hudEl('ghost-tag').textContent='本机纪录 · 非真人';
+      hudText(dn, d==null?'—':((d>0?'+':'−')+(Math.abs(d)/1000).toFixed(2)+'s'));
+      hudStyle(dn,'color', d==null?'':(d>0?'#b3552f':'#1c6f66'));
+      hudText(hudEl('ghost-tag'),'本机纪录 · 非真人');
     } else hb.classList.remove('show');
   }
 }

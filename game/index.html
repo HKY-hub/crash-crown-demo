@@ -3579,6 +3579,8 @@ const CONFIG = {
   stabilityLossPerSpeed: 0.85,
   cameraFov: 58,
   pixelRatioCap: 2,
+  adaptiveResolution: true,
+  renderScaleFloor: 0.7,
   // stage 2: collision zones
   zoneFrontAngle: Math.PI / 3,
   pairCooldown: 0.12,
@@ -3963,6 +3965,35 @@ document.addEventListener('visibilitychange', function () {
 // SCENE / RENDERER / CAMERA
 // ============================================================
 let renderer = null;
+let renderScale = 1;
+let renderScaleWarm = 0, renderScaleAcc = 0, renderScaleFrames = 0, renderScaleGood = 0;
+function applyRenderScale() {
+  if (!renderer) return;
+  const base = Math.min(window.devicePixelRatio || 1, CONFIG.pixelRatioCap);
+  renderer.setPixelRatio(base * renderScale);
+  renderer.setSize(window.innerWidth, window.innerHeight);
+}
+function updateRenderScale(dt) {
+  if (!CONFIG.adaptiveResolution || !renderer) return;
+  renderScaleWarm += dt;
+  if (renderScaleWarm < 2.5) return;
+  renderScaleAcc += dt; renderScaleFrames++;
+  if (renderScaleAcc < 0.8) return;
+  const avgMs = renderScaleAcc / renderScaleFrames * 1000;
+  renderScaleAcc = 0; renderScaleFrames = 0;
+  if (avgMs > 22 && renderScale > CONFIG.renderScaleFloor) {
+    renderScale = Math.max(CONFIG.renderScaleFloor, renderScale - 0.1);
+    renderScaleGood = 0;
+    applyRenderScale();
+  } else if (avgMs < 15 && renderScale < 1) {
+    renderScaleGood++;
+    if (renderScaleGood >= 3) {
+      renderScale = Math.min(1, renderScale + 0.05);
+      renderScaleGood = 0;
+      applyRenderScale();
+    }
+  } else renderScaleGood = 0;
+}
 let scene = null;
 let camera = null;
 let cameraLook = null;
@@ -3980,8 +4011,7 @@ function initScene() {
   AXIS_X = new THREE.Vector3(1, 0, 0); // 此处 THREE 已由 loader 就绪
   const app = document.getElementById('app');
   renderer = new THREE.WebGLRenderer({ antialias: true });
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, CONFIG.pixelRatioCap));
-  renderer.setSize(window.innerWidth, window.innerHeight);
+  applyRenderScale();
   renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
@@ -4062,7 +4092,7 @@ function initScene() {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
     if (cockpitCam) { cockpitCam.aspect = camera.aspect; cockpitCam.updateProjectionMatrix(); }
-    renderer.setSize(window.innerWidth, window.innerHeight);
+    applyRenderScale();
   });
 }
 
@@ -36729,7 +36759,12 @@ function carBadgeSVG(protoId) {
   const svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">' + body + extra + wheels + lamps + '</svg>';
   return 'data:image/svg+xml,' + encodeURIComponent(svg);
 }
-function carBadgeURL(id) { return carBadgeSVG(id || currentArchetype()); }
+const __badgeURLCache = Object.create(null);
+function carBadgeURL(id) {
+  const key = id || currentArchetype();
+  if (!__badgeURLCache[key]) __badgeURLCache[key] = carBadgeSVG(key);
+  return __badgeURLCache[key];
+}
 
 // ---- stage 8: build loadout (3 slots x 3 options, upside + cost) ----
 function openBuildSelect() {
@@ -37411,6 +37446,7 @@ function hudSpawnFloat(text, cls, dx, dy) {
   }, 1080);
 }
 const hudHitDir = { t: 0, aDeg: 0 };
+let hudEdgeAcc = 0;
 let hudImpactBound = false;
 function hudOnImpactLanded(ev) {
   if (state !== STATE.PLAYING && state !== STATE.TRAINING) return;
@@ -37464,6 +37500,9 @@ function updateHudCombatOverlays(dt) {
   if (!edge) return;
   const show = player && !player.eliminated && (state === STATE.PLAYING || state === STATE.TRAINING);
   if (!show) { edge.classList.add('hidden'); return; }
+  hudEdgeAcc += dt;
+  if (hudEdgeAcc < 0.1) return;
+  hudEdgeAcc = 0;
   const danger = computeEdgeDanger();
   const tickEls = edge._ticks || (edge._ticks = (function () {
     const arr = [];
@@ -37977,7 +38016,13 @@ function updateHUD() { /* wr_ui_step2 */
   rgnEl.textContent = rgn === 'safe' ? '安全区' : (rgn === 'hot' ? '高回报区' : (rgn === 'escape' ? '边缘逃生' : '中心'));
   rgnEl.style.color = rgn === 'safe' ? '#6ee7b7' : (rgn === 'hot' ? '#ffa03c' : '#7dd3fc');
   const pb = document.getElementById('hud-badge');
-  if (pb) pb.src = carBadgeURL();
+  if (pb) {
+    const badgeKey = currentArchetype();
+    if (pb.dataset.badgeKey !== badgeKey) {
+      pb.dataset.badgeKey = badgeKey;
+      pb.src = carBadgeURL(badgeKey);
+    }
+  }
   // hud digitization (phase 3): speed dashboard + momentum + camera chip
   const spdEl = document.getElementById('hud-spd');
   if (spdEl && player) {
@@ -38601,6 +38646,7 @@ function animate() {
   if (!LoadingCoordinator.blocked && (state === STATE.PLAYING || state === STATE.TRAINING)) {
     simTime += dt;
     updateGame(dt);
+    updateRenderScale(dt);
   }
   if (state === STATE.RESULT) updateResultCamera(dt);
   if(!UI56.render(dt)){window.LargeMapRuntime?.beforeRender();try{renderer.render(scene, camera);window.GamePerformance?.recordRendered(renderer);}finally{window.LargeMapRuntime?.afterRender();}renderCockpit();}
@@ -65162,6 +65208,8 @@ window.__GAME = {
   cars: function () { return cars; },
   player: function () { return player; },
   state: function () { return state; },
+  renderScale: function () { return renderScale; },
+  setRenderScale: function (v) { renderScale = Math.max(0.5, Math.min(1, Number(v) || 1)); applyRenderScale(); return renderScale; },
   simTime: function () { return simTime; },
   config: CONFIG,
   maps: function () { return MAPS; },

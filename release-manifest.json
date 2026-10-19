@@ -1,10 +1,10 @@
 {
   "version": "1.0",
   "target": "pages",
-  "preparedAt": "2026-10-19T01:19:59Z",
+  "preparedAt": "2026-10-19T02:13:15Z",
   "repository": "HKY-hub/crash-crown-demo",
   "gameBaselineSHA256": "7af8b62666c4b39ee74b353cd04780cfdd6fd11b18b91b28cf6d477567346725",
-  "publicGameSHA256": "790941476cb57788566b2c3e5db19d00890be04a329a9a1517ac1363dcaef169",
+  "publicGameSHA256": "344e6aad1a2cbebcb087e0d74be9eaa54a3128ee39c1a2e753c6355b54824af7",
   "storagePrefix": "crash-crown-demo:1.0:",
   "accountServiceEnabled": false,
   "privateDataExcluded": true,
@@ -305,8 +305,8 @@
     },
     {
       "file": "README.md",
-      "bytes": 2736,
-      "sha256": "f768184a00fb1d65613aa7884b556b5d5d47ddb866166e5d94a4193354d4ba13"
+      "bytes": 3151,
+      "sha256": "9741b38b37d8587a5eb015dd7dcbd081b9be499873099039508b55d75c5a3ded"
     },
     {
       "file": "assets/audio-workbench.jpg",
@@ -860,8 +860,8 @@
     },
     {
       "file": "game/index.html",
-      "bytes": 36874015,
-      "sha256": "790941476cb57788566b2c3e5db19d00890be04a329a9a1517ac1363dcaef169"
+      "bytes": 36875614,
+      "sha256": "344e6aad1a2cbebcb087e0d74be9eaa54a3128ee39c1a2e753c6355b54824af7"
     },
     {
       "file": "index.html",
@@ -910,13 +910,13 @@
     },
     {
       "file": "wave-rider/WaveRider-Offline.html",
-      "bytes": 1898103,
-      "sha256": "c95a7f0035ae07d1c04e3925ef582e3e21f73d6133462b185e2c86838e116dd0"
+      "bytes": 1898915,
+      "sha256": "0aa998ae438406806b26b937ef98a024362ba64abd4c20b929e84724012e4e42"
     },
     {
       "file": "wave-rider/WaveRider.html",
-      "bytes": 625075,
-      "sha256": "b29d2e0ed23fd751ae719305f151857ea000f8bb6f138d61fe013a04f3df85d0"
+      "bytes": 625887,
+      "sha256": "35ff38d4c8d17ded057a9eb8fa21c67019db258658649c9aeab99d8496c298a2"
     },
     {
       "file": "biohazard/editor.html",
@@ -1370,8 +1370,8 @@
     },
     {
       "file": "biohazard/js/ui.js",
-      "bytes": 148654,
-      "sha256": "660d0d9674fc1887258cd3199cd4ffdc2a28169b396e0d9cb8a96c9c3466a580"
+      "bytes": 149955,
+      "sha256": "df1438ca243507b2b2fdc1c9ff481a24210ec097a2fdba7cbfb0ce1f203a04a8"
     },
     {
       "file": "biohazard/js/villa-draw.js",

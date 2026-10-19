@@ -2267,6 +2267,8 @@ const UI = (() => {
 
     // 粒子
     for (const p of particles) {
+      const pxs = p.x - cam.x, pys = p.y - cam.y;
+      if (pxs < -40 || pxs > CFG.CW + 40 || pys < -40 || pys > CFG.CH + 40) continue;
       ctx.globalAlpha = Math.max(0, p.life / p.maxLife);
       if (p.kind === 'shell') {   // 弹壳：壳体 + 黄铜弹底 + 压花封口
         ctx.save();
@@ -2318,12 +2320,14 @@ const UI = (() => {
     if (CFG.UI_DMG_FLOAT !== false) {
       ctx.textAlign = 'center';
       for (const t of texts) {
+        const txs = t.x - cam.x, tys = t.y - cam.y;
+        if (txs < -80 || txs > CFG.CW + 80 || tys < -40 || tys > CFG.CH + 40) continue;
         ctx.globalAlpha = Math.min(1, t.life / t.maxLife * 2);
         ctx.font = pxFont(t.size);
         ctx.strokeStyle = 'rgba(0,0,0,0.8)'; ctx.lineWidth = 3;
-        ctx.strokeText(t.text, t.x - cam.x, t.y - cam.y);
+        ctx.strokeText(t.text, txs, tys);
         ctx.fillStyle = t.color;
-        ctx.fillText(t.text, t.x - cam.x, t.y - cam.y);
+        ctx.fillText(t.text, txs, tys);
       }
       ctx.globalAlpha = 1;
     }
@@ -2623,6 +2627,31 @@ const UI = (() => {
   }
 
   // ---------- HUD（DOM） ----------
+  // HUD 每帧都会被 updateHUD 调用；只有值真的变了才碰 DOM，避免无意义的
+  // 文本/样式变更触发整棵 HUD 的样式重算与合成。
+  const hudTextCache = new WeakMap();
+  const hudHtmlCache = new WeakMap();
+  const hudStyleCache = new WeakMap();
+  const hudClassCache = new WeakMap();
+  function hudText(el, value) {
+    if (!el) return;
+    if (hudTextCache.get(el) !== value) { hudTextCache.set(el, value); el.textContent = value; }
+  }
+  function hudHtml(el, value) {
+    if (!el) return;
+    if (hudHtmlCache.get(el) !== value) { hudHtmlCache.set(el, value); el.innerHTML = value; }
+  }
+  function hudStyle(el, prop, value) {
+    if (!el) return;
+    let cache = hudStyleCache.get(el);
+    if (!cache) { cache = {}; hudStyleCache.set(el, cache); }
+    if (cache[prop] !== value) { cache[prop] = value; el.style[prop] = value; }
+  }
+  function hudClass(el, value) {
+    if (!el) return;
+    if (hudClassCache.get(el) !== value) { hudClassCache.set(el, value); el.className = value; }
+  }
+
   function updateHUD() {
     const p = game.player;
     if (!p) return;   // 联网客户端等待首个快照时玩家为空
@@ -2636,24 +2665,24 @@ const UI = (() => {
     const isZ = p.faction === 'zombie';
     if (game.vs && p.team) {
       const tcol = (typeof VS_TEAM_COLORS !== 'undefined' && VS_TEAM_COLORS[p.team]) || '#fff';
-      tag.textContent = `${vsTeamName(p.team)}阵营`;
-      tag.className = 'faction vs';
-      tag.style.color = tcol;
-      tag.style.borderColor = tcol;
+      hudText(tag, `${vsTeamName(p.team)}阵营`);
+      hudClass(tag, 'faction vs');
+      hudStyle(tag, 'color', tcol);
+      hudStyle(tag, 'borderColor', tcol);
     } else {
-      tag.style.color = '';
-      tag.style.borderColor = '';
-      tag.textContent = isZ ? '僵尸阵营' : '人类阵营';
-      tag.className = 'faction ' + (isZ ? 'zombie' : 'human');
+      hudStyle(tag, 'color', '');
+      hudStyle(tag, 'borderColor', '');
+      hudText(tag, isZ ? '僵尸阵营' : '人类阵营');
+      hudClass(tag, 'faction ' + (isZ ? 'zombie' : 'human'));
     }
-    hpFill.className = isZ ? 'zombie' : '';
+    hudClass(hpFill, isZ ? 'zombie' : '');
     const hpPct = Math.max(0, p.hp / p.maxHp * 100);
-    hpFill.style.width = hpPct + '%';
-    hpText.textContent = `${Math.ceil(p.hp)} / ${p.maxHp}`;
+    hudStyle(hpFill, 'width', hpPct + '%');
+    hudText(hpText, `${Math.ceil(p.hp)} / ${p.maxHp}`);
 
     if (isZ) {
       const z = ZOMBIES[p.ztype];
-      wInfo.innerHTML = `<span class="wname">${z.name}</span> <span style="opacity:.8">— 近战感染</span>`;
+      hudHtml(wInfo, `<span class="wname">${z.name}</span> <span style="opacity:.8">— 近战感染</span>`);
       const zi = document.getElementById('hudWeaponIcon');
       if (zi && zi._sig !== 'z') { zi._sig = 'z'; zi.classList.add('hidden'); }
       let skill = '';
@@ -2666,7 +2695,7 @@ const UI = (() => {
         if (zc.auraRadius) parts.push('母皇光环');
         skill = parts.join(' · ');
       }
-      sInfo.textContent = skill ? '技能：' + skill : '';
+      hudText(sInfo, skill ? '技能：' + skill : '');
       sInfo.classList.toggle('hidden', !skill);
     } else {
       const w = WEAPONS[p.weapon];
@@ -2715,7 +2744,7 @@ const UI = (() => {
         const fuse = w.fuse ? `　右键拔销 ${w.fuse}s 引爆` : '';
         opHint = `　<span style="color:#26c6da">左键蓄力投掷${fuse}</span>`;
       }
-      wInfo.innerHTML = `<span class="wname">${gname} · ${w.name}</span>　${ammo}${reload}${special}${opHint}`;
+      hudHtml(wInfo, `<span class="wname">${gname} · ${w.name}</span>　${ammo}${reload}${special}${opHint}`);
       // HUD 武器图：与手持/检视/拾取同源，只在武器或配件变化时重绘
       const icon = document.getElementById('hudWeaponIcon');
       if (icon && typeof WeaponViews !== 'undefined') {
@@ -2734,7 +2763,7 @@ const UI = (() => {
 
     const t = game.vs ? Math.max(0, game.vs.roundT) : Math.max(0, game.timeLeft);
     const m = Math.floor(t / 60), s = Math.floor(t % 60);
-    timer.textContent = game.walk ? '探索' : `${m}:${s < 10 ? '0' : ''}${s}`;
+    hudText(timer, game.walk ? '探索' : `${m}:${s < 10 ? '0' : ''}${s}`);
 
     // ---- VS 模式：比分牌 / 回合 / 准备阶段 ----
     if (game.vs) {
@@ -2753,7 +2782,7 @@ const UI = (() => {
       if (game.guardT > 0) html += `　<span class="guard">防守 ${Math.ceil(game.guardT)}s</span>`;
       else if (game.guardGrace > 0) html += `　<span class="guard">防守完成，${Math.ceil(game.guardGrace)}s 后封锁</span>`;
       else if (game.stage < (level.stages.length - 1)) html += `　<span style="opacity:.7">踩线触发下一关</span>`;
-      stageEl.innerHTML = html;
+      hudHtml(stageEl, html);
     }
 
     // 人类：能量条 / 英雄条 / 拾取槽
@@ -2763,25 +2792,25 @@ const UI = (() => {
     const bufEl = document.getElementById('buffInfo');
     if (!isZ) {
       enW.classList.remove('hidden');
-      document.getElementById('energyFill').style.width = (p.energy / p.maxEnergy * 100) + '%';
-      document.getElementById('energyText').textContent =
-        p.hero ? '变身中' : `${Math.floor(p.energy)}/${p.maxEnergy} 能量`;
+      hudStyle(document.getElementById('energyFill'), 'width', (p.energy / p.maxEnergy * 100) + '%');
+      hudText(document.getElementById('energyText'),
+        p.hero ? '变身中' : `${Math.floor(p.energy)}/${p.maxEnergy} 能量`);
       if (p.hero) {
         const htm = HERO_TYPES[p.hero];
         heW.classList.remove('hidden');
-        document.getElementById('heroFill').style.width = (p.heroT / htm.dur * 100) + '%';
-        document.getElementById('heroText').textContent = `${htm.name} ${p.heroT.toFixed(1)}s`;
+        hudStyle(document.getElementById('heroFill'), 'width', (p.heroT / htm.dur * 100) + '%');
+        hudText(document.getElementById('heroText'), `${htm.name} ${p.heroT.toFixed(1)}s`);
       } else heW.classList.add('hidden');
       const slots = p.pickupSlots || [];
       const hasPk = slots.some(s => s && s.weapon);
       psEl.classList.toggle('hidden', !hasPk);
       if (hasPk) {
-        psEl.innerHTML = slots.map((s, i) => {
+        hudHtml(psEl, slots.map((s, i) => {
           if (!s || !s.weapon) return '';
           const w = WEAPONS[s.weapon];
           const ammo = s.ammo > 0 ? `${s.ammo}` : '<font color="#ff8a50">耗尽</font>';
           return `<div class="pickup-slot"><span class="pk-key">${i + 5}号槽 · G丢弃</span>${w.name}<br>${ammo}</div>`;
-        }).join('');
+        }).join(''));
       }
       bufEl.classList.add('hidden');
     } else {
@@ -2800,7 +2829,7 @@ const UI = (() => {
       }
       if (parts.length) {
         parts.push('<span class="hint">死亡清空 · 切关保留</span>');
-        bufEl.innerHTML = parts.join('');
+        hudHtml(bufEl, parts.join(''));
         bufEl.classList.remove('hidden');
       } else bufEl.classList.add('hidden');
     }
@@ -2809,7 +2838,7 @@ const UI = (() => {
     const eb = document.getElementById('escapeBar');
     if (game.escapeProg > 0) {
       eb.classList.remove('hidden');
-      document.getElementById('escapeFill').style.width = (game.escapeProg / CFG.ESCAPE_TIME * 100) + '%';
+      hudStyle(document.getElementById('escapeFill'), 'width', (game.escapeProg / CFG.ESCAPE_TIME * 100) + '%');
     } else eb.classList.add('hidden');
 
     // 生化背包信息（人类）
@@ -2821,7 +2850,7 @@ const UI = (() => {
       if (p.hero) bpHtml += '　<span style="opacity:.6">变身锁定</span>';
       else if (p.attribCd > 0) bpHtml += `　<span style="color:#ffb74d">B冷却 ${p.attribCd.toFixed(1)}s</span>`;
       else bpHtml += '　<span style="color:#7bff5e">[B] 切背包</span>';
-      bpEl.innerHTML = bpHtml;
+      hudHtml(bpEl, bpHtml);
     } else bpEl.classList.add('hidden');
   }
 
@@ -2841,18 +2870,18 @@ const UI = (() => {
     const aEl = document.getElementById('vsTeamA'), bEl = document.getElementById('vsTeamB'), rEl = document.getElementById('vsRound');
     const nameA = isArena ? vsTeamName(tA) : `${vsTeamName(tA)} · ${squadA}队`;
     const nameB = isArena ? vsTeamName(tB) : `${vsTeamName(tB)} · ${squadB}队`;
-    aEl.innerHTML = `<span class="vs-dot" style="background:${colA}"></span><b style="color:${colA}">${nameA}</b><em class="vs-score">${vs.points[squadA] || 0}</em>${myTeam === tA ? '<i class="vs-you">你</i>' : ''}`;
-    bEl.innerHTML = `<span class="vs-dot" style="background:${colB}"></span><b style="color:${colB}">${nameB}</b><em class="vs-score">${vs.points[squadB] || 0}</em>${myTeam === tB ? '<i class="vs-you">你</i>' : ''}`;
+    hudHtml(aEl, `<span class="vs-dot" style="background:${colA}"></span><b style="color:${colA}">${nameA}</b><em class="vs-score">${vs.points[squadA] || 0}</em>${myTeam === tA ? '<i class="vs-you">你</i>' : ''}`);
+    hudHtml(bEl, `<span class="vs-dot" style="background:${colB}"></span><b style="color:${colB}">${nameB}</b><em class="vs-score">${vs.points[squadB] || 0}</em>${myTeam === tB ? '<i class="vs-you">你</i>' : ''}`);
     if (isArena) {
-      rEl.textContent = `Kill to Win ${vs.killTarget}`;
+      hudText(rEl, `Kill to Win ${vs.killTarget}`);
       if (document.getElementById('objBar')) document.getElementById('objBar').classList.add('hidden');
       const rw = document.getElementById('roleBar');
       if (rw) rw.classList.add('hidden');
     } else {
       const need = Math.ceil((vs.bestOf + 1) / 2);
-      rEl.textContent = vs.phase === 'prep'
+      hudText(rEl, vs.phase === 'prep'
         ? `准备阶段 ${Math.max(0, Math.ceil(vs.prepT))}s · 第 ${vs.round} 回合`
-        : `第 ${vs.round} 回合 · A队[${vs.points.A}] B队[${vs.points.B}]（先 ${need} 胜）`;
+        : `第 ${vs.round} 回合 · A队[${vs.points.A}] B队[${vs.points.B}]（先 ${need} 胜）`);
       const obj = document.getElementById('objBar');
       if (obj && vs.obj) {
         obj.classList.remove('hidden');
@@ -2894,7 +2923,7 @@ const UI = (() => {
     const obj = document.getElementById('objBar');
     if (!obj) return;
     obj.classList.remove('hidden');
-    document.getElementById('objFill').style.width = Math.min(100, progress / (hold || 1) * 100) + '%';
+    hudStyle(document.getElementById('objFill'), 'width', Math.min(100, progress / (hold || 1) * 100) + '%');
     const label = document.getElementById('objText');
     let txt, col = 'rgba(255,255,255,.75)';
     if (kind === 'bomb') {
@@ -2906,8 +2935,8 @@ const UI = (() => {
       txt = progress > 0 ? `占领区域 ${Math.floor(progress)}/${hold}s` : `争夺房间（需占领 ${hold}s）`;
       col = progress > 0 ? '#ffa726' : 'rgba(255,255,255,.75)';
     }
-    label.textContent = txt;
-    label.style.color = col;
+    hudText(label, txt);
+    hudStyle(label, 'color', col);
   }
 
   function renderBackpackUI() {
