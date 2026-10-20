@@ -279,7 +279,7 @@
       '</section>' +
 
       '<div class="gc-tut" id="gc-tut" role="dialog" aria-modal="true" aria-label="新手引导"><div class="gc-tut-spot" id="gc-tut-spot"></div><div class="gc-tut-card"><p class="gc-tut-count" id="gc-tut-count">GUIDE / 01</p><h3 id="gc-tut-title">—</h3><p id="gc-tut-text">—</p><div class="gc-tut-actions"><button type="button" id="gc-tut-skip">跳过</button><button type="button" id="gc-tut-next">下一步 →</button></div></div></div>' +
-      '<div class="gc-confirm" id="gc-confirm" role="dialog" aria-modal="true" aria-label="返回大厅"><div class="gc-confirm-card"><b>返回大厅？</b><p>当前对局会中断。</p><div class="gc-confirm-actions"><button type="button" id="gc-confirm-cancel">继续对局</button><button type="button" id="gc-confirm-ok">返回大厅</button></div></div></div>' +
+      '<div class="gc-confirm" id="gc-confirm" role="dialog" aria-modal="true" aria-label="返回大厅"><div class="gc-confirm-card"><b id="gc-confirm-title">返回大厅？</b><p id="gc-confirm-text">当前对局会中断。</p><div class="gc-confirm-actions"><button type="button" id="gc-confirm-cancel">继续对局</button><button type="button" id="gc-confirm-ok">返回大厅</button></div></div></div>' +
       '<div class="gc-toast" id="gc-toast" role="status" aria-live="polite"></div>' +
     '</div>';
 
@@ -292,6 +292,7 @@
   var tutSpot = $('#gc-tut-spot');
   var toastEl = $('#gc-toast');
   var toastTimer = null;
+  var confirmAction = null;
 
   function toast(message) {
     if (!toastEl) return;
@@ -813,12 +814,22 @@
     setView('lobby');
   }
 
-  function askBack() {
+  function openConfirm(title, text, okLabel, action, cancelLabel) {
     var dialog = $('#gc-confirm');
-    if (!dialog) return doBackToLobby();
+    if (!dialog) return action && action();
+    dialog.setAttribute('aria-label', title);
+    $('#gc-confirm-title').textContent = title;
+    $('#gc-confirm-text').textContent = text;
+    $('#gc-confirm-ok').textContent = okLabel || '确认';
+    $('#gc-confirm-cancel').textContent = cancelLabel || '取消';
+    confirmAction = action || null;
     dialog.classList.add('open');
     var cancel = $('#gc-confirm-cancel');
     if (cancel) cancel.focus();
+  }
+
+  function askBack() {
+    openConfirm('返回大厅？', '当前对局会中断。', '返回大厅', doBackToLobby, '继续对局');
   }
 
   function closeConfirm() {
@@ -917,8 +928,10 @@
     $('#gc-back').addEventListener('click', askBack);
     $('#gc-confirm-cancel').addEventListener('click', closeConfirm);
     $('#gc-confirm-ok').addEventListener('click', function () {
+      var action = confirmAction;
+      confirmAction = null;
       closeConfirm();
-      doBackToLobby();
+      if (action) action();
     });
     $('#gc-music').addEventListener('input', function () {
       state.music = Number(this.value);
@@ -938,12 +951,19 @@
       renderSettings();
     });
     $('#gc-reset').addEventListener('click', function () {
-      if (!window.confirm('重置本地档案？呼号、装备、任务进度都会清空。')) return;
-      try { localStorage.removeItem(KEY); } catch (e) {}
-      location.reload();
+      openConfirm('重置本地档案？', '呼号、装备和任务进度都会清空，且无法恢复。', '确认重置', function () {
+        try { localStorage.removeItem(KEY); } catch (e) {}
+        location.reload();
+      }, '取消');
     });
     window.addEventListener('resize', positionTutorialSpot);
     document.addEventListener('scroll', positionTutorialSpot, true);
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape' && $('#gc-confirm').classList.contains('open')) {
+        event.preventDefault();
+        closeConfirm();
+      }
+    });
   }
 
   spawnParticles();

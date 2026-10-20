@@ -1,7 +1,7 @@
 {
   "version": "1.0",
   "target": "pages",
-  "preparedAt": "2026-10-20T08:19:16Z",
+  "preparedAt": "2026-10-20T08:44:40Z",
   "repository": "HKY-hub/crash-crown-demo",
   "gameBaselineSHA256": "7af8b62666c4b39ee74b353cd04780cfdd6fd11b18b91b28cf6d477567346725",
   "publicGameSHA256": "344e6aad1a2cbebcb087e0d74be9eaa54a3128ee39c1a2e753c6355b54824af7",
@@ -350,8 +350,8 @@
     },
     {
       "file": "assets/game-client.js",
-      "bytes": 48877,
-      "sha256": "2a91cc4f2da832e33e4d4e60dcb5eefc27475b716fd7ac907f2183ad174d6e6f"
+      "bytes": 49778,
+      "sha256": "e23e51f7e77df67ffa7768b78180f53948637f8a0a1dcdd80beb1c83b3e151b0"
     },
     {
       "file": "assets/gameplay.jpg",
