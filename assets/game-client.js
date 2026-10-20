@@ -62,6 +62,7 @@
   var state = load();
   if (!C.items.some(function (x) { return x.id === state.selected; })) state.selected = C.items[0].id;
   if (!C.items.some(function (x) { return x.id === state.equipped; })) state.equipped = state.selected;
+  if (!C.modes.some(function (x) { return x.id === state.mode; })) state.mode = C.modes[0].id;
 
   function save() {
     try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {}
@@ -744,8 +745,15 @@
           if (ready && flow && flow.installed && Date.now() - lastClickAt > 700) {
             var target = null;
             if (!flow.active) target = doc.querySelector('#ui56-play');
-            else if (flow.stage === 'browse') target = doc.querySelector(flow.family ? '[data-mf-mode]' : '[data-mf-family="classic"]');
-            else if (flow.stage === 'prepare') target = doc.querySelector('[data-mf-next]');
+            else if (flow.stage === 'browse') {
+              if (state.mode === 'training') {
+                target = doc.querySelector(flow.tab === 'training' ? '[data-mf-mode]' : '[data-mf-tab="training"]');
+              } else if (state.mode === 'ranked') {
+                target = doc.querySelector(flow.family === 'br' ? '[data-mf-mode]' : '[data-mf-family="br"]');
+              } else {
+                target = doc.querySelector(flow.family === 'classic' ? '[data-mf-mode]' : '[data-mf-family="classic"]');
+              }
+            } else if (flow.stage === 'prepare') target = doc.querySelector('[data-mf-next]');
             else if (flow.stage === 'vehicle') target = doc.querySelector('[data-mf-car-confirm]');
             else if (flow.stage === 'confirm') target = doc.querySelector('[data-mf-launch]');
             if (target && target.offsetParent !== null) {
@@ -761,6 +769,42 @@
             if (phase === 'countdown' || phase === 'racing') {
               markStarted();
               return true;
+            }
+            var wanted = state.mode === 'event' ? 'mode.swell' : state.mode === 'trial' ? 'mode.trial' : 'mode.classic';
+            if (wanted !== 'mode.classic') {
+              var title = doc.querySelector('#title-screen');
+              var titleVisible = title && !title.classList.contains('hidden') && getComputedStyle(title).display !== 'none';
+              if (titleVisible) {
+                if (Date.now() - lastClickAt > 700) {
+                  lastClickAt = Date.now();
+                  var navPlay = doc.querySelector('#nav-play');
+                  if (navPlay) navPlay.click();
+                }
+                return false;
+              }
+              var modeChip = doc.querySelector('[data-wr="mode"][data-k="' + wanted + '"]');
+              if (!modeChip) return false;
+              if (!modeChip.classList.contains('on')) {
+                if (Date.now() - lastClickAt > 700) {
+                  lastClickAt = Date.now();
+                  modeChip.click();
+                }
+                return false;
+              }
+              if (wanted === 'mode.trial') {
+                if (Date.now() - lastClickAt > 700) {
+                  lastClickAt = Date.now();
+                  var firstTrial = doc.querySelector('[data-wr="trial"]');
+                  if (firstTrial) firstTrial.click();
+                }
+                return false;
+              }
+              var setupStart = doc.querySelector('#setup-start');
+              if (setupStart && setupStart.offsetParent !== null && Date.now() - lastClickAt > 700) {
+                lastClickAt = Date.now();
+                setupStart.click();
+              }
+              return false;
             }
           }
           if (btn && btn.offsetParent !== null && ready && Date.now() - lastClickAt > 1600) {
