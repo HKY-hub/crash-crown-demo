@@ -1,7 +1,7 @@
 {
   "version": "1.0",
   "target": "pages",
-  "preparedAt": "2026-10-19T02:13:15Z",
+  "preparedAt": "2026-10-20T08:19:16Z",
   "repository": "HKY-hub/crash-crown-demo",
   "gameBaselineSHA256": "7af8b62666c4b39ee74b353cd04780cfdd6fd11b18b91b28cf6d477567346725",
   "publicGameSHA256": "344e6aad1a2cbebcb087e0d74be9eaa54a3128ee39c1a2e753c6355b54824af7",
@@ -305,8 +305,8 @@
     },
     {
       "file": "README.md",
-      "bytes": 3151,
-      "sha256": "9741b38b37d8587a5eb015dd7dcbd081b9be499873099039508b55d75c5a3ded"
+      "bytes": 3128,
+      "sha256": "dd01a7836c6d3b7085fbaa0988f758e2cf4202e7282fd04622656a83e85f7f2f"
     },
     {
       "file": "assets/audio-workbench.jpg",
@@ -320,8 +320,8 @@
     },
     {
       "file": "assets/crown.svg",
-      "bytes": 207,
-      "sha256": "2cbef95cf1dd0d96692e71bde4e8ff3c1a70f725916ce337ba9f67e6b6c02a30"
+      "bytes": 206,
+      "sha256": "5172656ef9e108c06eeb7e3368a92036f0067489d86975ce9f37332a2d25df19"
     },
     {
       "file": "assets/cs2.jpg",
@@ -345,13 +345,13 @@
     },
     {
       "file": "assets/game-client.css",
-      "bytes": 47761,
-      "sha256": "7d08a8c27334590e88582a0a778d39eb79a1c5359bc81ba448e35ac2d423ea54"
+      "bytes": 48833,
+      "sha256": "cb9773d2db919b0e1a25e58e1462a7aa0734aa2ea79cbc5d662c4e137dc06409"
     },
     {
       "file": "assets/game-client.js",
-      "bytes": 44671,
-      "sha256": "138a14712ee6878fbd3a8d98cf20c5136f5c211f3e660be307855e163965590f"
+      "bytes": 48877,
+      "sha256": "2a91cc4f2da832e33e4d4e60dcb5eefc27475b716fd7ac907f2183ad174d6e6f"
     },
     {
       "file": "assets/gameplay.jpg",
@@ -380,8 +380,8 @@
     },
     {
       "file": "assets/site.js",
-      "bytes": 5146,
-      "sha256": "055145f29c17f9a4f76a3720ad26119a8602fb8acb20b4af4a19168f8673b204"
+      "bytes": 5129,
+      "sha256": "953bf40abf5b4dcbe70399e44590268551553de4574b42e14e3dd1e9be775399"
     },
     {
       "file": "assets/strike-hero.jpg",
@@ -415,33 +415,33 @@
     },
     {
       "file": "credits.html",
-      "bytes": 2224,
-      "sha256": "02a74e1ac4ac662a469192c8547b3b2537fc00ef3271845be8c11ad27a90357f"
+      "bytes": 2223,
+      "sha256": "0a08dc66b2c53d437e6aaaca6def1b16fcaf0cb52ccbf89ebe1f1b34fc27c148"
     },
     {
       "file": "credits/HKY原创版权与第三方说明.md",
-      "bytes": 4051,
-      "sha256": "6792383ca849cf51a6f04cfd106290aaa033c310d1b7221acce5bc9746692307"
+      "bytes": 4011,
+      "sha256": "fa0ee3de412485d96d3cf06fc4c9f88ed67306593522c94b8380bfbb89e52a67"
     },
     {
       "file": "credits/licenses/ZCOOL-QingKe-HuangYou-OFL-1.1.txt",
-      "bytes": 4512,
-      "sha256": "7753a3cd9cd8bcebe3dd7155abee7a77a7f14e04afae8cf61e589683b02bcc43"
+      "bytes": 4419,
+      "sha256": "f1bce31b817dee01c1e4ef8bc45d8ecb95f01f4abbf0a985007cb3cd0fd8123d"
     },
     {
       "file": "credits/licenses/rapier-Apache-2.0.txt",
-      "bytes": 11544,
-      "sha256": "bc7992b1219ad83051e334bfecad53fb0e22ce82d2dfaef20e2a545a0493e889"
+      "bytes": 11343,
+      "sha256": "4c05555705e3efde601fb1252ae48f1d63992af8a8fb8947745b7fa834e8f519"
     },
     {
       "file": "credits/licenses/three-r160-MIT.txt",
-      "bytes": 1102,
-      "sha256": "a70d6dc2d2a6464ee9ee503b1881d5aa884abdec63b4c7064f0c5ad827a7d2b4"
+      "bytes": 1081,
+      "sha256": "852e0e8699169bf9f6fdc6bda3e682d078dcbc738b5d33e74df594721bff271d"
     },
     {
       "file": "credits/第三方资产与许可清单.json",
-      "bytes": 54910,
-      "sha256": "2eddeee813d5704f851e5668b59694b487ab2ace7ceebcdac7a304c1973b8669"
+      "bytes": 53694,
+      "sha256": "eac7117bc502d5f3b939861718843a589622dda9e1e2a6fb6864c12d2cc70e30"
     },
     {
       "file": "cs2/CS2_实机截图/IMG-01_完整战斗HUD：Dust II A坡道交战.jpg",
@@ -590,18 +590,18 @@
     },
     {
       "file": "cs2/CS2_实机截图拍摄清单.md",
-      "bytes": 12629,
-      "sha256": "2b9af7f2e6fb7938f15d6f0b39eab845253ede2e5f61f7fb1e608727b9f937c8"
+      "bytes": 12410,
+      "sha256": "14513ea73fb02dd9df9b1e98a3d6ee72718417cefa0878e9497862f3410b9bee"
     },
     {
       "file": "cs2/CS2_待补截图清单.md",
-      "bytes": 672,
-      "sha256": "c4a2789cb64eac97122db06a574c7ffec3f83bd02bb25f2eb9457ab8314e3995"
+      "bytes": 662,
+      "sha256": "90225d5896dc8378f793778dd9e6599034f7a076d99cc2fe2689b6d6ea776ab6"
     },
     {
       "file": "cs2/CS2_截图来源与版本登记.md",
-      "bytes": 26975,
-      "sha256": "777bd76b542829aaa2ea86f51b35ec612ca1f53c7919344bf1f061b95574bf5d"
+      "bytes": 26617,
+      "sha256": "11ad5c46d97161751985e97a2667e495224b6a0c92eb369f1dca2a4eecdb5615"
     },
     {
       "file": "cs2/CS2_截图登记.json",
@@ -610,8 +610,8 @@
     },
     {
       "file": "cs2/CS2_整体架构及八大系统拆解.md",
-      "bytes": 207157,
-      "sha256": "80d8e7465dd9c51c8d071840d86aa787066f2c2395acbccc17f141362ed3a464"
+      "bytes": 204516,
+      "sha256": "0bcc9c84e845ce49e6f571002f0392b60a367b0c5cbac4390a9e6fbde655c2a4"
     },
     {
       "file": "cs2/CS2_整体架构及八大系统拆解_阅读版.html",
@@ -625,18 +625,18 @@
     },
     {
       "file": "cs2/部署说明.txt",
-      "bytes": 957,
-      "sha256": "efae9adf96d740b28066ba763fc4bb34932f1c66ce9fd299b1c7b7d30fcff26a"
+      "bytes": 945,
+      "sha256": "c66188e361d641ed76752d017bf2dd36f6e8e7ec465168ccba4226a3782b99c7"
     },
     {
       "file": "cs2/阅读说明.txt",
-      "bytes": 824,
-      "sha256": "8684719befccacc6a0707d6d0065610c61eca51abf3edd88a4fc99323a58397d"
+      "bytes": 814,
+      "sha256": "70d35668d9c88cde4ed8cebce1649eb646be4cffaad0d45cd15e4fed40385297"
     },
     {
       "file": "docs/README部署说明.md",
-      "bytes": 502,
-      "sha256": "28f4ae804e4ecdf76c3c529d6357163b939e27d5aca9835ebf0e3d8940881e89"
+      "bytes": 494,
+      "sha256": "0f37567de5a5deecd07c3e2296dba0936867139e3e020aa36689b8e9d2e45650"
     },
     {
       "file": "docs/index.html",
@@ -645,8 +645,8 @@
     },
     {
       "file": "docs/撞击王座_同类市场数据与定位说明.md",
-      "bytes": 10790,
-      "sha256": "88b81a6014ccdd459906a3e1afbe1301d832f6cebe4315a1fd3731de4d2a5dd1"
+      "bytes": 10714,
+      "sha256": "4fc9a2d1f41e7ece225b636fcad59c2d59400910e6af170b87ffb4503a3feace"
     },
     {
       "file": "docs/撞击王座_实机图_20261014/01_大厅.png",
@@ -785,13 +785,13 @@
     },
     {
       "file": "docs/撞击王座_实机图片与来源登记.md",
-      "bytes": 5287,
-      "sha256": "9ae4be5c047685f669c05ec02e377ab6c535c5be8da88ce54cc0b542954cd33d"
+      "bytes": 5244,
+      "sha256": "31ca1cabb1fb3dd9d81a2dd43923078690833d4275375a9ddda95ffbd7294deb"
     },
     {
       "file": "docs/撞击王座_最新版本_系统拆解案.md",
-      "bytes": 185407,
-      "sha256": "9eee01ea321be5fe0d9d49c0bf039ece44d89aa84db2aef1049fd79fb8a5d2f9"
+      "bytes": 182410,
+      "sha256": "81d2428c726a2673efe3be2362c2ca50410a868184467b846e40bafb7a2dcf0b"
     },
     {
       "file": "docs/撞击王座_最新版本_系统拆解案_阅读版.html",
@@ -800,8 +800,8 @@
     },
     {
       "file": "docs/撞击王座_最新版本_系统策划案.md",
-      "bytes": 280360,
-      "sha256": "eec0d1c83d671bcd56d9eaf789b46153f9b6556b0b0bae93349490c443af802b"
+      "bytes": 276889,
+      "sha256": "4f2545fcf490a746f8d8a435e5fbc890612558975b4344ed234baab5502cbee3"
     },
     {
       "file": "docs/撞击王座_最新版本_系统策划案_阅读版.html",
@@ -850,13 +850,13 @@
     },
     {
       "file": "docs/撞击王座_架构图/架构图使用说明.md",
-      "bytes": 1512,
-      "sha256": "0c36c3b5f309a60deea5bfac48a8fb06f448671690ef3ce297f7f353951cb77c"
+      "bytes": 1498,
+      "sha256": "757ca187b213dce2c432bb4c113ad9e863f7b308124bb82bd02b0263f74fbc36"
     },
     {
       "file": "game/client.html",
-      "bytes": 5589,
-      "sha256": "fafcc859916ab27b0546523cdef800f9b9942c1fa33826df463a1ed55882a63e"
+      "bytes": 5614,
+      "sha256": "9a2b54e0ada2e07b4b9d7a84ee6e7d0c40f87837e66d6e63a97b61a34964e61f"
     },
     {
       "file": "game/index.html",
@@ -870,8 +870,8 @@
     },
     {
       "file": "release.html",
-      "bytes": 2635,
-      "sha256": "2120c444c26084237ee59251416ecf3c4826ee15d315a1d8649fedc64344d7e4"
+      "bytes": 2634,
+      "sha256": "1e58c804cfa3e5d7fc7be0914dad9d09c1140ac80f3f4a24559d6408abbb02bb"
     },
     {
       "file": "spreadsheets/CS2_经济系统配置与预算.xlsx",
@@ -880,13 +880,13 @@
     },
     {
       "file": "spreadsheets/index.html",
-      "bytes": 2389,
-      "sha256": "2b16da5bd781dbece3817d17fd31e6c88419b273fa1b923798f8398006ddfb97"
+      "bytes": 2381,
+      "sha256": "c107177096534fce8e8a279f63d224e070459d99737c6b71bdb50699e59aede6"
     },
     {
       "file": "spreadsheets/使用说明.md",
-      "bytes": 2903,
-      "sha256": "afa2ac730659cb771d6ed57bcba2f33604293452e65c020c89c4e10074c58432"
+      "bytes": 2864,
+      "sha256": "51f7dbc9ae5edef1166e3503ace312cb6b2dbc2f8342d17d11605dd0f31ed806"
     },
     {
       "file": "spreadsheets/撞击王座_系统策划交付表.xlsx",
@@ -905,18 +905,18 @@
     },
     {
       "file": "wave-rider/index.html",
-      "bytes": 5150,
-      "sha256": "f858bc58941f87ab7ce97f5f4b5a01b73344d851c70e9f3e10eacddc859c2958"
+      "bytes": 5175,
+      "sha256": "ee33472b7dd0321df9c830f4993acef917edfc5df92b4121c3592cfb1d1cd380"
     },
     {
       "file": "wave-rider/WaveRider-Offline.html",
-      "bytes": 1898915,
-      "sha256": "0aa998ae438406806b26b937ef98a024362ba64abd4c20b929e84724012e4e42"
+      "bytes": 1888767,
+      "sha256": "b1e665c5d2817f0cb918a0cbf6937ddfd2f6463d7f47e61da84af6cc87387af0"
     },
     {
       "file": "wave-rider/WaveRider.html",
-      "bytes": 625887,
-      "sha256": "35ff38d4c8d17ded057a9eb8fa21c67019db258658649c9aeab99d8496c298a2"
+      "bytes": 615739,
+      "sha256": "944fea6c488108cf8a489ff677529464279d7676017fc346b7dae2bec5fc4312"
     },
     {
       "file": "biohazard/editor.html",
@@ -925,8 +925,8 @@
     },
     {
       "file": "biohazard/index.html",
-      "bytes": 57639,
-      "sha256": "d1fc6b143d4dd1dff415705a1fc66e4a1a03711172ae08bcef9f29ecc92a144d"
+      "bytes": 56552,
+      "sha256": "5c4f5f64c5c177fe37efc66003342e0cbdf94073d9b1cad726979e05b72bf0ba"
     },
     {
       "file": "biohazard/codex-castle-art-rebuild/boot.js",
@@ -1105,8 +1105,8 @@
     },
     {
       "file": "biohazard/js/art-guns.js",
-      "bytes": 227239,
-      "sha256": "5e9eec9db48165434d5ae18e34f2391135e6acb6b8cf960f4b26d098a43928f0"
+      "bytes": 224362,
+      "sha256": "2b7945a05ac5cb241187d1bec7a233e87c44be2da1a15717ecb95c0599327f90"
     },
     {
       "file": "biohazard/js/art-hero.js",
@@ -1115,8 +1115,8 @@
     },
     {
       "file": "biohazard/js/art-hit.js",
-      "bytes": 16236,
-      "sha256": "e06d7bf018f43df7a50ecd14a692b4141bedfbe88a35d8496356dda9581e1430"
+      "bytes": 15970,
+      "sha256": "3a4055a5e882529dcdf7f75657171de6e0def5f266dd9146e171f462b34b5a17"
     },
     {
       "file": "biohazard/js/art-map-hd.js",
@@ -1155,8 +1155,8 @@
     },
     {
       "file": "biohazard/js/art-workbench.js",
-      "bytes": 21782,
-      "sha256": "06adcc553dcd6fad5c9d41369d703b08131da833c8d0c005d8c66197b85f5bc4"
+      "bytes": 21422,
+      "sha256": "65c5d8026a0bbc6b23d905f6257aae59b64af93b87df25bd82bd4a4e6d1a2244"
     },
     {
       "file": "biohazard/js/audio.js",
@@ -1185,13 +1185,13 @@
     },
     {
       "file": "biohazard/js/car-mat.js",
-      "bytes": 18200,
-      "sha256": "8c874556924df3e6dbd847707a15fb4ab5b5224b076cb29d4eb28f18101955b3"
+      "bytes": 17957,
+      "sha256": "ffbc08d0a952aba493d8a1e7478fe1fe3ca874465e3aaf6cb3fa4d7610e83542"
     },
     {
       "file": "biohazard/js/car-preview.js",
-      "bytes": 51223,
-      "sha256": "b4e64fd08596bc5c34ed1e0893a76226b1929ce5db4b3c2e4757761d63bd470e"
+      "bytes": 50419,
+      "sha256": "55bcc7f31633d371f0a138a523fac2e5b8809d437b6a61dc6468f377f1ee5384"
     },
     {
       "file": "biohazard/js/castle-art-v2.js",
@@ -1205,8 +1205,8 @@
     },
     {
       "file": "biohazard/js/castle-gen.js",
-      "bytes": 60216,
-      "sha256": "31b57ee3362d1562b46406a352f987e16ba2fcf36ce753333cbe1183b1b54b03"
+      "bytes": 59285,
+      "sha256": "b6762b38270cb927b1f493cae5d6e13e6d0dc0ad034b07bded834d65749724ad"
     },
     {
       "file": "biohazard/js/config.js",
@@ -1235,8 +1235,8 @@
     },
     {
       "file": "biohazard/js/game.js",
-      "bytes": 152337,
-      "sha256": "fcfbb682e0ed7cf4961440a8e912a284fcfb4e5b41eda5f7bd278df0a9a85f51"
+      "bytes": 149057,
+      "sha256": "66331b5725a2d248b5ee124b17f7078aa6db611520b9ff8f567f1b64a146a279"
     },
     {
       "file": "biohazard/js/input.js",
@@ -1250,18 +1250,18 @@
     },
     {
       "file": "biohazard/js/longmap-draw.js",
-      "bytes": 74295,
-      "sha256": "4a35ba856e2b713b2798d63627d9ce1499af0550290e3fe1d2421f1653132544"
+      "bytes": 73009,
+      "sha256": "23e5ccfa406367c40ed60ec391677b451e0c675875ea1a560c6790f1715395e2"
     },
     {
       "file": "biohazard/js/longmap-gen.js",
-      "bytes": 54879,
-      "sha256": "b944d7e717223399e47d7e482708aaf2e7057a2854140d0eebe8dba317ad3bab"
+      "bytes": 53962,
+      "sha256": "effd002bb88f3003692ea3604417ca89443911a674a29f8d73a40f2016ec0aea"
     },
     {
       "file": "biohazard/js/longmap-play.js",
-      "bytes": 11883,
-      "sha256": "14d23b19b8b2e3747ebc9b8bd8df797e00495507d57e874d6ab7d2b90d6bab6c"
+      "bytes": 11663,
+      "sha256": "d1b44933241e10ad33b1bfbf5f0f05e8c5f38aa42979f8ac9f65f59a657d322d"
     },
     {
       "file": "biohazard/js/net.js",
@@ -1310,8 +1310,8 @@
     },
     {
       "file": "biohazard/js/region-editor.js",
-      "bytes": 44452,
-      "sha256": "56e39dab253caae7d7413922afbc9576951c668f4040a251e329cc603641ccb1"
+      "bytes": 43714,
+      "sha256": "8df3bf8edadecd27087940565b2084ebae63c642599379a201af4bdec2e0d92e"
     },
     {
       "file": "biohazard/js/region-train.js",
@@ -1335,8 +1335,8 @@
     },
     {
       "file": "biohazard/js/train-gen.js",
-      "bytes": 108336,
-      "sha256": "7be86e79a006ed8678de857693ebab224927ed70531660e68d9ecf9f462e8fbc"
+      "bytes": 106742,
+      "sha256": "3aa6d8e094c106768f77825b304b42e1cd0ea9bd2b5d8b36ada46d597689ec07"
     },
     {
       "file": "biohazard/js/train-level.js",
@@ -1365,13 +1365,13 @@
     },
     {
       "file": "biohazard/js/ui-shell.js",
-      "bytes": 91304,
-      "sha256": "53af100c5013356c1b0ad9784ec0a93d1d786408b402d87b9512c38051c1114e"
+      "bytes": 89604,
+      "sha256": "b601ee684c3e3af2417fb09dd6e5f22327c76f711213f311b2ee27ef56af631d"
     },
     {
       "file": "biohazard/js/ui.js",
-      "bytes": 149955,
-      "sha256": "df1438ca243507b2b2fdc1c9ff481a24210ec097a2fdba7cbfb0ce1f203a04a8"
+      "bytes": 146948,
+      "sha256": "afadaab96ab606df78703e7f23ffd25f5a282476379d27f14b0713aee3a1f3d3"
     },
     {
       "file": "biohazard/js/villa-draw.js",
@@ -1560,8 +1560,8 @@
     },
     {
       "file": "demo/electric-safety/css/animations.css",
-      "bytes": 4707,
-      "sha256": "a654d9078dd130a21ce6bc03a436dd93f9d249bdf520d687b8c66b73f390b43a"
+      "bytes": 4511,
+      "sha256": "27929cf53594c68ac8407139d442f8d5fdf348da2b72a0dd0baa0e07b59202d3"
     },
     {
       "file": "demo/electric-safety/css/demo.css",
@@ -1575,8 +1575,8 @@
     },
     {
       "file": "demo/electric-safety/css/style.css",
-      "bytes": 44680,
-      "sha256": "1a1bc45b724906c3f44cb1bbd70634245e80dd888ce9e27a8a9d29cbe16ddaff"
+      "bytes": 42535,
+      "sha256": "919c677fedb211b04b8495f067dc1610059197809e5bb3743529aeaaee175c66"
     },
     {
       "file": "demo/electric-safety/js/dashboard.js",
@@ -1620,8 +1620,8 @@
     },
     {
       "file": "demo/electric-safety/vendor/leaflet/leaflet.css",
-      "bytes": 14806,
-      "sha256": "a7837102824184820dfa198d1ebcd109ff6d0ff9a2672a074b9a1b4d147d04c6"
+      "bytes": 14145,
+      "sha256": "337bfca5cabd03b39815b2700febe2b3b7edf55921c59cd49f88ecb328212303"
     },
     {
       "file": "demo/electric-safety/vendor/leaflet/leaflet.js",

@@ -2050,6 +2050,7 @@ a {
   inset: 0;
   z-index: 300;
   display: none;
+  pointer-events: none;
 }
 
 .gc-tut.open {
@@ -2076,6 +2077,7 @@ a {
   background: rgba(5, 13, 23, .96);
   box-shadow: 0 24px 80px rgba(0, 0, 0, .55);
   clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 0 100%);
+  pointer-events: auto;
 }
 
 .theme-wave .gc-tut-card {
@@ -2117,6 +2119,65 @@ a {
 }
 
 .gc-tut-actions button:last-child {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: #fff;
+}
+
+/* in-client confirm */
+.gc-confirm {
+  position: fixed;
+  inset: 0;
+  z-index: 400;
+  display: none;
+  place-items: center;
+  padding: 20px;
+  background: rgba(1, 5, 10, .72);
+  backdrop-filter: blur(5px);
+}
+
+.gc-confirm.open {
+  display: grid;
+}
+
+.gc-confirm-card {
+  width: min(360px, 100%);
+  padding: 22px;
+  border: 1px solid var(--line);
+  background: #07111d;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, .6);
+}
+
+.gc-confirm-card b {
+  display: block;
+  color: var(--text);
+  font: 700 20px/1.2 var(--display);
+}
+
+.gc-confirm-card p {
+  margin: 10px 0 0;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.7;
+}
+
+.gc-confirm-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 18px;
+}
+
+.gc-confirm-actions button {
+  min-height: 40px;
+  padding: 0 16px;
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--text);
+  font: 9px/1 var(--mono);
+}
+
+.gc-confirm-actions button:last-child {
   border-color: var(--accent);
   background: var(--accent);
   color: #fff;

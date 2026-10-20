@@ -99,6 +99,7 @@
   var tutIndex = 0;
   var bootTimer = null;
   var matchTimer = null;
+  var launchSeq = 0;
   var audioCtx = null;
 
   function tone(freq, duration) {
@@ -278,6 +279,7 @@
       '</section>' +
 
       '<div class="gc-tut" id="gc-tut" role="dialog" aria-modal="true" aria-label="新手引导"><div class="gc-tut-spot" id="gc-tut-spot"></div><div class="gc-tut-card"><p class="gc-tut-count" id="gc-tut-count">GUIDE / 01</p><h3 id="gc-tut-title">—</h3><p id="gc-tut-text">—</p><div class="gc-tut-actions"><button type="button" id="gc-tut-skip">跳过</button><button type="button" id="gc-tut-next">下一步 →</button></div></div></div>' +
+      '<div class="gc-confirm" id="gc-confirm" role="dialog" aria-modal="true" aria-label="返回大厅"><div class="gc-confirm-card"><b>返回大厅？</b><p>当前对局会中断。</p><div class="gc-confirm-actions"><button type="button" id="gc-confirm-cancel">继续对局</button><button type="button" id="gc-confirm-ok">返回大厅</button></div></div></div>' +
       '<div class="gc-toast" id="gc-toast" role="status" aria-live="polite"></div>' +
     '</div>';
 
@@ -595,6 +597,22 @@
     tutSpot.style.top = (rect.top - 6) + 'px';
     tutSpot.style.width = (rect.width + 12) + 'px';
     tutSpot.style.height = (rect.height + 12) + 'px';
+    var card = $('.gc-tut-card');
+    if (card) {
+      card.style.top = '';
+      card.style.bottom = '';
+      var cr = card.getBoundingClientRect();
+      var overlaps = rect.left < cr.right && rect.right > cr.left && rect.top < cr.bottom && rect.bottom > cr.top;
+      if (overlaps) {
+        if (rect.top > cr.height + 90) {
+          card.style.top = Math.max(70, rect.top - cr.height - 16) + 'px';
+          card.style.bottom = 'auto';
+        } else {
+          card.style.top = 'auto';
+          card.style.bottom = Math.max(16, innerHeight - rect.bottom + 16) + 'px';
+        }
+      }
+    }
   }
 
   function renderTutorialStep() {
@@ -615,6 +633,12 @@
     setTimeout(positionTutorialSpot, 280);
   }
 
+  function advanceTutorial() {
+    tutIndex += 1;
+    if (tutIndex >= C.tutorial.length) finishTutorial(false);
+    else renderTutorialStep();
+  }
+
   function startTutorial(force) {
     if (!force && state.tutorialDone) return;
     if (!state.name) state.name = C.defaultName;
@@ -625,28 +649,51 @@
     tone(560, .06);
   }
 
+  function requestLandscape() {
+    if (!C.mobileLandscape) return;
+    try {
+      if (!matchMedia('(pointer: coarse)').matches || innerHeight <= innerWidth) return;
+      var root = document.documentElement;
+      var req = root.requestFullscreen ? root.requestFullscreen({ navigationUI: 'hide' }) : null;
+      Promise.resolve(req).then(function () {
+        if (screen.orientation && screen.orientation.lock) return screen.orientation.lock('landscape');
+      }).catch(function () {});
+    } catch (e) {}
+  }
+
   function launchMatch() {
     if (!state.name) {
       toast('请先接入本地档案');
       showScreen('login');
       return;
     }
+    requestLandscape();
+    var token = ++launchSeq;
     markMatchStarted();
     showScreen('match');
     var loader = $('#gc-loader');
     var iframe = $('#gc-game');
     loader.classList.remove('hidden');
     iframe.src = C.gameUrl;
-    var started = false, nudged = false, dialogConfirmed = false, lastClickAt = 0;
+    var started = false, nudged = false, dialogConfirmed = false, hintDismissed = false, lastClickAt = 0;
     var begin = Date.now();
     clearInterval(matchTimer);
+    function focusGame() {
+      try {
+        iframe.focus({ preventScroll: true });
+        if (iframe.contentWindow) iframe.contentWindow.focus();
+      } catch (e) {}
+    }
     function markStarted() {
-      if (started) return;
+      if (started || token !== launchSeq) return;
       started = true;
       clearInterval(matchTimer);
+      focusGame();
+      setTimeout(focusGame, 420);
       setTimeout(function () { loader.classList.add('hidden'); }, 1200);
     }
     function clickStart() {
+      if (token !== launchSeq) return false;
       try {
         var doc = iframe.contentDocument;
         if (!doc) return false;
@@ -657,6 +704,19 @@
           (doc.head || doc.documentElement).appendChild(style);
         }
         var win = iframe.contentWindow;
+        if (C.key === 'wave' && !hintDismissed) {
+          var rotate = doc.querySelector('#rotate-hint');
+          var dismiss = doc.querySelector('#rotate-dismiss');
+          if (rotate && dismiss) {
+            var rr = rotate.getBoundingClientRect();
+            var rs = win.getComputedStyle(rotate);
+            if (rr.width > 0 && rr.height > 0 && rs.display !== 'none' && rs.visibility !== 'hidden') {
+              hintDismissed = true;
+              dismiss.click();
+              toast('已按竖屏启动；横屏可旋转设备获得更宽视野');
+            }
+          }
+        }
         if (C.confirmInputPrompt && win.InputDeviceRuntime && !win.InputDeviceRuntime.snapshot().confirmed) {
           win.InputDeviceRuntime.setPreference('auto');
         }
@@ -738,8 +798,12 @@
     }, (C.startTimeout || 14000) + 2000);
   }
 
-  function backToLobby() {
-    if (!window.confirm('返回大厅？当前对局会中断。')) return;
+  function doBackToLobby() {
+    launchSeq += 1;
+    try {
+      if (document.fullscreenElement) document.exitFullscreen().catch(function () {});
+      if (screen.orientation && screen.orientation.unlock) screen.orientation.unlock();
+    } catch (e) {}
     clearInterval(matchTimer);
     var iframe = $('#gc-game');
     if (iframe) iframe.src = 'about:blank';
@@ -747,6 +811,28 @@
     if (loader) loader.classList.add('hidden');
     showScreen('hub');
     setView('lobby');
+  }
+
+  function askBack() {
+    var dialog = $('#gc-confirm');
+    if (!dialog) return doBackToLobby();
+    dialog.classList.add('open');
+    var cancel = $('#gc-confirm-cancel');
+    if (cancel) cancel.focus();
+  }
+
+  function closeConfirm() {
+    var dialog = $('#gc-confirm');
+    if (dialog) dialog.classList.remove('open');
+    if (currentScreen === 'match') {
+      var frame = $('#gc-game');
+      if (frame) {
+        try {
+          frame.focus({ preventScroll: true });
+          if (frame.contentWindow) frame.contentWindow.focus();
+        } catch (e) {}
+      }
+    }
   }
 
   function bind() {
@@ -802,13 +888,38 @@
     $('#gc-equip').addEventListener('click', equipItem);
     $('#gc-play').addEventListener('click', launchMatch);
     $('#gc-replay-tutorial').addEventListener('click', function () { startTutorial(true); });
-    $('#gc-tut-next').addEventListener('click', function () {
-      tutIndex += 1;
-      if (tutIndex >= C.tutorial.length) finishTutorial(false);
-      else renderTutorialStep();
-    });
+    $('#gc-tut-next').addEventListener('click', advanceTutorial);
     $('#gc-tut-skip').addEventListener('click', function () { finishTutorial(true); });
-    $('#gc-back').addEventListener('click', backToLobby);
+    document.addEventListener('click', function (event) {
+      if (!tutEl.classList.contains('open')) return;
+      if (event.target.closest && event.target.closest('.gc-tut-card')) return;
+      var step = C.tutorial[tutIndex];
+      if (!step) return;
+      var target = document.querySelector(step.target);
+      if (!target) {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        return;
+      }
+      var hit = event.target === target || target.contains(event.target);
+      if (!hit) {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        return;
+      }
+      if (target.id === 'gc-play') {
+        markTutorialDone();
+        closeTutorial();
+        return;
+      }
+      setTimeout(advanceTutorial, 0);
+    }, true);
+    $('#gc-back').addEventListener('click', askBack);
+    $('#gc-confirm-cancel').addEventListener('click', closeConfirm);
+    $('#gc-confirm-ok').addEventListener('click', function () {
+      closeConfirm();
+      doBackToLobby();
+    });
     $('#gc-music').addEventListener('input', function () {
       state.music = Number(this.value);
       $('[data-music-label]').textContent = this.value + '%';
