@@ -46,7 +46,7 @@
     mode: C.modes[0].id,
     music: 40,
     sfx: 60,
-    quality: 'high'
+    quality: (window.matchMedia && window.matchMedia('(pointer: coarse)').matches) ? 'low' : 'high'
   };
 
   function load() {
@@ -250,7 +250,7 @@
                 '<div class="gc-settings-card"><h3>声音与表现</h3>' +
                   '<div class="gc-setting"><label for="gc-music">背景音乐 <b data-music-label>40%</b></label><input id="gc-music" type="range" min="0" max="100" value="40"></div>' +
                   '<div class="gc-setting"><label for="gc-sfx">界面音效 <b data-sfx-label>60%</b></label><input id="gc-sfx" type="range" min="0" max="100" value="60"></div>' +
-                  '<div class="gc-setting"><label>客户端画质</label><div class="gc-seg" data-quality><button type="button" data-q="low">流畅</button><button type="button" data-q="high" class="active">高清</button><button type="button" data-q="ultra">极致</button></div></div>' +
+                  '<div class="gc-setting"><label>客户端画质</label><div class="gc-seg" data-quality><button type="button" data-q="low">流畅</button><button type="button" data-q="high" class="active">均衡</button><button type="button" data-q="ultra">精细</button></div></div>' +
                   '<p class="gc-settings-note">客户端设置只作用于展示层；真实对局画质以游戏内设置为准。</p>' +
                 '</div>' +
                 '<div class="gc-settings-card"><h3>客户端与版本</h3>' +
@@ -663,6 +663,30 @@
     } catch (e) {}
   }
 
+  function applyGameQuality(win) {
+    var q = state.quality;
+    try {
+      if (C.key === 'strike' && win.__GAME && win.__GAME.setRenderScale) {
+        var cfg = win.__GAME.config || {};
+        if (q === 'low') {
+          cfg.adaptiveResolution = false;
+          cfg.pixelRatioCap = 1.25;
+          win.__GAME.setRenderScale(0.6);
+        } else if (q === 'ultra') {
+          cfg.adaptiveResolution = false;
+          cfg.pixelRatioCap = 2;
+          win.__GAME.setRenderScale(1);
+        } else {
+          cfg.adaptiveResolution = true;
+          cfg.pixelRatioCap = 2;
+          win.__GAME.setRenderScale(0.7);
+        }
+      } else if (C.key === 'wave' && win.__WR && win.__WR.Quality && win.__WR.Quality.set) {
+        win.__WR.Quality.set(q === 'low' ? 'low' : q === 'ultra' ? 'high' : 'mid', true);
+      }
+    } catch (e) {}
+  }
+
   function launchMatch() {
     if (!state.name) {
       toast('请先接入本地档案');
@@ -677,7 +701,7 @@
     var iframe = $('#gc-game');
     loader.classList.remove('hidden');
     iframe.src = C.gameUrl;
-    var started = false, nudged = false, dialogConfirmed = false, hintDismissed = false, lastClickAt = 0;
+    var started = false, nudged = false, dialogConfirmed = false, hintDismissed = false, qualityApplied = false, lastClickAt = 0;
     var begin = Date.now();
     clearInterval(matchTimer);
     function focusGame() {
@@ -740,6 +764,10 @@
         }
         var ready = !C.waitForReady || win[C.waitForReady] === true;
         if (C.requireWR) ready = ready && !!win.__WR;
+        if (!qualityApplied && ((C.key === 'strike' && ready && win.__GAME) || (C.key === 'wave' && win.__WR && win.__WR.Quality))) {
+          applyGameQuality(win);
+          qualityApplied = true;
+        }
         if (C.flow === 'strike') {
           var flow = win.UI56ModeFlow;
           if (ready && flow && flow.installed && Date.now() - lastClickAt > 700) {

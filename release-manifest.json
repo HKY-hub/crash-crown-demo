@@ -1,7 +1,7 @@
 {
   "version": "1.0",
   "target": "pages",
-  "preparedAt": "2026-10-20T08:57:28Z",
+  "preparedAt": "2026-10-22T22:29:10Z",
   "repository": "HKY-hub/crash-crown-demo",
   "gameBaselineSHA256": "7af8b62666c4b39ee74b353cd04780cfdd6fd11b18b91b28cf6d477567346725",
   "publicGameSHA256": "344e6aad1a2cbebcb087e0d74be9eaa54a3128ee39c1a2e753c6355b54824af7",
@@ -345,13 +345,13 @@
     },
     {
       "file": "assets/game-client.css",
-      "bytes": 48833,
-      "sha256": "cb9773d2db919b0e1a25e58e1462a7aa0734aa2ea79cbc5d662c4e137dc06409"
+      "bytes": 51658,
+      "sha256": "7992fa703efd0a91c13da057ff0324255b521321c37535a0d9364d738306b154"
     },
     {
       "file": "assets/game-client.js",
-      "bytes": 51964,
-      "sha256": "0a9db5b06d3b4d3799a6143177e5c8dc961e892aeb7fa30d31716abdd63cff01"
+      "bytes": 53124,
+      "sha256": "d45b1f9bdfadfe339162697da09877966fcff7004bc6fe1848cbde850dc6482c"
     },
     {
       "file": "assets/gameplay.jpg",
@@ -855,8 +855,8 @@
     },
     {
       "file": "game/client.html",
-      "bytes": 5596,
-      "sha256": "5d6db2569decd51d6c19a35e9439055b2e48b5f4bfa63204d20a8267f1a81dab"
+      "bytes": 5616,
+      "sha256": "65acb935c2f7ada5a2a469dcc0b92b82956920c4454f33d41c4b2d07d3a1e89c"
     },
     {
       "file": "game/index.html",
@@ -905,8 +905,8 @@
     },
     {
       "file": "wave-rider/index.html",
-      "bytes": 5175,
-      "sha256": "ee33472b7dd0321df9c830f4993acef917edfc5df92b4121c3592cfb1d1cd380"
+      "bytes": 5195,
+      "sha256": "af78a53d0b6044e588342c04692452cdd9712aca720705da92262cf932186c29"
     },
     {
       "file": "wave-rider/WaveRider-Offline.html",
@@ -1235,8 +1235,8 @@
     },
     {
       "file": "biohazard/js/game.js",
-      "bytes": 149057,
-      "sha256": "66331b5725a2d248b5ee124b17f7078aa6db611520b9ff8f567f1b64a146a279"
+      "bytes": 149420,
+      "sha256": "b9272b6258663292afef304e6947c335941c1c3653c91a51e928c5f8dc33841f"
     },
     {
       "file": "biohazard/js/input.js",

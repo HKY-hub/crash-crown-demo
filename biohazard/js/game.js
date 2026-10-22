@@ -18,6 +18,12 @@ function allied(a, b) { return !hostile(a, b); }
 
 const canvas = document.getElementById('game');
 const ctx = canvas.getContext('2d');
+const MOBILE_RENDER_SCALE = (window.matchMedia && window.matchMedia('(pointer: coarse)').matches) || window.innerWidth <= 900 ? 0.6 : 1;
+if (MOBILE_RENDER_SCALE < 1) {
+  canvas.width = Math.round(CFG.CW * MOBILE_RENDER_SCALE);
+  canvas.height = Math.round(CFG.CH * MOBILE_RENDER_SCALE);
+  ctx.setTransform(MOBILE_RENDER_SCALE, 0, 0, MOBILE_RENDER_SCALE, 0, 0);
+}
 
 const HUMAN_NAMES = ['阿强','小美','大刘','老王','阿杰','小李','丽丽','东子','小芳','阿豪','小雅','铁柱','娜娜','石头','阿凯'];
 
