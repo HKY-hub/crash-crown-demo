@@ -1,10 +1,10 @@
 {
   "version": "1.0",
   "target": "pages",
-  "preparedAt": "2026-10-22T22:29:10Z",
+  "preparedAt": "2026-10-22T23:41:54Z",
   "repository": "HKY-hub/crash-crown-demo",
   "gameBaselineSHA256": "7af8b62666c4b39ee74b353cd04780cfdd6fd11b18b91b28cf6d477567346725",
-  "publicGameSHA256": "344e6aad1a2cbebcb087e0d74be9eaa54a3128ee39c1a2e753c6355b54824af7",
+  "publicGameSHA256": "e7bdfcec240ceb6caac7e755b798c5e23e7eb68beedd482e5e0bc76cd5b2eedd",
   "storagePrefix": "crash-crown-demo:1.0:",
   "accountServiceEnabled": false,
   "privateDataExcluded": true,
@@ -860,8 +860,8 @@
     },
     {
       "file": "game/index.html",
-      "bytes": 36875614,
-      "sha256": "344e6aad1a2cbebcb087e0d74be9eaa54a3128ee39c1a2e753c6355b54824af7"
+      "bytes": 36872041,
+      "sha256": "e7bdfcec240ceb6caac7e755b798c5e23e7eb68beedd482e5e0bc76cd5b2eedd"
     },
     {
       "file": "index.html",
@@ -870,8 +870,8 @@
     },
     {
       "file": "release.html",
-      "bytes": 2634,
-      "sha256": "1e58c804cfa3e5d7fc7be0914dad9d09c1140ac80f3f4a24559d6408abbb02bb"
+      "bytes": 2667,
+      "sha256": "28a54d4d0c36f35f2b2667de571f276c9a9d525681060a1f5a2b1a5942e86dce"
     },
     {
       "file": "spreadsheets/CS2_经济系统配置与预算.xlsx",

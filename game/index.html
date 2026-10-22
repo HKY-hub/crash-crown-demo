@@ -52036,9 +52036,28 @@ const FullUnlock={
  backup(){
   try{
    if(localStorage.getItem(this.backupKey)!==null)return;
-   const values={};for(const key of [PROFILE_KEY,ACH_KEY,TAL_KEY,SKIN_KEY])values[key]=localStorage.getItem(key);
+   const values={};for(const key of [PROFILE_KEY,ACH_KEY,TAL_KEY,SKIN_KEY,'cz_economy_v1'])values[key]=localStorage.getItem(key);
    localStorage.setItem(this.backupKey,JSON.stringify({version:this.version,createdAt:Date.now(),values}));
   }catch(error){console.warn('Full unlock save backup unavailable',error.message);}
+ },
+ seedShowcase(){
+  try{
+   const key='cz_economy_v1';
+   const raw=JSON.parse(localStorage.getItem(key)||'null')||{};
+   const ids=[];
+   try{Object.keys(VEHICLE_REGISTRY).forEach(function(id){const v=VEHICLE_REGISTRY[id];if(v&&v.releaseState==='released')ids.push(id);});}catch(_){}
+   const wallet=raw.wallet&&typeof raw.wallet==='object'?raw.wallet:{};
+   wallet.chips=99999999;wallet.scrap=99999999;wallet.emblems=99999999;
+   const gacha=raw.gacha&&typeof raw.gacha==='object'?raw.gacha:{};
+   gacha.tickets=99999999;gacha.ownedVehicleIds=ids;gacha.ownershipMigrated=true;
+   const season=raw.season&&typeof raw.season==='object'?raw.season:{};
+   const current='pass-'+(typeof seasonIdxNow==='function'?seasonIdxNow():0);
+   if(season.id!==current){season.id=current;season.seasonId=current;season.claimedFree={};season.claimedPremium={};season.seenAwards={};}
+   season.xp=25000;season.level=100;season.premium=true;
+   raw.version=1;raw.wallet=wallet;raw.gacha=gacha;raw.season=season;
+   localStorage.setItem(key,JSON.stringify(raw));
+   if(profile){profile.purchases=profile.purchases||{};for(const id of ids)profile.purchases['vehicle:'+id]=true;}
+  }catch(error){console.warn('Full unlock showcase seed unavailable',error.message);}
  },
  titles(){
   const rows=[];
@@ -52109,6 +52128,8 @@ const FullUnlock={
  apply(){this.backup();this.grant(profile);this.persist(profile);},
  install(){
   if(this.installed)return;this.installed=true;window.FullUnlock=this;
+  this.seedShowcase();
+  if(profile)this.persist(profile);
   const load=loadProfile;loadProfile=function(){FullUnlock.backup();const p=FullUnlock.grant(load());FullUnlock.persist(p);return p;};
   const save=saveAll;saveAll=function(...args){FullUnlock.grant(profile);return save.apply(this,args);};
   const season=ensureSeason;ensureSeason=function(...args){const value=season.apply(this,args);FullUnlock.grantSeason(profile);FullUnlock.persist(profile);return value;};
@@ -60191,6 +60212,22 @@ window.CLOUD_SAVE_FIELDS=["version","contentVersion","totalMatches","totalWins",
  * accounts have independent inventories. Connected transactions grant only
  * after acknowledgement; permanent ledgers prevent operation-key replay.
  */
+/* Showcase seed: all released vehicles, pass maxed, gacha funded. Skins stay untouched. */
+(function seedShowcaseEconomy(){
+ try{
+  const ids=['hammer_common_1','hammer_common_2','hammer_common_3','hammer_rare_1','hammer_rare_2','hammer_rare_3','spin_common_1','spin_common_2','spin_common_3','spin_rare_1','spin_rare_2','spin_rare_3','spring_common_1','spring_common_2','spring_common_3','spring_rare_1','spring_rare_2','spring_rare_3','steady_common_1','steady_common_2','steady_common_3','steady_rare_1','steady_rare_2','steady_rare_3','lure_common_1','lure_common_2','lure_common_3','lure_rare_1','lure_rare_2','lure_rare_3','balanced_common_1','balanced_common_2','balanced_common_3','balanced_rare_1','balanced_rare_2','balanced_rare_3','titan','duanyue','cq','apoc','hr','lj','sy','qrw','zy','tq','lm','dm','bf','yj','mc','fb','cw','wz','xz','tj'];
+  const key='cz_economy_v1';
+  const raw=JSON.parse(localStorage.getItem(key)||'null')||{};
+  const wallet=raw.wallet&&typeof raw.wallet==='object'?raw.wallet:{};
+  wallet.chips=99999999;wallet.scrap=99999999;wallet.emblems=99999999;
+  const gacha=raw.gacha&&typeof raw.gacha==='object'?raw.gacha:{};
+  gacha.tickets=99999999;gacha.ownedVehicleIds=ids;gacha.ownershipMigrated=true;
+  const season=raw.season&&typeof raw.season==='object'?raw.season:{};
+  season.xp=25000;season.level=100;season.premium=true;
+  raw.version=1;raw.wallet=wallet;raw.gacha=gacha;raw.season=season;
+  localStorage.setItem(key,JSON.stringify(raw));
+ }catch(error){console.warn('Showcase economy seed unavailable',error.message);}
+})();
 (function (host) {
   'use strict';
   if (host.EconomyRuntime) return;
