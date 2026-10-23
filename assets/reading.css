@@ -224,6 +224,33 @@ body.reading-page .document-note {
   font-size: 12px;
 }
 
+body.reading-page .reading-foot {
+  margin-top: 44px;
+  padding-top: 18px;
+  border-top: 1px solid var(--reading-line);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+  font-size: 13px;
+  color: var(--reading-muted);
+}
+
+body.reading-page .reading-foot a {
+  color: var(--reading-muted);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+}
+
+body.reading-page .reading-foot a:hover {
+  color: var(--reading-navy);
+  border-bottom-color: var(--reading-navy);
+}
+
+body.reading-page .reading-foot a[aria-current="page"] {
+  color: var(--reading-blue);
+  border-bottom-color: var(--reading-blue);
+}
+
 @media (max-width: 720px) {
   .reading-wrap,
   body.reading-page .wrap.reading {
@@ -307,5 +334,9 @@ body.reading-page .reading a:focus-visible {
     padding: 0;
     border: 0;
     box-shadow: none;
+  }
+
+  body.reading-page .reading-foot {
+    display: none;
   }
 }
