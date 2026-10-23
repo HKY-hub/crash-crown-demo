@@ -67,6 +67,29 @@ body.reading-page ::selection {
   text-transform: uppercase;
 }
 
+.skip-link {
+  position: absolute;
+  left: 16px;
+  top: -100px;
+  z-index: 100;
+  padding: 10px 16px;
+  border-radius: 4px;
+  background: var(--reading-navy);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: top .2s;
+}
+
+.skip-link:focus {
+  top: 12px;
+}
+
+body.reading-page main:focus {
+  outline: none;
+}
+
 .reading-nav {
   display: flex;
   gap: 22px;
@@ -320,6 +343,10 @@ body.reading-page .reading a:focus-visible {
 }
 
 @media print {
+  .skip-link {
+    display: none;
+  }
+
   body.reading-page {
     background: #fff;
   }
