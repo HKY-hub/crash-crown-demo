@@ -30,6 +30,7 @@ body{color:#172033}
 .tool-button{display:inline-flex;align-items:center;justify-content:center;min-height:32px;border-color:#c7d0de;border-radius:3px;color:#334155}
 .tool-button:hover{background:#eef2f7}
 .menu-button{display:none}
+.sidebar:focus{outline:none}
 .brand-hky{font:700 9.5px/1.4 'Microsoft YaHei',system-ui,sans-serif;letter-spacing:.12em;color:#1d4ed8;margin-bottom:8px}
 .sidebar{background:#f5f7fa;border-right-color:var(--line)}
 .brand{border-bottom-color:var(--line)}
@@ -6084,12 +6085,13 @@ body{color:#172033}
   document.addEventListener('click', event => {if (!box.contains(event.target)) panel.hidden = true;});
   document.addEventListener('keydown', event => {
     if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'k') {event.preventDefault(); input.focus(); input.select();}
-    if (event.key === 'Escape') {panel.hidden = true; setSidebar(false); input.blur();}
+    if (event.key === 'Escape') {panel.hidden = true; setSidebar(false, true); input.blur();}
   });
-  function setSidebar(open){sidebar.classList.toggle('open', open); menu.setAttribute('aria-expanded', String(open)); document.documentElement.style.overflow = open ? 'hidden' : '';}
+  sidebar.tabIndex = -1;
+  function setSidebar(open, focusBack){sidebar.classList.toggle('open', open); menu.setAttribute('aria-expanded', String(open)); document.documentElement.style.overflow = open ? 'hidden' : ''; if (open) sidebar.focus({preventScroll:true}); else if (focusBack) menu.focus();}
   window.addEventListener('resize', () => { if (innerWidth > 860) setSidebar(false); });
   menu.addEventListener('click', () => setSidebar(!sidebar.classList.contains('open')));
-  document.getElementById('scrim').addEventListener('click', () => setSidebar(false));
+  document.getElementById('scrim').addEventListener('click', () => setSidebar(false, true));
   sidebar.querySelectorAll('a').forEach(link => link.addEventListener('click', event => {event.stopPropagation(); const group = link.closest('details'); if (group) group.open = true; setSidebar(false);}));
   document.getElementById('print').addEventListener('click', () => window.print());
 

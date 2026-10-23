@@ -154,6 +154,7 @@ tr:nth-child(even) td{background:#fbfcfd}
 .footer a{margin-right:14px}
 .backtop{position:fixed;right:24px;bottom:24px;background:var(--navy);color:#fff;border:0;border-radius:50%;width:40px;height:40px;font:16px var(--sans);cursor:pointer;opacity:0;pointer-events:none;transition:.2s;z-index:30}
 .backtop.show{opacity:1;pointer-events:auto}
+.sidebar:focus{outline:none}
 
 /* responsive */
 @media(max-width:1120px){
@@ -554,18 +555,21 @@ tr:nth-child(even) td{background:#fbfcfd}
   addEventListener('resize', update);
   update();
 
-  function setMenu(open) {
+  sidebar.tabIndex = -1;
+  function setMenu(open, focusBack) {
     sidebar.classList.toggle('open', open);
     menu.setAttribute('aria-expanded', String(open));
     document.documentElement.style.overflow = open ? 'hidden' : '';
+    if (open) sidebar.focus({preventScroll:true});
+    else if (focusBack) menu.focus();
   }
   menu.addEventListener('click', () => setMenu(!sidebar.classList.contains('open')));
-  scrim.addEventListener('click', () => setMenu(false));
+  scrim.addEventListener('click', () => setMenu(false, true));
   links.forEach(a => a.addEventListener('click', () => setMenu(false)));
   document.getElementById('print').addEventListener('click', () => print());
   backtop.addEventListener('click', () => scrollTo({top:0,behavior:'smooth'}));
   document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') setMenu(false);
+    if (e.key === 'Escape') setMenu(false, true);
   });
   addEventListener('resize', () => { if (innerWidth > 860) setMenu(false); });
 })();
