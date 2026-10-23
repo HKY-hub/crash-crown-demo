@@ -64,6 +64,7 @@ a{color:inherit}
   font-family:var(--mono);font-style:normal;font-size:11px;letter-spacing:.02em;font-weight:700}
 .mark span{font-family:var(--mono);font-size:10px;letter-spacing:.18em;color:var(--muted);text-transform:uppercase}
 .side-name{margin:26px 0 0;font-size:34px;line-height:1;letter-spacing:-.04em;font-weight:800;color:var(--navy)}
+.side-name a{color:inherit;text-decoration:none}
 .side-name em{font-style:normal;color:var(--blue)}
 .side-role{margin:10px 0 0;font-size:13.5px;color:var(--ink);font-weight:600;letter-spacing:.01em}
 .side-bio{margin:14px 0 0;font-size:12.5px;color:var(--muted);line-height:1.8}
@@ -339,6 +340,7 @@ footer{padding:0 0 44px}
   .side{position:static;height:auto;overflow:visible;min-width:0;border-right:0;border-bottom:1px solid var(--line);
     display:block;padding:24px 24px 18px}
   .side-head{display:flex;align-items:center;gap:16px}
+  .side-head .mark{display:none}
   .side-name{margin:0;font-size:26px}
   .side-role{margin:2px 0 0;font-size:11.5px}
   .side-bio,.side-status,.side-cta,.side-foot{display:none}
@@ -604,7 +606,7 @@ footer{padding:0 0 44px}
       <div class="side-head">
         <a class="mark" href="#top" aria-label="HKY 首页"><i>HKY</i><span>Portfolio 2026</span></a>
         <div>
-          <p class="side-name">HKY<em>.</em></p>
+          <p class="side-name"><a href="#top" aria-label="HKY 首页">HKY<em>.</em></a></p>
           <p class="side-role">游戏策划 / 系统策划</p>
         </div>
       </div>
