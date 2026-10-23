@@ -21,6 +21,9 @@ body.plan,body.analysis{--accent:#1d4ed8;--tint:#eef4ff;--focus:#1d4ed8}
 .topbar{min-height:63px;background:rgba(245,247,250,.94);backdrop-filter:blur(12px)}
 .portfolio-return{display:inline-flex;align-items:center;min-height:32px;padding:.3rem .65rem;border:1px solid #c7d0de;border-radius:3px;background:#fff;color:#0c2140;font:700 12px/1.2 "Helvetica Neue",Arial,"PingFang SC","Microsoft YaHei",sans-serif;text-decoration:none;white-space:nowrap}
 .portfolio-return:hover{background:#eef2f7;text-decoration:none}
+.backtop{position:fixed;right:24px;bottom:24px;width:40px;height:40px;border:0;border-radius:50%;background:#0c2140;color:#fff;font:16px/1 "Helvetica Neue",Arial,"PingFang SC","Microsoft YaHei",sans-serif;cursor:pointer;opacity:0;pointer-events:none;transition:opacity .2s;z-index:30;box-shadow:0 8px 20px rgba(18,32,50,.18)}
+.backtop.show{opacity:1;pointer-events:auto}
+@media print{.backtop{display:none!important}}
 .brand{color:#0c2140}
 button,input{border-color:#c7d0de;border-radius:3px}
 button:hover{background:#eef2f7}
@@ -7865,4 +7868,7 @@ const dialog=$('#shot-dialog'),dialogHost=$('#dialog-image-host'),dialogTitle=$(
 const show=(img)=>{origin=img;const expanded=document.createElement('img');expanded.id='dialog-image';expanded.src=img.src;expanded.alt=img.alt;dialogHost.replaceChildren(expanded);dialogTitle.textContent=img.closest('figure').querySelector('.fig-title')?.textContent||img.alt;dialog.showModal();};
 $$('figure.game-shot img,figure.architecture-diagram img').forEach(img=>{img.tabIndex=0;img.setAttribute('role','button');img.setAttribute('aria-label',(img.closest('.architecture-diagram')?'放大架构图：':'放大截图：')+img.alt);img.addEventListener('click',()=>show(img));img.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();show(img);}});});$('#close-shot').addEventListener('click',()=>dialog.close());dialog.addEventListener('close',()=>{dialogHost.replaceChildren();origin?.focus({preventScroll:true});});dialog.addEventListener('click',e=>{if(e.target===dialog)dialog.close();});
 })();
-</script><p style="padding:24px;text-align:center"><a href="../">返回 HKY 作品集</a></p></body></html>
+</script><p style="padding:24px;text-align:center"><a href="../">返回 HKY 作品集</a></p><button class="backtop" id="hkyBacktop" type="button" aria-label="回到顶部">↑</button>
+<script>
+(function(){var b=document.getElementById('hkyBacktop');if(!b)return;function sync(){b.classList.toggle('show',(window.pageYOffset||document.documentElement.scrollTop)>700);}window.addEventListener('scroll',sync,{passive:true});sync();b.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});})();
+</script></body></html>
