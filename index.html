@@ -1176,6 +1176,7 @@ footer{padding:0 0 44px}
     targets.forEach(function(x){
       if(x.target.offsetTop<=marker){current=x.link;}
     });
+    if(targets.length&&y+window.innerHeight>=doc.scrollHeight-4){current=targets[targets.length-1].link;}
     if(!current&&targets.length){current=targets[0].link;}
     navLinks.forEach(function(a){a.classList.toggle('active',a===current);});
   }
