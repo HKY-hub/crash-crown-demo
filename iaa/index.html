@@ -554,21 +554,20 @@ tr:nth-child(even) td{background:#fbfcfd}
   addEventListener('resize', update);
   update();
 
-  menu.addEventListener('click', () => {
-    const open = sidebar.classList.toggle('open');
+  function setMenu(open) {
+    sidebar.classList.toggle('open', open);
     menu.setAttribute('aria-expanded', String(open));
-  });
-  scrim.addEventListener('click', () => {
-    sidebar.classList.remove('open'); menu.setAttribute('aria-expanded','false');
-  });
-  links.forEach(a => a.addEventListener('click', () => {
-    sidebar.classList.remove('open'); menu.setAttribute('aria-expanded','false');
-  }));
+    document.documentElement.style.overflow = open ? 'hidden' : '';
+  }
+  menu.addEventListener('click', () => setMenu(!sidebar.classList.contains('open')));
+  scrim.addEventListener('click', () => setMenu(false));
+  links.forEach(a => a.addEventListener('click', () => setMenu(false)));
   document.getElementById('print').addEventListener('click', () => print());
   backtop.addEventListener('click', () => scrollTo({top:0,behavior:'smooth'}));
   document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') { sidebar.classList.remove('open'); menu.setAttribute('aria-expanded','false'); }
+    if (e.key === 'Escape') setMenu(false);
   });
+  addEventListener('resize', () => { if (innerWidth > 860) setMenu(false); });
 })();
 </script>
 </body>

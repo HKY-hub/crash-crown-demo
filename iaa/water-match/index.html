@@ -1340,14 +1340,16 @@ dialog img{display:block;width:100%;max-height:78vh;object-fit:contain;backgroun
   var sidebar = document.getElementById('sidebar');
   var scrim = document.getElementById('scrim');
   var menuBtn = document.getElementById('menuBtn');
-  function closeMenu(){ sidebar.classList.remove('open'); scrim.style.display='none'; menuBtn.setAttribute('aria-expanded','false'); }
+  function closeMenu(){ sidebar.classList.remove('open'); scrim.style.display='none'; menuBtn.setAttribute('aria-expanded','false'); document.documentElement.style.overflow=''; }
   menuBtn.addEventListener('click', function(){
     var open = sidebar.classList.toggle('open');
     scrim.style.display = open ? 'block' : 'none';
     menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    document.documentElement.style.overflow = open ? 'hidden' : '';
   });
   scrim.addEventListener('click', closeMenu);
   document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeMenu(); });
+  window.addEventListener('resize', function(){ if (window.innerWidth > 900) closeMenu(); });
   document.querySelectorAll('.toc a').forEach(function(a){ a.addEventListener('click', closeMenu); });
 
   var bar = document.getElementById('progressBar');
