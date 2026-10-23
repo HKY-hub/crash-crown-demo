@@ -1,0 +1,570 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>三款箭头解谜的 IAA 拆解 · Amaze GO! / Point Out / Maze Madness</title>
+<meta name="description" content="三款箭头解谜产品的 IAA 对比拆解：20×3 实机、60 张截图、Google Play 美区快照；比较难度压力、失败恢复、道具经济、排位留存与广告触点。">
+<meta name="theme-color" content="#0c2140">
+<style>
+:root{
+  --navy:#0c2140;--navy-2:#15365e;--ink:#1b2431;--muted:#5d6879;
+  --paper:#f7f8fa;--white:#fff;--line:#dce2ea;--line-dark:#c8d1dd;
+  --blue:#1d4ed8;--blue-soft:#edf2ff;--gold:#b3873d;--gold-soft:#f7f0e2;
+  --amaze:#62458f;--amaze-soft:#f1ecf8;--point:#2e5a88;--point-soft:#eaf1f8;--maze:#1f6b5a;--maze-soft:#e9f4f0;
+  --red:#a6432f;--green:#3f6b3a;
+  --sans:"Helvetica Neue",Arial,"PingFang SC","Microsoft YaHei",sans-serif;
+  --serif:"Songti SC","SimSun","Noto Serif CJK SC",Georgia,serif;
+  --mono:"SFMono-Regular",Consolas,"Liberation Mono",Menlo,monospace;
+  --side:286px;--top:58px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:88px}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--serif);font-size:16px;line-height:1.92;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%;height:auto}
+a{color:#294f78;text-decoration:none}
+a:hover{text-decoration:underline}
+::selection{background:var(--navy);color:#fff}
+:focus-visible{outline:3px solid var(--blue);outline-offset:3px}
+.skip{position:fixed;left:14px;top:-80px;z-index:100;background:var(--navy);color:#fff;padding:9px 16px;border-radius:4px;font:12px var(--sans);transition:top .2s}
+.skip:focus{top:12px}
+
+/* sidebar */
+.sidebar{position:fixed;inset:0 auto 0 0;width:var(--side);background:#fff;border-right:1px solid var(--line);z-index:40;display:flex;flex-direction:column;overflow:auto}
+.brand{padding:28px 24px 22px;border-bottom:1px solid var(--line)}
+.brand-code{font:800 29px/1.1 var(--sans);letter-spacing:.02em;color:var(--navy)}
+.brand-code em{font-style:normal;color:var(--blue)}
+.brand-title{font:700 13px/1.5 var(--sans);margin:12px 0 5px;color:var(--ink)}
+.brand-meta{font:10.5px/1.7 var(--sans);color:var(--muted)}
+.toc{padding:16px 12px 28px;flex:1}
+.toc a{display:flex;gap:9px;align-items:baseline;padding:9px 9px;border-left:2px solid transparent;border-radius:2px;color:#3f4a59;font:12.5px/1.55 var(--sans)}
+.toc a:hover{background:#f1f4f8;text-decoration:none}
+.toc a.active{background:#eaf0f8;border-left-color:var(--blue);color:var(--navy);font-weight:700}
+.toc .no{font:10px var(--mono);color:#93a0b3;min-width:18px}
+.toc .sub{padding-left:38px;font-size:11.5px;color:#6c7888}
+.side-foot{padding:15px 24px 22px;border-top:1px solid var(--line);font:10px/1.8 var(--mono);color:#8b96a6}
+.side-foot a{display:block;margin-bottom:5px;font-family:var(--sans);font-size:11px}
+
+/* toolbar */
+.toolbar{position:fixed;top:0;left:var(--side);right:0;height:var(--top);background:#ffffffed;backdrop-filter:blur(10px);border-bottom:1px solid var(--line);z-index:35;display:flex;align-items:center;gap:14px;padding:0 30px;font:12px var(--sans)}
+.toolbar .back{font-weight:700;color:var(--navy)}
+.toolbar .crumb{color:var(--muted);font-size:11px}
+.toolbar .spacer{flex:1}
+.tool-button{border:1px solid var(--line-dark);background:#fff;color:#334155;padding:6px 11px;border-radius:3px;font:11.5px var(--sans);cursor:pointer}
+.tool-button:hover{background:#f1f4f8}
+.menu-button{display:none}
+.progress{position:fixed;left:var(--side);right:0;top:var(--top);height:2px;z-index:36;background:transparent}
+.progress i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--blue),#7aa2ff)}
+.scrim{display:none}
+
+/* main */
+main{margin-left:var(--side);padding:calc(var(--top) + 52px) 54px 70px;max-width:1180px}
+.hero{padding-bottom:38px;border-bottom:1px solid var(--line)}
+.eyebrow{font:10.5px var(--mono);letter-spacing:.18em;color:var(--blue);text-transform:uppercase;margin:0 0 17px}
+h1{font:800 clamp(34px,4.1vw,50px)/1.16 var(--sans);letter-spacing:-.04em;color:var(--navy);margin:0}
+.lede{font-size:17px;line-height:1.95;color:#344052;max-width:56ch;margin:20px 0 0}
+.hero-meta{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin:34px 0 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.hero-meta div{padding:14px 16px 13px 0;border-right:1px solid var(--line)}
+.hero-meta div:last-child{border-right:0}
+.hero-meta strong{display:block;font:800 25px/1.2 var(--sans);color:var(--navy);letter-spacing:-.03em}
+.hero-meta span{font:9.5px var(--mono);letter-spacing:.07em;color:#8490a0;text-transform:uppercase}
+.hero-figure{margin:28px 0 0}
+.hero-figure img{width:100%;border:1px solid var(--line)}
+figcaption{font:11px/1.7 var(--sans);color:var(--muted);margin-top:8px}
+.doc-section{border-top:1px solid #b9c4d3;margin-top:56px;padding-top:28px}
+h2{font:800 29px/1.3 var(--sans);letter-spacing:-.025em;color:var(--navy);margin:0 0 22px}
+h3{font:800 19px/1.45 var(--sans);color:var(--navy);margin:34px 0 12px}
+h4{font:700 15px/1.6 var(--sans);color:#273447;margin:24px 0 8px}
+p{margin:10px 0 17px}
+ul,ol{padding-left:24px;margin:12px 0 21px}
+li{margin:7px 0}
+strong{font-weight:700;color:#101827}
+.small{font:11px/1.75 var(--sans);color:var(--muted)}
+.note{background:var(--blue-soft);border-left:3px solid var(--blue);padding:13px 17px;margin:20px 0;font:12.5px/1.8 var(--sans);color:#2c405e}
+.callout{background:#fff;border:1px solid var(--line);padding:16px 19px;margin:22px 0}
+.callout b{font-family:var(--sans)}
+.cite{font:10.5px var(--sans);color:#46627d;border:1px solid #cdd8e4;border-radius:2px;padding:0 3px;margin:0 1px;white-space:nowrap}
+.table-wrap{overflow-x:auto;margin:18px 0 24px;border:1px solid var(--line);background:#fff}
+table{border-collapse:collapse;width:100%;min-width:660px;font:12.5px/1.75 var(--sans)}
+th,td{border-bottom:1px solid var(--line);padding:9px 12px;text-align:left;vertical-align:top}
+th{background:#eef2f7;color:#203047;font-weight:700;white-space:nowrap}
+tr:last-child td{border-bottom:0}
+td:first-child{font-weight:700;color:#243349;min-width:112px}
+tr:nth-child(even) td{background:#fbfcfd}
+.tag{display:inline-block;padding:1px 6px;border-radius:2px;font:10px var(--mono);border:1px solid}
+.tag.a{color:var(--amaze);background:var(--amaze-soft);border-color:#d9ccec}
+.tag.p{color:var(--point);background:var(--point-soft);border-color:#cad9e8}
+.tag.m{color:var(--maze);background:var(--maze-soft);border-color:#c8e1d8}
+.tag.warn{color:var(--red);background:#fbeeea;border-color:#eccfc6}
+.shot-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin:20px 0 24px}
+.shot-grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.shot{margin:0;background:#fff;border:1px solid var(--line);padding:9px}
+.shot a{display:block}
+.shot img{width:100%;border:1px solid #e7ebf1}
+.shot figcaption{font:10.5px/1.7 var(--sans);color:var(--muted);margin:7px 2px 1px}
+.shot .cap-title{display:block;color:#263548;font-weight:700;margin-bottom:2px}
+
+/* loop */
+.loop{display:grid;grid-template-columns:repeat(5,1fr);gap:0;margin:24px 0 10px;border:1px solid var(--line);background:#fff}
+.loop .step{padding:15px 13px;border-right:1px solid var(--line);position:relative}
+.loop .step:last-child{border-right:0}
+.loop .step:not(:last-child)::after{content:"→";position:absolute;right:-11px;top:18px;background:#fff;color:#8b98aa;font:14px var(--sans);z-index:2}
+.loop .n{font:10px var(--mono);color:var(--blue);letter-spacing:.08em}
+.loop h4{margin:5px 0 5px;font-size:13.5px}
+.loop p{font:11px/1.7 var(--sans);color:var(--muted);margin:0}
+.loop-note{font:11px/1.75 var(--sans);color:var(--muted);margin:0 0 24px}
+
+/* timeline */
+.timeline-wrap{overflow-x:auto;border:1px solid var(--line);background:#fff;padding:12px;margin:18px 0 10px}
+.timeline{display:grid;grid-template-columns:112px repeat(20,minmax(30px,1fr));gap:4px;min-width:880px}
+.timeline .head{font:9.5px var(--mono);color:#8490a1;text-align:center;padding:3px 0}
+.timeline .rowlab{font:11px var(--sans);font-weight:700;padding:8px 7px;display:flex;align-items:center;gap:5px;background:#f6f8fa}
+.timeline .lv{font:10px var(--mono);text-align:center;padding:8px 2px;border:1px solid #e4e9f0;background:#fff;color:#667386}
+.timeline .lv.hard{background:#f6e7d7;border-color:#dfbd98;color:#8b4d20;font-weight:700}
+.timeline .lv.super{background:#f4d9d2;border-color:#ddaa9d;color:#993b2d;font-weight:700}
+.legend{display:flex;flex-wrap:wrap;gap:16px;font:10.5px var(--sans);color:var(--muted);margin:8px 0 22px}
+.legend i{display:inline-block;width:10px;height:10px;border:1px solid;margin-right:4px;vertical-align:-1px}
+.legend .h{background:#f6e7d7;border-color:#dfbd98}
+.legend .s{background:#f4d9d2;border-color:#ddaa9d}
+
+/* economy cards */
+.econ-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:20px 0 24px}
+.econ{border:1px solid var(--line);background:#fff;padding:16px}
+.econ .who{font:10px var(--mono);letter-spacing:.08em;color:var(--muted)}
+.econ .big{font:800 25px/1.2 var(--sans);color:var(--navy);margin:6px 0 2px}
+.econ .big small{font-size:12px;font-weight:600;color:var(--muted)}
+.econ p{font:11.5px/1.7 var(--sans);color:#4b586a;margin:6px 0 0}
+.bar{height:8px;background:#eef1f5;margin:12px 0 4px;position:relative;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--blue)}
+.bar.a i{background:var(--amaze)}.bar.p i{background:var(--point)}.bar.m i{background:var(--maze)}
+.bar-label{display:flex;justify-content:space-between;font:10px var(--sans);color:var(--muted)}
+
+/* score */
+.score{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;margin:5px 0}
+.dots{font:13px var(--mono);letter-spacing:2px;white-space:nowrap}
+.dots .on{color:var(--navy)}.dots .off{color:#d2d9e2}
+.score-table td:first-child{min-width:150px}
+
+/* links / footer */
+.source-list{font:12px/1.9 var(--sans);color:#40536a;padding-left:22px}
+.source-list li{margin:6px 0}
+.footer{border-top:1px solid var(--line);margin-top:60px;padding:20px 0 10px;font:11px/1.8 var(--sans);color:var(--muted)}
+.footer a{margin-right:14px}
+.backtop{position:fixed;right:24px;bottom:24px;background:var(--navy);color:#fff;border:0;border-radius:50%;width:40px;height:40px;font:16px var(--sans);cursor:pointer;opacity:0;pointer-events:none;transition:.2s;z-index:30}
+.backtop.show{opacity:1;pointer-events:auto}
+
+/* responsive */
+@media(max-width:1120px){
+  :root{--side:250px}
+  main{padding-left:34px;padding-right:34px}
+  h1{font-size:35px}
+}
+@media(max-width:860px){
+  :root{--side:0px;--top:56px}
+  .sidebar{width:286px;transform:translateX(-100%);transition:transform .2s;box-shadow:0 0 40px #0002}
+  .sidebar.open{transform:translateX(0)}
+  .sidebar.open~.scrim{display:block;position:fixed;inset:0;background:#0b172699;z-index:39}
+  .toolbar{left:0;padding:0 16px}
+  .toolbar .menu-button{display:block}
+  .toolbar .crumb{display:none}
+  main{margin-left:0;padding:90px 22px 50px;max-width:none}
+  .hero-meta{grid-template-columns:repeat(2,1fr)}
+  .hero-meta div:nth-child(2){border-right:0}
+  .shot-grid,.shot-grid.three,.econ-grid{grid-template-columns:1fr}
+  .loop{grid-template-columns:1fr}
+  .loop .step{border-right:0;border-bottom:1px solid var(--line)}
+  .loop .step:last-child{border-bottom:0}
+  .loop .step:not(:last-child)::after{content:"↓";right:14px;top:auto;bottom:-11px}
+  h2{font-size:25px}
+  .lede{font-size:15.5px}
+}
+@media(max-width:480px){
+  .toolbar #print{display:none}
+  main{padding-left:16px;padding-right:16px}
+  h1{font-size:29px}
+  .hero-meta strong{font-size:21px}
+  .toolbar .tool-button{padding:5px 8px}
+}
+@media print{
+  @page{size:A4;margin:18mm}
+  body{background:#fff;font-size:10.5pt;line-height:1.7}
+  .sidebar,.toolbar,.progress,.scrim,.backtop,.skip{display:none!important}
+  main{margin:0;padding:0;max-width:none}
+  .hero{padding-bottom:8mm}
+  h1{font-size:23pt}
+  h2{font-size:16pt;break-after:avoid}
+  h3{font-size:12.5pt;break-after:avoid}
+  .doc-section{margin-top:10mm;padding-top:5mm}
+  .table-wrap{overflow:visible}
+  table{min-width:0;font-size:8.5pt}
+  th,td{padding:2mm}
+  .shot-grid{grid-template-columns:repeat(2,1fr);gap:4mm}
+  .shot{break-inside:avoid}
+  .loop,.timeline-wrap,.econ-grid{break-inside:avoid}
+  a{color:#222}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#overview">跳到正文</a>
+<aside class="sidebar" id="sidebar" aria-label="目录">
+  <div class="brand">
+    <div class="brand-code">IAA<em>/03</em></div>
+    <p class="brand-title">三款箭头解谜的 IAA 拆解</p>
+    <p class="brand-meta">关卡压力 · 失败恢复 · 广告/道具经济<br>独立研究 · 2026-10-21</p>
+  </div>
+  <nav class="toc" aria-label="章节">
+    <a href="#overview" class="active"><span class="no">00</span><span>摘要与口径</span></a>
+    <a href="#pressure"><span class="no">01</span><span>品类与难度压力</span></a>
+    <a href="#failure"><span class="no">02</span><span>失败与恢复</span></a>
+    <a href="#economy"><span class="no">03</span><span>道具与经济</span></a>
+    <a href="#retention"><span class="no">04</span><span>排位与留存</span></a>
+    <a href="#store"><span class="no">05</span><span>商店侧数据</span></a>
+    <a href="#scorecard"><span class="no">06</span><span>评分卡与判断</span></a>
+    <a href="#principles"><span class="no">07</span><span>可迁移方法</span></a>
+    <a href="#evidence"><span class="no">08</span><span>证据与边界</span></a>
+  </nav>
+  <div class="side-foot">
+    <a href="../#case-iaa">← 返回 HKY 作品集</a>
+    60 张实机截图 / 3 款 × 20 关<br>商店快照：Google Play 美区<br>2026-10-21
+  </div>
+</aside>
+<div class="scrim" id="scrim"></div>
+<header class="toolbar">
+  <a class="back" href="../#case-iaa">← 返回作品集</a>
+  <span class="crumb">IAA RESEARCH / THREE ARROW PUZZLES</span>
+  <span class="spacer"></span>
+  <button class="tool-button menu-button" id="menu" type="button" aria-controls="sidebar" aria-expanded="false">目录</button>
+  <button class="tool-button" id="print" type="button">打印 / 存为 PDF</button>
+</header>
+<div class="progress" aria-hidden="true"><i></i></div>
+<main>
+  <section class="hero" id="overview">
+    <p class="eyebrow">IAA RESEARCH · LEVEL PRESSURE / FAILURE LOOP / REWARDED AD</p>
+    <h1>三款箭头解谜的<br>IAA 对比拆解</h1>
+    <p class="lede">三款产品都把“点箭头、清空棋盘”做成核心，却把广告放在完全不同的位置。本文用 20×3 实机、60 张截图和 Google Play 美区快照，拆开它们的难度压力、失败恢复、道具经济与留存结构，回答一个问题：<strong>IAA 什么时候是在帮玩家继续玩，什么时候只是在收过路费。</strong></p>
+    <div class="hero-meta">
+      <div><strong>60</strong><span>关实机 · 20×3</span></div>
+      <div><strong>60</strong><span>张关卡截图</span></div>
+      <div><strong>3</strong><span>套失败循环</span></div>
+      <div><strong>1</strong><span>份商店快照</span></div>
+    </div>
+    <figure class="hero-figure">
+      <img src="assets/hero.jpg" alt="Amaze GO!、Point Out、Maze Madness 三款游戏的 L10 实机画面" width="1600" height="900">
+      <figcaption>左到右：Amaze GO! L10（困难）、Point Out L10（HARD LEVEL）、Maze Madness L10（HARD / 4 心）。均为本人实机截图；Amaze 画面中的百分比提示是关卡内社会证明。</figcaption>
+    </figure>
+    <div class="note" style="margin-top:22px;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap">
+      <span><b>同系列：</b>Water Match ASMR —— 把“空瓶”做成广告位之后，排序游戏的难度发生了什么？</span>
+      <a href="water-match/">阅读 Water Match ASMR 拆解 ↗</a>
+    </div>
+  </section>
+
+  <section class="doc-section" id="sample">
+    <h2>00 摘要：同一品类，三种“失败之后”</h2>
+    <p>三款产品的表层规则几乎相同：点一支箭头，让它沿指向飞出；路径被挡住就扣资源；清空棋盘过关。真正拉开差距的，是<strong>失败之后玩家看到什么</strong>。这决定了广告是在“接住”玩家，还是在“拦”玩家。</p>
+    <div class="table-wrap"><table>
+      <thead><tr><th>结论</th><th>Amaze GO!</th><th>Point Out</th><th>Maze Madness</th></tr></thead>
+      <tbody>
+        <tr><td>难度压力</td><td><span class="tag a">强</span> 困难/超难有明确标签，整板换形</td><td><span class="tag p">中</span> 主要靠箭头变多、图案变大</td><td><span class="tag m">中</span> 与 Point 同曲线，用加心补偿</td></tr>
+        <tr><td>失败恢复</td><td>3 心打空，<strong>免费继续 +3 心</strong></td><td>3 星打空，<strong>广告 / 900 金币 / IAP</strong></td><td>心打空，<strong>广告 / 300 金币</strong>，也可直接重开</td></tr>
+        <tr><td>广告位置</td><td>玩家主动点灯泡才看，给的是“哪支能点”</td><td>失败后的 Out of Stars，补星才能继续</td><td>失败后的复活面板；但重开免费</td></tr>
+        <tr><td>经济自洽</td><td>无金币经济；提示广告不挡进度</td><td>29 关约 700 金币，三件套 900 起</td><td>20 关约 230 金币，复活一次 300</td></tr>
+        <tr><td>长期目标</td><td><strong>青铜联赛、金箭头排位</strong>，单关表现有去处</td><td>分段 Zone、3 星收集</td><td>L20 解锁每日挑战、深浅色主题</td></tr>
+      </tbody>
+    </table></div>
+    <div class="note"><b>一句话结论：</b>Amaze 的循环最健康，Point 的失败摩擦最高，Maze 的复活定价被“免费重开”架空。三款都不是“有没有广告”的差别，而是“广告出现在玩家愿不愿意继续的那一秒”的差别。</div>
+    <h3>研究口径</h3>
+    <div class="table-wrap"><table>
+      <thead><tr><th>项目</th><th>说明</th></tr></thead>
+      <tbody>
+        <tr><td>实机范围</td><td>Amaze GO! 1–20；Point Out 1–20（继续到 L21）；Maze Madness 1–20（继续到 L21）。每关至少一张截图，共 60 张。</td></tr>
+        <tr><td>运行环境</td><td>Amaze：Google Play Games PC（crosvm 客户区）；Point / Maze：MuMu Player 12（720×1280，ADB 截屏）。</td></tr>
+        <tr><td>截图方法</td><td>1.2 秒轮询录制，按 PNG MD5 去重；按 HUD 关卡号 OCR 校验后选帧。截图来自实机，不使用商店图替代。</td></tr>
+        <tr><td>商店数据</td><td>Google Play 美国区 / 英语，2026-10-21 抓取；评分、下载、价格为商店展示值；数据安全为开发者申报。</td></tr>
+        <tr><td>边界</td><td>没有后台数据，广告频次与 eCPM 不可见；Maze 的误触保护未单独验证；Point/Maze 的金币与价格部分来自本人口述，能与截图对上的已标注。</td></tr>
+      </tbody>
+    </table></div>
+    <h3>IAA 观察框架：从压力到回流</h3>
+    <div class="loop" aria-label="IAA 观察框架">
+      <div class="step"><div class="n">01 / PRESSURE</div><h4>关卡压力</h4><p>难度、资源、读图成本共同决定玩家会不会失败。</p></div>
+      <div class="step"><div class="n">02 / FAIL</div><h4>失败瞬间</h4><p>0 心 / 0 星之后，玩家看到的是“继续”还是“墙”。</p></div>
+      <div class="step"><div class="n">03 / RECOVER</div><h4>恢复选项</h4><p>免费继续、看广告、花金币、内购，还是直接重开。</p></div>
+      <div class="step"><div class="n">04 / MONETIZE</div><h4>广告 / 道具</h4><p>广告是解决当下问题，还是只增加一次曝光。</p></div>
+      <div class="step"><div class="n">05 / RETURN</div><h4>回流</h4><p>单关结果能否接进排位、收集或下一关目标。</p></div>
+    </div>
+    <p class="loop-note">后文的每一节，都按这五步拆三款产品；评分卡只做研究判断，不代表产品后台数据。</p>
+  </section>
+
+  <section class="doc-section" id="pressure">
+    <h2>01 品类与难度压力：先让玩家“看懂自己在爬坡”</h2>
+    <p>箭头解谜天然适合 IAA：单局短、失败清楚、可重复。但“适合放广告”不等于“适合在失败时收费”。先看三款怎么制造压力。</p>
+    <h3>1.1 难度标签与资源</h3>
+    <div class="table-wrap"><table>
+      <thead><tr><th>维度</th><th>Amaze GO!</th><th>Point Out</th><th>Maze Madness</th></tr></thead>
+      <tbody>
+        <tr><td>难度标签</td><td>L5/8/10/13/15/18 困难，L20 超难</td><td>L10/16/20 HARD，L18 SUPER HARD</td><td>L10/15 HARD，L20 SUPER HARD</td></tr>
+        <tr><td>单关资源</td><td>3 心固定</td><td>3 星硬预算</td><td>普通 3 心；HARD 4 心；SUPER HARD 5 心</td></tr>
+        <tr><td>高难关做法</td><td>整板换形：L5 眼镜板、双指缩放；后续更长回形</td><td>箭头变多、图案变大；标签与玩法变化不完全对应</td><td>与 Point 同曲线；用加心降低失败率</td></tr>
+        <tr><td>读图辅助</td><td>灯泡提示（广告）＋可点数量信息</td><td>灯泡 / 橡皮 / 魔法棒 / 尺子；双指缩放</td><td>尺子/基准线常驻免费；深浅色切换</td></tr>
+        <tr><td>节奏感</td><td>普通—困难交替，压力有起伏</td><td>前 20 关偏平，难度主要靠加量</td><td>与 Point 类似，靠心数补偿</td></tr>
+      </tbody>
+    </table></div>
+    <h3>1.2 二十关的难度节奏</h3>
+    <div class="timeline-wrap">
+      <div class="timeline" role="img" aria-label="三款游戏前二十关的困难与超难关分布">
+        <div class="head"></div>
+        <div class="head">L1</div><div class="head">L2</div><div class="head">L3</div><div class="head">L4</div><div class="head">L5</div><div class="head">L6</div><div class="head">L7</div><div class="head">L8</div><div class="head">L9</div><div class="head">L10</div><div class="head">L11</div><div class="head">L12</div><div class="head">L13</div><div class="head">L14</div><div class="head">L15</div><div class="head">L16</div><div class="head">L17</div><div class="head">L18</div><div class="head">L19</div><div class="head">L20</div>
+        <div class="rowlab"><span class="tag a">Amaze</span> 3 心</div>
+        <div class="lv">1</div><div class="lv">2</div><div class="lv">3</div><div class="lv">4</div><div class="lv hard">5</div><div class="lv">6</div><div class="lv">7</div><div class="lv hard">8</div><div class="lv">9</div><div class="lv hard">10</div><div class="lv">11</div><div class="lv">12</div><div class="lv hard">13</div><div class="lv">14</div><div class="lv hard">15</div><div class="lv">16</div><div class="lv">17</div><div class="lv hard">18</div><div class="lv">19</div><div class="lv super">20</div>
+        <div class="rowlab"><span class="tag p">Point</span> 3 星</div>
+        <div class="lv">1</div><div class="lv">2</div><div class="lv">3</div><div class="lv">4</div><div class="lv">5</div><div class="lv">6</div><div class="lv">7</div><div class="lv">8</div><div class="lv">9</div><div class="lv hard">10</div><div class="lv">11</div><div class="lv">12</div><div class="lv">13</div><div class="lv">14</div><div class="lv">15</div><div class="lv hard">16</div><div class="lv">17</div><div class="lv super">18</div><div class="lv">19</div><div class="lv hard">20</div>
+        <div class="rowlab"><span class="tag m">Maze</span> 3–5 心</div>
+        <div class="lv">1</div><div class="lv">2</div><div class="lv">3</div><div class="lv">4</div><div class="lv">5</div><div class="lv">6</div><div class="lv">7</div><div class="lv">8</div><div class="lv">9</div><div class="lv hard">10</div><div class="lv">11</div><div class="lv">12</div><div class="lv">13</div><div class="lv">14</div><div class="lv hard">15</div><div class="lv">16</div><div class="lv">17</div><div class="lv">18</div><div class="lv">19</div><div class="lv super">20</div>
+      </div>
+    </div>
+    <div class="legend"><span><i class="h"></i>困难</span><span><i class="s"></i>超难</span><span>空白 = 普通关；Maze 的 L10/L15 为 4 心，L20 为 5 心。</span></div>
+    <div class="shot-grid three">
+      <figure class="shot"><a href="assets/amaze_l05.webp" target="_blank" rel="noopener"><img src="assets/amaze_l05.webp" alt="Amaze GO! L05 困难眼镜板" loading="lazy"></a><figcaption><span class="cap-title">Amaze L05 · 困难</span>整板换成眼镜，弹双指缩放；第一次明显感到“这关不一样”。</figcaption></figure>
+      <figure class="shot"><a href="assets/point_l10.webp" target="_blank" rel="noopener"><img src="assets/point_l10.webp" alt="Point Out L10 HARD LEVEL" loading="lazy"></a><figcaption><span class="cap-title">Point L10 · HARD</span>粉色环形大盘；标签升级，但玩法仍是数量与图案变大。</figcaption></figure>
+      <figure class="shot"><a href="assets/maze_l10.webp" target="_blank" rel="noopener"><img src="assets/maze_l10.webp" alt="Maze Madness L10 HARD 4 hearts" loading="lazy"></a><figcaption><span class="cap-title">Maze L10 · HARD</span>右上 4 心；用资源补偿难度，是它与 Point 最大的操作差异。</figcaption></figure>
+    </div>
+    <p><strong>判断：</strong>Amaze 的压力曲线最可读，困难关有“换题”的感觉；Point 与 Maze 更多是同一套题变复杂。Maze 加心是聪明的低成本补偿，但它没有改变“量变”的本质。</p>
+  </section>
+
+  <section class="doc-section" id="failure">
+    <h2>02 失败与恢复：IAA 最关键的一秒</h2>
+    <p>三款都在资源耗尽时把玩家拦下来，但给出的下一步完全不同。这里不是“有没有广告”的区别，而是<strong>广告是否解决了玩家当下最想解决的问题</strong>。</p>
+    <h3>2.1 Amaze：免费继续，广告退到“主动求助”</h3>
+    <p>Amaze 每关 3 颗蓝心。点错扣 1 心，但同一支错箭头只扣一次，动画期间再点不会继续掉。3 心用完弹“次数用尽”，可以<strong>免费继续 +3 心</strong>，或重新开始；没有强制广告。</p>
+    <div class="shot-grid">
+      <figure class="shot"><a href="assets/amaze_out_of_lives.webp" target="_blank" rel="noopener"><img src="assets/amaze_out_of_lives.webp" alt="Amaze GO! 次数用尽，免费继续" loading="lazy"></a><figcaption><span class="cap-title">Amaze · 次数用尽</span>免费继续 +3 心；失败不直接变成付费墙。</figcaption></figure>
+      <figure class="shot"><a href="assets/amaze_hint.webp" target="_blank" rel="noopener"><img src="assets/amaze_hint.webp" alt="Amaze GO! 灯泡提示高亮一支箭头" loading="lazy"></a><figcaption><span class="cap-title">Amaze · 灯泡提示</span>看广告后高亮 1 支可点箭头，并告诉玩家还有几支能点；给信息，不代打。</figcaption></figure>
+    </div>
+    <p>这套设计的价值在于：<strong>失败只是“再来一次”，广告只在玩家主动点灯泡时出现。</strong>广告没有抢走失败瞬间，也没有替玩家做决定；它卖的是信息，不是通行证。</p>
+
+    <h3>2.2 Point Out：0 星墙，补星才能继续</h3>
+    <p>Point 每关 3 星，0 星立即弹 Out of Stars：看广告 +1 星、900 金币 +3 星，或买 Safety Net。补星后才能继续。更麻烦的是它<strong>没有误触保护</strong>：同一支错箭头在动画期间再点会再扣一次，手速快的人可能一次误判连掉 3 星。</p>
+    <div class="shot-grid">
+      <figure class="shot"><a href="assets/point_out_of_stars.webp" target="_blank" rel="noopener"><img src="assets/point_out_of_stars.webp" alt="Point Out Out of Stars 面板" loading="lazy"></a><figcaption><span class="cap-title">Point · Out of Stars</span>L03 实测 0 星：广告 +1、900 金币 +3、Safety Net；失败被做成补星决策。</figcaption></figure>
+      <figure class="shot"><a href="assets/point_shop.webp" target="_blank" rel="noopener"><img src="assets/point_shop.webp" alt="Point Out 商店礼包" loading="lazy"></a><figcaption><span class="cap-title">Point · 商店</span>Starter 5000 / Classic 5000 / Elite 10000 金币；IAP 层级完整，和补星压力叠在一起。</figcaption></figure>
+    </div>
+    <p>Point 的失败不是“操作没做好”，而是“资源预算打完了”。这会把一次误点放大成付费问题；尤其在 0 星面板里，广告和金币是并列的，玩家很难不觉得自己被拦住了。</p>
+
+    <h3>2.3 Maze：复活 300 金币，但重开免费</h3>
+    <p>Maze 的复活面板给出两条路：看广告，或 300 金币。问题是金币产出很低：过一关 10 金币，L10 给 20、L20 给 30，20 关加起来约 <strong>230</strong>，第一次复活都买不起。更关键的是，关卡可以直接重新开始；复活只保留当前棋盘进度，而关卡又短，重开的成本远低于 300 金币。</p>
+    <div class="shot-grid">
+      <figure class="shot"><a href="assets/maze_revive.webp" target="_blank" rel="noopener"><img src="assets/maze_revive.webp" alt="Maze Madness 复活面板 300 金币" loading="lazy"></a><figcaption><span class="cap-title">Maze · 复活面板</span>广告或 300 金币；当时金币只有 10，第一次复活就买不起。</figcaption></figure>
+      <figure class="shot"><a href="assets/maze_home.webp" target="_blank" rel="noopener"><img src="assets/maze_home.webp" alt="Maze Madness 主页 Remove Ads 与每日挑战" loading="lazy"></a><figcaption><span class="cap-title">Maze · 主页</span>每日挑战要通过第 20 关才解锁；主页另有 Remove Ads 内购。长期目标来得偏晚。</figcaption></figure>
+    </div>
+    <div class="callout"><b>经济账：</b>产出 230、单价 300、替代方案免费。三个数字放在一起，复活按钮基本是摆设。玩家要么看广告，要么直接重开；300 金币这个选项在理性上不成立。</div>
+    <h3>2.4 失败恢复对比</h3>
+    <div class="table-wrap"><table>
+      <thead><tr><th>游戏</th><th>触发</th><th>玩家看到</th><th>恢复代价</th><th>替代方案</th><th>摩擦</th></tr></thead>
+      <tbody>
+        <tr><td>Amaze</td><td>3 心打空</td><td>次数用尽</td><td>免费 +3 心</td><td>重新开始</td><td><strong>最低</strong></td></tr>
+        <tr><td>Point</td><td>3 星打空</td><td>Out of Stars</td><td>广告 +1 / 900 +3 / IAP</td><td>补星后继续</td><td><strong>最高</strong></td></tr>
+        <tr><td>Maze</td><td>3/4/5 心打空</td><td>继续吗？</td><td>广告 / 300 金币</td><td>免费重开</td><td><strong>中</strong></td></tr>
+      </tbody>
+    </table></div>
+    <p><strong>判断：</strong>Amaze 把失败留在“愿意再试一次”的范围；Point 把失败做成“补资源才能继续”；Maze 想收费，但它给出的价格和免费替代方案冲突。失败点的位置也不同：Maze 在 L2 就出现，Amaze 在 L5，Point 则在任意 0 星时刻。</p>
+  </section>
+
+  <section class="doc-section" id="economy">
+    <h2>03 道具与经济：谁在为“继续玩”付费</h2>
+    <p>IAA 的广告不是孤立存在的。它和道具价格、金币产出、复活成本一起，决定玩家是“看个广告继续”还是“直接退出”。三款产品给出了三种不同的账。</p>
+    <h3>3.1 Point：道具价格高于全部关卡产出</h3>
+    <p>Point 有四件道具：灯泡、橡皮、魔法棒、尺子。主要三件每 3 个 900/1400/1900 金币，尺子 250 金币 5 个；但到 29 关累计约 700 金币。也就是说，打完 29 关的全部金币还不够买一个 900 的三件套。</p>
+    <div class="econ-grid">
+      <div class="econ"><div class="who">POINT / 29 关累计</div><div class="big">~700 <small>金币</small></div><div class="bar p"><i style="width:39%"></i></div><div class="bar-label"><span>产出 700</span><span>三件套 900 起</span></div><p>产出覆盖不了最低价的三件套，想用道具基本只能看广告或买礼包。</p></div>
+      <div class="econ"><div class="who">MAZE / 20 关累计</div><div class="big">~230 <small>金币</small></div><div class="bar m"><i style="width:77%"></i></div><div class="bar-label"><span>产出 230</span><span>复活 300</span></div><p>金币唯一出口是复活；20 关总产出仍低于一次复活的价格。</p></div>
+      <div class="econ"><div class="who">AMAZE / 广告</div><div class="big">1 <small>个提示</small></div><div class="bar a"><i style="width:100%"></i></div><div class="bar-label"><span>主动点灯泡</span><span>看广告</span></div><p>没有金币经济；提示只给信息，不直接跳过关卡。</p></div>
+    </div>
+    <h3>3.2 Amaze：信息型广告</h3>
+    <p>Amaze 只有一个灯泡提示，入口不起眼，需要看广告；但它高亮的是整支可点箭头，并告诉玩家“还有几支能点”。这比直接给“跳过”更保留解谜感，也让广告出现在玩家主动求助的时刻。</p>
+    <h3>3.3 Maze：免费尺子，金币只用于复活</h3>
+    <p>Maze 的基准线/尺子常驻免费，右上角还能切深/浅色；这是它比 Point 舒服的地方。但金币只有复活一个出口，且复活价格高于自然产出。结果是：免费能力很好用，付费出口却没人愿意点。</p>
+    <h3>3.4 经济对照</h3>
+    <div class="table-wrap"><table>
+      <thead><tr><th>游戏</th><th>主要产出</th><th>主要消耗</th><th>价格 / 产出关系</th><th>判断</th></tr></thead>
+      <tbody>
+        <tr><td>Amaze</td><td>无金币；提示广告</td><td>广告时间</td><td>不挡进度</td><td><strong>广告是资讯，不是墙</strong></td></tr>
+        <tr><td>Point</td><td>到 29 关约 700 金币</td><td>3 个灯泡 900 / 3 个橡皮 1400 / 3 个魔法棒 1900；尺子 250 / 5；补 3 星 900</td><td>产出 &lt; 最低三件套</td><td><strong>玩家只能看广告或买礼包</strong></td></tr>
+        <tr><td>Maze</td><td>10/关；L10 20、L20 30；20 关约 230</td><td>复活 300；Remove Ads</td><td>产出 &lt; 一次复活</td><td><strong>金币出口失效</strong></td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section class="doc-section" id="retention">
+    <h2>04 排位与留存：广告之外的“回来理由”</h2>
+    <p>IAA 只解决“这一次失败要不要继续”，留存还要回答“下一关为什么回来”。三款产品都做了长期目标，但完成度不同。</p>
+    <div class="table-wrap"><table>
+      <thead><tr><th>游戏</th><th>长期目标</th><th>解锁方式</th><th>与 IAA 的关系</th></tr></thead>
+      <tbody>
+        <tr><td>Amaze</td><td>青铜联赛、金箭头排位、排行榜、23h34m 倒计时</td><td>L20 后进入</td><td>单关表现直接变成排位分；失败后继续有长期理由</td></tr>
+        <tr><td>Point</td><td>分段 Zone、3 星收集</td><td>按 Zone 分段推进</td><td>补星与 3 星目标叠加，但分段本身不改变难度</td></tr>
+        <tr><td>Maze</td><td>每日挑战、深浅色主题</td><td>通过第 20 关解锁每日挑战</td><td>目标不错，但解锁偏晚；复活经济与长期目标脱节</td></tr>
+      </tbody>
+    </table></div>
+    <div class="shot-grid">
+      <figure class="shot"><a href="assets/amaze_league.webp" target="_blank" rel="noopener"><img src="assets/amaze_league.webp" alt="Amaze GO! 青铜联赛排行榜" loading="lazy"></a><figcaption><span class="cap-title">Amaze · 青铜联赛</span>40/32/32 分、23h34m 倒计时；金箭头把单关表现接进赛季目标。</figcaption></figure>
+      <figure class="shot"><a href="assets/amaze_l20.webp" target="_blank" rel="noopener"><img src="assets/amaze_l20.webp" alt="Amaze GO! L20 超难棋盘" loading="lazy"></a><figcaption><span class="cap-title">Amaze · L20 超难</span>第 20 关把难度顶到最高，通关后直接接青铜联赛；难度与长期目标接得上。</figcaption></figure>
+    </div>
+    <p><strong>判断：</strong>Amaze 的留存结构最完整：单关失败 → 免费继续 → 通关 → 排位分 → 下一关。Point 的 3 星与 Zone 更像“完成度”，Maze 的每日挑战是好目标，但 L20 才解锁，来得太晚。</p>
+  </section>
+
+  <section class="doc-section" id="store">
+    <h2>05 商店侧数据：规模、口碑与商业化口径</h2>
+    <p>以下数据来自 Google Play 美国区 / 英语，2026-10-21 快照。评分、下载、评论为商店展示值；IAP 为商店页 USD 标价；数据安全为开发者申报。</p>
+    <div class="shot-grid three" style="margin-bottom:14px">
+      <figure class="shot" style="text-align:center"><a href="assets/icon_amaze.webp" target="_blank" rel="noopener"><img src="assets/icon_amaze.webp" alt="Amaze GO! 图标" style="max-width:150px;margin:0 auto"></a><figcaption><span class="cap-title">Amaze GO!</span>Oakever Games</figcaption></figure>
+      <figure class="shot" style="text-align:center"><a href="assets/icon_point.webp" target="_blank" rel="noopener"><img src="assets/icon_point.webp" alt="Point Out 图标" style="max-width:150px;margin:0 auto"></a><figcaption><span class="cap-title">Point Out</span>Lion Studios Plus</figcaption></figure>
+      <figure class="shot" style="text-align:center"><a href="assets/icon_maze.webp" target="_blank" rel="noopener"><img src="assets/icon_maze.webp" alt="Maze Madness 图标" style="max-width:150px;margin:0 auto"></a><figcaption><span class="cap-title">Maze Madness</span>Ashita Games</figcaption></figure>
+    </div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>信息项</th><th>Amaze GO!</th><th>Point Out</th><th>Maze Madness</th></tr></thead>
+      <tbody>
+        <tr><td>下载量</td><td><strong>100M+</strong></td><td>10M+</td><td>5M+</td></tr>
+        <tr><td>评分 / 评论</td><td><strong>4.8 / 439K</strong></td><td>4.6 / 632K</td><td><strong>4.9 / 188K</strong></td></tr>
+        <tr><td>5★ 占比</td><td>91.1%</td><td>75.2%</td><td>95.8%</td></tr>
+        <tr><td>广告 / 内购</td><td>含广告；商店页未标注内购</td><td>含广告；$1.99–$199.99 / item</td><td>含广告；$9.99 / item</td></tr>
+        <tr><td>版本 / 更新</td><td>1.34.1 / 2026-10-15</td><td>2.1.1 / 2026-10-09</td><td>2.0.1 / 2026-10-20</td></tr>
+        <tr><td>首次发布</td><td>2026-02-13</td><td>2025-10-10</td><td>2026-02-12</td></tr>
+        <tr><td>Android</td><td>7.1+</td><td>7.0+</td><td>9+</td></tr>
+        <tr><td>数据加密</td><td>是</td><td>是</td><td><strong style="color:var(--red)">否（商店声明）</strong></td></tr>
+        <tr><td>榜单 / 活动</td><td>美国区 #6 top free puzzle</td><td>万圣节活动至 10/28</td><td>万圣节更新</td></tr>
+      </tbody>
+    </table></div>
+    <p><strong>解读：</strong>Amaze 的规模与口碑都领先，而且商店页没有标注内购，广告是它主要的商业面；Point 评论基数最大，但评分最低、IAP 跨度最大，和“补星/道具压力”对得上；Maze 评分最高，但样本最小，且是三者中唯一声明“数据不加密”的，产品侧的合规风险值得单独看。</p>
+  </section>
+
+  <section class="doc-section" id="scorecard">
+    <h2>06 评分卡：IAA 循环健康度</h2>
+    <p>评分是研究判断，不是产品后台数据；5 分最好，1 分最差。重点看“压力是否可读、恢复是否合理、广告是否解决问题、经济是否自洽、留存是否接得上”。</p>
+    <div class="table-wrap"><table class="score-table">
+      <thead><tr><th>维度</th><th>Amaze GO!</th><th>Point Out</th><th>Maze Madness</th><th>判断依据</th></tr></thead>
+      <tbody>
+        <tr><td>压力可读性</td><td><span class="dots"><span class="on">●●●●●</span></span> 5</td><td><span class="dots"><span class="on">●●●</span><span class="off">●●</span></span> 3</td><td><span class="dots"><span class="on">●●●</span><span class="off">●●</span></span> 3</td><td>Amaze 困难关整板换形；Point/Maze 主要是加量。</td></tr>
+        <tr><td>恢复摩擦</td><td><span class="dots"><span class="on">●●●●●</span></span> 5</td><td><span class="dots"><span class="on">●●</span><span class="off">●●●</span></span> 2</td><td><span class="dots"><span class="on">●●</span><span class="off">●●●</span></span> 2</td><td>免费继续 vs 补星墙 vs 300 金币复活。</td></tr>
+        <tr><td>广告相关性</td><td><span class="dots"><span class="on">●●●●●</span></span> 5</td><td><span class="dots"><span class="on">●●</span><span class="off">●●●</span></span> 2</td><td><span class="dots"><span class="on">●●</span><span class="off">●●●</span></span> 2</td><td>Amaze 是主动求助的信息广告；另两款是失败后的资源补洞。</td></tr>
+        <tr><td>经济自洽</td><td><span class="dots"><span class="on">●●●●</span><span class="off">●</span></span> 4</td><td><span class="dots"><span class="on">●</span><span class="off">●●●●</span></span> 1</td><td><span class="dots"><span class="on">●</span><span class="off">●●●●</span></span> 1</td><td>Amaze 没有金币墙；Point 产出&lt;价格；Maze 产出&lt;复活。</td></tr>
+        <tr><td>留存承接</td><td><span class="dots"><span class="on">●●●●●</span></span> 5</td><td><span class="dots"><span class="on">●●●</span><span class="off">●●</span></span> 3</td><td><span class="dots"><span class="on">●●●●</span><span class="off">●</span></span> 4</td><td>Amaze 排位最完整；Maze 每日挑战但解锁晚；Point 分段。</td></tr>
+      </tbody>
+    </table></div>
+    <div class="callout"><b>总结：</b>Amaze 的 IAA 循环最健康——失败低摩擦，提示是信息，排位接得上；Point 的失败摩擦最高，广告和金币一起把 0 星做成墙；Maze 的免费尺子很好用，但复活定价被“免费重开”架空，金币出口失效。</div>
+    <h3>如果只改一处</h3>
+    <ul>
+      <li><strong>Point：先加误触保护。</strong>同一支错箭头只扣一次；再把补星价格降到玩家正常打 20 关能覆盖的范围。否则难度问题会直接变成付费墙。</li>
+      <li><strong>Maze：把复活降到 50–100，或按已清除比例动态定价。</strong>同时在按钮上写清“保留 18/24 支已清除”；230 产出对 300 单价，太尴尬。</li>
+      <li><strong>Amaze：保持低摩擦继续、信息型提示和排位。</strong>尤其不要把提示做成弹窗；它的价值就在“玩家主动求助”。</li>
+    </ul>
+  </section>
+
+  <section class="doc-section" id="principles">
+    <h2>07 可迁移方法：IAA 什么时候不招人烦</h2>
+    <p>把三款放在一起看，能提炼出六条可以直接用于关卡和商业化设计的判断。它们不依赖具体品类，适用于大多数“短局 + 失败 + 恢复”的 IAA 产品。</p>
+    <ol>
+      <li><strong>失败点放在玩家理解规则之后。</strong>Amaze 把第一次硬失败放在 L5；Maze 在 L2 就上 12 支对称十字。太早失败，玩家还没建立“我为什么会输”的模型。</li>
+      <li><strong>广告只在主动求助或愿意继续的时刻出现。</strong>Amaze 的灯泡是主动点击；Point 的 Out of Stars 是失败后被拦；前者是服务，后者更像收费。</li>
+      <li><strong>复活必须提供“重开给不了”的价值。</strong>Maze 的复活只保留当前进度，但关卡短、重开免费；300 金币的定价没有对应价值。</li>
+      <li><strong>产出要覆盖一次恢复。</strong>Point 29 关约 700，最低三件套 900；Maze 20 关约 230，复活 300。两个账都算不过来。</li>
+      <li><strong>信息型广告优于代打型广告。</strong>告诉玩家“哪支能点”仍然保留解谜；直接清屏或跳过会把关卡价值拿掉。</li>
+      <li><strong>单关表现要接进长期目标。</strong>Amaze 的金箭头→排位、Maze 的每日挑战、Point 的 Zone/3 星；接得上，玩家才有下一次回来的理由。</li>
+    </ol>
+    <div class="note"><b>落到关卡设计：</b>先让玩家看懂“为什么失败”，再决定要不要给广告。复活/道具的价格应该由玩家的自然产出决定，而不是由“这一刻他多想继续”决定。广告可以赚钱，但不要让它成为唯一的下一步。</div>
+  </section>
+
+  <section class="doc-section" id="evidence">
+    <h2>08 证据与边界</h2>
+    <p>本页的证据由三部分组成：20×3 实机截图、Google Play 商店页快照、以及对局中的资源/价格记录。所有图片来自本人实机，不使用商店图替代；商店图仅用于图标与版本信息。</p>
+    <div class="table-wrap"><table>
+      <thead><tr><th>证据</th><th>数量 / 来源</th><th>用途</th></tr></thead>
+      <tbody>
+        <tr><td>关卡截图</td><td>60 张（Amaze / Point / Maze 各 20）</td><td>难度标签、资源、失败/恢复画面</td></tr>
+        <tr><td>失败/恢复证据</td><td>Amaze 次数用尽、Point Out of Stars、Maze 复活、Maze 主页</td><td>判断 IAA 触点与摩擦</td></tr>
+        <tr><td>商店数据</td><td>Google Play 美区，2026-10-21</td><td>规模、评分、IAP、数据安全</td></tr>
+        <tr><td>经济记录</td><td>Point 29 关约 700 金币；Maze 10/关、L10 20、L20 30</td><td>产出/价格对照</td></tr>
+      </tbody>
+    </table></div>
+    <h3>20 关联络表</h3>
+    <p class="small">以下为三款游戏的 20 关缩略索引（点击打开原图）。它们对应本页的难度/资源判断，不替代完整 60 张原图。</p>
+    <div class="shot-grid three">
+      <figure class="shot"><a href="assets/contact_amaze.webp" target="_blank" rel="noopener"><img src="assets/contact_amaze.webp" alt="Amaze GO! 20 关联络表" loading="lazy"></a><figcaption><span class="cap-title">Amaze GO! · L01–L20</span>困难关与超难关已标注。</figcaption></figure>
+      <figure class="shot"><a href="assets/contact_point.webp" target="_blank" rel="noopener"><img src="assets/contact_point.webp" alt="Point Out 20 关联络表" loading="lazy"></a><figcaption><span class="cap-title">Point Out · L01–L20</span>HARD / SUPER HARD 标签可见。</figcaption></figure>
+      <figure class="shot"><a href="assets/contact_maze.webp" target="_blank" rel="noopener"><img src="assets/contact_maze.webp" alt="Maze Madness 20 关联络表" loading="lazy"></a><figcaption><span class="cap-title">Maze Madness · L01–L20</span>HARD 4 心、SUPER HARD 5 心。</figcaption></figure>
+    </div>
+    <h3>口径与限制</h3>
+    <ul class="small">
+      <li>没有后台数据，广告曝光频次、eCPM、留存曲线不可见；本页只研究“玩家看到的触点与选择”。</li>
+      <li>Amaze 使用鼠标、Point/Maze 使用触屏，手感不能逐帧等同；Maze 的误触保护未单独验证。</li>
+      <li>Point/Maze 的金币与道具价格部分来自本人口述，能与截图对上的已在正文标注。</li>
+      <li>Google Play 数据为美国区 / 英语快照；不同地区的评分、评论数、价格可能不同。数据安全为开发者申报，不是第三方审计。</li>
+      <li>本页是独立研究，不表示参与三款原游戏的制作；商标与素材归各自权利人。</li>
+    </ul>
+    <h3>来源</h3>
+    <ol class="source-list">
+      <li>Amaze GO! — Google Play：<a href="https://play.google.com/store/apps/details?id=com.oakever.arrows" target="_blank" rel="noopener">com.oakever.arrows</a>（2026-10-21 抓取）</li>
+      <li>Point Out: Color Escape Puzzle — Google Play：<a href="https://play.google.com/store/apps/details?id=com.arrow.out" target="_blank" rel="noopener">com.arrow.out</a>（2026-10-21 抓取）</li>
+      <li>Maze Madness - Brain Puzzle — Google Play：<a href="https://play.google.com/store/apps/details?id=com.arrow.madness.games.arrows.escape.puzzle.game" target="_blank" rel="noopener">com.arrow.madness.games.arrows.escape.puzzle.game</a>（2026-10-21 抓取）</li>
+      <li>实机截图与关卡记录：本人 2026-10-21 录制，Amaze / Point / Maze 各 20 关。</li>
+    </ol>
+  </section>
+
+  <footer class="footer">
+    <a href="../#case-iaa">← 返回 HKY 作品集</a>
+    <a href="#overview">回到开头 ↑</a>
+    <span>IAA 研究 · 三款箭头解谜 · 2026-10-21</span>
+  </footer>
+</main>
+<button class="backtop" id="backtop" type="button" aria-label="回到顶部">↑</button>
+<script>
+(() => {
+  const sidebar = document.getElementById('sidebar');
+  const scrim = document.getElementById('scrim');
+  const menu = document.getElementById('menu');
+  const progress = document.querySelector('.progress i');
+  const links = Array.from(document.querySelectorAll('.toc a'));
+  const sections = Array.from(document.querySelectorAll('main section[id]'));
+  const backtop = document.getElementById('backtop');
+  let scheduled = false, active = '';
+
+  function update() {
+    const max = document.documentElement.scrollHeight - innerHeight;
+    progress.style.width = (max > 0 ? Math.min(100, Math.max(0, scrollY / max * 100)) : 100) + '%';
+    let current = sections[0]?.id || '';
+    for (const s of sections) {
+      if (s.getBoundingClientRect().top <= 150) current = s.id; else break;
+    }
+    if (current !== active) {
+      active = current;
+      links.forEach(a => {
+        const on = a.getAttribute('href') === '#' + current;
+        a.classList.toggle('active', on);
+        if (on) a.setAttribute('aria-current', 'location'); else a.removeAttribute('aria-current');
+      });
+    }
+    backtop.classList.toggle('show', scrollY > 600);
+    scheduled = false;
+  }
+  addEventListener('scroll', () => { if (!scheduled) { scheduled = true; requestAnimationFrame(update); } }, {passive:true});
+  addEventListener('resize', update);
+  update();
+
+  menu.addEventListener('click', () => {
+    const open = sidebar.classList.toggle('open');
+    menu.setAttribute('aria-expanded', String(open));
+  });
+  scrim.addEventListener('click', () => {
+    sidebar.classList.remove('open'); menu.setAttribute('aria-expanded','false');
+  });
+  links.forEach(a => a.addEventListener('click', () => {
+    sidebar.classList.remove('open'); menu.setAttribute('aria-expanded','false');
+  }));
+  document.getElementById('print').addEventListener('click', () => print());
+  backtop.addEventListener('click', () => scrollTo({top:0,behavior:'smooth'}));
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') { sidebar.classList.remove('open'); menu.setAttribute('aria-expanded','false'); }
+  });
+})();
+</script>
+</body>
+</html>

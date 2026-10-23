@@ -1,0 +1,1391 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>把广告放进解题里 · Water Match ASMR IAA 拆解案</title>
+<meta name="description" content="《Water Match ASMR》前 100 关的 IAA 拆解：用免费空瓶、广告空瓶与完成率数据，分析关卡语法、广告门、新手教学与留存代价。">
+<meta property="og:title" content="把广告放进解题里 · Water Match ASMR IAA 拆解案">
+<meta property="og:description" content="免费空瓶 0–1 的关卡完成率 15.9%–58.7%，免费空瓶 2–3 的关卡完成率 93.8%–96.5%。这是一份把广告位放回解题第一步的产品拆解。">
+<meta property="og:type" content="article">
+<meta name="theme-color" content="#0c2140">
+<style>
+:root{
+  --navy:#0c2140;
+  --navy-2:#15365e;
+  --ink:#172033;
+  --muted:#5d6879;
+  --line:#dfe4ec;
+  --line-dark:#c7d0de;
+  --paper:#f5f7fa;
+  --white:#fff;
+  --blue:#1d4ed8;
+  --blue-soft:#eef3ff;
+  --sand:#b3873d;
+  --sand-soft:#f8f1e4;
+  --red:#b42318;
+  --red-soft:#fbefed;
+  --green:#2f6b4f;
+  --green-soft:#eef6f1;
+  --sans:"Helvetica Neue",Arial,"PingFang SC","Microsoft YaHei",sans-serif;
+  --serif:"Songti SC","Times New Roman",Georgia,serif;
+  --mono:"SFMono-Regular",Consolas,"Liberation Mono",Menlo,monospace;
+  --side:300px;
+  --ease:cubic-bezier(.2,.7,.2,1);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:82px;overflow-x:clip}
+body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.85 var(--sans);-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%;height:auto}
+a{color:var(--blue);text-decoration-thickness:1px;text-underline-offset:3px}
+a:hover{color:var(--navy)}
+::selection{background:var(--navy);color:#fff}
+:focus-visible{outline:3px solid var(--blue);outline-offset:3px}
+.skip{position:fixed;left:16px;top:-80px;z-index:200;background:var(--navy);color:#fff;padding:10px 18px;border-radius:4px;text-decoration:none;font-size:13px;font-weight:700;transition:top .2s}
+.skip:focus{top:16px}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+.layout{display:grid;grid-template-columns:var(--side) minmax(0,1fr);min-height:100vh}
+.sidebar{position:sticky;top:0;height:100vh;overflow-y:auto;background:var(--white);border-right:1px solid var(--line);padding:32px 26px 30px;display:flex;flex-direction:column;scrollbar-width:thin;z-index:40}
+.brand{display:block;text-decoration:none;color:var(--ink)}
+.brand-top{display:flex;align-items:center;gap:10px}
+.brand-mark{width:34px;height:34px;border-radius:50%;background:var(--navy);color:#fff;display:grid;place-items:center;font:700 10px/1 var(--mono);letter-spacing:.02em;flex:none}
+.brand small{display:block;font:10px/1.5 var(--mono);letter-spacing:.16em;color:var(--muted);text-transform:uppercase}
+.brand-title{margin:24px 0 0;font-size:25px;line-height:1.25;letter-spacing:-.04em;color:var(--navy);font-weight:800}
+.brand-sub{margin:10px 0 0;font-size:12px;line-height:1.75;color:var(--muted)}
+.brand-meta{margin:16px 0 0;padding:10px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);font:9.5px/1.9 var(--mono);letter-spacing:.04em;color:#8490a1}
+.toc{margin:24px 0 0;padding:0;list-style:none;border-top:1px solid var(--line)}
+.toc li{border-bottom:1px solid var(--line)}
+.toc a{display:flex;gap:12px;align-items:baseline;padding:10px 2px;text-decoration:none;color:var(--muted);font-size:12.5px;line-height:1.6;transition:color .2s}
+.toc a .n{font:9.5px/1 var(--mono);letter-spacing:.04em;color:#9aa5b5;width:22px;flex:none;padding-top:2px}
+.toc a:hover,.toc a.active{color:var(--navy)}
+.toc a.active{font-weight:700}
+.toc a.active .n{color:var(--blue)}
+.toc .sub a{padding-left:34px;font-size:11.5px;color:#7b8798}
+.toc .sub a .n{width:0}
+.sidebar-foot{margin-top:auto;padding-top:26px;font:9.5px/1.9 var(--mono);letter-spacing:.03em;color:#9aa5b5}
+.sidebar-foot a{display:block;color:var(--muted);text-decoration:none;padding:4px 0;font:11px/1.6 var(--sans)}
+.sidebar-foot a:hover{color:var(--navy)}
+
+.main{min-width:0;background:var(--paper)}
+.toolbar{position:sticky;top:0;z-index:30;height:64px;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:0 42px;background:rgba(245,247,250,.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.toolbar-left{display:flex;align-items:center;gap:12px;min-width:0}
+.toolbar-kicker{font:9.5px/1 var(--mono);letter-spacing:.14em;color:var(--blue);white-space:nowrap}
+.toolbar-title{font-size:12.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.toolbar-actions{display:flex;align-items:center;gap:10px;flex:none}
+.tool-btn{border:1px solid var(--line-dark);background:#fff;color:var(--navy);border-radius:4px;padding:7px 12px;font:11px/1.4 var(--sans);cursor:pointer;text-decoration:none;white-space:nowrap}
+.tool-btn:hover{border-color:var(--navy);background:#fff}
+.menu-btn{display:none}
+.progress{position:fixed;top:0;left:var(--side);right:0;height:2px;z-index:35;background:transparent}
+.progress i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--blue),#7aa2ff)}
+.scrim{display:none}
+
+.article{width:min(1120px,calc(100% - 84px));margin:0 auto;padding:0 0 80px}
+.cover{padding:62px 0 48px;border-bottom:1px solid var(--line-dark)}
+.cover-grid{display:grid;grid-template-columns:minmax(0,1.22fr) minmax(280px,.78fr);gap:56px;align-items:center}
+.eyebrow{margin:0;display:flex;align-items:center;gap:10px;font:10px/1.5 var(--mono);letter-spacing:.2em;color:var(--blue);text-transform:uppercase}
+.eyebrow::before{content:"";width:26px;height:1px;background:var(--blue)}
+h1{margin:20px 0 0;font-size:clamp(42px,5.2vw,68px);line-height:1.08;letter-spacing:-.05em;color:var(--navy);font-weight:800}
+h1 .thin{display:block;font-size:.45em;letter-spacing:-.02em;font-weight:600;color:var(--muted);margin-top:14px;line-height:1.35}
+.cover-lede{margin:24px 0 0;max-width:48ch;font-size:16.5px;line-height:1.9;color:#3f4c60}
+.cover-lede strong{color:var(--navy);font-weight:700}
+.cover-meta{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 24px;margin:28px 0 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:6px 0}
+.cover-meta div{padding:10px 0;border-bottom:1px solid var(--line)}
+.cover-meta div:nth-last-child(-n+2){border-bottom:0}
+.cover-meta dt{font:9px/1.5 var(--mono);letter-spacing:.1em;color:#8490a1;text-transform:uppercase}
+.cover-meta dd{margin:3px 0 0;font-size:11.5px;line-height:1.6;color:var(--ink)}
+.cover-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin:28px 0 0;border-top:1px solid var(--line)}
+.cover-stats div{padding:16px 14px 0 0;border-right:1px solid var(--line)}
+.cover-stats div:last-child{border-right:0}
+.cover-stats strong{display:block;font-size:26px;line-height:1.2;letter-spacing:-.03em;color:var(--navy);font-weight:800}
+.cover-stats span{display:block;margin-top:3px;font:9px/1.5 var(--mono);letter-spacing:.08em;color:#8490a1;text-transform:uppercase}
+.cover-shot{margin:0;position:relative;background:#0c1524;border:1px solid var(--line);border-radius:8px;padding:10px;box-shadow:0 24px 60px rgba(12,33,64,.16)}
+.cover-shot img{width:100%;border-radius:4px}
+.cover-shot figcaption{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;padding:10px 3px 2px;font:9px/1.5 var(--mono);letter-spacing:.04em;color:#9fb0c4}
+.cover-shot figcaption b{color:#fff;font-weight:400}
+.cover-tag{position:absolute;left:24px;top:24px;background:rgba(255,255,255,.95);color:var(--navy);border-radius:3px;padding:6px 9px;font:9px/1.4 var(--mono);letter-spacing:.04em;font-weight:700}
+.cover-note{margin:18px 0 0;padding:12px 14px;border-left:2px solid var(--sand);background:#fff;font-size:11.5px;line-height:1.8;color:var(--muted)}
+.cover-note b{color:var(--ink);font-weight:600}
+
+section.chapter{padding:54px 0;border-bottom:1px solid var(--line)}
+section.chapter:last-of-type{border-bottom:0}
+.chapter-head{display:grid;grid-template-columns:76px minmax(0,1fr);gap:18px;margin-bottom:28px;align-items:start}
+.chapter-no{font:10px/1.6 var(--mono);letter-spacing:.12em;color:var(--blue);padding-top:7px}
+.chapter-head h2{margin:0;font-size:clamp(28px,3.2vw,38px);line-height:1.25;letter-spacing:-.04em;color:var(--navy);font-weight:800}
+.chapter-head .dek{margin:10px 0 0;max-width:64ch;font-size:13px;line-height:1.85;color:var(--muted)}
+.prose{max-width:78ch}
+.prose p{margin:0 0 18px}
+.prose p:last-child{margin-bottom:0}
+.prose h3{margin:36px 0 12px;font-size:19px;line-height:1.4;letter-spacing:-.02em;color:var(--navy);font-weight:800;scroll-margin-top:86px}
+.prose h3:first-child{margin-top:0}
+.prose h4{margin:26px 0 8px;font-size:15px;line-height:1.5;color:var(--navy);font-weight:700}
+.prose ul,.prose ol{margin:0 0 20px;padding-left:1.35em}
+.prose li{margin:5px 0}
+.prose strong{font-weight:700;color:var(--navy)}
+.prose .small{font-size:12px;color:var(--muted)}
+.lead{font-size:17px;line-height:1.9;color:#3f4c60}
+.lead strong{color:var(--navy)}
+
+.summary-box{margin:0 0 26px;background:var(--white);border:1px solid var(--line);border-radius:8px;padding:0;overflow:hidden}
+.summary-box ol{margin:0;padding:0;list-style:none;counter-reset:s}
+.summary-box li{display:grid;grid-template-columns:44px minmax(0,1fr);gap:0;padding:20px 26px;border-bottom:1px solid var(--line);counter-increment:s}
+.summary-box li:last-child{border-bottom:0}
+.summary-box li::before{content:counter(s,decimal-leading-zero);font:10px/1.8 var(--mono);color:var(--blue);letter-spacing:.06em}
+.summary-box h3{margin:0;font-size:15px;line-height:1.6;color:var(--navy);font-weight:700}
+.summary-box p{margin:5px 0 0;font-size:12.5px;line-height:1.8;color:var(--muted)}
+.scope-note{margin:22px 0 0;padding:16px 18px;background:#fff;border:1px solid var(--line);border-left:3px solid var(--sand);font-size:12px;line-height:1.85;color:var(--muted)}
+.scope-note b{color:var(--ink);font-weight:600}
+
+.callout{margin:24px 0;padding:18px 20px;background:#fff;border:1px solid var(--line);border-left:3px solid var(--blue);border-radius:2px;font-size:13px;line-height:1.9;color:#3f4c60}
+.callout.warn{border-left-color:var(--red)}
+.callout.note{border-left-color:var(--sand)}
+.callout p{margin:0 0 8px}
+.callout p:last-child{margin-bottom:0}
+.callout b{color:var(--navy)}
+
+.pullquote{margin:30px 0;padding:0 0 0 24px;border-left:2px solid var(--sand);font-family:var(--serif);font-size:21px;line-height:1.8;color:var(--navy)}
+.pullquote footer{margin-top:10px;font:10px/1.6 var(--mono);color:var(--muted);letter-spacing:.04em;font-style:normal}
+.quote-card{margin:26px 0;padding:24px 26px;background:var(--navy);color:#e8eef7;border-radius:6px}
+.quote-card p{margin:0;font-size:15px;line-height:1.95;font-family:var(--serif)}
+.quote-card footer{margin-top:12px;font:9.5px/1.6 var(--mono);letter-spacing:.06em;color:#93a7c1}
+
+.figure{margin:28px 0}
+.figure img{width:100%;border:1px solid var(--line);border-radius:4px;background:#fff}
+.figure figcaption{margin-top:9px;font-size:11px;line-height:1.7;color:var(--muted)}
+.figure figcaption b{color:var(--ink);font-weight:600}
+.figure.wide{margin-left:calc((min(1120px,calc(100vw - 84px)) - 100vw + var(--side))/2 * 0);}
+.figure.two{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start}
+.figure.three{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;align-items:start}
+.figure.two figure,.figure.three figure{margin:0}
+.figure.two figcaption,.figure.three figcaption{font-size:10.5px}
+.shot-pair{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin:28px 0;align-items:start}
+.shot-pair figure{margin:0}
+.shot-pair img{width:100%;border:1px solid var(--line);border-radius:4px;background:#0d1530}
+.shot-pair figcaption{margin-top:8px;font-size:11px;line-height:1.7;color:var(--muted)}
+.shot-pair figcaption b{color:var(--ink)}
+.shot-triple{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:28px 0;align-items:start}
+.shot-triple figure{margin:0}
+.shot-triple img{width:100%;border:1px solid var(--line);border-radius:4px;background:#0d1530}
+.shot-triple figcaption{margin-top:7px;font-size:10px;line-height:1.65;color:var(--muted)}
+.shot-triple figcaption b{color:var(--ink)}
+
+.element-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:26px 0}
+.element{background:#fff;border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.element img{width:100%;height:180px;object-fit:cover;object-position:center top;border:0;border-bottom:1px solid var(--line);border-radius:0}
+.element div{padding:13px 14px 15px}
+.element h4{margin:0;font-size:13px;color:var(--navy);font-weight:700}
+.element p{margin:5px 0 0;font-size:11px;line-height:1.7;color:var(--muted)}
+.element .tag{display:inline-block;margin-bottom:6px;font:8.5px/1.4 var(--mono);letter-spacing:.08em;color:var(--blue);text-transform:uppercase}
+.element.wide{grid-column:span 3}
+.element.wide img{height:auto;max-height:160px;object-fit:cover;object-position:center 20%}
+
+.flow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:22px 0}
+.flow span{padding:8px 11px;background:#fff;border:1px solid var(--line);border-radius:3px;font-size:11.5px;color:var(--navy)}
+.flow i{font-style:normal;color:#9aa5b5;font-size:12px}
+
+.table-wrap{overflow-x:auto;margin:24px 0;border:1px solid var(--line);border-radius:4px;background:#fff;scrollbar-width:thin}
+table{border-collapse:collapse;width:100%;min-width:620px;font-size:12px;line-height:1.7}
+th,td{padding:10px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{background:#f8fafc;color:#5d6879;font:10px/1.6 var(--mono);letter-spacing:.06em;text-transform:uppercase;white-space:nowrap}
+td{color:#3d4b60}
+tr:last-child td{border-bottom:0}
+tbody tr:hover td{background:#fbfcfe}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+td b{color:var(--navy);font-weight:700}
+.table-note{margin:-14px 0 24px;font-size:10.5px;line-height:1.7;color:var(--muted)}
+.tag{display:inline-block;padding:2px 6px;border-radius:3px;font:9px/1.4 var(--mono);letter-spacing:.04em;white-space:nowrap}
+.tag.good{color:#2f6b4f;background:#eef6f1}
+.tag.bad{color:#a21b12;background:#fbefed}
+.tag.watch{color:#7b5a1f;background:#f8f1e4}
+.tag.normal{color:#5d6879;background:#f1f4f8}
+
+.stat-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin:24px 0;border:1px solid var(--line);background:#fff;border-radius:6px;overflow:hidden}
+.stat-strip div{padding:18px 18px 16px;border-right:1px solid var(--line)}
+.stat-strip div:last-child{border-right:0}
+.stat-strip strong{display:block;font-size:25px;line-height:1.2;letter-spacing:-.03em;color:var(--navy);font-weight:800}
+.stat-strip span{display:block;margin-top:3px;font:9px/1.5 var(--mono);letter-spacing:.06em;color:#8490a1;text-transform:uppercase}
+.stat-strip p{margin:7px 0 0;font-size:10.5px;line-height:1.6;color:var(--muted)}
+
+.gate-ladder{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:26px 0}
+.gate{background:#fff;border:1px solid var(--line);border-top:4px solid var(--green);border-radius:4px;padding:15px 14px}
+.gate:nth-child(2){border-top-color:var(--sand)}
+.gate:nth-child(3){border-top-color:#d97706}
+.gate:nth-child(4){border-top-color:var(--red)}
+.gate .n{font:9px/1.5 var(--mono);letter-spacing:.1em;color:var(--muted)}
+.gate h4{margin:6px 0 0;font-size:13px;color:var(--navy);font-weight:700}
+.gate p{margin:6px 0 0;font-size:10.5px;line-height:1.7;color:var(--muted)}
+.gate .lv{margin-top:9px;font:9px/1.5 var(--mono);color:var(--blue)}
+
+.grid-map{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:4px;margin:22px 0}
+.cell{position:relative;display:flex;flex-direction:column;justify-content:space-between;aspect-ratio:1/1;padding:5px 6px;border:1px solid var(--line);background:#fff;border-radius:2px;font:9px/1.25 var(--mono);color:var(--muted);text-decoration:none}
+.cell b{font-size:10px;color:var(--navy);font-weight:700}
+.cell span{font-size:8px}
+.cell.good{background:#eef6f1;border-color:#cee1d5}
+.cell.bad{background:#fbefed;border-color:#eed3cf}
+.cell.watch{background:#f8f1e4;border-color:#e8d7b6}
+.cell.hard{background:#f4efe6;border-color:#e2d7c5}
+.cell.normal{background:#f8fafc}
+.cell:hover{outline:2px solid var(--blue);outline-offset:1px}
+.legend{display:flex;flex-wrap:wrap;gap:14px;margin:10px 0 0;font-size:10px;color:var(--muted)}
+.legend i{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:5px;vertical-align:-1px}
+
+.details{margin:22px 0;background:#fff;border:1px solid var(--line);border-radius:4px}
+.details summary{cursor:pointer;padding:13px 16px;font-size:12px;font-weight:700;color:var(--navy);list-style:none}
+.details summary::-webkit-details-marker{display:none}
+.details summary::after{content:"+";float:right;color:var(--blue);font-weight:400}
+.details[open] summary::after{content:"−"}
+.details .table-wrap{margin:0;border:0;border-top:1px solid var(--line);border-radius:0}
+
+.appendix-head{display:flex;align-items:baseline;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:18px}
+.appendix-head h2{margin:0;font-size:28px;letter-spacing:-.03em;color:var(--navy);font-weight:800}
+.appendix-head span{font:9.5px/1.5 var(--mono);letter-spacing:.1em;color:var(--blue)}
+.appendix{margin:0 0 24px;padding:22px 24px;background:#fff;border:1px solid var(--line);border-radius:4px}
+.appendix h3{margin:0 0 10px;font-size:16px;color:var(--navy)}
+.appendix p,.appendix li{font-size:12px;line-height:1.85;color:#3f4c60}
+.appendix ul{margin:8px 0 0;padding-left:1.25em}
+.endnote{margin:34px 0 0;padding-top:18px;border-top:1px solid var(--line);font-size:11px;line-height:1.8;color:var(--muted)}
+.footer{margin-top:42px;padding:22px 0 0;border-top:1px solid var(--line-dark);display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;font:10px/1.8 var(--mono);letter-spacing:.03em;color:#8490a1}
+.footer a{color:var(--muted);text-decoration:none}
+.footer a:hover{color:var(--navy)}
+
+dialog{border:0;padding:0;background:#0c1524;max-width:min(92vw,760px);max-height:92vh;border-radius:6px;color:#fff}
+dialog::backdrop{background:rgba(6,12,24,.78)}
+.dialog-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 16px;border-bottom:1px solid #24344d}
+.dialog-head p{margin:0;font-size:12px;color:#dbe5f3}
+.dialog-head button{border:1px solid #52637c;background:transparent;color:#fff;border-radius:3px;padding:5px 10px;font-size:11px;cursor:pointer}
+dialog img{display:block;width:100%;max-height:78vh;object-fit:contain;background:#0c1524}
+.dialog-note{padding:10px 16px;font-size:10px;line-height:1.7;color:#a9b8cb}
+
+@media(max-width:1120px){
+  :root{--side:266px}
+  .article{width:calc(100% - 56px)}
+  .toolbar{padding:0 28px}
+  .cover-grid{gap:34px}
+  .chapter-head{grid-template-columns:60px minmax(0,1fr);gap:12px}
+}
+@media(max-width:900px){
+  .layout{grid-template-columns:1fr}
+  .sidebar{position:fixed;left:0;top:0;width:292px;transform:translateX(-100%);transition:transform .2s var(--ease);box-shadow:0 0 40px rgba(12,33,64,.2)}
+  .sidebar.open{transform:translateX(0)}
+  .sidebar.open~.scrim{display:block;position:fixed;inset:0;z-index:35;background:rgba(6,12,24,.45)}
+  .main{min-width:0}
+  .progress{left:0}
+  .menu-btn{display:inline-flex}
+  .toolbar{height:58px;padding:0 18px}
+  .toolbar-kicker{display:none}
+  .article{width:calc(100% - 36px);padding-bottom:56px}
+  .cover{padding:40px 0 34px}
+  .cover-grid{grid-template-columns:1fr;gap:32px}
+  .cover-shot{max-width:420px;justify-self:center;width:100%}
+  .cover-meta{grid-template-columns:1fr 1fr}
+  .cover-stats{grid-template-columns:repeat(2,1fr)}
+  .cover-stats div:nth-child(2){border-right:0}
+  .cover-stats div:nth-child(3),.cover-stats div:nth-child(4){border-top:1px solid var(--line);padding-top:14px}
+  .chapter-head{grid-template-columns:1fr;gap:2px}
+  .chapter-no{padding-top:0}
+  .shot-pair,.figure.two,.figure.three,.shot-triple{grid-template-columns:1fr 1fr}
+  .element-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .element.wide{grid-column:span 2}
+  .gate-ladder{grid-template-columns:1fr 1fr}
+  .stat-strip{grid-template-columns:1fr 1fr}
+  .stat-strip div:nth-child(2){border-right:0}
+  .stat-strip div:nth-child(3),.stat-strip div:nth-child(4){border-top:1px solid var(--line)}
+  .grid-map{grid-template-columns:repeat(5,minmax(0,1fr))}
+  .cell{aspect-ratio:auto;min-height:52px}
+  .summary-box li{padding:17px 18px}
+}
+@media(max-width:560px){
+  .article{width:calc(100% - 28px)}
+  .toolbar{padding:0 14px;gap:10px}
+  .toolbar-actions .tool-btn{padding:6px 8px;font-size:10px}
+  .cover-meta{grid-template-columns:1fr}
+  .cover-meta div{border-bottom:1px solid var(--line)}
+  .cover-meta div:last-child{border-bottom:0}
+  .cover-stats{grid-template-columns:1fr 1fr}
+  .cover-stats strong{font-size:23px}
+  .shot-pair,.figure.two,.figure.three,.shot-triple{grid-template-columns:1fr}
+  .element-grid{grid-template-columns:1fr}
+  .element.wide{grid-column:span 1}
+  .element img{height:200px}
+  .gate-ladder{grid-template-columns:1fr}
+  .chapter-head h2{font-size:26px}
+  .prose h3{font-size:17px}
+  .pullquote{font-size:18px}
+  .summary-box li{grid-template-columns:32px minmax(0,1fr)}
+  .footer{flex-direction:column;gap:6px}
+}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .sidebar{transition:none}
+}
+@media print{
+  @page{size:A4;margin:18mm 17mm}
+  html{scroll-behavior:auto}
+  body{background:#fff;color:#000;font-size:10.5pt;line-height:1.7}
+  .sidebar,.toolbar,.progress,.scrim,.skip,.footer,.cover-note,.tool-btn{display:none!important}
+  .layout{display:block}
+  .article{width:100%;padding:0}
+  .cover{padding-top:0}
+  .cover-grid{grid-template-columns:1.2fr .8fr;gap:10mm}
+  .cover-shot{box-shadow:none;max-width:68mm;justify-self:end}
+  h1{font-size:30pt}
+  .chapter-head h2{font-size:18pt}
+  .chapter-head{break-after:avoid}
+  section.chapter{break-before:page;border-bottom:0;padding:0}
+  section.chapter:first-of-type{break-before:auto}
+  .prose{max-width:none}
+  .prose h3{break-after:avoid}
+  .figure,.shot-pair,.shot-triple,.table-wrap,.callout,.summary-box,.quote-card{break-inside:avoid}
+  .table-wrap{overflow:visible}
+  table{min-width:0;table-layout:fixed;font-size:8pt}
+  th,td{padding:2mm;border-color:#bbb}
+  thead{display:table-header-group}
+  tr{break-inside:avoid}
+  .grid-map{grid-template-columns:repeat(10,1fr);gap:1mm}
+  .cell{aspect-ratio:auto;min-height:12mm;border-color:#ccc}
+  .details[open] .table-wrap{overflow:visible}
+  details:not([open]){display:none}
+  a{color:#000;text-decoration:none}
+  .cover-shot img{border:1px solid #ccc}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#overview">跳到正文</a>
+<div class="progress" aria-hidden="true"><i id="progressBar"></i></div>
+
+<div class="layout">
+<aside class="sidebar" id="sidebar" aria-label="全文目录">
+  <a class="brand" href="#overview">
+    <div class="brand-top"><span class="brand-mark">HKY</span><small>IAA Teardown · 2026</small></div>
+    <p class="brand-title">把广告放进解题里</p>
+    <p class="brand-sub">《Water Match ASMR》前 100 关的关卡语法、广告门与留存代价</p>
+    <p class="brand-meta">100 关数据 / 31 关实机 / 7 组空瓶读数<br>研究整理 2026-10-23</p>
+  </a>
+  <nav aria-label="章节目录">
+    <ul class="toc">
+      <li><a href="#overview"><span class="n">00</span>封面</a></li>
+      <li><a href="#summary"><span class="n">01</span>摘要</a></li>
+      <li><a href="#product"><span class="n">02</span>产品与商业模型</a></li>
+      <li><a href="#grammar"><span class="n">03</span>关卡语法</a></li>
+      <li><a href="#data"><span class="n">04</span>前 100 关数据</a></li>
+      <li><a href="#adgate"><span class="n">05</span>广告门</a></li>
+      <li><a href="#onboarding"><span class="n">06</span>新手教学</a></li>
+      <li><a href="#economics"><span class="n">07</span>IAA 经济</a></li>
+      <li><a href="#redesign"><span class="n">08</span>改版方案</a></li>
+      <li><a href="#principles"><span class="n">09</span>可迁移原则</a></li>
+      <li><a href="#appendix-a"><span class="n">A</span>100 关标签表</a></li>
+      <li><a href="#appendix-b"><span class="n">B</span>31 关试玩记录</a></li>
+      <li><a href="#appendix-c"><span class="n">C</span>口径与来源</a></li>
+      <li><a href="#appendix-d"><span class="n">D</span>术语</a></li>
+    </ul>
+  </nav>
+  <div class="sidebar-foot">
+    <a href="../../#work">← 返回作品集</a>
+    <a href="../../cs2/">CS2 系统拆解案 ↗</a>
+    <p>独立研究，不代表 Water Match ASMR 官方观点；不表示参与该产品制作。</p>
+  </div>
+</aside>
+<div class="scrim" id="scrim"></div>
+
+<div class="main">
+<header class="toolbar">
+  <div class="toolbar-left">
+    <button class="tool-btn menu-btn" id="menuBtn" type="button" aria-controls="sidebar" aria-expanded="false">目录</button>
+    <span class="toolbar-kicker">IAA TEARDOWN</span>
+    <span class="toolbar-title">Water Match ASMR · 前 100 关</span>
+  </div>
+  <div class="toolbar-actions">
+    <a class="tool-btn" href="#appendix-c">证据与口径</a>
+    <button class="tool-btn" id="printBtn" type="button">打印 / 存为 PDF</button>
+  </div>
+</header>
+
+<main class="article" id="main">
+<section class="cover" id="overview">
+  <div class="cover-grid">
+    <div>
+      <p class="eyebrow">IAA Teardown · Water Match ASMR</p>
+      <h1>把广告<br>放进解题里<span class="thin">前 100 关的关卡语法、广告门与留存代价</span></h1>
+      <p class="cover-lede">这是一款把“空瓶”做成广告位的排序游戏。它的难度不只看颜色多少，还要看玩家在首屏有没有一个<strong>不用看广告就能拿到的周转位</strong>。前 100 关的数据里，免费空瓶 0–1 的关卡完成率落在 15.9%–58.7%；免费空瓶 2–3 的关卡落在 93.8%–96.5%。广告空瓶的数量并没有改变这条分界。</p>
+      <div class="cover-meta">
+        <div><dt>研究对象</dt><dd>Water Match ASMR（2025-10 测试包）</dd></div>
+        <div><dt>数据范围</dt><dd>1–100 关运营数据；0 教程关不参与排名</dd></div>
+        <div><dt>实测范围</dt><dd>31 关实际进入；7 关空瓶结构人工读数</dd></div>
+        <div><dt>商业模型</dt><dd>IAA；盘面 Free 瓶为广告解锁空瓶</dd></div>
+      </div>
+      <div class="cover-stats">
+        <div><strong>100</strong><span>关数据</span></div>
+        <div><strong>31</strong><span>关实机</span></div>
+        <div><strong>7</strong><span>组缓冲对照</span></div>
+        <div><strong>3</strong><span>类假缓冲</span></div>
+      </div>
+      <p class="cover-note"><b>研究边界：</b>我没有这款产品的后台，也没有真实 eCPM、留存与广告填充数据。文中的运营指标来自题目提供的数据；试玩感受与截图来自测试包；收入测算是标注过的示意模型。不把测试包的“无限广告”当作线上规则。</p>
+    </div>
+    <figure class="cover-shot">
+      <img src="assets/l33.jpg" alt="Water Match ASMR 第 33 关首屏，盘面只有一个空瓶和两个看广告解锁的 Free 瓶" width="620" height="1102">
+      <figcaption><span>L33 · 1 免费空瓶 + 2 广告空瓶</span><b>15.9% COMPLETION</b></figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="chapter" id="summary">
+  <div class="chapter-head">
+    <div class="chapter-no">01 / SUMMARY</div>
+    <div><h2>摘要：广告没有变多，<br>它只是站到了第一步上</h2><p class="dek">这份拆解不讨论“IAA 好不好”，只讨论广告位放在哪里，才会同时保住解题体验和广告收入。</p></div>
+  </div>
+  <div class="prose">
+    <div class="summary-box">
+      <ol>
+        <li><div><h3>关卡的核心资源是可周转位，不是颜色数量。</h3><p>空瓶让玩家能在倒错后把颜色暂存、把隐藏层分批揭开。没有空瓶，第一步就从“选择”变成“下注”。</p></div></li>
+        <li><div><h3>免费空瓶 0–1 是断崖区，2–3 是安全区。</h3><p>7 关人工读数里，免费空瓶 0–1 的 4 关完成率 15.9%–58.7%；免费空瓶 2–3 的 3 关完成率 93.8%–96.5%。广告空瓶大多相同，差别在第一个周转位要不要先看广告。</p></div></li>
+        <li><div><h3>“送了一个空瓶”不等于给了缓冲。</h3><p>三种假缓冲：没有空瓶；有空瓶但第一步就把它占死；看起来有空位、实际被固定底色锁死。L13、L33、L49、L80 分别踩中三种。</p></div></li>
+        <li><div><h3>把广告放在唯一周转位上，激励视频就变成了过路费。</h3><p>IAA 的正循环是“先能玩，再卖更从容”；反循环是“先看广告，才配玩”。前者的广告是加分项，后者会把无结果、退出和流失记到下一关的账上。</p></div></li>
+        <li><div><h3>游戏真正的四步法没有教。</h3><p>找空瓶、拆四份链、三份链隔一层、保底色——这是玩家自己悟出来的读盘方式。前 10 关就出现广告墙，而策略教学还没开始，顺序反了。</p></div></li>
+      </ol>
+    </div>
+    <p class="lead">如果只记一句话：<strong>这款游戏的问题不是广告太多，而是广告站在了解题的第一步上。</strong></p>
+    <div class="scope-note"><b>证据分层：</b>① 题目提供的 100 关运营数据；② 我在 2025-10 测试包里的 31 关试玩、截图与操作记录；③ 基于公开 IAA 常识做的收入测算。第三类只用于判断方向，不作为这款产品的真实财报。所有“看一次广告就能过”的判断，除 L7、L33 外均未实际验证。</div>
+  </div>
+</section>
+
+<section class="chapter" id="product">
+  <div class="chapter-head">
+    <div class="chapter-no">02 / PRODUCT</div>
+    <div><h2>一款把空瓶做成广告位的<br>IAA 排序游戏</h2><p class="dek">先看清它卖的是什么，再谈关卡。Water Match ASMR 的收入不来自内购，而来自玩家愿意为“多一个周转位”看完一段视频。</p></div>
+  </div>
+  <div class="prose">
+    <p>Water Match ASMR 是一款竖屏排序解谜：点一个瓶子，再点另一个瓶子，把上层颜色倒过去，凑满同色瓶后收走。规则一句话说完，单局三到五分钟，关卡用颜色数量、空瓶、问号、冰瓶、纸袋和广告位组合出变化。</p>
+    <p>它的商业化是典型的 IAA。盘面上写着 Free、带播放图标的空瓶，不是装饰，也不是免费道具，而是看一次激励视频换来的空瓶。顶部四个收集袋里，右侧两个也带播放图标；底部撤销、洗牌、加瓶在测试包里显示“免费”，线上是否同样免费，我没有确认，因此不把它们写进难度基线。</p>
+
+    <h3>四个尺度上的循环</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>层级</th><th>玩家在做什么</th><th>反馈</th><th>和 IAA 的关系</th></tr></thead>
+        <tbody>
+          <tr><td><b>数秒</b></td><td>看顶色、找同色、选落点、倒水</td><td>液体填充、颜色归位、瓶口高光</td><td>广告不进入这一层；它一旦进入，手感就被打断</td></tr>
+          <tr><td><b>单关</b></td><td>规划颜色链、腾空瓶、揭开问号、收纯色瓶</td><td>收瓶动画、空位增加、关卡完成</td><td>Free 瓶把“腾空位”变成广告触点</td></tr>
+          <tr><td><b>五关</b></td><td>推进宝箱进度、收集顶部瓶子</td><td>宝箱、金币、收集位</td><td>顶部广告袋卖的是收集位，不直接决定单关可解性</td></tr>
+          <tr><td><b>长期</b></td><td>解锁新机制、维持连玩、积累收集</td><td>关卡编号、收藏、进度</td><td>广告频率影响的是这一层的留存，而不是单局输赢</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="table-note">表 1｜四个尺度的循环。单关的可解性由空瓶和颜色链决定；长期留存由广告频率、关卡节奏和教学共同决定。</p>
+
+    <h3>能确认的广告触点</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>触点</th><th>出现位置</th><th>玩家得到什么</th><th>是否影响解题</th><th>证据</th></tr></thead>
+        <tbody>
+          <tr><td><b>盘面 Free 空瓶</b></td><td>瓶子网格内，带播放图标和 Free 字样</td><td>一个空瓶</td><td>直接增加缓冲位，影响第一步</td><td>L7、L13、L33、L41、L49 等首屏</td></tr>
+          <tr><td><b>顶部右侧收集袋</b></td><td>顶部四个袋子中右侧两个</td><td>额外收集位</td><td>影响收瓶与完成反馈，不直接决定可解性</td><td>L21、L33 首屏</td></tr>
+          <tr><td><b>底部三个道具</b></td><td>撤销、洗牌、加瓶</td><td>测试包显示免费</td><td>线上规则未确认，不计入基线</td><td>测试包截图</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="table-note">表 2｜本次能确认的广告触点。关卡结束后的插屏、失败后的复活广告没有出现在我的截图里，因此不纳入分析。</p>
+
+    <p>这就形成了一个很少见的 IAA 结构：广告不卖复活，不卖体力，也不卖装饰，它直接卖解谜的<strong>空间</strong>。空间越多，玩家越能试错；空间越少，每一步越像下注。于是“要不要看广告”不再是关卡外的选择，而是关卡内的第一步。</p>
+
+    <div class="callout note"><p><b>先把话说清楚：</b>IAA 产品需要广告收入，这没有问题。问题在于广告位和关卡难度的耦合方式。一个健康的 IAA 关卡，应该先在不看广告的情况下可玩；广告让玩家更从容，而不是让玩家从“不能玩”变成“能玩”。</p></div>
+  </div>
+</section>
+
+<section class="chapter" id="grammar">
+  <div class="chapter-head">
+    <div class="chapter-no">03 / GRAMMAR</div>
+    <div><h2>关卡语法：<br>空瓶是解题的呼吸</h2><p class="dek">颜色决定“能不能配”，空瓶决定“错了还能不能回来”。问号、冰瓶、纸袋只是延迟信息，真正让盘面活起来的是可周转位。</p></div>
+  </div>
+  <div class="prose">
+    <h3>盘面里的七种东西</h3>
+    <p>先把截图里会反复出现的元素拆开。下面的图都来自实际首屏，不是示意图。</p>
+    <div class="element-grid">
+      <div class="element"><img src="assets/el-empty.jpg" alt="真正的空瓶，瓶内没有颜色"><div><span class="tag">Buffer</span><h4>空瓶</h4><p>真正的周转位。倒错后可以把颜色暂存，是隐藏层能被分批处理的前提。</p></div></div>
+      <div class="element"><img src="assets/el-free.jpg" alt="盘面中带播放图标和 Free 字样的广告空瓶"><div><span class="tag">Ad</span><h4>Free 瓶</h4><p>看一次激励视频换来的空瓶。它看起来像盘面的一部分，实际是一次广告入口。</p></div></div>
+      <div class="element"><img src="assets/el-question.jpg" alt="带问号的隐藏层瓶子"><div><span class="tag">Hidden</span><h4>问号瓶</h4><p>下层被问号遮住。截图里顶层颜色通常仍露出，所以它是信息延迟，不是完全盲盒。</p></div></div>
+      <div class="element"><img src="assets/el-paper.jpg" alt="带编号的纸袋，完成若干纯色瓶后解锁"><div><span class="tag">Gate</span><h4>编号纸袋</h4><p>完成 N 个纯色瓶后开启。它把收瓶进度变成开门条件，占住一个瓶位。</p></div></div>
+      <div class="element"><img src="assets/el-ice.jpg" alt="带冰壳和数字的冰瓶"><div><span class="tag">Delay</span><h4>冰瓶</h4><p>冰壳加数字，是多层的延迟信息与延迟空间。玩家要先处理冰层，才能看到里面。</p></div></div>
+      <div class="element"><img src="assets/el-topbags.jpg" alt="顶部四个收集袋，左侧两个免费，右侧两个带播放图标"><div><span class="tag">Meta</span><h4>顶部收集袋</h4><p>四个位置，左侧两个免费，右侧两个带播放图标。它是 meta 收集，不直接决定单关输赢。</p></div></div>
+    </div>
+    <p class="table-note">图 1｜盘面元素，取自 L33、L34、L80 的实际首屏。问号瓶和冰瓶的具体解锁规则以游戏内为准，这里只描述首屏可见状态。</p>
+
+    <h3>一关的动作链</h3>
+    <div class="flow"><span>看顶色</span><i>→</i><span>找同色顶</span><i>→</i><span>找落点（空瓶 / 同色顶）</span><i>→</i><span>倒</span><i>→</i><span>揭开下层</span><i>→</i><span>收纯色瓶</span><i>→</i><span>释放瓶子</span></div>
+    <p>前两步是视觉，第三步才是瓶颈。一个颜色很多但空瓶足够的关卡，仍然可以玩；一个颜色很少但没有空瓶的关卡，可能会卡死。问号和冰瓶让第三步更难，因为它们把“落点”藏了起来；纸袋则直接占住落点。</p>
+    <p>所以“难度”至少有三层：颜色配对的复杂度、信息可见度、空间可周转度。前两层决定要想多久，第三层决定错了还能不能回来。这款游戏的挫败感，大多来自第三层。</p>
+
+    <h3>玩家真正需要的四步法</h3>
+    <p>我在试玩里逐渐固定下来一套读盘方式，和市面上的排序攻略基本一致：</p>
+    <ol>
+      <li><b>先找空瓶和单色瓶。</b>空瓶是周转位，只有一层颜色的瓶子是准空瓶。</li>
+      <li><b>把颜色拆成四份链。</b>优先处理能凑成完整一条链的颜色，避免把同色分散在四个瓶子里。</li>
+      <li><b>三份链 + 第四份隔一层。</b>不要把最后一瓶同色过早锁死；留一层作为回旋，等其它颜色先走。</li>
+      <li><b>保底色。</b>留一个单色底瓶作为回收位，等同色都到齐再收。收得太早，后面会少一个周转位。</li>
+    </ol>
+    <p>这套方法不是速通技巧，而是这类游戏的基本读盘方式。它把“看一步”变成“看三步”：先保证有地方放，再考虑先倒谁。会这套方法的人，看到 L33 会先找第二个空位；不会的人，会在第一步把唯一的空瓶填满。</p>
+    <div class="shot-triple">
+      <figure><img src="assets/l21-sequence-1.jpg" alt="L21 试玩第一步，红瓶作为底色保留"><figcaption><b>① 留底色</b><br>先保留单色底瓶，不急着收。</figcaption></figure>
+      <figure><img src="assets/l21-sequence-2.jpg" alt="L21 试玩第二步，青色顶层倒入周转位"><figcaption><b>② 借周转位</b><br>把同色顶层集中，红瓶完成。</figcaption></figure>
+      <figure><img src="assets/l21-sequence-3.jpg" alt="L21 试玩第三步，收走纯色瓶后多出空位"><figcaption><b>③ 收瓶释放</b><br>纯色瓶收走后，盘面多出一个位置。</figcaption></figure>
+    </div>
+    <p class="table-note">图 2｜L21 的“保底色”三步，截图由我本人在测试包内操作并保存。它不是唯一解，但能说明这套游戏真正要求玩家做的规划。</p>
+
+    <h3>三种假缓冲</h3>
+    <p>“有空瓶”只是表面。真正要问的是：这个空位能不能让玩家做出一个可逆的第一步，并在第二步还有选择。按这个标准，前 100 关里至少能看到三种假缓冲。</p>
+    <h4>A. 根本没有空瓶</h4>
+    <p>L13 的首屏没有真正的空瓶，只有 2 个 Free；中央两个冰瓶 2 把盘面压满。完成率 44.1%，无结果 32.8%，平均尝试 2.15 次。玩家不是不会倒，是找不到一个安全的落点。L23、L26、L92 也是同类：0 个免费空瓶，广告位成了唯一出口。</p>
+    <h4>B. 有空瓶，但第一步就把它占死</h4>
+    <p>L33 有 1 个空瓶。第一步把红色倒入空瓶后，空瓶被占用，源瓶露出青色；盘面只剩纸袋和 Free。它确实“送了一个空瓶”，但这个空瓶只够完成第一步，不够形成第二步。完成率 15.9%，平均尝试 5.92 次，总耗时 823 秒。L49、L93、L98 是同一类：看上去有一个空瓶，实际只够启动一次。</p>
+    <h4>C. 看起来有空位，实际被固定底色锁死</h4>
+    <p>L80 开局有红、橙两个单色底瓶，看起来像两个空位；但它们的颜色是固定的，补满后还要回到原来的瓶子。前面的过程只是固定化简，真正的死锁在后面。完成率 60.9%，无结果 20.7%。这不是“难”，是解法被写死。</p>
+    <div class="quote-card"><p>“80 设计的最巧妙，开局给你两个底色瓶红色和橙色……固定好的……最后一定还回来这两个瓶子直接死锁……前面的过程不过是固定的化简。”</p><footer>试玩记录 · L80 · 2026-10-22</footer></div>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>判断项</th><th>真缓冲</th><th>假缓冲</th></tr></thead>
+        <tbody>
+          <tr><td><b>第一步</b></td><td>不看广告就能做出一个合法动作</td><td>必须先看广告，或第一步只能赌</td></tr>
+          <tr><td><b>第一步之后</b></td><td>仍有第二个合法动作</td><td>唯一的空位被占死，动作集合骤减</td></tr>
+          <tr><td><b>空瓶归属</b></td><td>瓶内没有保留颜色</td><td>是单色底瓶，最后必须还原</td></tr>
+          <tr><td><b>错误恢复</b></td><td>倒错后还能把颜色暂存</td><td>倒错后只能重开或看广告</td></tr>
+          <tr><td><b>信息处理</b></td><td>能分批揭开隐藏层</td><td>必须一次算完整盘</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="table-note">表 3｜真假缓冲的判断。它比“首屏有几个空瓶”更接近玩家的真实体验，也更适合做关卡 QA。</p>
+  </div>
+</section>
+
+<section class="chapter" id="data">
+  <div class="chapter-head">
+    <div class="chapter-no">04 / DATA</div>
+    <div><h2>前 100 关不是一条<br>平滑的难度曲线</h2><p class="dek">它用尖峰做节奏：第 2 阶段是蜜月，第 4 阶段第一次断崖，第 8 阶段最舒适，第 10 阶段再次收紧。阶段中位数会盖住局部尖峰。</p></div>
+  </div>
+  <div class="prose">
+    <h3>口径与判断方法</h3>
+    <p>数据共 101 行，0 关是教程，1–100 关参与分析。我把每 10 关切成一个阶段，用阶段内百分位算健康分：完成率 45%、后关留存 35%、无结果反向 20%。另外叠加绝对红旗：完成率低于 50%、尝试次数异常、退出率异常等。分钟流失只做诊断，不进健康分，原因在第 3 节会单独说。</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>指标</th><th>在这份数据里的含义</th><th>为什么看它</th></tr></thead>
+        <tbody>
+          <tr><td><b>完成率</b></td><td>进入本关的玩家中完成本关的比例</td><td>最直接的结果指标；但不能单独判断“难而黏”的关卡</td></tr>
+          <tr><td><b>关流失</b></td><td>完成本关但没有进入下一关的比例</td><td>衡量完成后还愿不愿意继续</td></tr>
+          <tr><td><b>分钟流失</b></td><td>关流失 / 总耗时</td><td>被时间归一化，受长局和完成者筛选影响，不能当总分</td></tr>
+          <tr><td><b>无结果</b></td><td>进入后没有形成通关结果的比例</td><td>把“玩到一半无声离开”从关流失里分出来</td></tr>
+          <tr><td><b>尝试次数</b></td><td>平均进入本关的次数</td><td>区分“想一下能过”和“反复试错”</td></tr>
+          <tr><td><b>总耗时</b></td><td>胜利与重玩耗时的合计</td><td>判断一局是碎片时间还是加班</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="table-note">表 4｜指标口径。不同后台对“无结果”“退出”的统计边界可能不同，本文按题目提供的数据字段使用，不额外推断。</p>
+
+    <h3>十段曲线</h3>
+    <figure class="figure">
+      <img src="assets/stage-dashboard.png" alt="前100关十个阶段的完成率、关流失、尝试次数与总耗时中位数图表">
+      <figcaption><b>图 3｜</b>十个阶段的四项中位数。第 2 阶段完成率最高，但 L11–L13 的门槛被中位数盖住；第 4 与第 10 阶段的尝试次数最高。</figcaption>
+    </figure>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>阶段</th><th>这一段发生了什么</th><th class="num">完成率</th><th class="num">关流失</th><th class="num">无结果</th><th class="num">尝试</th><th class="num">耗时</th><th>代表关卡</th></tr></thead>
+        <tbody><tr><td><b>1</b><br><span class="small">L1–10</span></td><td>新手教学与第一次拥挤</td><td class="num">78.2%</td><td class="num">5.79%</td><td class="num">20.1%</td><td class="num">1.21</td><td class="num">276s</td><td>好 L2 / L3 / L8<br><span class="small">坏 L7 / L9 · 观察 L6</span></td></tr>
+<tr><td><b>2</b><br><span class="small">L11–20</span></td><td>三关下马威 + 七关蜜月</td><td class="num">93.2%</td><td class="num">1.97%</td><td class="num">6.7%</td><td class="num">1.06</td><td class="num">231s</td><td>好 L14–L20<br><span class="small">坏 L11 / L12 / L13 · 观察 —</span></td></tr>
+<tr><td><b>3</b><br><span class="small">L21–30</span></td><td>稳定爬坡，两次局部卡点</td><td class="num">82.4%</td><td class="num">1.83%</td><td class="num">13.1%</td><td class="num">1.21</td><td class="num">264s</td><td>好 L21 / L22 / L29<br><span class="small">坏 L23 / L26 · 观察 L30</span></td></tr>
+<tr><td><b>4</b><br><span class="small">L31–40</span></td><td>第一次断崖</td><td class="num">72.7%</td><td class="num">1.87%</td><td class="num">17.9%</td><td class="num">1.35</td><td class="num">292s</td><td>好 L34 / L38 / L39<br><span class="small">坏 L33 / L40 · 观察 L32</span></td></tr>
+<tr><td><b>5</b><br><span class="small">L41–50</span></td><td>高峰后的恢复，L49 再次断崖</td><td class="num">77.0%</td><td class="num">1.59%</td><td class="num">15.2%</td><td class="num">1.29</td><td class="num">274s</td><td>好 L41 / L46 / L48<br><span class="small">坏 L49 · 观察 L44 / L45</span></td></tr>
+<tr><td><b>6</b><br><span class="small">L51–60</span></td><td>稳定扩圈，L55 局部问题</td><td class="num">80.7%</td><td class="num">1.38%</td><td class="num">13.6%</td><td class="num">1.23</td><td class="num">290s</td><td>好 L52 / L57 / L59<br><span class="small">坏 L55 · 观察 L54 / L60</span></td></tr>
+<tr><td><b>7</b><br><span class="small">L61–70</span></td><td>双峰夹击</td><td class="num">77.9%</td><td class="num">1.31%</td><td class="num">15.3%</td><td class="num">1.27</td><td class="num">280s</td><td>好 L63 / L64 / L66<br><span class="small">坏 L62 / L70 · 观察 L67</span></td></tr>
+<tr><td><b>8</b><br><span class="small">L71–80</span></td><td>全程最舒适</td><td class="num">86.4%</td><td class="num">0.98%</td><td class="num">10.2%</td><td class="num">1.15</td><td class="num">245s</td><td>好 L73 / L77 / L79<br><span class="small">坏 L80 · 观察 L72 / L74</span></td></tr>
+<tr><td><b>9</b><br><span class="small">L81–90</span></td><td>高位平台</td><td class="num">83.8%</td><td class="num">0.98%</td><td class="num">11.6%</td><td class="num">1.19</td><td class="num">268s</td><td>好 L81 / L86 / L88<br><span class="small">坏 无 · 观察 L85 / L90</span></td></tr>
+<tr><td><b>10</b><br><span class="small">L91–100</span></td><td>终局压力测试</td><td class="num">68.1%</td><td class="num">1.32%</td><td class="num">16.6%</td><td class="num">1.45</td><td class="num">308s</td><td>好 L94 / L97 / L100<br><span class="small">坏 L92 / L93 / L98 · 观察 —</span></td></tr></tbody>
+      </table>
+    </div>
+    <p class="table-note">表 5｜十个阶段的中位数与代表关卡。完整 100 关标签见附录 A。</p>
+
+    <h3>好关和坏关的画像</h3>
+    <p>按阶段内健康分和绝对红旗，100 关里有 41 个好关、17 个坏关、4 个挑战观察、9 个偏难观察、29 个普通关。把 41 个好关和 17 个坏关的中位数放在一起，差异非常清楚：</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>指标</th><th class="num">41 个好关</th><th class="num">17 个坏关</th><th class="num">差</th><th>读法</th></tr></thead>
+        <tbody>
+          <tr><td><b>完成率</b></td><td class="num">92.6%</td><td class="num">47.7%</td><td class="num">−44.9pp</td><td>好关几乎人人能走完，坏关一半左右的人没走完</td></tr>
+          <tr><td><b>关流失</b></td><td class="num">1.14%</td><td class="num">3.27%</td><td class="num">+2.13pp</td><td>坏关完成后不继续的比例约为好关的三倍</td></tr>
+          <tr><td><b>无结果</b></td><td class="num">6.8%</td><td class="num">24.9%</td><td class="num">+18.1pp</td><td>坏关近四分之一进入者没有留下结果</td></tr>
+          <tr><td><b>平均尝试</b></td><td class="num">1.07</td><td class="num">2.06</td><td class="num">+0.99</td><td>坏关把“玩一关”变成了“重试两遍”</td></tr>
+          <tr><td><b>总耗时</b></td><td class="num">217s</td><td class="num">365s</td><td class="num">+148s</td><td>坏关不是更耐玩，是更久</td></tr>
+          <tr><td><b>退出率</b></td><td class="num">0.1%</td><td class="num">2.2%</td><td class="num">+2.1pp</td><td>坏关有更多主动退出</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="table-note">表 6｜好关与坏关的中位数画像。坏关的“难度”不是唯一问题：完成、留存、无结果、尝试、退出同时在恶化。</p>
+
+    <figure class="figure">
+      <img src="assets/tier-scatter.png" alt="100关完成率与无结果率散点图，坏关集中在右下角">
+      <figcaption><b>图 4｜</b>完成率 × 无结果率。坏关集中在右下：完成率低、无结果高；好关集中在左上。气泡大小是总耗时。L33、L49、L62、L70 是最明显的四个尖峰。</figcaption>
+    </figure>
+
+    <h3>分钟流失为什么不能当总分</h3>
+    <p>分钟流失 = 关流失 / 总耗时。它把不同长度的关卡拉到同一把尺子上，但这把尺子有两个陷阱：短关会把比率放大，长关会把比率摊薄；完成者筛选会让少数高意愿玩家把比率压低。</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>关卡</th><th class="num">分钟流失</th><th class="num">完成率</th><th class="num">关流失</th><th class="num">无结果</th><th class="num">尝试</th><th class="num">总耗时</th><th>结论</th></tr></thead>
+        <tbody>
+          <tr><td><b>L1</b></td><td class="num">9.88%</td><td class="num">90.8%</td><td class="num">6.88%</td><td class="num">8.7%</td><td class="num">1.05</td><td class="num">42s</td><td>短关把比率放大；没人会说 L1 是坏关</td></tr>
+          <tr><td><b>L88</b></td><td class="num">0.18%</td><td class="num">95.4%</td><td class="num">0.66%</td><td class="num">4.4%</td><td class="num">1.05</td><td class="num">217s</td><td>低比率 + 高完成 + 低无结果，真正的好关</td></tr>
+          <tr><td><b>L93</b></td><td class="num">0.26%</td><td class="num">46.4%</td><td class="num">1.89%</td><td class="num">22.5%</td><td class="num">2.11</td><td class="num">443s</td><td>低比率被长时和完成者筛选掩盖，实际是尾部卡点</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="table-note">表 7｜分钟流失的三个反例。L1 证明短关会放大比率，L93 证明长关会摊薄比率；同一个数字在不同分母下不是同一件事。</p>
+    <figure class="figure">
+      <img src="assets/minute-loss.png" alt="100关分钟流失与完成率散点图，两者几乎不相关">
+      <figcaption><b>图 5｜</b>分钟流失与完成率的描述性相关只有 r = 0.09。L88 和 L93 的分钟流失接近，但完成率差 49 个百分点。分钟流失只能当第三层诊断。</figcaption>
+    </figure>
+    <p>所以低分钟流失不是好关的充分条件，也不是必要条件。真正要看的是四件事：完成率是否够高、无结果是否够低、尝试次数是否接近 1、总耗时是否在碎片时间范围内。四项都健康，分钟流失才是加分项；只要有一项异常，低分钟流失就先当作“需要解释的信号”。</p>
+  </div>
+</section>
+
+<section class="chapter" id="adgate">
+  <div class="chapter-head">
+    <div class="chapter-no">05 / AD GATE</div>
+    <div><h2>广告门：<br>三种“送了空瓶”的假动作</h2><p class="dek">把免费空瓶和广告空瓶分开数，前 100 关里最清楚的一条分界线出现了：免费空瓶 0–1 的关卡全部低完成，2–3 的全部高完成。</p></div>
+  </div>
+  <div class="prose">
+    <p>题目要求按“不看广告”的难度评估，这是对的。但 IAA 产品的体验不能只算免费部分：盘面上的 Free 瓶确实能被玩家拿到，只是要先看一次视频。所以我做了两组读数：一组是免费空瓶，一组是广告空瓶。两组都来自首屏截图的人工计数，共 7 关，样本不大，但足够看清方向。</p>
+    <figure class="figure">
+      <img src="assets/buffer-split.png" alt="7关免费空瓶与广告空瓶数量对比，免费空瓶0到1的关卡完成率低，2到3的完成率高">
+      <figcaption><b>图 6｜</b>7 关的免费空瓶 / 广告空瓶读数。蓝色是免费空瓶，沙色是广告空瓶；右侧是完成率。广告空瓶大多相同，差别在免费空瓶的数量。</figcaption>
+    </figure>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>关卡</th><th class="num">免费空瓶</th><th class="num">广告空瓶</th><th class="num">总缓冲</th><th class="num">完成率</th><th class="num">无结果</th><th class="num">尝试</th><th class="num">耗时</th><th>读法</th></tr></thead>
+        <tbody>
+          <tr><td><b>L7</b></td><td class="num">0</td><td class="num">2</td><td class="num">2</td><td class="num">58.7%</td><td class="num">29.7%</td><td class="num">1.61</td><td class="num">306s</td><td>广告是唯一缓冲，仍然不够</td></tr>
+          <tr><td><b>L13</b></td><td class="num">0</td><td class="num">2</td><td class="num">2</td><td class="num">44.1%</td><td class="num">32.8%</td><td class="num">2.15</td><td class="num">447s</td><td>满盘 + 中央双冰，广告也救不了</td></tr>
+          <tr><td><b>L33</b></td><td class="num">1</td><td class="num">2</td><td class="num">3</td><td class="num">15.9%</td><td class="num">32.3%</td><td class="num">5.92</td><td class="num">823s</td><td>唯一免费空瓶被第一步占死，2/3 缓冲要广告</td></tr>
+          <tr><td><b>L49</b></td><td class="num">1</td><td class="num">2</td><td class="num">3</td><td class="num">22.9%</td><td class="num">24.9%</td><td class="num">4.22</td><td class="num">406s</td><td>总缓冲与 L33 相同，免费部分只有 1 个</td></tr>
+          <tr><td><b>L8</b></td><td class="num">2</td><td class="num">2</td><td class="num">4</td><td class="num">94.9%</td><td class="num">5.0%</td><td class="num">1.04</td><td class="num">224s</td><td>广告是加分项，不是启动条件</td></tr>
+          <tr><td><b>L41</b></td><td class="num">3</td><td class="num">2</td><td class="num">5</td><td class="num">93.8%</td><td class="num">5.9%</td><td class="num">1.06</td><td class="num">242s</td><td>免费缓冲充足，广告不是必需</td></tr>
+          <tr><td><b>L34</b></td><td class="num">3</td><td class="num">0</td><td class="num">3</td><td class="num">96.5%</td><td class="num">3.5%</td><td class="num">1.03</td><td class="num">217s</td><td>3 个缓冲全免费，最顺的模板</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="table-note">表 8｜7 关的免费 / 广告空瓶对照。免费空瓶 0–1 的四关完成率 15.9%–58.7%，免费空瓶 2–3 的三关 93.8%–96.5%。这是人工读数，不是全量标注，结论按线索处理。</p>
+
+    <h3>L33 与 L34：同一阶段，相邻两关，差了 80 个百分点</h3>
+    <p>L33 和 L34 相邻、同属 31–40 阶段，都大量使用问号和纸袋位，总缓冲都是 3 个。差别在获取方式：L34 的 3 个空瓶全部免费，L33 只有 1 个免费、另外 2 个在 Free 位。完成率 96.5% 对 15.9%，平均尝试 1.03 对 5.92，总耗时 217 秒对 823 秒。</p>
+    <div class="shot-pair">
+      <figure><img src="assets/l33.jpg" alt="L33 首屏，只有一个空瓶和两个广告 Free 瓶"><figcaption><b>L33 / 15.9%</b><br>1 个免费空瓶，第一步把红色倒入后，空瓶被占死。盘面只剩纸袋和 Free。</figcaption></figure>
+      <figure><img src="assets/l34.jpg" alt="L34 首屏，有三个空瓶"><figcaption><b>L34 / 96.5%</b><br>3 个免费空瓶，第一步倒错后仍有两个位置可以回旋。同为 3 个总缓冲，体验完全不同。</figcaption></figure>
+    </div>
+    <p>这两关不是控制变量的实验：瓶子数量、颜色分布、纸袋位置都不同，不能把 80 个百分点的差距全部归给“免费空瓶”。但它们提供了同一阶段、相邻关卡、相同核心机制的强对照。首屏的差异非常直接：L34 有三个可以落子的空位，L33 只有一个，而且这个空位一用就没了。</p>
+    <p>L41 和 L49 重复了同一模式。两关都在 41–50 阶段，都是长盘、都有 Free 位；L41 有 3 个免费空瓶 + 2 个广告位，L49 只有 1 个免费 + 2 个广告位。完成率 93.8% 对 22.9%，尝试 1.06 对 4.22。</p>
+    <div class="shot-pair">
+      <figure><img src="assets/l41.jpg" alt="L41 首屏，有三个空瓶和两个广告 Free 位"><figcaption><b>L41 / 93.8%</b><br>3 个免费空瓶 + 2 个广告位。广告是额外的从容，不是启动条件。</figcaption></figure>
+      <figure><img src="assets/l49.jpg" alt="L49 首屏，只有一个空瓶和两个广告 Free 位"><figcaption><b>L49 / 22.9%</b><br>1 个免费空瓶 + 2 个广告位。长盘、重复顶色，唯一的空瓶很快被占死。</figcaption></figure>
+    </div>
+
+    <h3>广告空瓶救不了没有缓冲的盘面</h3>
+    <p>L7 和 L13 都有 2 个 Free，没有免费空瓶。如果“广告空瓶等于空瓶”，这两关应该能靠广告补足缓冲；结果是完成率 58.7% 和 44.1%，无结果 29.7% 和 32.8%。L13 更极端：中央两个冰瓶 2 把盘面压满，2 个 Free 都在，但广告看完也只是多两个位置，盘面本身没有可读的第一步。</p>
+    <p>这说明广告空瓶和免费空瓶不是同一种资源。免费空瓶是“现在就能用的选择”，广告空瓶是“先付出注意力再获得的选择”。在玩家已经卡住、开始怀疑自己会不会玩的时候，后者不是帮助，是加价。</p>
+
+    <h3>L80：看起来有空位，实际上没有解法</h3>
+    <p>L80 是另一种更隐蔽的假缓冲。开局有红、橙两个单色底瓶，瓶内上部是空的，看起来像两个可以暂存的空位；但它们的颜色固定，补满后还要回到原来的瓶子。前面的操作只是固定化简，真正的局面从“两个底瓶必须还原”才开始。数据上它不算最差：完成率 60.9%、无结果 20.7%、尝试 1.62；但它出现在全程最舒适的 71–80 阶段，是一段顺滑曲线里突然出现的固定解。</p>
+    <div class="shot-pair">
+      <figure><img src="assets/l80.jpg" alt="L80 首屏，红橙两个单色底瓶看起来像空位"><figcaption><b>L80 首屏</b><br>红、橙两个单色底瓶，瓶口上方是空的，容易被读成两个空位。</figcaption></figure>
+      <figure><img src="assets/l80-play.jpg" alt="L80 试玩截图，红橙两个底瓶被标记出来"><figcaption><b>L80 试玩标记</b><br>两个底瓶补满后必须回到原位，前面的化简没有改变最后的死锁。</figcaption></figure>
+    </div>
+    <p>这类关卡的问题不是“难”，而是“解法被写死”。玩家以为自己在做选择，实际是在走一条固定的化简路线；等走到最后，才发现两个瓶子互相锁住。广告能加一个空瓶，但加不出一个新的解法。对 IAA 产品来说，这种关卡最危险：它既没有免费缓冲，也没有广告带来的真实增益。</p>
+
+    <h3>广告门阶梯</h3>
+    <p>把上面的案例按“第一个周转位要不要先看广告”排成四级，会得到一条很清楚的阶梯：</p>
+    <div class="gate-ladder">
+      <div class="gate"><span class="n">LEVEL 0</span><h4>免费可玩</h4><p>2–3 个免费空瓶；广告只是额外奖励。玩家可以完全不看广告完成。</p><div class="lv">L34 · L41 · L8</div></div>
+      <div class="gate"><span class="n">LEVEL 1</span><h4>广告加速</h4><p>1 个免费空瓶 + 广告位；能启动，但广告让过程更从容。</p><div class="lv">L33 · L49</div></div>
+      <div class="gate"><span class="n">LEVEL 2</span><h4>广告开门</h4><p>0 个免费空瓶；广告是第一步，不看广告就没有可行动作。</p><div class="lv">L7 · L13 · L23 · L26</div></div>
+      <div class="gate"><span class="n">LEVEL 3</span><h4>广告也救不了</h4><p>满盘 + 固定解 / 固定底色；加一个空瓶也解不开。</p><div class="lv">L80 · 部分 L33/L49 的结构</div></div>
+    </div>
+    <p>IAA 产品应该把绝大多数关卡放在 LEVEL 0，少量放在 LEVEL 1；LEVEL 2 是“广告开门”，短期能拉高广告观看，长期会把新玩家挡在门外；LEVEL 3 是设计失败，广告和关卡都没有提供真实的下一步。</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>阶梯</th><th>玩家的第一动作</th><th>广告的角色</th><th>适合放什么关卡</th><th>风险</th></tr></thead>
+        <tbody>
+          <tr><td><b>LEVEL 0</b></td><td>不看广告就能做</td><td>加分项</td><td>教学关、蜜月关、节奏缓冲关</td><td>广告收入低，但留存稳</td></tr>
+          <tr><td><b>LEVEL 1</b></td><td>能启动，但选择少</td><td>加速器</td><td>阶段中段的挑战关</td><td>广告被当成“应该看”的默认动作</td></tr>
+          <tr><td><b>LEVEL 2</b></td><td>必须先看广告</td><td>过路费</td><td>不建议放在前 30 关</td><td>无结果、退出、差评；广告收益被流失抵消</td></tr>
+          <tr><td><b>LEVEL 3</b></td><td>看了也不一定解</td><td>无效</td><td>不应该存在</td><td>玩家学会“看广告也没用”，信任受损</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="table-note">表 9｜广告门阶梯。它不是官方分级，而是本文用来评审“广告位是否侵入核心解题”的工具。</p>
+
+    <div class="callout warn"><p><b>数据为什么会误判：</b>广告观看是当天就能看到的收入，无结果和流失却常常被归到“关卡难”或“用户质量”里。只盯广告观看率，会把 LEVEL 2 误判成高价值关卡；把完成率、无结果、下一关承接一起看，才会发现门开在了错误的位置。</p></div>
+  </div>
+</section>
+
+<section class="chapter" id="onboarding">
+  <div class="chapter-head">
+    <div class="chapter-no">06 / ONBOARDING</div>
+    <div><h2>游戏没有教玩家<br>那套四步法</h2><p class="dek">它教了“点瓶子、倒颜色”，但没有教“先找空瓶、拆四份链、保底色”。前 10 关就出现广告墙，而策略教学还没开始。</p></div>
+  </div>
+  <div class="prose">
+    <p>先把我在试玩当时写下的原话完整放这里。它比任何抽象总结都更能说明新玩家卡在哪里：</p>
+    <div class="quote-card"><p>“感觉关卡顺序非常不合理，而且没有新手教程和引导，以及说明，比如，给玩家讲解各种元素是干嘛的，比如，关卡最上方的四个袋子是干嘛的，为啥有两个袋子要看广告解锁，实际上这玩意儿是收已经换好的纯色瓶子的，但是没啥卵用我觉得，我知道了，这应该是手感设计，因为袋子收瓶子尤其是连收时的音效和动画确实吸引人，但是有负面体验：玩家换好的纯色瓶子颜色和上面的袋子不符合的话，就会堆积在下面，本来颜色就五花缭乱伤眼睛，要是我设计就会成功一个瓶子就消失一个，然后屏幕四周发出该瓶子的光效，直至下一个瓶子纯色成功。还有什么问号瓶，带数字的纸袋瓶，数字代表多少纯色瓶成功才解锁，冰冻瓶等，本质上就是 4 层的问号瓶罢了。本来关卡难度曲线设计的就不行，引导还差，没有任何征兆的引入新瓶子，增加用户的理解程度，自然会影响留存率。而且没有演示关卡教用户玩这个游戏的策略，就特别容易挫败，我是策划要求玩 20 关都差点放弃了，11 关以后才找到诀窍开始爽起来，回头玩第 4 关等难关，就一遍过了。不看广告，当然全都是一遍过广告收益又没有，这也是关卡设计问题。简而言之，用户教育成本太高，留不住客户，新玩家不会玩，挫败感太强”</p><footer>试玩记录 · 2026-10-21 · 原文</footer></div>
+    <p>这段话里有三件事值得拆开：关卡顺序、元素说明、策略教学。它们不是同一个问题，但会互相放大。</p>
+
+    <h3>前 10 关到底教了什么</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>关卡</th><th>我实际遇到的</th><th class="num">完成率</th><th class="num">关流失</th><th class="num">无结果</th><th>教学作用</th></tr></thead>
+        <tbody>
+          <tr><td><b>L1</b></td><td>超简单，入门</td><td class="num">90.8%</td><td class="num">6.88%</td><td class="num">8.7%</td><td>教会“点两个瓶子倒水”</td></tr>
+          <tr><td><b>L2</b></td><td>颜色少、空瓶多，基本一眼能倒</td><td class="num">93.1%</td><td class="num">3.73%</td><td class="num">6.8%</td><td>巩固基本操作</td></tr>
+          <tr><td><b>L3</b></td><td>有点难度但不高</td><td class="num">91.3%</td><td class="num">4.32%</td><td class="num">8.5%</td><td>引入轻微规划</td></tr>
+          <tr><td><b>L4</b></td><td>瓶子多、空瓶一个，卡关</td><td class="num">76.3%</td><td class="num">7.87%</td><td class="num">21.6%</td><td>没有预告的第一次加码</td></tr>
+          <tr><td><b>L5</b></td><td>没有空瓶，卡了一次</td><td class="num">80.0%</td><td class="num">8.86%</td><td class="num">18.7%</td><td>把“空瓶”变成稀缺资源</td></tr>
+          <tr><td><b>L6</b></td><td>给了两个空瓶，仍卡关</td><td class="num">70.8%</td><td class="num">6.89%</td><td class="num">25.2%</td><td>空瓶数量不是充分条件</td></tr>
+          <tr><td><b>L7</b></td><td>卡两次，看一次广告才过</td><td class="num">58.7%</td><td class="num">6.28%</td><td class="num">29.7%</td><td>第一次广告墙</td></tr>
+          <tr><td><b>L8</b></td><td>好关，一遍过，不用看广告</td><td class="num">94.9%</td><td class="num">1.97%</td><td class="num">5.0%</td><td>本应是教学模板，却排在墙后</td></tr>
+          <tr><td><b>L9</b></td><td>两个空瓶和冰冻瓶，一遍过</td><td class="num">61.1%</td><td class="num">4.91%</td><td class="num">26.2%</td><td>冰瓶首次出现，没有说明</td></tr>
+          <tr><td><b>L10</b></td><td>没有空瓶，问号多，容易卡</td><td class="num">67.6%</td><td class="num">5.31%</td><td class="num">23.2%</td><td>隐藏信息密集出现</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="table-note">表 10｜前 10 关的数据与我的实际体验。L4–L6 的高关流失可能还混有广告、体力或下一关承接的影响，不能全部归因于关卡难度。</p>
+
+    <p>从数据看，前 10 关的结构是：三关轻松入门，接着四关连续加码，L7 出现第一道广告墙，L8 突然送分，L9–L10 又把冰瓶和隐藏信息堆上来。它不是一条逐步加难的阶梯，而是锯齿。对新玩家来说，最危险的不是“难”，而是不知道下一关为什么会突然难。</p>
+    <p>更关键的是，前 10 关没有教那套真正有用的四步法。L1–L3 只需要“看到同色就倒”，L4 开始要求“先找空瓶”，L7 要求“没有免费空瓶时判断要不要看广告”，但游戏没有用任何一关把“空瓶是周转位”这件事讲清楚。玩家只能从失败里猜。</p>
+
+    <h3>元素说明的缺口</h3>
+    <p>顶部四个袋子、问号瓶、编号纸袋、冰瓶、Free 瓶，都是在没有说明的情况下逐个出现的。玩家需要自己推断：哪个袋子是收集位，哪个要广告，纸袋上的数字代表什么，冰瓶要怎样解开。我的原话里有一句很直接：“没有任何征兆的引入新瓶子，增加用户的理解程度，自然会影响留存率。”这不是玩家不愿意学，而是游戏没有给学习的机会。</p>
+    <p>这里有一个很容易被忽略的细节：问号瓶并不等于“完全看不见”。截图里大多数问号瓶的顶层颜色仍然露出，玩家可以先按顶色配对，再逐步揭开下层。真正让问号变成噪音的，是它和满盘、缺少空瓶同时出现。教学应该先教“顶层可读、下层可后揭”，而不是一上来就把整瓶涂成问号。</p>
+
+    <h3>先教策略，再教元素</h3>
+    <p>如果我来重排前 10 关，会先教策略，再教元素。顺序大概是这样：</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>教学关</th><th>只教一件事</th><th>盘面条件</th><th>禁止出现</th></tr></thead>
+        <tbody>
+          <tr><td><b>教学 A</b></td><td>空瓶是暂存位：倒错了还能回来</td><td>3 个免费空瓶、2–3 种颜色、无问号</td><td>广告位、冰瓶、纸袋</td></tr>
+          <tr><td><b>教学 B</b></td><td>先看顶色，再看下层；问号可以后揭</td><td>3 个免费空瓶、每瓶最多 1 层问号</td><td>广告位、冰瓶、纸袋</td></tr>
+          <tr><td><b>教学 C</b></td><td>保底色：单色底瓶最后再收</td><td>2 个免费空瓶、1 个单色底瓶、无问号</td><td>广告位、冰瓶、纸袋</td></tr>
+          <tr><td><b>教学 D</b></td><td>纸袋是进度门，不是颜色</td><td>2 个免费空瓶、1 个纸袋、数字为 2</td><td>广告位、冰瓶</td></tr>
+          <tr><td><b>教学 E</b></td><td>冰瓶是延迟信息，先处理冰层</td><td>2 个免费空瓶、1 个冰瓶、无纸袋</td><td>广告位</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="table-note">表 11｜前 5 个教学关的建议结构。每关只引入一个变量，并且始终保留 2–3 个免费空瓶；广告位在玩家学会四步法之前不出现。</p>
+    <p>这套教学不需要弹出长说明。它可以用三到五关、每关 30–60 秒完成：第一关让玩家亲手体验“倒错还能回来”，第二关让玩家看到“问号下面还有一层”，第三关让玩家体会“收得太早会少一个位置”。等玩家有了身体记忆，再解释元素名称，效果会比一开始塞一段文字好得多。</p>
+
+    <div class="callout"><p><b>顺序建议：</b>先教四步法 → 再引入纸袋和冰瓶 → 再引入广告空瓶。第一次广告 offer 放在第 10 关之后，而且放在“完成后”而不是“卡关时”：让玩家先体验过完整的一关，再决定要不要为更从容的下一关看广告。</p></div>
+
+    <h3>个人体验和数据标签不一致的地方</h3>
+    <p>这次试玩里有几关，我的判断和全量数据不一样，值得单独记下来：</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>关卡</th><th>我的判断</th><th>数据标签</th><th class="num">完成率</th><th class="num">无结果</th><th>为什么不一致</th></tr></thead>
+        <tbody>
+          <tr><td><b>L4</b></td><td>坏关，包劝退</td><td>普通</td><td class="num">76.3%</td><td class="num">21.6%</td><td>我卡了一次，但全量完成率仍高于 50%；关流失 7.87% 更值得查</td></tr>
+          <tr><td><b>L6</b></td><td>坏关，必须看广告</td><td>偏难观察</td><td class="num">70.8%</td><td class="num">25.2%</td><td>完成率没低到红旗，但无结果和关流失都偏高</td></tr>
+          <tr><td><b>L9</b></td><td>好关，一遍过</td><td>坏关</td><td class="num">61.1%</td><td class="num">26.2%</td><td>我恰好用两个空瓶过了；全量里有四分之一的人没有留下结果</td></tr>
+          <tr><td><b>L11</b></td><td>好关，难度适中</td><td>坏关</td><td class="num">72.5%</td><td class="num">19.5%</td><td>我的操作熟练度已经上来；新玩家在这一关还没有四步法</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="table-note">表 12｜个人试玩与全量数据的差异。它不是“谁对谁错”，而是说明个人体验不能替代 cohort 数据；反过来，数据也不能替代首屏观察。</p>
+  </div>
+</section>
+
+<section class="chapter" id="economics">
+  <div class="chapter-head">
+    <div class="chapter-no">07 / ECONOMICS</div>
+    <div><h2>强制广告的短期收入<br>和它的延迟成本</h2><p class="dek">一次激励视频大约值几厘钱；一个被劝退的玩家，未来还能贡献几十次广告。广告门是否划算，取决于它劝退了多少本来会留下的人。</p></div>
+  </div>
+  <div class="prose">
+    <p>这一节是示意模型，不是这款产品的后台。我不知道它真实的 eCPM、填充率、人均广告观看和留存，所以只算方向：把“一次广告的收入”和“一个玩家未来可能贡献的广告收入”放在一起，看看广告门的盈亏平衡点在哪里。</p>
+    <h3>一个简化公式</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>变量</th><th>取值</th><th>说明</th></tr></thead>
+        <tbody>
+          <tr><td><b>单次激励视频收入</b></td><td>$0.008</td><td>按 eCPM $8 估算；不同地区、品类、填充率会差很多</td></tr>
+          <tr><td><b>人均每关广告观看</b></td><td>0.8 次</td><td>不是每关都看，按混合值估算</td></tr>
+          <tr><td><b>被劝退玩家剩余关卡</b></td><td>20 关</td><td>假设他本来还会玩 20 关；实际可能更多或更少</td></tr>
+          <tr><td><b>剩余广告价值</b></td><td>$0.128</td><td>20 × 0.8 × $0.008</td></tr>
+          <tr><td><b>广告门盈亏平衡流失率</b></td><td>约 5.9%</td><td>0.008 / (0.128 + 0.008)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="table-note">表 13｜广告门的简化盈亏平衡。假设广告门带来的观看是增量、玩家没有其它付费、未来广告价值按同一 eCPM 计算。它只用于判断量级，不是财务预测。</p>
+    <p>在这个假设下，如果一道广告门让超过约 6% 的玩家离开，而这些人本来还会玩 20 关，那么这道门带来的增量广告收入就被未来损失抵消了。这个阈值对“剩余关卡数”非常敏感：</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>被劝退玩家本来还会玩</th><th class="num">未来广告观看</th><th class="num">未来广告价值</th><th class="num">盈亏平衡流失率</th></tr></thead>
+        <tbody>
+          <tr><td>10 关</td><td class="num">8 次</td><td class="num">$0.064</td><td class="num">11.1%</td></tr>
+          <tr><td>20 关</td><td class="num">16 次</td><td class="num">$0.128</td><td class="num">5.9%</td></tr>
+          <tr><td>40 关</td><td class="num">32 次</td><td class="num">$0.256</td><td class="num">3.0%</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="table-note">表 14｜剩余关卡越多，广告门能承受的流失率越低。一个在 L33 被劝退的新玩家，本来可能还会玩几十关；这道门的真实成本比当天看到的广告收入大得多。</p>
+
+    <h3>为什么“多加一道门”常常不是最优解</h3>
+    <p>广告门的收益是即时的，成本是延迟的。当天看报表，广告观看和 eCPM 都上去了；无结果和流失可能被记成“关卡难度”或“用户质量”，甚至根本不在同一张表里。于是团队会得到一个大致的错觉：门越多，收入越高。实际发生的循环可能是：</p>
+    <div class="flow"><span>广告门变多</span><i>→</i><span>首屏可行动作变少</span><i>→</i><span>无结果 / 退出上升</span><i>→</i><span>人均关卡数下降</span><i>→</i><span>未来广告观看减少</span><i>→</i><span>LTV 下降</span></div>
+    <p>这不是说所有广告门都坏。完成后的插屏、可选的双倍奖励、额外的收集位，都可以是正收益。问题在于把广告放在“唯一可行动作”上：它把玩家从“我想继续玩”变成“我必须先看广告”。前者是交易，后者是勒索。</p>
+
+    <h3>我会同时看的指标</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>层级</th><th>指标</th><th>用途</th><th>警戒信号</th></tr></thead>
+        <tbody>
+          <tr><td rowspan="3"><b>收入</b></td><td>ARPDAU</td><td>整体变现效率</td><td>只涨 ARPDAU，D1/D7 下跌</td></tr>
+          <tr><td>人均广告观看 / 广告渗透率</td><td>广告位是否被使用</td><td>观看涨，但完成率跌</td></tr>
+          <tr><td>eCPM / 填充率</td><td>广告库存价值</td><td>用低质广告填量，伤害体验</td></tr>
+          <tr><td rowspan="3"><b>体验</b></td><td>完成率 / 无结果</td><td>关卡是否可玩</td><td>完成率跌 5pp 以上，无结果涨 3pp 以上</td></tr>
+          <tr><td>平均尝试 / 总耗时</td><td>是否在反复试错</td><td>尝试 >2，耗时 >400s</td></tr>
+          <tr><td>下一关进入率</td><td>完成后是否继续</td><td>关流失持续高于阶段中位</td></tr>
+          <tr><td rowspan="2"><b>留存</b></td><td>D1 / D7</td><td>广告频率的长期代价</td><td>广告观看涨，D1/D7 跌</td></tr>
+          <tr><td>广告相关流失 / 负反馈</td><td>玩家是否把广告当成离开原因</td><td>评论、客服、问卷出现集中提及</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="table-note">表 15｜IAA 产品的联合指标。收入指标和体验指标必须同表看；只优化其中一边，另一边会以更慢的速度恶化。</p>
+
+    <div class="callout note"><p><b>一个可执行的决策规则：</b>如果一道广告门让 ARPDAU 上升，但完成率下降超过 5pp、无结果上升超过 3pp，或者 D1 下降，就先不要上线。先把它改成“完成后可选”，再看同样的指标。广告门不是不能加，而是不能拿核心可玩性去换。</p></div>
+  </div>
+</section>
+
+<section class="chapter" id="redesign">
+  <div class="chapter-head">
+    <div class="chapter-no">08 / REDESIGN</div>
+    <div><h2>先把关卡修到能玩，<br>再谈广告位</h2><p class="dek">修法不是简单调低颜色数。先保证免费缓冲，再把隐藏层和道具位从核心视线里移开，最后才决定广告放在哪里。</p></div>
+  </div>
+  <div class="prose">
+    <h3>优先修的九关</h3>
+    <p>下面是我会先动的九关。改法不是唯一解，但每一关都对应一个明确的体验问题：没有空瓶、空瓶被第一步占死、固定死锁、或者隐藏层和道具位一起把首屏压满。</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>关卡</th><th>当前问题</th><th>建议改法</th><th>目标</th></tr></thead>
+        <tbody>
+          <tr><td><b>L13</b></td><td>0 免费 + 2 Free；中央双冰 2，满盘</td><td>把 1 个 Free 改成免费空瓶，或移除 1 个中央冰瓶</td><td>至少 2 个免费空瓶；无结果压到 15% 以下</td></tr>
+          <tr><td><b>L33</b></td><td>1 免费 + 2 Free；唯一空瓶被第一步占死</td><td>把 1 个 Free 改成免费，再加 1 个真空瓶；纸袋移出中央视线</td><td>3 个免费空瓶；尝试降到 2 次以内</td></tr>
+          <tr><td><b>L49</b></td><td>1 免费 + 2 Free；长盘重复顶色</td><td>把 1 个 Free 改成免费，减少重复顶色的诱导</td><td>2 个免费空瓶；完成率翻倍</td></tr>
+          <tr><td><b>L62</b></td><td>1 免费 + 2 Free；中央 1/2/3 三连纸袋切断视线</td><td>移除中央 1 个纸袋，改成免费空瓶；纸袋分散到两侧</td><td>2 个免费空瓶；首屏可扫视</td></tr>
+          <tr><td><b>L70</b></td><td>1 免费 + 2 Free；2 个冰瓶 1，盘面几乎全问号</td><td>加 1 个免费空瓶；前 70 关把冰瓶降到 1 个</td><td>2 个免费空瓶；尝试降到 2 次以内</td></tr>
+          <tr><td><b>L80</b></td><td>红/橙两个固定底色瓶，看起来像空位，最后死锁</td><td>取消“必须还原”的固定底色，或明确标记为不可暂存；加 1 个真空瓶</td><td>不出现固定死锁；无结果压到 10% 以下</td></tr>
+          <tr><td><b>L92</b></td><td>0 免费 + 2 Free；4 个冰瓶 1，满盘三层问号</td><td>把 1 个 Free 改成免费，减少 1 个冰瓶</td><td>2 个免费空瓶；完成率提升到阶段中位</td></tr>
+          <tr><td><b>L93</b></td><td>1 免费 + 2 Free；只有两种颜色能启动</td><td>加 1 个免费空瓶；增加 1 个可启动的顶色</td><td>3 个可启动颜色；无结果压到 15% 以下</td></tr>
+          <tr><td><b>L98</b></td><td>1 免费 + 2 Free；最多三个颜色能启动</td><td>加 1 个免费空瓶；减少 2–3 层问号的比例</td><td>2 个免费空瓶；尝试降到 2 次以内</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="table-note">表 16｜优先修的九关。目标值是建议，不是保证；上线前应该用 A/B 验证。L7、L23、L26 也应该按同样标准检查，只是它们的结构问题与上表重复，没有单列。</p>
+
+    <h3>可复制的模板</h3>
+    <p>L34、L41、L8、L88 这四关可以作为模板。它们的共同点不是“简单”，而是“首屏有足够的选择”：</p>
+    <div class="stat-strip">
+      <div><strong>2–3</strong><span>免费空瓶</span><p>首屏至少有两个不用看广告就能用的周转位</p></div>
+      <div><strong>≤6%</strong><span>无结果</span><p>玩家不会在首屏就卡住</p></div>
+      <div><strong>≈1.0</strong><span>平均尝试</span><p>一次到两次能过，不需要反复重开</p></div>
+      <div><strong>200–250s</strong><span>单局耗时</span><p>碎片时间可以完成，不像加班</p></div>
+    </div>
+    <p>这四关的完成率在 93.8%–96.5%，无结果 3.5%–5.9%，尝试 1.03–1.06。它们也都有问号或冰瓶，说明“有隐藏信息”本身不是问题；问题是有没有足够的空间让玩家分批处理。</p>
+
+    <h3>广告位的七条规则</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>#</th><th>规则</th><th>为什么</th><th>怎么验收</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td><b>先保证不看广告可玩</b></td><td>广告是加分项，不是启动条件</td><td>无广告基线至少 2 个免费空瓶</td></tr>
+          <tr><td>2</td><td><b>广告只能卖第 3、第 4 个缓冲位</b></td><td>第一个缓冲位决定“能不能试”，后面的才决定“试得顺不顺”</td><td>Free 位不在首屏唯一空位上</td></tr>
+          <tr><td>3</td><td><b>新机制第一次出现时不收费</b></td><td>玩家还在学规则，不应该同时面对广告</td><td>纸袋/冰瓶首次出现关卡无广告位</td></tr>
+          <tr><td>4</td><td><b>前 10 关不放广告门</b></td><td>先让玩家体验到完整的一关，再谈交易</td><td>L1–L10 的 Free 位为 0</td></tr>
+          <tr><td>5</td><td><b>一次关卡最多一个广告 offer</b></td><td>连续广告会把“可选”变成“围堵”</td><td>单关广告触点 ≤1</td></tr>
+          <tr><td>6</td><td><b>广告位不要伪装成盘面元素</b></td><td>Free 瓶看起来像普通瓶子，玩家点了才知道是广告</td><td>广告 offer 在盘面外，明确标注“看广告 +1 空瓶”</td></tr>
+          <tr><td>7</td><td><b>把无结果和下一关承接写进广告验收</b></td><td>只看广告观看会把坏门当成好门</td><td>广告上线前后对比完成率、无结果、D1</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="table-note">表 17｜广告位规则。它们不是行业通用定律，而是从这 100 关里总结出的、可以直接写进评审清单的约束。</p>
+
+    <h3>首 30 关的重排</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>区间</th><th>目标</th><th>建议使用</th><th>不要放</th></tr></thead>
+        <tbody>
+          <tr><td><b>L1–L3</b></td><td>教会“倒水 + 空瓶是暂存位”</td><td>3 个免费空瓶、2–3 色、无问号</td><td>广告、冰瓶、纸袋</td></tr>
+          <tr><td><b>L4–L6</b></td><td>教会“先看顶色，再看下层”</td><td>3 个免费空瓶、每瓶最多 1 层问号</td><td>广告、冰瓶、纸袋</td></tr>
+          <tr><td><b>L7–L9</b></td><td>建立第一次“我学会了”的爽感</td><td>现 L8、L34 这类高完成模板；把现 L7/L13 后移</td><td>唯一空瓶、满盘</td></tr>
+          <tr><td><b>L10–L12</b></td><td>引入纸袋，教“收瓶进度是门”</td><td>2 个免费空瓶、1 个纸袋、数字 2</td><td>广告门、多个冰瓶</td></tr>
+          <tr><td><b>L13–L15</b></td><td>引入冰瓶，教“延迟信息”</td><td>2 个免费空瓶、1 个冰瓶</td><td>广告门、固定底色</td></tr>
+          <tr><td><b>L16–L20</b></td><td>组合纸袋 + 冰瓶，保持 2 个免费空瓶</td><td>L14–L20 的蜜月结构</td><td>三连纸袋、满盘</td></tr>
+          <tr><td><b>L21–L30</b></td><td>引入可选广告位，A/B 测试“完成后再 offer”</td><td>L21、L22、L29 类好关；广告位放在盘面外</td><td>把 Free 瓶塞进唯一空位</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="table-note">表 18｜首 30 关的重排建议。现有关卡可以复用，但顺序要改：把“高完成模板”提前，把“满盘 + 广告门”后移，等玩家学会四步法再出现。</p>
+
+    <h3>广告呈现方式</h3>
+    <p>现在的 Free 瓶直接画在盘面里，和普通瓶子长得一样。玩家要先点一下，才知道它要广告。这个设计把“广告”伪装成了“关卡元素”，会让第一次遇到的人产生被欺骗感。更清楚的做法是：把广告 offer 放在盘面外，写成“看广告 +1 空瓶（可选）”，玩家点了之后再让瓶子飞进盘面。</p>
+    <p>如果一定要保留盘内 Free 位，至少要做三件事：用不同的瓶身/边框；在瓶口上方标“广告”而不是只写 Free；第一次出现时用一次轻提示说明“这是看广告解锁的空瓶”。这三件事不改变难度，只改变信息透明度。</p>
+
+    <h3>A/B 测试计划</h3>
+    <p>下面的计划用于验证“把广告从唯一缓冲位移开”是否真的能提升体验，同时不显著伤害广告收入。它不是一次就能定论的实验，但比拍脑袋改关卡可靠。</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>组</th><th>改法</th><th>验证假设</th><th>主要指标</th></tr></thead>
+        <tbody>
+          <tr><td><b>A / 对照</b></td><td>现版本：1 免费 + 2 Free</td><td>基线</td><td>完成率、无结果、尝试、广告观看、D1</td></tr>
+          <tr><td><b>B / 加免费</b></td><td>2 免费 + 2 Free</td><td>免费缓冲增加会提升完成率、降低无结果</td><td>完成率 +5pp、无结果 −3pp</td></tr>
+          <tr><td><b>C / 后置 offer</b></td><td>2 免费 + 完成后可选广告</td><td>广告从“开门”变成“加码”，不伤首屏</td><td>广告观看不降 10% 以上，D1 不降</td></tr>
+          <tr><td><b>D / 纯基线</b></td><td>3 免费，无广告位</td><td>测量“完全没有广告门”的体验上限</td><td>完成率、D1 的上限；用于定价广告位</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="table-note">表 19｜A/B 分组。建议先在 L33、L49 两关做小流量实验，再推广到同结构的 L62、L70、L92、L93、L98。</p>
+    <p>样本量按基线完成率 30%、最小可检测差异 5pp、双侧 α=0.05、power=0.8 估算，每组约 1,300–1,600 人；如果只看无结果率，样本要更大。实验至少要跑满一个七天周期，避免把周末和工作日的差异当成版本效果。</p>
+    <p>决策规则可以写得很具体：B 组完成率提升 ≥5pp、无结果下降 ≥3pp，且广告观看/DAU 下降不超过 10%，就进入下一轮；如果完成率提升但 D1 下降，说明广告只是被推迟，不是被消化，需要重新设计 offer 的时机。C 组如果广告观看不降、D1 不降，说明“完成后可选”是更健康的广告位。</p>
+
+    <h3>上线前的关卡 QA 清单</h3>
+    <div class="callout">
+      <p><b>首屏：</b>有没有至少 2 个免费空瓶？有没有一个不看广告就能做的合法第一步？</p>
+      <p><b>第二步：</b>第一步做完后，是否还有至少 2 个合法动作？唯一的空位会不会被占死？</p>
+      <p><b>信息：</b>顶层颜色是否可读？问号是否只遮下层？首屏能不能在不记忆的情况下找到第一组同色？</p>
+      <p><b>结构：</b>纸袋/冰瓶是否占据核心视线？有没有固定底色导致的死锁？</p>
+      <p><b>广告：</b>Free 位是否在唯一空位上？第一次出现的新机制有没有同时出现广告？</p>
+      <p><b>数据：</b>上线前是否用机器人或小样本跑过“无广告通关”？尝试次数是否 ≤2？总耗时是否 ≤300 秒？</p>
+    </div>
+  </div>
+</section>
+
+<section class="chapter" id="principles">
+  <div class="chapter-head">
+    <div class="chapter-no">09 / PRINCIPLES</div>
+    <div><h2>可迁移的八条<br>IAA 关卡原则</h2><p class="dek">不只适用于 Water Match。任何把广告放进核心资源的休闲产品，都可以用这八条做第一轮评审。</p></div>
+  </div>
+  <div class="prose">
+    <ol>
+      <li><b>广告卖“更从容”，不卖“能不能玩”。</b>第一个可行动作必须在免费版本里成立；广告只能让后面更顺。</li>
+      <li><b>先给免费缓冲，再卖额外缓冲。</b>2–3 个免费空瓶是这类排序游戏的安全线；0–1 个就开始考验玩家运气。</li>
+      <li><b>新机制第一次出现时不收费。</b>玩家还在学规则，不应该同时处理广告。教学关的广告位应该是 0。</li>
+      <li><b>广告位不要伪装成盘面元素。</b>Free 瓶看起来像普通瓶子，会让玩家在点击后产生被欺骗感；把 offer 放到盘面外，写清楚代价和收益。</li>
+      <li><b>一次关卡只卖一次。</b>连续广告会把“可选”变成“围堵”，也会让玩家学会快速退出。</li>
+      <li><b>用完成率、无结果、下一关承接做护栏。</b>只看广告观看率，会把 LEVEL 2 的坏门误判成好门。</li>
+      <li><b>难度由可周转位决定，不由颜色数量决定。</b>颜色多但空瓶够，玩家仍然能玩；颜色少但没空瓶，玩家第一步就卡。</li>
+      <li><b>教学要教策略，不是教按钮。</b>“点两个瓶子”谁都会；四步链和保底色才是这款游戏真正的门槛。</li>
+    </ol>
+    <p>回到最初的问题：Water Match ASMR 好玩吗？好玩。倒水的 ASMR、颜色归位的秩序感、揭开下层后的顿悟、收瓶时的连击反馈，这些都是真实存在的。它的底子不差，关卡也不是全都坏：41 个好关、整段 14–21 的蜜月、71–80 的舒适区，都说明团队知道怎么做顺滑的关卡。</p>
+    <p>它的问题是把广告放在了“解题的第一步”上。对一款 IAA 产品来说，这很划算，也很危险：短期能换来广告观看，长期会让新玩家在学会四步法之前就离开。把广告往后挪一格，先给玩家两个免费空瓶，再卖第三个、第四个，收入未必会少，留存会更好。</p>
+    <div class="pullquote">“广告可以站在解题旁边，但不该站在解题前面。”<footer>本文结论</footer></div>
+  </div>
+</section>
+
+<section class="chapter" id="appendix-a">
+  <div class="appendix-head"><div><span>APPENDIX A</span><h2>100 关标签总表</h2></div><span>10 × 10 / 完成率 + 标签</span></div>
+  <div class="prose">
+    <p>每个格子是“关卡号 + 完成率 + 数据标签”。绿色是好关，红色是坏关，橙色是挑战观察，浅棕是偏难观察，灰色是普通。标签来自阶段内健康分 + 绝对红旗，不是全表完成率排名。</p>
+    <div class="grid-map" aria-label="100关标签地图"><div class="cell normal" title="L1 · 完成率 90.8% · 普通"><b>L01</b><span>91%</span></div>
+<div class="cell good" title="L2 · 完成率 93.1% · 好关"><b>L02</b><span>93%</span></div>
+<div class="cell good" title="L3 · 完成率 91.3% · 好关"><b>L03</b><span>91%</span></div>
+<div class="cell normal" title="L4 · 完成率 76.3% · 普通"><b>L04</b><span>76%</span></div>
+<div class="cell normal" title="L5 · 完成率 80.0% · 普通"><b>L05</b><span>80%</span></div>
+<div class="cell hard" title="L6 · 完成率 70.8% · 偏难观察"><b>L06</b><span>71%</span></div>
+<div class="cell bad" title="L7 · 完成率 58.7% · 坏关"><b>L07</b><span>59%</span></div>
+<div class="cell good" title="L8 · 完成率 94.9% · 好关"><b>L08</b><span>95%</span></div>
+<div class="cell bad" title="L9 · 完成率 61.1% · 坏关"><b>L09</b><span>61%</span></div>
+<div class="cell normal" title="L10 · 完成率 67.6% · 普通"><b>L10</b><span>68%</span></div>
+<div class="cell bad" title="L11 · 完成率 72.5% · 坏关"><b>L11</b><span>72%</span></div>
+<div class="cell bad" title="L12 · 完成率 70.4% · 坏关"><b>L12</b><span>70%</span></div>
+<div class="cell bad" title="L13 · 完成率 44.1% · 坏关"><b>L13</b><span>44%</span></div>
+<div class="cell good" title="L14 · 完成率 93.0% · 好关"><b>L14</b><span>93%</span></div>
+<div class="cell good" title="L15 · 完成率 94.1% · 好关"><b>L15</b><span>94%</span></div>
+<div class="cell good" title="L16 · 完成率 93.3% · 好关"><b>L16</b><span>93%</span></div>
+<div class="cell good" title="L17 · 完成率 93.8% · 好关"><b>L17</b><span>94%</span></div>
+<div class="cell good" title="L18 · 完成率 93.8% · 好关"><b>L18</b><span>94%</span></div>
+<div class="cell good" title="L19 · 完成率 91.8% · 好关"><b>L19</b><span>92%</span></div>
+<div class="cell good" title="L20 · 完成率 93.7% · 好关"><b>L20</b><span>94%</span></div>
+<div class="cell good" title="L21 · 完成率 93.7% · 好关"><b>L21</b><span>94%</span></div>
+<div class="cell good" title="L22 · 完成率 92.6% · 好关"><b>L22</b><span>93%</span></div>
+<div class="cell bad" title="L23 · 完成率 50.8% · 坏关"><b>L23</b><span>51%</span></div>
+<div class="cell good" title="L24 · 完成率 87.1% · 好关"><b>L24</b><span>87%</span></div>
+<div class="cell good" title="L25 · 完成率 87.0% · 好关"><b>L25</b><span>87%</span></div>
+<div class="cell bad" title="L26 · 完成率 49.8% · 坏关"><b>L26</b><span>50%</span></div>
+<div class="cell normal" title="L27 · 完成率 77.8% · 普通"><b>L27</b><span>78%</span></div>
+<div class="cell normal" title="L28 · 完成率 77.5% · 普通"><b>L28</b><span>78%</span></div>
+<div class="cell good" title="L29 · 完成率 94.2% · 好关"><b>L29</b><span>94%</span></div>
+<div class="cell watch" title="L30 · 完成率 68.3% · 挑战观察"><b>L30</b><span>68%</span></div>
+<div class="cell normal" title="L31 · 完成率 69.5% · 普通"><b>L31</b><span>70%</span></div>
+<div class="cell hard" title="L32 · 完成率 65.3% · 偏难观察"><b>L32</b><span>65%</span></div>
+<div class="cell bad" title="L33 · 完成率 15.9% · 坏关"><b>L33</b><span>16%</span></div>
+<div class="cell good" title="L34 · 完成率 96.5% · 好关"><b>L34</b><span>96%</span></div>
+<div class="cell normal" title="L35 · 完成率 81.1% · 普通"><b>L35</b><span>81%</span></div>
+<div class="cell normal" title="L36 · 完成率 72.6% · 普通"><b>L36</b><span>73%</span></div>
+<div class="cell normal" title="L37 · 完成率 72.8% · 普通"><b>L37</b><span>73%</span></div>
+<div class="cell good" title="L38 · 完成率 95.0% · 好关"><b>L38</b><span>95%</span></div>
+<div class="cell good" title="L39 · 完成率 96.4% · 好关"><b>L39</b><span>96%</span></div>
+<div class="cell bad" title="L40 · 完成率 47.7% · 坏关"><b>L40</b><span>48%</span></div>
+<div class="cell good" title="L41 · 完成率 93.8% · 好关"><b>L41</b><span>94%</span></div>
+<div class="cell normal" title="L42 · 完成率 77.0% · 普通"><b>L42</b><span>77%</span></div>
+<div class="cell normal" title="L43 · 完成率 78.7% · 普通"><b>L43</b><span>79%</span></div>
+<div class="cell watch" title="L44 · 完成率 59.2% · 挑战观察"><b>L44</b><span>59%</span></div>
+<div class="cell hard" title="L45 · 完成率 67.9% · 偏难观察"><b>L45</b><span>68%</span></div>
+<div class="cell good" title="L46 · 完成率 79.1% · 好关"><b>L46</b><span>79%</span></div>
+<div class="cell normal" title="L47 · 完成率 76.9% · 普通"><b>L47</b><span>77%</span></div>
+<div class="cell good" title="L48 · 完成率 88.5% · 好关"><b>L48</b><span>88%</span></div>
+<div class="cell bad" title="L49 · 完成率 22.9% · 坏关"><b>L49</b><span>23%</span></div>
+<div class="cell normal" title="L50 · 完成率 76.5% · 普通"><b>L50</b><span>76%</span></div>
+<div class="cell normal" title="L51 · 完成率 83.6% · 普通"><b>L51</b><span>84%</span></div>
+<div class="cell good" title="L52 · 完成率 92.0% · 好关"><b>L52</b><span>92%</span></div>
+<div class="cell normal" title="L53 · 完成率 78.5% · 普通"><b>L53</b><span>78%</span></div>
+<div class="cell hard" title="L54 · 完成率 70.7% · 偏难观察"><b>L54</b><span>71%</span></div>
+<div class="cell bad" title="L55 · 完成率 54.8% · 坏关"><b>L55</b><span>55%</span></div>
+<div class="cell normal" title="L56 · 完成率 80.3% · 普通"><b>L56</b><span>80%</span></div>
+<div class="cell good" title="L57 · 完成率 81.9% · 好关"><b>L57</b><span>82%</span></div>
+<div class="cell normal" title="L58 · 完成率 81.1% · 普通"><b>L58</b><span>81%</span></div>
+<div class="cell good" title="L59 · 完成率 82.5% · 好关"><b>L59</b><span>82%</span></div>
+<div class="cell hard" title="L60 · 完成率 76.3% · 偏难观察"><b>L60</b><span>76%</span></div>
+<div class="cell normal" title="L61 · 完成率 75.8% · 普通"><b>L61</b><span>76%</span></div>
+<div class="cell bad" title="L62 · 完成率 27.2% · 坏关"><b>L62</b><span>27%</span></div>
+<div class="cell good" title="L63 · 完成率 83.9% · 好关"><b>L63</b><span>84%</span></div>
+<div class="cell good" title="L64 · 完成率 84.8% · 好关"><b>L64</b><span>85%</span></div>
+<div class="cell normal" title="L65 · 完成率 78.0% · 普通"><b>L65</b><span>78%</span></div>
+<div class="cell good" title="L66 · 完成率 94.4% · 好关"><b>L66</b><span>94%</span></div>
+<div class="cell hard" title="L67 · 完成率 70.9% · 偏难观察"><b>L67</b><span>71%</span></div>
+<div class="cell normal" title="L68 · 完成率 78.1% · 普通"><b>L68</b><span>78%</span></div>
+<div class="cell normal" title="L69 · 完成率 77.8% · 普通"><b>L69</b><span>78%</span></div>
+<div class="cell bad" title="L70 · 完成率 32.2% · 坏关"><b>L70</b><span>32%</span></div>
+<div class="cell normal" title="L71 · 完成率 82.5% · 普通"><b>L71</b><span>82%</span></div>
+<div class="cell hard" title="L72 · 完成率 79.6% · 偏难观察"><b>L72</b><span>80%</span></div>
+<div class="cell good" title="L73 · 完成率 94.5% · 好关"><b>L73</b><span>94%</span></div>
+<div class="cell hard" title="L74 · 完成率 74.4% · 偏难观察"><b>L74</b><span>74%</span></div>
+<div class="cell good" title="L75 · 完成率 93.6% · 好关"><b>L75</b><span>94%</span></div>
+<div class="cell good" title="L76 · 完成率 85.1% · 好关"><b>L76</b><span>85%</span></div>
+<div class="cell good" title="L77 · 完成率 95.9% · 好关"><b>L77</b><span>96%</span></div>
+<div class="cell good" title="L78 · 完成率 87.8% · 好关"><b>L78</b><span>88%</span></div>
+<div class="cell good" title="L79 · 完成率 89.3% · 好关"><b>L79</b><span>89%</span></div>
+<div class="cell bad" title="L80 · 完成率 60.9% · 坏关"><b>L80</b><span>61%</span></div>
+<div class="cell good" title="L81 · 完成率 89.2% · 好关"><b>L81</b><span>89%</span></div>
+<div class="cell normal" title="L82 · 完成率 75.6% · 普通"><b>L82</b><span>76%</span></div>
+<div class="cell hard" title="L83 · 完成率 74.3% · 偏难观察"><b>L83</b><span>74%</span></div>
+<div class="cell normal" title="L84 · 完成率 80.8% · 普通"><b>L84</b><span>81%</span></div>
+<div class="cell watch" title="L85 · 完成率 61.6% · 挑战观察"><b>L85</b><span>62%</span></div>
+<div class="cell good" title="L86 · 完成率 95.6% · 好关"><b>L86</b><span>96%</span></div>
+<div class="cell good" title="L87 · 完成率 86.7% · 好关"><b>L87</b><span>87%</span></div>
+<div class="cell good" title="L88 · 完成率 95.4% · 好关"><b>L88</b><span>95%</span></div>
+<div class="cell good" title="L89 · 完成率 86.7% · 好关"><b>L89</b><span>87%</span></div>
+<div class="cell watch" title="L90 · 完成率 63.3% · 挑战观察"><b>L90</b><span>63%</span></div>
+<div class="cell normal" title="L91 · 完成率 64.2% · 普通"><b>L91</b><span>64%</span></div>
+<div class="cell bad" title="L92 · 完成率 40.1% · 坏关"><b>L92</b><span>40%</span></div>
+<div class="cell bad" title="L93 · 完成率 46.4% · 坏关"><b>L93</b><span>46%</span></div>
+<div class="cell good" title="L94 · 完成率 82.4% · 好关"><b>L94</b><span>82%</span></div>
+<div class="cell normal" title="L95 · 完成率 66.2% · 普通"><b>L95</b><span>66%</span></div>
+<div class="cell normal" title="L96 · 完成率 71.9% · 普通"><b>L96</b><span>72%</span></div>
+<div class="cell good" title="L97 · 完成率 71.5% · 好关"><b>L97</b><span>72%</span></div>
+<div class="cell bad" title="L98 · 完成率 43.4% · 坏关"><b>L98</b><span>43%</span></div>
+<div class="cell normal" title="L99 · 完成率 70.0% · 普通"><b>L99</b><span>70%</span></div>
+<div class="cell good" title="L100 · 完成率 78.5% · 好关"><b>L100</b><span>78%</span></div></div>
+    <div class="legend"><span><i style="background:#eef6f1;border:1px solid #cee1d5"></i>好关 41</span><span><i style="background:#fbefed;border:1px solid #eed3cf"></i>坏关 17</span><span><i style="background:#f8f1e4;border:1px solid #e8d7b6"></i>挑战观察 4</span><span><i style="background:#f4efe6;border:1px solid #e2d7c5"></i>偏难观察 9</span><span><i style="background:#f8fafc;border:1px solid #dfe4ec"></i>普通 29</span></div>
+    <details class="details">
+      <summary>展开 100 关明细数据</summary>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>关卡</th><th>阶段</th><th class="num">完成率</th><th class="num">关流失</th><th class="num">无结果</th><th class="num">尝试</th><th class="num">总耗时</th><th class="num">分钟流失</th><th>标签</th></tr></thead>
+          <tbody><tr><td><b>L1</b></td><td>1</td><td class="num">90.8%</td><td class="num">6.88%</td><td class="num">8.7%</td><td class="num">1.05</td><td class="num">42s</td><td class="num">9.88%</td><td><span class="tag normal">普通</span></td></tr>
+<tr><td><b>L2</b></td><td>1</td><td class="num">93.1%</td><td class="num">3.73%</td><td class="num">6.8%</td><td class="num">1.05</td><td class="num">53s</td><td class="num">4.21%</td><td><span class="tag good">好关</span></td></tr>
+<tr><td><b>L3</b></td><td>1</td><td class="num">91.3%</td><td class="num">4.32%</td><td class="num">8.5%</td><td class="num">1.07</td><td class="num">125s</td><td class="num">2.08%</td><td><span class="tag good">好关</span></td></tr>
+<tr><td><b>L4</b></td><td>1</td><td class="num">76.3%</td><td class="num">7.87%</td><td class="num">21.6%</td><td class="num">1.22</td><td class="num">282s</td><td class="num">1.67%</td><td><span class="tag normal">普通</span></td></tr>
+<tr><td><b>L5</b></td><td>1</td><td class="num">80.0%</td><td class="num">8.86%</td><td class="num">18.7%</td><td class="num">1.19</td><td class="num">271s</td><td class="num">1.96%</td><td><span class="tag normal">普通</span></td></tr>
+<tr><td><b>L6</b></td><td>1</td><td class="num">70.8%</td><td class="num">6.89%</td><td class="num">25.2%</td><td class="num">1.33</td><td class="num">351s</td><td class="num">1.18%</td><td><span class="tag hard">偏难观察</span></td></tr>
+<tr><td><b>L7</b></td><td>1</td><td class="num">58.7%</td><td class="num">6.28%</td><td class="num">29.7%</td><td class="num">1.61</td><td class="num">306s</td><td class="num">1.23%</td><td><span class="tag bad">坏关</span></td></tr>
+<tr><td><b>L8</b></td><td>1</td><td class="num">94.9%</td><td class="num">1.97%</td><td class="num">5.0%</td><td class="num">1.04</td><td class="num">224s</td><td class="num">0.53%</td><td><span class="tag good">好关</span></td></tr>
+<tr><td><b>L9</b></td><td>1</td><td class="num">61.1%</td><td class="num">4.91%</td><td class="num">26.2%</td><td class="num">1.57</td><td class="num">338s</td><td class="num">0.87%</td><td><span class="tag bad">坏关</span></td></tr>
+<tr><td><b>L10</b></td><td>1</td><td class="num">67.6%</td><td class="num">5.31%</td><td class="num">23.2%</td><td class="num">1.43</td><td class="num">348s</td><td class="num">0.92%</td><td><span class="tag normal">普通</span></td></tr>
+<tr><td><b>L11</b></td><td>2</td><td class="num">72.5%</td><td class="num">3.69%</td><td class="num">19.5%</td><td class="num">1.34</td><td class="num">291s</td><td class="num">0.76%</td><td><span class="tag bad">坏关</span></td></tr>
+<tr><td><b>L12</b></td><td>2</td><td class="num">70.4%</td><td class="num">3.88%</td><td class="num">22.2%</td><td class="num">1.38</td><td class="num">400s</td><td class="num">0.58%</td><td><span class="tag bad">坏关</span></td></tr>
+<tr><td><b>L13</b></td><td>2</td><td class="num">44.1%</td><td class="num">5.85%</td><td class="num">32.8%</td><td class="num">2.15</td><td class="num">447s</td><td class="num">0.78%</td><td><span class="tag bad">坏关</span></td></tr>
+<tr><td><b>L14</b></td><td>2</td><td class="num">93.0%</td><td class="num">1.76%</td><td class="num">6.8%</td><td class="num">1.07</td><td class="num">253s</td><td class="num">0.42%</td><td><span class="tag good">好关</span></td></tr>
+<tr><td><b>L15</b></td><td>2</td><td class="num">94.1%</td><td class="num">2.30%</td><td class="num">5.8%</td><td class="num">1.05</td><td class="num">262s</td><td class="num">0.53%</td><td><span class="tag good">好关</span></td></tr>
+<tr><td><b>L16</b></td><td>2</td><td class="num">93.3%</td><td class="num">1.83%</td><td class="num">6.6%</td><td class="num">1.06</td><td class="num">209s</td><td class="num">0.53%</td><td><span class="tag good">好关</span></td></tr>
+<tr><td><b>L17</b></td><td>2</td><td class="num">93.8%</td><td class="num">1.62%</td><td class="num">6.1%</td><td class="num">1.06</td><td class="num">188s</td><td class="num">0.52%</td><td><span class="tag good">好关</span></td></tr>
+<tr><td><b>L18</b></td><td>2</td><td class="num">93.8%</td><td class="num">1.65%</td><td class="num">6.1%</td><td class="num">1.06</td><td class="num">205s</td><td class="num">0.48%</td><td><span class="tag good">好关</span></td></tr>
+<tr><td><b>L19</b></td><td>2</td><td class="num">91.8%</td><td class="num">1.67%</td><td class="num">8.1%</td><td class="num">1.08</td><td class="num">202s</td><td class="num">0.50%</td><td><span class="tag good">好关</span></td></tr>
+<tr><td><b>L20</b></td><td>2</td><td class="num">93.7%</td><td class="num">2.10%</td><td class="num">6.1%</td><td class="num">1.06</td><td class="num">208s</td><td class="num">0.61%</td><td><span class="tag good">好关</span></td></tr>
+<tr><td><b>L21</b></td><td>3</td><td class="num">93.7%</td><td class="num">1.64%</td><td class="num">5.8%</td><td class="num">1.06</td><td class="num">200s</td><td class="num">0.49%</td><td><span class="tag good">好关</span></td></tr>
+<tr><td><b>L22</b></td><td>3</td><td class="num">92.6%</td><td class="num">1.67%</td><td class="num">6.9%</td><td class="num">1.07</td><td class="num">229s</td><td class="num">0.44%</td><td><span class="tag good">好关</span></td></tr>
+<tr><td><b>L23</b></td><td>3</td><td class="num">50.8%</td><td class="num">3.63%</td><td class="num">28.3%</td><td class="num">1.92</td><td class="num">374s</td><td class="num">0.58%</td><td><span class="tag bad">坏关</span></td></tr>
+<tr><td><b>L24</b></td><td>3</td><td class="num">87.1%</td><td class="num">1.79%</td><td class="num">10.3%</td><td class="num">1.14</td><td class="num">267s</td><td class="num">0.40%</td><td><span class="tag good">好关</span></td></tr>
+<tr><td><b>L25</b></td><td>3</td><td class="num">87.0%</td><td class="num">1.88%</td><td class="num">10.4%</td><td class="num">1.14</td><td class="num">255s</td><td class="num">0.44%</td><td><span class="tag good">好关</span></td></tr>
+<tr><td><b>L26</b></td><td>3</td><td class="num">49.8%</td><td class="num">2.94%</td><td class="num">27.3%</td><td class="num">1.96</td><td class="num">416s</td><td class="num">0.42%</td><td><span class="tag bad">坏关</span></td></tr>
+<tr><td><b>L27</b></td><td>3</td><td class="num">77.8%</td><td class="num">1.94%</td><td class="num">15.8%</td><td class="num">1.27</td><td class="num">318s</td><td class="num">0.37%</td><td><span class="tag normal">普通</span></td></tr>
+<tr><td><b>L28</b></td><td>3</td><td class="num">77.5%</td><td class="num">1.76%</td><td class="num">15.8%</td><td class="num">1.28</td><td class="num">260s</td><td class="num">0.41%</td><td><span class="tag normal">普通</span></td></tr>
+<tr><td><b>L29</b></td><td>3</td><td class="num">94.2%</td><td class="num">1.21%</td><td class="num">5.7%</td><td class="num">1.06</td><td class="num">189s</td><td class="num">0.38%</td><td><span class="tag good">好关</span></td></tr>
+<tr><td><b>L30</b></td><td>3</td><td class="num">68.3%</td><td class="num">2.21%</td><td class="num">20.2%</td><td class="num">1.44</td><td class="num">300s</td><td class="num">0.44%</td><td><span class="tag watch">挑战观察</span></td></tr>
+<tr><td><b>L31</b></td><td>4</td><td class="num">69.5%</td><td class="num">2.05%</td><td class="num">20.0%</td><td class="num">1.42</td><td class="num">369s</td><td class="num">0.33%</td><td><span class="tag normal">普通</span></td></tr>
+<tr><td><b>L32</b></td><td>4</td><td class="num">65.3%</td><td class="num">2.00%</td><td class="num">20.7%</td><td class="num">1.51</td><td class="num">307s</td><td class="num">0.39%</td><td><span class="tag hard">偏难观察</span></td></tr>
+<tr><td><b>L33</b></td><td>4</td><td class="num">15.9%</td><td class="num">6.27%</td><td class="num">32.3%</td><td class="num">5.92</td><td class="num">823s</td><td class="num">0.46%</td><td><span class="tag bad">坏关</span></td></tr>
+<tr><td><b>L34</b></td><td>4</td><td class="num">96.5%</td><td class="num">1.11%</td><td class="num">3.5%</td><td class="num">1.03</td><td class="num">217s</td><td class="num">0.31%</td><td><span class="tag good">好关</span></td></tr>
+<tr><td><b>L35</b></td><td>4</td><td class="num">81.1%</td><td class="num">1.70%</td><td class="num">14.2%</td><td class="num">1.22</td><td class="num">277s</td><td class="num">0.37%</td><td><span class="tag normal">普通</span></td></tr>
+<tr><td><b>L36</b></td><td>4</td><td class="num">72.6%</td><td class="num">1.87%</td><td class="num">18.3%</td><td class="num">1.36</td><td class="num">355s</td><td class="num">0.32%</td><td><span class="tag normal">普通</span></td></tr>
+<tr><td><b>L37</b></td><td>4</td><td class="num">72.8%</td><td class="num">1.86%</td><td class="num">17.5%</td><td class="num">1.35</td><td class="num">262s</td><td class="num">0.42%</td><td><span class="tag normal">普通</span></td></tr>
+<tr><td><b>L38</b></td><td>4</td><td class="num">95.0%</td><td class="num">1.06%</td><td class="num">5.0%</td><td class="num">1.05</td><td class="num">245s</td><td class="num">0.26%</td><td><span class="tag good">好关</span></td></tr>
+<tr><td><b>L39</b></td><td>4</td><td class="num">96.4%</td><td class="num">0.85%</td><td class="num">3.6%</td><td class="num">1.04</td><td class="num">159s</td><td class="num">0.32%</td><td><span class="tag good">好关</span></td></tr>
+<tr><td><b>L40</b></td><td>4</td><td class="num">47.7%</td><td class="num">2.52%</td><td class="num">25.1%</td><td class="num">2.06</td><td class="num">365s</td><td class="num">0.41%</td><td><span class="tag bad">坏关</span></td></tr>
+<tr><td><b>L41</b></td><td>5</td><td class="num">93.8%</td><td class="num">1.35%</td><td class="num">5.9%</td><td class="num">1.06</td><td class="num">242s</td><td class="num">0.33%</td><td><span class="tag good">好关</span></td></tr>
+<tr><td><b>L42</b></td><td>5</td><td class="num">77.0%</td><td class="num">1.64%</td><td class="num">16.1%</td><td class="num">1.28</td><td class="num">312s</td><td class="num">0.32%</td><td><span class="tag normal">普通</span></td></tr>
+<tr><td><b>L43</b></td><td>5</td><td class="num">78.7%</td><td class="num">1.54%</td><td class="num">14.6%</td><td class="num">1.26</td><td class="num">247s</td><td class="num">0.37%</td><td><span class="tag normal">普通</span></td></tr>
+<tr><td><b>L44</b></td><td>5</td><td class="num">59.2%</td><td class="num">1.83%</td><td class="num">21.0%</td><td class="num">1.67</td><td class="num">300s</td><td class="num">0.37%</td><td><span class="tag watch">挑战观察</span></td></tr>
+<tr><td><b>L45</b></td><td>5</td><td class="num">67.9%</td><td class="num">1.78%</td><td class="num">18.8%</td><td class="num">1.46</td><td class="num">308s</td><td class="num">0.35%</td><td><span class="tag hard">偏难观察</span></td></tr>
+<tr><td><b>L46</b></td><td>5</td><td class="num">79.1%</td><td class="num">1.50%</td><td class="num">14.2%</td><td class="num">1.25</td><td class="num">232s</td><td class="num">0.39%</td><td><span class="tag good">好关</span></td></tr>
+<tr><td><b>L47</b></td><td>5</td><td class="num">76.9%</td><td class="num">1.47%</td><td class="num">15.4%</td><td class="num">1.29</td><td class="num">315s</td><td class="num">0.28%</td><td><span class="tag normal">普通</span></td></tr>
+<tr><td><b>L48</b></td><td>5</td><td class="num">88.5%</td><td class="num">1.11%</td><td class="num">8.7%</td><td class="num">1.12</td><td class="num">216s</td><td class="num">0.31%</td><td><span class="tag good">好关</span></td></tr>
+<tr><td><b>L49</b></td><td>5</td><td class="num">22.9%</td><td class="num">4.02%</td><td class="num">24.9%</td><td class="num">4.22</td><td class="num">406s</td><td class="num">0.59%</td><td><span class="tag bad">坏关</span></td></tr>
+<tr><td><b>L50</b></td><td>5</td><td class="num">76.5%</td><td class="num">1.78%</td><td class="num">15.1%</td><td class="num">1.29</td><td class="num">249s</td><td class="num">0.43%</td><td><span class="tag normal">普通</span></td></tr>
+<tr><td><b>L51</b></td><td>6</td><td class="num">83.6%</td><td class="num">1.39%</td><td class="num">13.0%</td><td class="num">1.19</td><td class="num">232s</td><td class="num">0.36%</td><td><span class="tag normal">普通</span></td></tr>
+<tr><td><b>L52</b></td><td>6</td><td class="num">92.0%</td><td class="num">0.97%</td><td class="num">6.5%</td><td class="num">1.08</td><td class="num">168s</td><td class="num">0.35%</td><td><span class="tag good">好关</span></td></tr>
+<tr><td><b>L53</b></td><td>6</td><td class="num">78.5%</td><td class="num">1.45%</td><td class="num">14.8%</td><td class="num">1.26</td><td class="num">284s</td><td class="num">0.31%</td><td><span class="tag normal">普通</span></td></tr>
+<tr><td><b>L54</b></td><td>6</td><td class="num">70.7%</td><td class="num">1.64%</td><td class="num">18.4%</td><td class="num">1.40</td><td class="num">328s</td><td class="num">0.30%</td><td><span class="tag hard">偏难观察</span></td></tr>
+<tr><td><b>L55</b></td><td>6</td><td class="num">54.8%</td><td class="num">1.91%</td><td class="num">22.0%</td><td class="num">1.80</td><td class="num">354s</td><td class="num">0.32%</td><td><span class="tag bad">坏关</span></td></tr>
+<tr><td><b>L56</b></td><td>6</td><td class="num">80.3%</td><td class="num">1.37%</td><td class="num">14.2%</td><td class="num">1.23</td><td class="num">295s</td><td class="num">0.28%</td><td><span class="tag normal">普通</span></td></tr>
+<tr><td><b>L57</b></td><td>6</td><td class="num">81.9%</td><td class="num">1.18%</td><td class="num">12.6%</td><td class="num">1.21</td><td class="num">264s</td><td class="num">0.27%</td><td><span class="tag good">好关</span></td></tr>
+<tr><td><b>L58</b></td><td>6</td><td class="num">81.1%</td><td class="num">1.22%</td><td class="num">13.1%</td><td class="num">1.23</td><td class="num">227s</td><td class="num">0.32%</td><td><span class="tag normal">普通</span></td></tr>
+<tr><td><b>L59</b></td><td>6</td><td class="num">82.5%</td><td class="num">1.20%</td><td class="num">12.7%</td><td class="num">1.20</td><td class="num">296s</td><td class="num">0.24%</td><td><span class="tag good">好关</span></td></tr>
+<tr><td><b>L60</b></td><td>6</td><td class="num">76.3%</td><td class="num">1.41%</td><td class="num">16.0%</td><td class="num">1.30</td><td class="num">335s</td><td class="num">0.25%</td><td><span class="tag hard">偏难观察</span></td></tr>
+<tr><td><b>L61</b></td><td>7</td><td class="num">75.8%</td><td class="num">1.34%</td><td class="num">16.2%</td><td class="num">1.31</td><td class="num">270s</td><td class="num">0.30%</td><td><span class="tag normal">普通</span></td></tr>
+<tr><td><b>L62</b></td><td>7</td><td class="num">27.2%</td><td class="num">3.27%</td><td class="num">27.4%</td><td class="num">3.56</td><td class="num">571s</td><td class="num">0.34%</td><td><span class="tag bad">坏关</span></td></tr>
+<tr><td><b>L63</b></td><td>7</td><td class="num">83.9%</td><td class="num">1.14%</td><td class="num">12.6%</td><td class="num">1.18</td><td class="num">260s</td><td class="num">0.26%</td><td><span class="tag good">好关</span></td></tr>
+<tr><td><b>L64</b></td><td>7</td><td class="num">84.8%</td><td class="num">1.05%</td><td class="num">11.3%</td><td class="num">1.17</td><td class="num">255s</td><td class="num">0.25%</td><td><span class="tag good">好关</span></td></tr>
+<tr><td><b>L65</b></td><td>7</td><td class="num">78.0%</td><td class="num">1.36%</td><td class="num">15.7%</td><td class="num">1.27</td><td class="num">331s</td><td class="num">0.25%</td><td><span class="tag normal">普通</span></td></tr>
+<tr><td><b>L66</b></td><td>7</td><td class="num">94.4%</td><td class="num">0.81%</td><td class="num">5.4%</td><td class="num">1.06</td><td class="num">237s</td><td class="num">0.21%</td><td><span class="tag good">好关</span></td></tr>
+<tr><td><b>L67</b></td><td>7</td><td class="num">70.9%</td><td class="num">1.48%</td><td class="num">17.9%</td><td class="num">1.40</td><td class="num">317s</td><td class="num">0.28%</td><td><span class="tag hard">偏难观察</span></td></tr>
+<tr><td><b>L68</b></td><td>7</td><td class="num">78.1%</td><td class="num">1.13%</td><td class="num">14.9%</td><td class="num">1.27</td><td class="num">284s</td><td class="num">0.24%</td><td><span class="tag normal">普通</span></td></tr>
+<tr><td><b>L69</b></td><td>7</td><td class="num">77.8%</td><td class="num">1.28%</td><td class="num">14.8%</td><td class="num">1.28</td><td class="num">275s</td><td class="num">0.28%</td><td><span class="tag normal">普通</span></td></tr>
+<tr><td><b>L70</b></td><td>7</td><td class="num">32.2%</td><td class="num">2.47%</td><td class="num">21.9%</td><td class="num">3.04</td><td class="num">332s</td><td class="num">0.45%</td><td><span class="tag bad">坏关</span></td></tr>
+<tr><td><b>L71</b></td><td>8</td><td class="num">82.5%</td><td class="num">1.15%</td><td class="num">13.0%</td><td class="num">1.20</td><td class="num">249s</td><td class="num">0.28%</td><td><span class="tag normal">普通</span></td></tr>
+<tr><td><b>L72</b></td><td>8</td><td class="num">79.6%</td><td class="num">1.20%</td><td class="num">14.0%</td><td class="num">1.25</td><td class="num">300s</td><td class="num">0.24%</td><td><span class="tag hard">偏难观察</span></td></tr>
+<tr><td><b>L73</b></td><td>8</td><td class="num">94.5%</td><td class="num">0.80%</td><td class="num">5.3%</td><td class="num">1.06</td><td class="num">241s</td><td class="num">0.20%</td><td><span class="tag good">好关</span></td></tr>
+<tr><td><b>L74</b></td><td>8</td><td class="num">74.4%</td><td class="num">1.16%</td><td class="num">15.7%</td><td class="num">1.33</td><td class="num">266s</td><td class="num">0.26%</td><td><span class="tag hard">偏难观察</span></td></tr>
+<tr><td><b>L75</b></td><td>8</td><td class="num">93.6%</td><td class="num">0.92%</td><td class="num">6.0%</td><td class="num">1.07</td><td class="num">234s</td><td class="num">0.24%</td><td><span class="tag good">好关</span></td></tr>
+<tr><td><b>L76</b></td><td>8</td><td class="num">85.1%</td><td class="num">1.03%</td><td class="num">11.1%</td><td class="num">1.17</td><td class="num">290s</td><td class="num">0.21%</td><td><span class="tag good">好关</span></td></tr>
+<tr><td><b>L77</b></td><td>8</td><td class="num">95.9%</td><td class="num">0.66%</td><td class="num">4.0%</td><td class="num">1.04</td><td class="num">178s</td><td class="num">0.22%</td><td><span class="tag good">好关</span></td></tr>
+<tr><td><b>L78</b></td><td>8</td><td class="num">87.8%</td><td class="num">0.90%</td><td class="num">9.3%</td><td class="num">1.13</td><td class="num">213s</td><td class="num">0.25%</td><td><span class="tag good">好关</span></td></tr>
+<tr><td><b>L79</b></td><td>8</td><td class="num">89.3%</td><td class="num">0.74%</td><td class="num">7.7%</td><td class="num">1.12</td><td class="num">172s</td><td class="num">0.26%</td><td><span class="tag good">好关</span></td></tr>
+<tr><td><b>L80</b></td><td>8</td><td class="num">60.9%</td><td class="num">1.51%</td><td class="num">20.7%</td><td class="num">1.62</td><td class="num">357s</td><td class="num">0.25%</td><td><span class="tag bad">坏关</span></td></tr>
+<tr><td><b>L81</b></td><td>9</td><td class="num">89.2%</td><td class="num">0.75%</td><td class="num">8.3%</td><td class="num">1.12</td><td class="num">222s</td><td class="num">0.20%</td><td><span class="tag good">好关</span></td></tr>
+<tr><td><b>L82</b></td><td>9</td><td class="num">75.6%</td><td class="num">1.04%</td><td class="num">14.9%</td><td class="num">1.31</td><td class="num">283s</td><td class="num">0.22%</td><td><span class="tag normal">普通</span></td></tr>
+<tr><td><b>L83</b></td><td>9</td><td class="num">74.3%</td><td class="num">1.09%</td><td class="num">17.1%</td><td class="num">1.34</td><td class="num">308s</td><td class="num">0.21%</td><td><span class="tag hard">偏难观察</span></td></tr>
+<tr><td><b>L84</b></td><td>9</td><td class="num">80.8%</td><td class="num">1.08%</td><td class="num">13.0%</td><td class="num">1.23</td><td class="num">319s</td><td class="num">0.20%</td><td><span class="tag normal">普通</span></td></tr>
+<tr><td><b>L85</b></td><td>9</td><td class="num">61.6%</td><td class="num">1.37%</td><td class="num">18.6%</td><td class="num">1.61</td><td class="num">291s</td><td class="num">0.28%</td><td><span class="tag watch">挑战观察</span></td></tr>
+<tr><td><b>L86</b></td><td>9</td><td class="num">95.6%</td><td class="num">0.83%</td><td class="num">4.3%</td><td class="num">1.04</td><td class="num">216s</td><td class="num">0.23%</td><td><span class="tag good">好关</span></td></tr>
+<tr><td><b>L87</b></td><td>9</td><td class="num">86.7%</td><td class="num">0.86%</td><td class="num">9.0%</td><td class="num">1.15</td><td class="num">179s</td><td class="num">0.29%</td><td><span class="tag good">好关</span></td></tr>
+<tr><td><b>L88</b></td><td>9</td><td class="num">95.4%</td><td class="num">0.66%</td><td class="num">4.4%</td><td class="num">1.05</td><td class="num">217s</td><td class="num">0.18%</td><td><span class="tag good">好关</span></td></tr>
+<tr><td><b>L89</b></td><td>9</td><td class="num">86.7%</td><td class="num">0.91%</td><td class="num">10.1%</td><td class="num">1.15</td><td class="num">252s</td><td class="num">0.22%</td><td><span class="tag good">好关</span></td></tr>
+<tr><td><b>L90</b></td><td>9</td><td class="num">63.3%</td><td class="num">1.23%</td><td class="num">19.2%</td><td class="num">1.57</td><td class="num">288s</td><td class="num">0.26%</td><td><span class="tag watch">挑战观察</span></td></tr>
+<tr><td><b>L91</b></td><td>10</td><td class="num">64.2%</td><td class="num">1.05%</td><td class="num">15.2%</td><td class="num">1.55</td><td class="num">187s</td><td class="num">0.34%</td><td><span class="tag normal">普通</span></td></tr>
+<tr><td><b>L92</b></td><td>10</td><td class="num">40.1%</td><td class="num">1.95%</td><td class="num">21.5%</td><td class="num">2.45</td><td class="num">320s</td><td class="num">0.37%</td><td><span class="tag bad">坏关</span></td></tr>
+<tr><td><b>L93</b></td><td>10</td><td class="num">46.4%</td><td class="num">1.89%</td><td class="num">22.5%</td><td class="num">2.11</td><td class="num">443s</td><td class="num">0.26%</td><td><span class="tag bad">坏关</span></td></tr>
+<tr><td><b>L94</b></td><td>10</td><td class="num">82.4%</td><td class="num">0.91%</td><td class="num">10.3%</td><td class="num">1.21</td><td class="num">143s</td><td class="num">0.38%</td><td><span class="tag good">好关</span></td></tr>
+<tr><td><b>L95</b></td><td>10</td><td class="num">66.2%</td><td class="num">1.40%</td><td class="num">18.5%</td><td class="num">1.49</td><td class="num">359s</td><td class="num">0.23%</td><td><span class="tag normal">普通</span></td></tr>
+<tr><td><b>L96</b></td><td>10</td><td class="num">71.9%</td><td class="num">1.25%</td><td class="num">17.0%</td><td class="num">1.38</td><td class="num">318s</td><td class="num">0.24%</td><td><span class="tag normal">普通</span></td></tr>
+<tr><td><b>L97</b></td><td>10</td><td class="num">71.5%</td><td class="num">1.00%</td><td class="num">14.4%</td><td class="num">1.39</td><td class="num">209s</td><td class="num">0.29%</td><td><span class="tag good">好关</span></td></tr>
+<tr><td><b>L98</b></td><td>10</td><td class="num">43.4%</td><td class="num">1.82%</td><td class="num">20.3%</td><td class="num">2.26</td><td class="num">356s</td><td class="num">0.31%</td><td><span class="tag bad">坏关</span></td></tr>
+<tr><td><b>L99</b></td><td>10</td><td class="num">70.0%</td><td class="num">1.21%</td><td class="num">16.1%</td><td class="num">1.41</td><td class="num">290s</td><td class="num">0.25%</td><td><span class="tag normal">普通</span></td></tr>
+<tr><td><b>L100</b></td><td>10</td><td class="num">78.5%</td><td class="num">1.45%</td><td class="num">13.7%</td><td class="num">1.26</td><td class="num">298s</td><td class="num">0.29%</td><td><span class="tag good">好关</span></td></tr></tbody>
+        </table>
+      </div>
+    </details>
+    <p class="table-note">表 A1｜100 关完整明细。分钟流失按“% / 分钟”显示，和图表口径一致。数据来自题目提供的 2025-10 测试包。</p>
+  </div>
+</section>
+
+<section class="chapter" id="appendix-b">
+  <div class="appendix-head"><div><span>APPENDIX B</span><h2>31 关试玩记录</h2></div><span>31 关 / 真实进入</span></div>
+  <div class="prose">
+    <p>我实际进入并记录的 31 关：L2–L21，以及 L23、L26、L33、L49、L55、L62、L70、L80、L92、L93、L98。只有 L7、L33 真的看了广告并过关；其它坏关我知道看一次广告拿一个空瓶就能过，但选择不看。</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>关卡</th><th>我的判断</th><th>数据标签</th><th class="num">完成率</th><th class="num">无结果</th><th class="num">尝试</th><th>记录</th></tr></thead>
+        <tbody><tr><td><b>L2</b></td><td><span class="tag good">好关</span></td><td><span class="tag good">好关</span></td><td class="num">93.1%</td><td class="num">6.8%</td><td class="num">1.05</td><td>颜色少、空瓶多，基本一眼能倒。</td></tr>
+<tr><td><b>L3</b></td><td><span class="tag good">好关</span></td><td><span class="tag good">好关</span></td><td class="num">91.3%</td><td class="num">8.5%</td><td class="num">1.07</td><td>有点难度但不高。</td></tr>
+<tr><td><b>L4</b></td><td><span class="tag bad">坏关</span></td><td><span class="tag normal">普通</span></td><td class="num">76.3%</td><td class="num">21.6%</td><td class="num">1.22</td><td>妥妥的坏关，难度跳跃太大；瓶子太多、空瓶一个，最后卡关必须看广告。</td></tr>
+<tr><td><b>L5</b></td><td><span class="tag bad">坏关</span></td><td><span class="tag normal">普通</span></td><td class="num">80.0%</td><td class="num">18.7%</td><td class="num">1.19</td><td>难度跳跃太大，没有空瓶，卡了一次，花的时间太长。</td></tr>
+<tr><td><b>L6</b></td><td><span class="tag bad">坏关</span></td><td><span class="tag hard">偏难观察</span></td><td class="num">70.8%</td><td class="num">25.2%</td><td class="num">1.33</td><td>给了两个空瓶，还是卡关，必须看广告。</td></tr>
+<tr><td><b>L7</b></td><td><span class="tag bad">坏关</span></td><td><span class="tag bad">坏关</span></td><td class="num">58.7%</td><td class="num">29.7%</td><td class="num">1.61</td><td>卡了两次，最后看一次广告解锁空瓶才过；问号多到看不到颜色。 · 看了广告</td></tr>
+<tr><td><b>L8</b></td><td><span class="tag good">好关</span></td><td><span class="tag good">好关</span></td><td class="num">94.9%</td><td class="num">5.0%</td><td class="num">1.04</td><td>好关，一遍过，不用看广告。</td></tr>
+<tr><td><b>L9</b></td><td><span class="tag good">好关</span></td><td><span class="tag bad">坏关</span></td><td class="num">61.1%</td><td class="num">26.2%</td><td class="num">1.57</td><td>两个空瓶和冰冻瓶，一遍过。</td></tr>
+<tr><td><b>L10</b></td><td><span class="tag bad">坏关</span></td><td><span class="tag normal">普通</span></td><td class="num">67.6%</td><td class="num">23.2%</td><td class="num">1.43</td><td>没有空瓶，问号瓶特别多，容易卡关。</td></tr>
+<tr><td><b>L11</b></td><td><span class="tag good">好关</span></td><td><span class="tag bad">坏关</span></td><td class="num">72.5%</td><td class="num">19.5%</td><td class="num">1.34</td><td>难度适中，一个空瓶。</td></tr>
+<tr><td><b>L12</b></td><td><span class="tag bad">坏关</span></td><td><span class="tag bad">坏关</span></td><td class="num">70.4%</td><td class="num">22.2%</td><td class="num">1.38</td><td>一个空瓶，过不了。</td></tr>
+<tr><td><b>L13</b></td><td><span class="tag bad">坏关</span></td><td><span class="tag bad">坏关</span></td><td class="num">44.1%</td><td class="num">32.8%</td><td class="num">2.15</td><td>0 免费 + 2 Free；没看广告，直接退；判断看一次必过，选择不看。</td></tr>
+<tr><td><b>L14</b></td><td><span class="tag good">好关</span></td><td><span class="tag good">好关</span></td><td class="num">93.0%</td><td class="num">6.8%</td><td class="num">1.07</td><td>好关，没有空瓶但相当于送了两个，一遍过。</td></tr>
+<tr><td><b>L15</b></td><td><span class="tag good">好关</span></td><td><span class="tag good">好关</span></td><td class="num">94.1%</td><td class="num">5.8%</td><td class="num">1.05</td><td>好关，没有空瓶但相当于送了两个，一遍过。</td></tr>
+<tr><td><b>L16</b></td><td><span class="tag good">好关</span></td><td><span class="tag good">好关</span></td><td class="num">93.3%</td><td class="num">6.6%</td><td class="num">1.06</td><td>好关，没有空瓶但相当于送了两个，一遍过。</td></tr>
+<tr><td><b>L17</b></td><td><span class="tag good">好关</span></td><td><span class="tag good">好关</span></td><td class="num">93.8%</td><td class="num">6.1%</td><td class="num">1.06</td><td>好关，没有空瓶但相当于送了两个，一遍过。</td></tr>
+<tr><td><b>L18</b></td><td><span class="tag good">好关</span></td><td><span class="tag good">好关</span></td><td class="num">93.8%</td><td class="num">6.1%</td><td class="num">1.06</td><td>好关，没有空瓶但相当于送了两个，一遍过。</td></tr>
+<tr><td><b>L19</b></td><td><span class="tag good">好关</span></td><td><span class="tag good">好关</span></td><td class="num">91.8%</td><td class="num">8.1%</td><td class="num">1.08</td><td>好关，没有空瓶但相当于送了两个，一遍过。</td></tr>
+<tr><td><b>L20</b></td><td><span class="tag good">好关</span></td><td><span class="tag good">好关</span></td><td class="num">93.7%</td><td class="num">6.1%</td><td class="num">1.06</td><td>好关，没有空瓶但相当于送了两个，一遍过。</td></tr>
+<tr><td><b>L21</b></td><td><span class="tag good">好关</span></td><td><span class="tag good">好关</span></td><td class="num">93.7%</td><td class="num">5.8%</td><td class="num">1.06</td><td>好关，一遍过；用三张截图演示“保底色”。</td></tr>
+<tr><td><b>L23</b></td><td><span class="tag bad">坏关</span></td><td><span class="tag bad">坏关</span></td><td class="num">50.8%</td><td class="num">28.3%</td><td class="num">1.92</td><td>0 免费 + 2 Free，纸袋 4/4 + 冰瓶 1；没看广告直接退，判断看一次能过。</td></tr>
+<tr><td><b>L26</b></td><td><span class="tag bad">坏关</span></td><td><span class="tag bad">坏关</span></td><td class="num">49.8%</td><td class="num">27.3%</td><td class="num">1.96</td><td>0 免费 + 2 Free，纸袋 3/4 + 冰瓶 2，几乎全是问号；四步法启动不了，直接退。</td></tr>
+<tr><td><b>L33</b></td><td><span class="tag bad">坏关</span></td><td><span class="tag bad">坏关</span></td><td class="num">15.9%</td><td class="num">32.3%</td><td class="num">5.92</td><td>看似 1 个空瓶，填满后全是问号；最后看一次广告才过。 · 看了广告</td></tr>
+<tr><td><b>L49</b></td><td><span class="tag bad">坏关</span></td><td><span class="tag bad">坏关</span></td><td class="num">22.9%</td><td class="num">24.9%</td><td class="num">4.22</td><td>和 L33 一样：1 个空瓶但盘面全是问号、顶色重复；空瓶启动不了。</td></tr>
+<tr><td><b>L55</b></td><td><span class="tag bad">坏关</span></td><td><span class="tag bad">坏关</span></td><td class="num">54.8%</td><td class="num">22.0%</td><td class="num">1.80</td><td>开局 2 个空瓶，但全是问号瓶，还有 4 个冰瓶 2 + 纸袋 3/5；空瓶跟没给一样。</td></tr>
+<tr><td><b>L62</b></td><td><span class="tag bad">坏关</span></td><td><span class="tag bad">坏关</span></td><td class="num">27.2%</td><td class="num">27.4%</td><td class="num">3.56</td><td>1 个空瓶，盘面几乎全是问号；中央 1/2/3 三连纸袋，空瓶启动不了。</td></tr>
+<tr><td><b>L70</b></td><td><span class="tag bad">坏关</span></td><td><span class="tag bad">坏关</span></td><td class="num">32.2%</td><td class="num">21.9%</td><td class="num">3.04</td><td>1 个空瓶 + 2 Free，2 个冰瓶 1，盘面几乎全是问号；空瓶启动不了。</td></tr>
+<tr><td><b>L80</b></td><td><span class="tag bad">坏关</span></td><td><span class="tag bad">坏关</span></td><td class="num">60.9%</td><td class="num">20.7%</td><td class="num">1.62</td><td>红/橙两个底色瓶，顺序固定；补满后一定回到这两个瓶子死锁，前面只是固定化简。</td></tr>
+<tr><td><b>L92</b></td><td><span class="tag bad">坏关</span></td><td><span class="tag bad">坏关</span></td><td class="num">40.1%</td><td class="num">21.5%</td><td class="num">2.45</td><td>0 空瓶 + 2 Free，纸袋 5/3，4 个冰瓶 1，满盘三层问号；没看广告、未过。</td></tr>
+<tr><td><b>L93</b></td><td><span class="tag bad">坏关</span></td><td><span class="tag bad">坏关</span></td><td class="num">46.4%</td><td class="num">22.5%</td><td class="num">2.11</td><td>送 1 个空瓶，但只有两种颜色能启动；其余全是 2–3 层问号瓶。</td></tr>
+<tr><td><b>L98</b></td><td><span class="tag bad">坏关</span></td><td><span class="tag bad">坏关</span></td><td class="num">43.4%</td><td class="num">20.3%</td><td class="num">2.26</td><td>送 1 个空瓶，最多三个颜色能启动；其余全是 2–3 层问号瓶。</td></tr></tbody>
+      </table>
+    </div>
+    <p class="table-note">表 B1｜31 关试玩记录。记录为当时原话的节选；“数据标签”来自全量 100 关分析，不一定和我的个人判断一致，差异本身就是分析材料。</p>
+    <div class="scope-note"><b>试玩边界：</b>我没有把 100 关全部通关，也没有用加瓶、刷新、撤销道具去验证“付费道具能否救关”。所有“看一次广告就能过”的判断，除 L7、L33 外都没有实际验证；它们只表示我在首屏看到了一个可启动的结构，不表示我一定能在一次广告内通关。</div>
+  </div>
+</section>
+
+<section class="chapter" id="appendix-c">
+  <div class="appendix-head"><div><span>APPENDIX C</span><h2>数据口径与来源</h2></div><span>可回查 / 可复核</span></div>
+  <div class="prose">
+    <div class="appendix">
+      <h3>数据</h3>
+      <ul>
+        <li>100 关运营数据来自题目提供的 2025-10 测试包，字段包括完成率、关流失、分钟流失、无结果、退出率、尝试次数、总耗时等。</li>
+        <li>0 关为教程关，不参与排名；1–100 关参与分析。</li>
+        <li>阶段划分为本文的分析口径：每 10 关一个阶段，共 10 段。它不是官方章节。</li>
+        <li>健康分 = 0.45 × 完成率阶段内百分位 + 0.35 × 后关留存百分位 + 0.20 × 无结果反向百分位；再叠加完成率 &lt;50%、尝试异常、退出异常等绝对红旗。</li>
+      </ul>
+    </div>
+    <div class="appendix">
+      <h3>截图与试玩</h3>
+      <ul>
+        <li>100 关首屏截图来自测试包，原始尺寸 720 × 1280；本文只做了缩放和裁切，没有改盘面内容。</li>
+        <li>31 关试玩记录来自我在 2025-10 测试包内的实际进入、操作和截图；L21 的三张连续截图是本人操作保存。</li>
+        <li>7 关免费/广告空瓶读数为人工计数，计数对象是首屏中“瓶内无颜色”的空瓶和“带播放图标 + Free”的广告空瓶。冰瓶、纸袋、问号瓶不计入空瓶。</li>
+        <li>顶部收集袋的“左侧两个免费、右侧两个广告”来自首屏截图与试玩观察；具体解锁规则以游戏内为准。</li>
+      </ul>
+    </div>
+    <div class="appendix">
+      <h3>边界</h3>
+      <ul>
+        <li>测试包的广告和道具是无限可点的，线上版本的广告频率、体力、支付规则可能不同。本文不把测试包的经济系统当作线上经济系统。</li>
+        <li>我没有后台权限，也没有真实的 eCPM、填充率、ARPDAU、D1/D7 数据。第 7 节的测算是示意模型，只用于判断方向。</li>
+        <li>7 关的空瓶读数不是全量标注，不能当作统计显著性的证据；它和完成率的关系是线索，不是因果证明。</li>
+        <li>个人试玩与 cohort 数据可能不一致（L4、L6、L9、L11 都有差异）。本文把两者并列，不互相替代。</li>
+      </ul>
+    </div>
+    <div class="appendix">
+      <h3>文件</h3>
+      <ul>
+        <li>数据与截图：<code>WaterMatch_前100关数据与截图_黄开元.xlsx</code>；截图目录：<code>关卡截图/</code>、<code>玩家实测截图/</code>。</li>
+        <li>本页图表由 100 关数据重新绘制；原始数据表见附录 A 的展开表。</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="chapter" id="appendix-d">
+  <div class="appendix-head"><div><span>APPENDIX D</span><h2>术语</h2></div><span>读法约定</span></div>
+  <div class="prose">
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>术语</th><th>本文含义</th></tr></thead>
+        <tbody>
+          <tr><td><b>免费空瓶</b></td><td>首屏瓶内无颜色、不需要看广告就能使用的空瓶。</td></tr>
+          <tr><td><b>广告空瓶 / Free 瓶</b></td><td>瓶身带播放图标和 Free 字样，看一次激励视频后解锁的空瓶。</td></tr>
+          <tr><td><b>总缓冲</b></td><td>免费空瓶 + 广告空瓶的数量之和。</td></tr>
+          <tr><td><b>可周转位</b></td><td>玩家可以把颜色暂存、并在之后取回的位置；它不必是空瓶，但必须真的可借用。</td></tr>
+          <tr><td><b>假缓冲</b></td><td>看起来能周转，实际第一步就被占死、被固定底色锁死，或必须看广告才能使用的空位。</td></tr>
+          <tr><td><b>四步法</b></td><td>找空瓶/单色瓶、拆四份链、三份链隔一层、保底色的读盘方法。</td></tr>
+          <tr><td><b>保底色</b></td><td>保留一个单色底瓶作为回收位，等同色到齐再收，避免过早收瓶导致少一个周转位。</td></tr>
+          <tr><td><b>固定化简</b></td><td>前面的操作只是按固定顺序把盘面变简单，真正的死锁在最后；L80 是典型。</td></tr>
+          <tr><td><b>无结果</b></td><td>进入关卡后没有形成通关结果的比例；在这份数据里，它与“玩到一半无声离开”高度相关。</td></tr>
+          <tr><td><b>分钟流失</b></td><td>关流失 / 总耗时；被时间归一化，不能单独当关卡质量总分。</td></tr>
+          <tr><td><b>IAA</b></td><td>In-App Advertising，以广告为主要收入来源的商业模式；本文特指激励视频解锁空瓶、收集位等。</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="endnote">本拆解案是独立研究，基于题目提供的数据、2025-10 测试包的实际试玩与公开的 IAA 常识。它不代表 Water Match ASMR 或其发行团队的官方观点，也不表示本人参与该产品的制作。文中所有截图仅用于设计分析。</p>
+  </div>
+</section>
+
+<footer class="footer">
+  <span>研究 / 写作 / 截图整理：黄开元 · 2026-10-23</span>
+  <span><a href="#overview">回到开头 ↑</a> · <a href="../../#work">作品集</a> · <a href="../../cs2/">CS2 拆解案</a></span>
+</footer>
+</main>
+</div>
+</div>
+
+<dialog id="lightbox" aria-label="查看大图">
+  <div class="dialog-head"><p id="lightboxTitle"></p><button type="button" id="lightboxClose">关闭</button></div>
+  <img id="lightboxImg" src="" alt="">
+  <div class="dialog-note" id="lightboxNote"></div>
+</dialog>
+
+<script>
+(function(){
+  var sidebar = document.getElementById('sidebar');
+  var scrim = document.getElementById('scrim');
+  var menuBtn = document.getElementById('menuBtn');
+  function closeMenu(){ sidebar.classList.remove('open'); scrim.style.display='none'; menuBtn.setAttribute('aria-expanded','false'); }
+  menuBtn.addEventListener('click', function(){
+    var open = sidebar.classList.toggle('open');
+    scrim.style.display = open ? 'block' : 'none';
+    menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  scrim.addEventListener('click', closeMenu);
+  document.querySelectorAll('.toc a').forEach(function(a){ a.addEventListener('click', closeMenu); });
+
+  var bar = document.getElementById('progressBar');
+  function onScroll(){
+    var h = document.documentElement;
+    var max = h.scrollHeight - h.clientHeight;
+    bar.style.width = (max > 0 ? (h.scrollTop / max) * 100 : 0) + '%';
+  }
+  document.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+
+  var links = Array.prototype.slice.call(document.querySelectorAll('.toc a'));
+  var sections = links.map(function(a){ return document.querySelector(a.getAttribute('href')); }).filter(Boolean);
+  if ('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if (en.isIntersecting){
+          links.forEach(function(l){ l.classList.toggle('active', l.getAttribute('href') === '#' + en.target.id); });
+        }
+      });
+    }, {rootMargin:'-20% 0px -68% 0px', threshold:0});
+    sections.forEach(function(s){ io.observe(s); });
+  }
+
+  var dialog = document.getElementById('lightbox');
+  var dimg = document.getElementById('lightboxImg');
+  var dtitle = document.getElementById('lightboxTitle');
+  var dnote = document.getElementById('lightboxNote');
+  function openLightbox(img){
+    dimg.src = img.currentSrc || img.src;
+    dimg.alt = img.alt || '';
+    var fig = img.closest('figure');
+    dtitle.textContent = fig ? (fig.querySelector('figcaption') ? fig.querySelector('figcaption').textContent.trim().slice(0, 120) : '查看大图') : (img.alt || '查看大图');
+    dnote.textContent = img.alt || '';
+    if (typeof dialog.showModal === 'function'){ dialog.showModal(); } else { window.open(dimg.src, '_blank'); }
+  }
+  document.querySelectorAll('.figure img, .shot-pair img, .shot-triple img, .element img, .cover-shot img').forEach(function(img){
+    img.style.cursor = 'zoom-in';
+    img.addEventListener('click', function(){ openLightbox(img); });
+  });
+  document.getElementById('lightboxClose').addEventListener('click', function(){ dialog.close(); });
+  dialog.addEventListener('click', function(e){ if (e.target === dialog) dialog.close(); });
+
+  document.getElementById('printBtn').addEventListener('click', function(){
+    document.querySelectorAll('details').forEach(function(d){ d.open = true; });
+    window.print();
+  });
+  window.addEventListener('beforeprint', function(){
+    document.querySelectorAll('details').forEach(function(d){ d.open = true; });
+  });
+})();
+</script>
+</body>
+</html>
