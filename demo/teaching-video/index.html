@@ -12,5 +12,33 @@
   </head>
   <body>
     <div id="root"></div>
+    <script>
+      (function () {
+        var KEY = "demo_notice_seen";
+        var handled = false;
+        function handle() {
+          if (handled) return;
+          var heading = Array.prototype.find.call(document.querySelectorAll("h3"), function (el) {
+            return el.textContent.trim() === "注意事项";
+          });
+          var header = heading && heading.closest(".notice-header");
+          var close = header && header.querySelector("button.close-btn");
+          if (!close) return;
+          handled = true;
+          observer.disconnect();
+          if (localStorage.getItem(KEY) === "1") {
+            close.click();
+            return;
+          }
+          close.addEventListener("click", function () {
+            try { localStorage.setItem(KEY, "1"); } catch (e) {}
+          }, { once: true });
+        }
+        var observer = new MutationObserver(handle);
+        observer.observe(document.documentElement, { childList: true, subtree: true });
+        handle();
+        setTimeout(handle, 1500);
+      })();
+    </script>
   </body>
 </html>
