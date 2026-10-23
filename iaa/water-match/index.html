@@ -1350,6 +1350,19 @@ dialog img{display:block;width:100%;max-height:78vh;object-fit:contain;backgroun
     document.documentElement.style.overflow = open ? 'hidden' : '';
     if (open) sidebar.focus({preventScroll:true});
   });
+  sidebar.addEventListener('keydown', function(e){
+    if (e.key !== 'Tab' || !sidebar.classList.contains('open')) return;
+    var items = Array.prototype.slice.call(sidebar.querySelectorAll('a[href],button:not([disabled]),summary,[tabindex]:not([tabindex="-1"])')).filter(function(el){
+      var closed = el.closest('details:not([open])');
+      if (closed && !(el.tagName === 'SUMMARY' && el.parentElement === closed)) return false;
+      return el.offsetWidth || el.offsetHeight;
+    });
+    if (!items.length) return;
+    var first = items[0], last = items[items.length - 1];
+    if (document.activeElement === sidebar) { e.preventDefault(); (e.shiftKey ? last : first).focus(); return; }
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+  });
   scrim.addEventListener('click', function(){ closeMenu(true); });
   document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeMenu(true); });
   window.addEventListener('resize', function(){ if (window.innerWidth > 900) closeMenu(false); });

@@ -6089,6 +6089,19 @@ body{color:#172033}
   });
   sidebar.tabIndex = -1;
   function setSidebar(open, focusBack){sidebar.classList.toggle('open', open); menu.setAttribute('aria-expanded', String(open)); document.documentElement.style.overflow = open ? 'hidden' : ''; if (open) sidebar.focus({preventScroll:true}); else if (focusBack) menu.focus();}
+  sidebar.addEventListener('keydown', event => {
+    if (event.key !== 'Tab' || !sidebar.classList.contains('open')) return;
+    const items = [...sidebar.querySelectorAll('a[href],button:not([disabled]),summary,[tabindex]:not([tabindex="-1"])')].filter(el => {
+      const closed = el.closest('details:not([open])');
+      if (closed && !(el.tagName === 'SUMMARY' && el.parentElement === closed)) return false;
+      return el.offsetWidth || el.offsetHeight;
+    });
+    if (!items.length) return;
+    const first = items[0], last = items[items.length - 1];
+    if (document.activeElement === sidebar) { event.preventDefault(); (event.shiftKey ? last : first).focus(); return; }
+    if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+    else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+  });
   window.addEventListener('resize', () => { if (innerWidth > 860) setSidebar(false); });
   menu.addEventListener('click', () => setSidebar(!sidebar.classList.contains('open')));
   document.getElementById('scrim').addEventListener('click', () => setSidebar(false, true));

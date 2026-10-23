@@ -563,6 +563,19 @@ tr:nth-child(even) td{background:#fbfcfd}
     if (open) sidebar.focus({preventScroll:true});
     else if (focusBack) menu.focus();
   }
+  sidebar.addEventListener('keydown', e => {
+    if (e.key !== 'Tab' || !sidebar.classList.contains('open')) return;
+    const items = [...sidebar.querySelectorAll('a[href],button:not([disabled]),summary,[tabindex]:not([tabindex="-1"])')].filter(el => {
+      const closed = el.closest('details:not([open])');
+      if (closed && !(el.tagName === 'SUMMARY' && el.parentElement === closed)) return false;
+      return el.offsetWidth || el.offsetHeight;
+    });
+    if (!items.length) return;
+    const first = items[0], last = items[items.length - 1];
+    if (document.activeElement === sidebar) { e.preventDefault(); (e.shiftKey ? last : first).focus(); return; }
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+  });
   menu.addEventListener('click', () => setMenu(!sidebar.classList.contains('open')));
   scrim.addEventListener('click', () => setMenu(false, true));
   links.forEach(a => a.addEventListener('click', () => setMenu(false)));
