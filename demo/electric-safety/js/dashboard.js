@@ -1692,10 +1692,19 @@ function switchModule(module) {
     // 更新侧边栏激活状态
     document.querySelectorAll('.pc-sidebar-item').forEach(item => {
         item.classList.remove('active');
+        const link = item.querySelector('.pc-sidebar-link');
+        if (link) link.removeAttribute('aria-current');
     });
     const activeItem = document.querySelector('.pc-sidebar-item[data-module="' + module + '"]');
     if (activeItem) {
         activeItem.classList.add('active');
+        const link = activeItem.querySelector('.pc-sidebar-link');
+        if (link) link.setAttribute('aria-current', 'page');
+        const menu = activeItem.closest('.pc-sidebar-menu');
+        if (menu && menu.scrollWidth > menu.clientWidth) {
+            const left = activeItem.offsetLeft - (menu.clientWidth - activeItem.offsetWidth) / 2;
+            menu.scrollTo({left: Math.max(0, left), behavior: 'smooth'});
+        }
     }
     // 更新URL参数（不刷新页面）
     const url = new URL(window.location);
@@ -1703,6 +1712,10 @@ function switchModule(module) {
     window.history.pushState({}, '', url);
     return false;
 }
+
+document.querySelectorAll('.pc-sidebar-item.active .pc-sidebar-link').forEach(link => {
+    link.setAttribute('aria-current', 'page');
+});
 
 // 全局数据缓存，用于搜索过滤
 let allTasks = [];
