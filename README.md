@@ -2,14 +2,12 @@
 
 线上作品集：<https://HKY-hub.github.io/crash-crown-demo/>
 
-首页按“原创游戏 / 商业研究 / IAA / 应用系统”四类组织，展示三款原创游戏（《撞击王座》《Wave Rider》《生化追击》）、CS2 系统研究、三款箭头解谜的 IAA 对比拆解、Water Match ASMR 的关卡与广告门拆解、两套应用系统；策划文档与实机记录集中在“文档”一节。联系方式指向公开 GitHub 主页；页面不包含私人邮箱。
+首页按“原创游戏 / 商业研究 / 应用系统”三类组织，展示三款原创游戏（《撞击王座》《Wave Rider》《生化追击》）、CS2 系统研究、两套应用系统；策划文档与实机记录集中在“文档”一节。联系方式指向公开 GitHub 主页；页面不包含私人邮箱。
 
 - [《撞击王座》游戏客户端](game/client.html) · [系统策划案 / 系统拆解案](docs/)
 - [Wave Rider 游戏客户端](wave-rider/) · [版本选择](wave-rider/versions.html)：桌面键鼠 / 手机横屏触控
 - [生化追击 · 横版](biohazard/)：网页版，支持手机横屏触控与 Esc 暂停/退出菜单
 - [CS2 系统拆解案](cs2/)
-- [三款箭头解谜 IAA 对比拆解](iaa/)：Amaze GO! / Point Out / Maze Madness，20×3 实机与 60 张截图
-- [Water Match ASMR IAA 拆解](iaa/water-match/)：前 100 关数据、31 关实机，免费空瓶与广告门的分界
 - [配置与预算工作簿](spreadsheets/)
 - [教学视频转写前端演示](demo/teaching-video/)：本地模拟数据，可体验上传、编辑、历史与导出
 - [电力风险辨识前端演示](demo/electric-safety/dashboard.html?module=home)：本地模拟 API / AI / 检测
