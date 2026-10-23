@@ -49,10 +49,10 @@ a:hover{text-decoration:underline}
 
 /* toolbar */
 .toolbar{position:fixed;top:0;left:var(--side);right:0;height:var(--top);background:#ffffffed;backdrop-filter:blur(10px);border-bottom:1px solid var(--line);z-index:35;display:flex;align-items:center;gap:14px;padding:0 30px;font:12px var(--sans)}
-.toolbar .back{font-weight:700;color:var(--navy)}
+.toolbar .back{display:inline-flex;align-items:center;min-height:32px;padding:6px 11px;border:1px solid var(--line-dark);border-radius:3px;background:#fff;color:var(--navy);font:700 11.5px var(--sans);text-decoration:none}
 .toolbar .crumb{color:var(--muted);font-size:11px}
 .toolbar .spacer{flex:1}
-.tool-button{border:1px solid var(--line-dark);background:#fff;color:#334155;padding:6px 11px;border-radius:3px;font:11.5px var(--sans);cursor:pointer}
+.tool-button{display:inline-flex;align-items:center;min-height:32px;border:1px solid var(--line-dark);background:#fff;color:#334155;padding:6px 11px;border-radius:3px;font:11.5px var(--sans);cursor:pointer;text-decoration:none}
 .tool-button:hover{background:#f1f4f8}
 .menu-button{display:none}
 .progress{position:fixed;left:var(--side);right:0;top:var(--top);height:2px;z-index:36;background:transparent}
@@ -162,12 +162,15 @@ tr:nth-child(even) td{background:#fbfcfd}
   h1{font-size:35px}
 }
 @media(max-width:860px){
-  :root{--side:0px;--top:56px}
+  :root{--side:0px;--top:58px}
   .sidebar{width:286px;transform:translateX(-100%);transition:transform .2s;box-shadow:0 0 40px #0002}
   .sidebar.open{transform:translateX(0)}
   .sidebar.open~.scrim{display:block;position:fixed;inset:0;background:#0b172699;z-index:39}
-  .toolbar{left:0;padding:0 16px}
-  .toolbar .menu-button{display:block}
+  .toolbar{left:0;padding:0 16px;gap:10px}
+  .toolbar .back{order:1}
+  .toolbar .menu-button{display:inline-flex;order:2}
+  .toolbar .spacer{order:3}
+  .toolbar #print{order:4}
   .toolbar .crumb{display:none}
   main{margin-left:0;padding:90px 22px 50px;max-width:none}
   .hero-meta{grid-template-columns:repeat(2,1fr)}
@@ -181,7 +184,6 @@ tr:nth-child(even) td{background:#fbfcfd}
   .lede{font-size:15.5px}
 }
 @media(max-width:480px){
-  .toolbar #print{display:none}
   main{padding-left:16px;padding-right:16px}
   h1{font-size:29px}
   .hero-meta strong{font-size:21px}
@@ -233,7 +235,7 @@ tr:nth-child(even) td{background:#fbfcfd}
 </aside>
 <div class="scrim" id="scrim"></div>
 <header class="toolbar">
-  <a class="back" href="../#case-iaa">← 返回作品集</a>
+  <a class="back" href="../#case-iaa">← 作品集</a>
   <span class="crumb">IAA RESEARCH / THREE ARROW PUZZLES</span>
   <span class="spacer"></span>
   <button class="tool-button menu-button" id="menu" type="button" aria-controls="sidebar" aria-expanded="false">目录</button>
