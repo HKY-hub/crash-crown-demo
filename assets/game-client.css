@@ -2923,6 +2923,39 @@ a {
   }
 }
 
+@media (max-height: 500px) and (min-width: 761px) {
+  .gc-login {
+    padding-top: 16px;
+    padding-bottom: 16px;
+  }
+
+  .gc-login-left {
+    padding: 0;
+  }
+
+  .gc-login-left .gc-logo {
+    margin-bottom: 14px;
+  }
+
+  .gc-login-left h1 {
+    font-size: clamp(44px, 6vw, 64px);
+  }
+
+  .gc-login-lede {
+    margin-top: 12px;
+    line-height: 1.7;
+  }
+
+  .gc-login-season {
+    margin-top: 14px;
+    padding-top: 10px;
+  }
+
+  .gc-login-card {
+    padding: 16px 20px 14px;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

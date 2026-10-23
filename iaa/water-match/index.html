@@ -1367,7 +1367,11 @@ dialog img{display:block;width:100%;max-height:78vh;object-fit:contain;backgroun
     var io = new IntersectionObserver(function(entries){
       entries.forEach(function(en){
         if (en.isIntersecting){
-          links.forEach(function(l){ l.classList.toggle('active', l.getAttribute('href') === '#' + en.target.id); });
+          links.forEach(function(l){
+            var on = l.getAttribute('href') === '#' + en.target.id;
+            l.classList.toggle('active', on);
+            if (on) l.setAttribute('aria-current','location'); else l.removeAttribute('aria-current');
+          });
         }
       });
     }, {rootMargin:'-20% 0px -68% 0px', threshold:0});
