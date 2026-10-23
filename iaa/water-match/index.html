@@ -81,6 +81,8 @@ a:hover{color:var(--navy)}
 .menu-btn{display:none}
 .progress{position:fixed;top:0;left:var(--side);right:0;height:2px;z-index:35;background:transparent}
 .progress i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--blue),#7aa2ff)}
+.backtop{position:fixed;right:24px;bottom:24px;width:40px;height:40px;border:0;border-radius:50%;background:var(--navy);color:#fff;font:16px/1 var(--sans);cursor:pointer;opacity:0;pointer-events:none;transition:opacity .2s;z-index:30}
+.backtop.show{opacity:1;pointer-events:auto}
 .scrim{display:none}
 
 .article{width:min(1120px,calc(100% - 84px));margin:0 auto;padding:0 0 80px}
@@ -331,7 +333,7 @@ dialog img{display:block;width:100%;max-height:78vh;object-fit:contain;backgroun
   @page{size:A4;margin:18mm 17mm}
   html{scroll-behavior:auto}
   body{background:#fff;color:#000;font-size:10.5pt;line-height:1.7}
-  .sidebar,.toolbar,.progress,.scrim,.skip,.footer,.cover-note,.tool-btn{display:none!important}
+  .sidebar,.toolbar,.progress,.scrim,.skip,.footer,.cover-note,.tool-btn,.backtop{display:none!important}
   .layout{display:block}
   .article{width:100%;padding:0}
   .cover{padding-top:0}
@@ -1406,6 +1408,10 @@ dialog img{display:block;width:100%;max-height:78vh;object-fit:contain;backgroun
     document.querySelectorAll('details').forEach(function(d){ d.open = true; });
   });
 })();
+</script>
+<button class="backtop" id="backtop" type="button" aria-label="回到顶部">↑</button>
+<script>
+(function(){var b=document.getElementById('backtop');if(!b)return;function sync(){b.classList.toggle('show',(window.pageYOffset||document.documentElement.scrollTop)>600);}window.addEventListener('scroll',sync,{passive:true});sync();b.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});})();
 </script>
 </body>
 </html>
