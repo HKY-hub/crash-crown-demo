@@ -5,9 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light">
 <title>把广告放进解题里 · Water Match ASMR IAA 拆解案</title>
+<link rel="icon" href="../../assets/crown.svg" type="image/svg+xml">
 <meta name="description" content="《Water Match ASMR》前 100 关的 IAA 拆解：用免费空瓶、广告空瓶与完成率数据，分析关卡语法、广告门、新手教学与留存代价。">
 <meta property="og:title" content="把广告放进解题里 · Water Match ASMR IAA 拆解案">
-<meta property="og:description" content="免费空瓶 0–1 的关卡完成率 15.9%–58.7%，免费空瓶 2–3 的关卡完成率 93.8%–96.5%。这是一份把广告位放回解题第一步的产品拆解。">
+<meta property="og:description" content="一组 7 关读数：免费空瓶 0–1 的关卡完成率 15.9%–58.7%，免费空瓶 2–3 的关卡完成率 93.8%–96.5%。这是一份把广告位放回解题第一步的产品拆解。">
 <meta property="og:type" content="article">
 <meta name="theme-color" content="#0c2140">
 <style>
@@ -154,7 +155,6 @@ section.chapter:last-of-type{border-bottom:0}
 .figure img{width:100%;border:1px solid var(--line);border-radius:4px;background:#fff}
 .figure figcaption{margin-top:9px;font-size:11px;line-height:1.7;color:var(--muted)}
 .figure figcaption b{color:var(--ink);font-weight:600}
-.figure.wide{margin-left:calc((min(1120px,calc(100vw - 84px)) - 100vw + var(--side))/2 * 0);}
 .figure.two{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start}
 .figure.three{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;align-items:start}
 .figure.two figure,.figure.three figure{margin:0}
@@ -172,19 +172,19 @@ section.chapter:last-of-type{border-bottom:0}
 
 .element-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:26px 0}
 .element{background:#fff;border:1px solid var(--line);border-radius:6px;overflow:hidden}
-.element img{width:100%;height:180px;object-fit:cover;object-position:center top;border:0;border-bottom:1px solid var(--line);border-radius:0}
+.element img{width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;object-position:center;border:0;border-bottom:1px solid var(--line);border-radius:0}
 .element div{padding:13px 14px 15px}
 .element h4{margin:0;font-size:13px;color:var(--navy);font-weight:700}
 .element p{margin:5px 0 0;font-size:11px;line-height:1.7;color:var(--muted)}
 .element .tag{display:inline-block;margin-bottom:6px;font:8.5px/1.4 var(--mono);letter-spacing:.08em;color:var(--blue);text-transform:uppercase}
 .element.wide{grid-column:span 3}
-.element.wide img{height:auto;max-height:160px;object-fit:cover;object-position:center 20%}
+.element.wide img{height:auto;aspect-ratio:auto;max-height:160px;object-fit:cover;object-position:center 20%}
 
 .flow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:22px 0}
 .flow span{padding:8px 11px;background:#fff;border:1px solid var(--line);border-radius:3px;font-size:11.5px;color:var(--navy)}
 .flow i{font-style:normal;color:#9aa5b5;font-size:12px}
 
-.table-wrap{overflow-x:auto;margin:24px 0;border:1px solid var(--line);border-radius:4px;background:#fff;scrollbar-width:thin}
+.table-wrap{overflow-x:auto;margin:24px 0;border:1px solid var(--line);border-radius:4px;background:#fff;scrollbar-width:thin;-webkit-overflow-scrolling:touch}
 table{border-collapse:collapse;width:100%;min-width:620px;font-size:12px;line-height:1.7}
 th,td{padding:10px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
 th{background:#f8fafc;color:#5d6879;font:10px/1.6 var(--mono);letter-spacing:.06em;text-transform:uppercase;white-space:nowrap}
@@ -194,10 +194,12 @@ tbody tr:hover td{background:#fbfcfe}
 td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
 td b{color:var(--navy);font-weight:700}
 .table-note{margin:-14px 0 24px;font-size:10.5px;line-height:1.7;color:var(--muted)}
+.scroll-hint{display:none;margin:18px 0 -12px;font:10px/1.5 var(--mono);letter-spacing:.04em;color:#8490a1}
 .tag{display:inline-block;padding:2px 6px;border-radius:3px;font:9px/1.4 var(--mono);letter-spacing:.04em;white-space:nowrap}
 .tag.good{color:#2f6b4f;background:#eef6f1}
 .tag.bad{color:#a21b12;background:#fbefed}
 .tag.watch{color:#7b5a1f;background:#f8f1e4}
+.tag.hard{color:#6b5a3a;background:#f4efe6}
 .tag.normal{color:#5d6879;background:#f1f4f8}
 
 .stat-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin:24px 0;border:1px solid var(--line);background:#fff;border-radius:6px;overflow:hidden}
@@ -285,6 +287,8 @@ dialog img{display:block;width:100%;max-height:78vh;object-fit:contain;backgroun
   .chapter-head{grid-template-columns:1fr;gap:2px}
   .chapter-no{padding-top:0}
   .shot-pair,.figure.two,.figure.three,.shot-triple{grid-template-columns:1fr 1fr}
+  .table-wrap{box-shadow:inset -16px 0 16px -16px rgba(12,33,64,.28)}
+  .scroll-hint{display:block}
   .element-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
   .element.wide{grid-column:span 2}
   .gate-ladder{grid-template-columns:1fr 1fr}
@@ -383,6 +387,7 @@ dialog img{display:block;width:100%;max-height:78vh;object-fit:contain;backgroun
   </nav>
   <div class="sidebar-foot">
     <a href="../../#work">← 返回作品集</a>
+    <a href="../">三款箭头 IAA 对比 ↗</a>
     <a href="../../cs2/">CS2 系统拆解案 ↗</a>
     <p>独立研究，不代表 Water Match ASMR 官方观点；不表示参与该产品制作。</p>
   </div>
@@ -408,13 +413,13 @@ dialog img{display:block;width:100%;max-height:78vh;object-fit:contain;backgroun
     <div>
       <p class="eyebrow">IAA Teardown · Water Match ASMR</p>
       <h1>把广告<br>放进解题里<span class="thin">前 100 关的关卡语法、广告门与留存代价</span></h1>
-      <p class="cover-lede">这是一款把“空瓶”做成广告位的排序游戏。它的难度不只看颜色多少，还要看玩家在首屏有没有一个<strong>不用看广告就能拿到的周转位</strong>。前 100 关的数据里，免费空瓶 0–1 的关卡完成率落在 15.9%–58.7%；免费空瓶 2–3 的关卡落在 93.8%–96.5%。广告空瓶的数量并没有改变这条分界。</p>
-      <div class="cover-meta">
+      <p class="cover-lede">这是一款把“空瓶”做成广告位的排序游戏。它的难度不只看颜色多少，还要看玩家在首屏有没有一个<strong>不用看广告就能拿到的周转位</strong>。在一组 7 关的人工读数里，免费空瓶 0–1 的关卡完成率落在 15.9%–58.7%；免费空瓶 2–3 的关卡落在 93.8%–96.5%。广告空瓶的数量并没有改变这条分界。</p>
+      <dl class="cover-meta">
         <div><dt>研究对象</dt><dd>Water Match ASMR（2025-10 测试包）</dd></div>
         <div><dt>数据范围</dt><dd>1–100 关运营数据；0 教程关不参与排名</dd></div>
         <div><dt>实测范围</dt><dd>31 关实际进入；7 关空瓶结构人工读数</dd></div>
         <div><dt>商业模型</dt><dd>IAA；盘面 Free 瓶为广告解锁空瓶</dd></div>
-      </div>
+      </dl>
       <div class="cover-stats">
         <div><strong>100</strong><span>关数据</span></div>
         <div><strong>31</strong><span>关实机</span></div>
@@ -457,7 +462,7 @@ dialog img{display:block;width:100%;max-height:78vh;object-fit:contain;backgroun
   </div>
   <div class="prose">
     <p>Water Match ASMR 是一款竖屏排序解谜：点一个瓶子，再点另一个瓶子，把上层颜色倒过去，凑满同色瓶后收走。规则一句话说完，单局三到五分钟，关卡用颜色数量、空瓶、问号、冰瓶、纸袋和广告位组合出变化。</p>
-    <p>它的商业化是典型的 IAA。盘面上写着 Free、带播放图标的空瓶，不是装饰，也不是免费道具，而是看一次激励视频换来的空瓶。顶部四个收集袋里，右侧两个也带播放图标；底部撤销、洗牌、加瓶在测试包里显示“免费”，线上是否同样免费，我没有确认，因此不把它们写进难度基线。</p>
+    <p>它的商业化是典型的 IAA。盘面上写着 Free、带播放图标的空瓶，看起来像盘面的一部分，实际是一次激励视频的入口：看完广告，才多一个空瓶。顶部四个收集袋里，右侧两个也带播放图标；底部撤销、洗牌、加瓶在测试包里显示“免费”，线上是否同样免费，我没有确认，因此不把它们写进难度基线。</p>
 
     <h3>四个尺度上的循环</h3>
     <div class="table-wrap">
@@ -523,7 +528,7 @@ dialog img{display:block;width:100%;max-height:78vh;object-fit:contain;backgroun
       <li><b>三份链 + 第四份隔一层。</b>不要把最后一瓶同色过早锁死；留一层作为回旋，等其它颜色先走。</li>
       <li><b>保底色。</b>留一个单色底瓶作为回收位，等同色都到齐再收。收得太早，后面会少一个周转位。</li>
     </ol>
-    <p>这套方法不是速通技巧，而是这类游戏的基本读盘方式。它把“看一步”变成“看三步”：先保证有地方放，再考虑先倒谁。会这套方法的人，看到 L33 会先找第二个空位；不会的人，会在第一步把唯一的空瓶填满。</p>
+    <p>这套方法属于这类游戏的基本读盘方式，算不上速通技巧。它把“看一步”变成“看三步”：先保证有地方放，再考虑先倒谁。会这套方法的人，看到 L33 会先找第二个空位；不会的人，会在第一步把唯一的空瓶填满。</p>
     <div class="shot-triple">
       <figure><img src="assets/l21-sequence-1.jpg" alt="L21 试玩第一步，红瓶作为底色保留"><figcaption><b>① 留底色</b><br>先保留单色底瓶，不急着收。</figcaption></figure>
       <figure><img src="assets/l21-sequence-2.jpg" alt="L21 试玩第二步，青色顶层倒入周转位"><figcaption><b>② 借周转位</b><br>把同色顶层集中，红瓶完成。</figcaption></figure>
@@ -583,7 +588,7 @@ dialog img{display:block;width:100%;max-height:78vh;object-fit:contain;backgroun
     <h3>十段曲线</h3>
     <figure class="figure">
       <img src="assets/stage-dashboard.png" alt="前100关十个阶段的完成率、关流失、尝试次数与总耗时中位数图表">
-      <figcaption><b>图 3｜</b>十个阶段的四项中位数。第 2 阶段完成率最高，但 L11–L13 的门槛被中位数盖住；第 4 与第 10 阶段的尝试次数最高。</figcaption>
+      <figcaption><b>图 3｜</b>十个阶段的四项中位数。第 2 阶段完成率最高，但 L11–L13 的门槛被中位数盖住；第 4 与第 10 阶段的尝试次数最高。点击图可放大。</figcaption>
     </figure>
     <div class="table-wrap">
       <table>
@@ -621,7 +626,7 @@ dialog img{display:block;width:100%;max-height:78vh;object-fit:contain;backgroun
 
     <figure class="figure">
       <img src="assets/tier-scatter.png" alt="100关完成率与无结果率散点图，坏关集中在右下角">
-      <figcaption><b>图 4｜</b>完成率 × 无结果率。坏关集中在右下：完成率低、无结果高；好关集中在左上。气泡大小是总耗时。L33、L49、L62、L70 是最明显的四个尖峰。</figcaption>
+      <figcaption><b>图 4｜</b>完成率 × 无结果率。坏关集中在右下：完成率低、无结果高；好关集中在左上。气泡大小是总耗时。L33、L49、L62、L70 是最明显的四个尖峰。点击图可放大。</figcaption>
     </figure>
 
     <h3>分钟流失为什么不能当总分</h3>
@@ -639,7 +644,7 @@ dialog img{display:block;width:100%;max-height:78vh;object-fit:contain;backgroun
     <p class="table-note">表 7｜分钟流失的三个反例。L1 证明短关会放大比率，L93 证明长关会摊薄比率；同一个数字在不同分母下不是同一件事。</p>
     <figure class="figure">
       <img src="assets/minute-loss.png" alt="100关分钟流失与完成率散点图，两者几乎不相关">
-      <figcaption><b>图 5｜</b>分钟流失与完成率的描述性相关只有 r = 0.09。L88 和 L93 的分钟流失接近，但完成率差 49 个百分点。分钟流失只能当第三层诊断。</figcaption>
+      <figcaption><b>图 5｜</b>分钟流失与完成率的描述性相关只有 r = 0.09（全 100 关）。L88 和 L93 的分钟流失接近，但完成率差 49 个百分点。L1 的 9.88% 超出横轴，未绘入；分钟流失只能当第三层诊断。点击图可放大。</figcaption>
     </figure>
     <p>所以低分钟流失不是好关的充分条件，也不是必要条件。真正要看的是四件事：完成率是否够高、无结果是否够低、尝试次数是否接近 1、总耗时是否在碎片时间范围内。四项都健康，分钟流失才是加分项；只要有一项异常，低分钟流失就先当作“需要解释的信号”。</p>
   </div>
@@ -654,7 +659,7 @@ dialog img{display:block;width:100%;max-height:78vh;object-fit:contain;backgroun
     <p>题目要求按“不看广告”的难度评估，这是对的。但 IAA 产品的体验不能只算免费部分：盘面上的 Free 瓶确实能被玩家拿到，只是要先看一次视频。所以我做了两组读数：一组是免费空瓶，一组是广告空瓶。两组都来自首屏截图的人工计数，共 7 关，样本不大，但足够看清方向。</p>
     <figure class="figure">
       <img src="assets/buffer-split.png" alt="7关免费空瓶与广告空瓶数量对比，免费空瓶0到1的关卡完成率低，2到3的完成率高">
-      <figcaption><b>图 6｜</b>7 关的免费空瓶 / 广告空瓶读数。蓝色是免费空瓶，沙色是广告空瓶；右侧是完成率。广告空瓶大多相同，差别在免费空瓶的数量。</figcaption>
+      <figcaption><b>图 6｜</b>7 关的免费空瓶 / 广告空瓶读数。蓝色是免费空瓶，沙色是广告空瓶；右侧是完成率。广告空瓶大多相同，差别在免费空瓶的数量。点击图可放大。</figcaption>
     </figure>
     <div class="table-wrap">
       <table>
@@ -695,7 +700,7 @@ dialog img{display:block;width:100%;max-height:78vh;object-fit:contain;backgroun
       <figure><img src="assets/l80.jpg" alt="L80 首屏，红橙两个单色底瓶看起来像空位"><figcaption><b>L80 首屏</b><br>红、橙两个单色底瓶，瓶口上方是空的，容易被读成两个空位。</figcaption></figure>
       <figure><img src="assets/l80-play.jpg" alt="L80 试玩截图，红橙两个底瓶被标记出来"><figcaption><b>L80 试玩标记</b><br>两个底瓶补满后必须回到原位，前面的化简没有改变最后的死锁。</figcaption></figure>
     </div>
-    <p>这类关卡的问题不是“难”，而是“解法被写死”。玩家以为自己在做选择，实际是在走一条固定的化简路线；等走到最后，才发现两个瓶子互相锁住。广告能加一个空瓶，但加不出一个新的解法。对 IAA 产品来说，这种关卡最危险：它既没有免费缓冲，也没有广告带来的真实增益。</p>
+    <p>这类关卡的问题不在难度：解法被写死了。玩家以为自己在做选择，实际是在走一条固定的化简路线；等走到最后，才发现两个瓶子互相锁住。广告能加一个空瓶，但加不出一个新的解法。对 IAA 产品来说，这种关卡最危险：它既没有免费缓冲，也没有广告带来的真实增益。</p>
 
     <h3>广告门阶梯</h3>
     <p>把上面的案例按“第一个周转位要不要先看广告”排成四级，会得到一条很清楚的阶梯：</p>
@@ -717,7 +722,7 @@ dialog img{display:block;width:100%;max-height:78vh;object-fit:contain;backgroun
         </tbody>
       </table>
     </div>
-    <p class="table-note">表 9｜广告门阶梯。它不是官方分级，而是本文用来评审“广告位是否侵入核心解题”的工具。</p>
+    <p class="table-note">表 9｜广告门阶梯。这是我用来评审“广告位是否侵入核心解题”的工具，不是官方分级。</p>
 
     <div class="callout warn"><p><b>数据为什么会误判：</b>广告观看是当天就能看到的收入，无结果和流失却常常被归到“关卡难”或“用户质量”里。只盯广告观看率，会把 LEVEL 2 误判成高价值关卡；把完成率、无结果、下一关承接一起看，才会发现门开在了错误的位置。</p></div>
   </div>
@@ -753,11 +758,11 @@ dialog img{display:block;width:100%;max-height:78vh;object-fit:contain;backgroun
     </div>
     <p class="table-note">表 10｜前 10 关的数据与我的实际体验。L4–L6 的高关流失可能还混有广告、体力或下一关承接的影响，不能全部归因于关卡难度。</p>
 
-    <p>从数据看，前 10 关的结构是：三关轻松入门，接着四关连续加码，L7 出现第一道广告墙，L8 突然送分，L9–L10 又把冰瓶和隐藏信息堆上来。它不是一条逐步加难的阶梯，而是锯齿。对新玩家来说，最危险的不是“难”，而是不知道下一关为什么会突然难。</p>
+    <p>从数据看，前 10 关的结构是：三关轻松入门，接着四关连续加码，L7 出现第一道广告墙，L8 突然送分，L9–L10 又把冰瓶和隐藏信息堆上来。它更像锯齿，三关松、四关紧、突然送分、再突然收紧。对新玩家来说，真正危险的是不知道下一关为什么会突然变难。</p>
     <p>更关键的是，前 10 关没有教那套真正有用的四步法。L1–L3 只需要“看到同色就倒”，L4 开始要求“先找空瓶”，L7 要求“没有免费空瓶时判断要不要看广告”，但游戏没有用任何一关把“空瓶是周转位”这件事讲清楚。玩家只能从失败里猜。</p>
 
     <h3>元素说明的缺口</h3>
-    <p>顶部四个袋子、问号瓶、编号纸袋、冰瓶、Free 瓶，都是在没有说明的情况下逐个出现的。玩家需要自己推断：哪个袋子是收集位，哪个要广告，纸袋上的数字代表什么，冰瓶要怎样解开。我的原话里有一句很直接：“没有任何征兆的引入新瓶子，增加用户的理解程度，自然会影响留存率。”这不是玩家不愿意学，而是游戏没有给学习的机会。</p>
+    <p>顶部四个袋子、问号瓶、编号纸袋、冰瓶、Free 瓶，都是在没有说明的情况下逐个出现的。玩家需要自己推断：哪个袋子是收集位，哪个要广告，纸袋上的数字代表什么，冰瓶要怎样解开。我的原话里有一句很直接：“没有任何征兆的引入新瓶子，增加用户的理解程度，自然会影响留存率。”玩家并非不愿意学；游戏没有给学习的机会。</p>
     <p>这里有一个很容易被忽略的细节：问号瓶并不等于“完全看不见”。截图里大多数问号瓶的顶层颜色仍然露出，玩家可以先按顶色配对，再逐步揭开下层。真正让问号变成噪音的，是它和满盘、缺少空瓶同时出现。教学应该先教“顶层可读、下层可后揭”，而不是一上来就把整瓶涂成问号。</p>
 
     <h3>先教策略，再教元素</h3>
@@ -792,7 +797,7 @@ dialog img{display:block;width:100%;max-height:78vh;object-fit:contain;backgroun
         </tbody>
       </table>
     </div>
-    <p class="table-note">表 12｜个人试玩与全量数据的差异。它不是“谁对谁错”，而是说明个人体验不能替代 cohort 数据；反过来，数据也不能替代首屏观察。</p>
+    <p class="table-note">表 12｜个人试玩与全量数据的差异。个人体验解释首屏，数据代表 cohort，两者不能互相替代，也不必分出谁对谁错。</p>
   </div>
 </section>
 
@@ -853,7 +858,7 @@ dialog img{display:block;width:100%;max-height:78vh;object-fit:contain;backgroun
     </div>
     <p class="table-note">表 15｜IAA 产品的联合指标。收入指标和体验指标必须同表看；只优化其中一边，另一边会以更慢的速度恶化。</p>
 
-    <div class="callout note"><p><b>一个可执行的决策规则：</b>如果一道广告门让 ARPDAU 上升，但完成率下降超过 5pp、无结果上升超过 3pp，或者 D1 下降，就先不要上线。先把它改成“完成后可选”，再看同样的指标。广告门不是不能加，而是不能拿核心可玩性去换。</p></div>
+    <div class="callout note"><p><b>一个可执行的决策规则：</b>如果一道广告门让 ARPDAU 上升，但完成率下降超过 5pp、无结果上升超过 3pp，或者 D1 下降，就先不要上线。先把它改成“完成后可选”，再看同样的指标。广告门可以加，但不能拿核心可玩性去换。</p></div>
   </div>
 </section>
 
@@ -884,7 +889,7 @@ dialog img{display:block;width:100%;max-height:78vh;object-fit:contain;backgroun
     <p class="table-note">表 16｜优先修的九关。目标值是建议，不是保证；上线前应该用 A/B 验证。L7、L23、L26 也应该按同样标准检查，只是它们的结构问题与上表重复，没有单列。</p>
 
     <h3>可复制的模板</h3>
-    <p>L34、L41、L8、L88 这四关可以作为模板。它们的共同点不是“简单”，而是“首屏有足够的选择”：</p>
+    <p>L34、L41、L8、L88 这四关可以作为模板。它们的共同点是首屏有足够的选择，和“简单”无关：</p>
     <div class="stat-strip">
       <div><strong>2–3</strong><span>免费空瓶</span><p>首屏至少有两个不用看广告就能用的周转位</p></div>
       <div><strong>≤6%</strong><span>无结果</span><p>玩家不会在首屏就卡住</p></div>
@@ -908,7 +913,7 @@ dialog img{display:block;width:100%;max-height:78vh;object-fit:contain;backgroun
         </tbody>
       </table>
     </div>
-    <p class="table-note">表 17｜广告位规则。它们不是行业通用定律，而是从这 100 关里总结出的、可以直接写进评审清单的约束。</p>
+    <p class="table-note">表 17｜广告位规则。这些约束来自这 100 关，可以直接写进评审清单；不要把它们当成行业通用定律。</p>
 
     <h3>首 30 关的重排</h3>
     <div class="table-wrap">
@@ -1319,7 +1324,7 @@ dialog img{display:block;width:100%;max-height:78vh;object-fit:contain;backgroun
 
 <dialog id="lightbox" aria-label="查看大图">
   <div class="dialog-head"><p id="lightboxTitle"></p><button type="button" id="lightboxClose">关闭</button></div>
-  <img id="lightboxImg" src="" alt="">
+  <img id="lightboxImg" src="assets/l33.jpg" alt="">
   <div class="dialog-note" id="lightboxNote"></div>
 </dialog>
 
@@ -1377,6 +1382,15 @@ dialog img{display:block;width:100%;max-height:78vh;object-fit:contain;backgroun
   });
   document.getElementById('lightboxClose').addEventListener('click', function(){ dialog.close(); });
   dialog.addEventListener('click', function(e){ if (e.target === dialog) dialog.close(); });
+
+  document.querySelectorAll('.table-wrap').forEach(function(w){
+    if (w.scrollWidth > w.clientWidth + 4){
+      var hint = document.createElement('div');
+      hint.className = 'scroll-hint';
+      hint.textContent = '左右滑动查看完整表格 →';
+      w.parentNode.insertBefore(hint, w);
+    }
+  });
 
   document.getElementById('printBtn').addEventListener('click', function(){
     document.querySelectorAll('details').forEach(function(d){ d.open = true; });
