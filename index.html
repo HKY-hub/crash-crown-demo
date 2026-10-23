@@ -104,6 +104,7 @@ main{min-width:0;background:var(--paper)}
 .eyebrow::before{content:"";width:26px;height:1px;background:var(--blue)}
 h1{margin:20px 0 0;font-size:clamp(46px,5vw,68px);line-height:1.1;letter-spacing:-.045em;font-weight:800;color:var(--navy)}
 h1 span{color:var(--blue)}
+h1 .nowrap{color:inherit;white-space:nowrap}
 .hero-lede{margin:24px 0 0;max-width:47ch;color:#455163;font-size:15px;line-height:1.85}
 .hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin:32px 0 0}
 .btn{display:inline-flex;align-items:center;gap:10px;text-decoration:none;font-size:13px;font-weight:700;
@@ -655,7 +656,7 @@ footer{padding:0 0 44px}
         <div class="hero-grid">
           <div class="reveal">
             <p class="eyebrow">Game Design Portfolio · System Design</p>
-            <h1 id="hero-title">把想法，<br>做成<span>可玩</span>的规则。</h1>
+            <h1 id="hero-title">把想法，<br>做成<span>可玩</span>的<span class="nowrap">规则</span>。</h1>
             <p class="hero-lede">我是 HKY，一名游戏策划。我的工作从玩法循环出发，落到车型与技能、地图机制、模式与成长，再用可试玩的版本、可回查的文档和明确的验收条件，把设计交给团队。这里按原创游戏、商业研究、IAA 与应用系统四类归档。</p>
             <div class="hero-actions">
               <a class="btn primary" href="#work">浏览项目索引 <span class="ar" aria-hidden="true">↓</span></a>
