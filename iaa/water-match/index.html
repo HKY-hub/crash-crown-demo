@@ -75,6 +75,7 @@ a:hover{color:var(--navy)}
 .toolbar-kicker{font:9.5px/1 var(--mono);letter-spacing:.14em;color:var(--blue);white-space:nowrap}
 .toolbar-title{font-size:12.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .toolbar-actions{display:flex;align-items:center;gap:10px;flex:none}
+.toolbar-back{display:none}
 .tool-btn{border:1px solid var(--line-dark);background:#fff;color:var(--navy);border-radius:4px;padding:7px 12px;font:11px/1.4 var(--sans);cursor:pointer;text-decoration:none;white-space:nowrap}
 .tool-btn:hover{border-color:var(--navy);background:#fff}
 .menu-btn{display:none}
@@ -302,6 +303,9 @@ dialog img{display:block;width:100%;max-height:78vh;object-fit:contain;backgroun
 @media(max-width:560px){
   .article{width:calc(100% - 28px)}
   .toolbar{padding:0 14px;gap:10px}
+  .toolbar-back{display:inline-flex}
+  .toolbar-title{display:none}
+  .toolbar-actions a{display:none}
   .toolbar-actions .tool-btn{padding:6px 8px;font-size:10px}
   .cover-meta{grid-template-columns:1fr}
   .cover-meta div{border-bottom:1px solid var(--line)}
@@ -397,6 +401,7 @@ dialog img{display:block;width:100%;max-height:78vh;object-fit:contain;backgroun
 <div class="main">
 <header class="toolbar">
   <div class="toolbar-left">
+    <a class="tool-btn toolbar-back" href="../../#work">← 作品集</a>
     <button class="tool-btn menu-btn" id="menuBtn" type="button" aria-controls="sidebar" aria-expanded="false">目录</button>
     <span class="toolbar-kicker">IAA TEARDOWN</span>
     <span class="toolbar-title">Water Match ASMR · 前 100 关</span>

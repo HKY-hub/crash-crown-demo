@@ -6,21 +6,22 @@
 <title>三款箭头解谜的 IAA 拆解 · Amaze GO! / Point Out / Maze Madness</title>
 <meta name="description" content="三款箭头解谜产品的 IAA 对比拆解：20×3 实机、60 张截图、Google Play 美区快照；比较难度压力、失败恢复、道具经济、排位留存与广告触点。">
 <meta name="theme-color" content="#0c2140">
+<link rel="icon" href="../assets/crown.svg" type="image/svg+xml">
 <style>
 :root{
-  --navy:#0c2140;--navy-2:#15365e;--ink:#1b2431;--muted:#5d6879;
-  --paper:#f7f8fa;--white:#fff;--line:#dce2ea;--line-dark:#c8d1dd;
+  --navy:#0c2140;--navy-2:#15365e;--ink:#172033;--muted:#5d6879;
+  --paper:#f5f7fa;--white:#fff;--line:#dfe4ec;--line-dark:#c7d0de;
   --blue:#1d4ed8;--blue-soft:#edf2ff;--gold:#b3873d;--gold-soft:#f7f0e2;
   --amaze:#62458f;--amaze-soft:#f1ecf8;--point:#2e5a88;--point-soft:#eaf1f8;--maze:#1f6b5a;--maze-soft:#e9f4f0;
   --red:#a6432f;--green:#3f6b3a;
   --sans:"Helvetica Neue",Arial,"PingFang SC","Microsoft YaHei",sans-serif;
   --serif:"Songti SC","SimSun","Noto Serif CJK SC",Georgia,serif;
   --mono:"SFMono-Regular",Consolas,"Liberation Mono",Menlo,monospace;
-  --side:286px;--top:58px;
+  --side:300px;--top:58px;
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:88px}
-body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--serif);font-size:16px;line-height:1.92;-webkit-font-smoothing:antialiased}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.85;-webkit-font-smoothing:antialiased}
 img{display:block;max-width:100%;height:auto}
 a{color:#294f78;text-decoration:none}
 a:hover{text-decoration:underline}
@@ -31,11 +32,12 @@ a:hover{text-decoration:underline}
 
 /* sidebar */
 .sidebar{position:fixed;inset:0 auto 0 0;width:var(--side);background:#fff;border-right:1px solid var(--line);z-index:40;display:flex;flex-direction:column;overflow:auto}
-.brand{padding:28px 24px 22px;border-bottom:1px solid var(--line)}
-.brand-code{font:800 29px/1.1 var(--sans);letter-spacing:.02em;color:var(--navy)}
-.brand-code em{font-style:normal;color:var(--blue)}
-.brand-title{font:700 13px/1.5 var(--sans);margin:12px 0 5px;color:var(--ink)}
-.brand-meta{font:10.5px/1.7 var(--sans);color:var(--muted)}
+.brand{padding:30px 26px 22px;border-bottom:1px solid var(--line)}
+.brand-top{display:flex;align-items:center;gap:10px;margin-bottom:18px}
+.brand-mark{width:34px;height:34px;border-radius:50%;background:var(--navy);color:#fff;display:grid;place-items:center;font:700 10px/1 var(--mono);letter-spacing:.02em;flex:none}
+.brand-top small{font:9.5px/1.45 var(--mono);letter-spacing:.14em;color:var(--muted);text-transform:uppercase}
+.brand-title{font:800 21px/1.3 var(--sans);letter-spacing:-.035em;margin:0;color:var(--navy);text-wrap:balance}
+.brand-meta{font:10px/1.85 var(--mono);color:var(--muted);margin:14px 0 0;padding-top:12px;border-top:1px solid var(--line)}
 .toc{padding:16px 12px 28px;flex:1}
 .toc a{display:flex;gap:9px;align-items:baseline;padding:9px 9px;border-left:2px solid transparent;border-radius:2px;color:#3f4a59;font:12.5px/1.55 var(--sans)}
 .toc a:hover{background:#f1f4f8;text-decoration:none}
@@ -209,9 +211,9 @@ tr:nth-child(even) td{background:#fbfcfd}
 <a class="skip" href="#overview">跳到正文</a>
 <aside class="sidebar" id="sidebar" aria-label="目录">
   <div class="brand">
-    <div class="brand-code">IAA<em>/03</em></div>
+    <div class="brand-top"><span class="brand-mark">HKY</span><small>IAA Teardown · 2026</small></div>
     <p class="brand-title">三款箭头解谜的 IAA 拆解</p>
-    <p class="brand-meta">关卡压力 · 失败恢复 · 广告/道具经济<br>独立研究 · 2026-10-21</p>
+    <p class="brand-meta">研究编号 IAA/03 · 独立研究 · 2026-10-21<br>关卡压力 · 失败恢复 · 广告/道具经济</p>
   </div>
   <nav class="toc" aria-label="章节">
     <a href="#overview" class="active"><span class="no">00</span><span>摘要与口径</span></a>
