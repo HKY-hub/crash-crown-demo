@@ -1,7 +1,7 @@
 {
   "version": "1.0",
   "target": "pages",
-  "preparedAt": "2026-10-22T23:41:54Z",
+  "preparedAt": "2026-10-23T06:16:10Z",
   "repository": "HKY-hub/crash-crown-demo",
   "gameBaselineSHA256": "7af8b62666c4b39ee74b353cd04780cfdd6fd11b18b91b28cf6d477567346725",
   "publicGameSHA256": "e7bdfcec240ceb6caac7e755b798c5e23e7eb68beedd482e5e0bc76cd5b2eedd",
@@ -319,6 +319,11 @@
       "sha256": "d73006895dcb6a7b6f8c4d7e6d8b1023252154eb87ed5fb6e38992af4b44f8a7"
     },
     {
+      "file": "assets/biohazard.jpg",
+      "bytes": 105881,
+      "sha256": "75cc3ba39f11a35dfe6c0bd7746d8a837ef1c67b457934dc4a719cc2baa6d6bd"
+    },
+    {
       "file": "assets/crown.svg",
       "bytes": 206,
       "sha256": "5172656ef9e108c06eeb7e3368a92036f0067489d86975ce9f37332a2d25df19"
@@ -374,6 +379,11 @@
       "sha256": "0c6652d76f732e57a1301ea4fdd7f5dd805ddf534fba1f22c2e34cfa863799ab"
     },
     {
+      "file": "assets/reading.css",
+      "bytes": 5740,
+      "sha256": "c3d6414777aaf0fad4e8ccf631c97a1327e8077771a96f0f64f3cc97405a03c2"
+    },
+    {
       "file": "assets/site.css",
       "bytes": 26444,
       "sha256": "8b94bbd336d5777a41dca422cb9ee4c5a6f2ac80c220ed153c214f4f19e34517"
@@ -399,9 +409,359 @@
       "sha256": "f9e9694d4fd918191f0a6984b58240fc5dc90cc23d2f5c5e4a07b4b4efa405ed"
     },
     {
+      "file": "assets/wave-rider.jpg",
+      "bytes": 89985,
+      "sha256": "d2f9757ffcd533aca1e57d941a96bc872bb8fc3ec503c2341824d856be8403c8"
+    },
+    {
+      "file": "biohazard/codex-castle-art-rebuild/boot.js",
+      "bytes": 2974,
+      "sha256": "f45d124a070dfd7c23c72d2f677fdbaf6fbc7359ccc41b4e8a9572f199527ad1"
+    },
+    {
+      "file": "biohazard/codex-castle-art-rebuild/browser-model.js",
+      "bytes": 7543,
+      "sha256": "f247436972c55e131e4c12da02c31ad89b6e1750887a28d88cd23165f5e57b35"
+    },
+    {
+      "file": "biohazard/codex-castle-art-rebuild/modules/architecture.js",
+      "bytes": 13442,
+      "sha256": "4a3b1e02b982ec7c909f1a308938ee9105039dd89c111b33c399f2163608c639"
+    },
+    {
+      "file": "biohazard/codex-castle-art-rebuild/modules/environment.js",
+      "bytes": 49337,
+      "sha256": "932cf2c08c1efb36034abc9daab8df990c385c74e4f49fa8499a46a6ed3028ed"
+    },
+    {
+      "file": "biohazard/codex-castle-art-rebuild/modules/exterior.js",
+      "bytes": 18972,
+      "sha256": "77780a4d4902ed172ed29a1a7d02c084abe96b265731db586dd61d6d2835b926"
+    },
+    {
+      "file": "biohazard/codex-castle-art-rebuild/modules/props.js",
+      "bytes": 55713,
+      "sha256": "c6377aa2b211045bded93d9a755b1633507b21fbe9ae17b7bfd65a642a16ed04"
+    },
+    {
+      "file": "biohazard/codex-castle-art-rebuild/preview.js",
+      "bytes": 4164,
+      "sha256": "622649109e747d80e5e2742f959fc731c907c7a53777e9471b92988d110e4df0"
+    },
+    {
+      "file": "biohazard/codex-castle-art-rebuild/render.js",
+      "bytes": 6372,
+      "sha256": "29ce8958a069098fd70c10eda68aa68d7a4fca84d55385491982f485e6b97d12"
+    },
+    {
+      "file": "biohazard/codex-castle-collision/bounded-evidence.js",
+      "bytes": 6692,
+      "sha256": "fc1e8124be085006e7a374a1f8be939461fcb73dc04d5e65c980d57d430ddd49"
+    },
+    {
+      "file": "biohazard/codex-castle-collision/bridge.js",
+      "bytes": 1713,
+      "sha256": "582ef34106b8d82df6f373316ae66319076ef4b5b3e1bdc69972da9a375a8820"
+    },
+    {
+      "file": "biohazard/codex-castle-collision/check.js",
+      "bytes": 5237,
+      "sha256": "548b5b8b39a643db5e78bce62f9040b0959453b4df4f6dad7ef4c9ee709eab77"
+    },
+    {
+      "file": "biohazard/codex-castle-collision/combinations.js",
+      "bytes": 3149,
+      "sha256": "2269c329aba794fa1ed2ec4e82cdb817546ef2da06c98a84dd4589556665d8e8"
+    },
+    {
+      "file": "biohazard/codex-castle-collision/compiler.js",
+      "bytes": 20108,
+      "sha256": "b4de06c8176d5b716a13438e4fabe86c77b77e953eef20b85e7f266ac261fc36"
+    },
+    {
+      "file": "biohazard/codex-castle-collision/contracts.js",
+      "bytes": 2299,
+      "sha256": "85511092022e89f609ca372d7d410d8fe3f857ad0529e6673919cc366826b5f6"
+    },
+    {
+      "file": "biohazard/codex-castle-collision/contracts.json",
+      "bytes": 404758,
+      "sha256": "d53025536ca408945d5549cddba6e90bce925568b53820c5553a9d342e95b5f0"
+    },
+    {
+      "file": "biohazard/codex-castle-collision/final-geometry.json",
+      "bytes": 356836,
+      "sha256": "0ae9055b1f6e6f065d1ceb9d9d6b58ddf6b040463a4d15737760c841be6760b8"
+    },
+    {
+      "file": "biohazard/codex-castle-collision/finalize-evidence.js",
+      "bytes": 7828,
+      "sha256": "c254064a5796bb01dfb65490f4d096a47d561c044a91f1dbf55a604b686f7182"
+    },
+    {
+      "file": "biohazard/codex-castle-collision/harness.js",
+      "bytes": 4687,
+      "sha256": "eeff130a136ccd77b8b8deb102ec5677853796340c0a0f95cb1a03885a80b084"
+    },
+    {
+      "file": "biohazard/codex-castle-collision/inspector.js",
+      "bytes": 21852,
+      "sha256": "d939a83f89ff8ebb326b2a3c3a3d780bfbe8bdb244393474ccbc71a23a0ce050"
+    },
+    {
+      "file": "biohazard/codex-castle-collision/local-targeted.js",
+      "bytes": 1589,
+      "sha256": "f7cd2ae9c89684e7ea81e36532f75999627b8122bab75a02bbffb8606c082e18"
+    },
+    {
+      "file": "biohazard/codex-castle-collision/point-z14-targeted.js",
+      "bytes": 4375,
+      "sha256": "c7e0b606ed1e3f1502dc04ec78301127409f44489df331b97f1d252aef536825"
+    },
+    {
+      "file": "biohazard/codex-castle-collision/runner.js",
+      "bytes": 19233,
+      "sha256": "5d35fdf7f709b27f463075f25c638157739a94c24527aa3f20970a51646ab4ec"
+    },
+    {
+      "file": "biohazard/codex-castle-collision/sweep.js",
+      "bytes": 1349,
+      "sha256": "0fa917f2c69f365add74c567e9f75a5f1fad718244735c4e13d66888ca588c74"
+    },
+    {
+      "file": "biohazard/codex-castle-layout/stage2-geometry.json",
+      "bytes": 113405,
+      "sha256": "e63f5d0935faf6b1a10d9159dcf99e4b99d6992e2c9e0c38a6837d66df9fa7e4"
+    },
+    {
+      "file": "biohazard/codex-castle-scale/controls.js",
+      "bytes": 5187,
+      "sha256": "18bd44fe3d7966d80db3afd5c621320e7b2a134da5e87e31a03b49746376eafd"
+    },
+    {
+      "file": "biohazard/codex-castle-scale/model.js",
+      "bytes": 2525,
+      "sha256": "b63ec923035a8a4a09caf83c00010b2cc3d698a7ee5a10d25323a001034b4448"
+    },
+    {
       "file": "biohazard/css/mobile.css",
       "bytes": 9284,
       "sha256": "93dae6a356bbd3c358cab582e2323514f8ccf2f39a8ea98ccbc8be44ec8b351a"
+    },
+    {
+      "file": "biohazard/css/style.css",
+      "bytes": 31707,
+      "sha256": "558080bc0d76299c6b9c7cf2d054b7835e64be1086da1a187ab868370396e8fa"
+    },
+    {
+      "file": "biohazard/css/ui-shell.css",
+      "bytes": 79100,
+      "sha256": "76d7bdeaa57eb385dafcfc62005afa26537768a6c78da0baef055becf432973b"
+    },
+    {
+      "file": "biohazard/editor.html",
+      "bytes": 30969,
+      "sha256": "e0ed4bd077f0a2831f2f0295da696c62973530e9713536c8acaad57c4f139290"
+    },
+    {
+      "file": "biohazard/fonts/zpix.ttf",
+      "bytes": 4681088,
+      "sha256": "a67917d94bb597acbdf3bfe1cf97047cc3e1cdd3839d21da188e35cc0737e828"
+    },
+    {
+      "file": "biohazard/index.html",
+      "bytes": 56552,
+      "sha256": "5c4f5f64c5c177fe37efc66003342e0cbdf94073d9b1cad726979e05b72bf0ba"
+    },
+    {
+      "file": "biohazard/js/ai.js",
+      "bytes": 10193,
+      "sha256": "b0b66fd74afbcdce4159398a8b57c6d7bab14db4c1b3cf32c80ae40a27c05d70"
+    },
+    {
+      "file": "biohazard/js/art-bullets.js",
+      "bytes": 9961,
+      "sha256": "f8d28b865ddd986f3f9bf8ee7887a2b965e89b5a80fd2f4315c53942b81859ec"
+    },
+    {
+      "file": "biohazard/js/art-core.js",
+      "bytes": 22712,
+      "sha256": "b0b39eca8ea7c3b079a21c8a0332d547202bb03f4e81a3a5de4fc863cef3f448"
+    },
+    {
+      "file": "biohazard/js/art-draw.js",
+      "bytes": 20104,
+      "sha256": "e6e2db0a47476098f907db6a4e3d6fabc323e467c1a85aa8958b63aa7ecf0d81"
+    },
+    {
+      "file": "biohazard/js/art-events.js",
+      "bytes": 35689,
+      "sha256": "bf702673f7fb194747db9fed6e7d12dd9c16f5d5e974d04261c8c9a3e596f41e"
+    },
+    {
+      "file": "biohazard/js/art-guns-hd.js",
+      "bytes": 5383,
+      "sha256": "b532e651e241fd69d25fc3438766e25676951b99794965fc0e8d69237b2d598e"
+    },
+    {
+      "file": "biohazard/js/art-guns.js",
+      "bytes": 224362,
+      "sha256": "2b7945a05ac5cb241187d1bec7a233e87c44be2da1a15717ecb95c0599327f90"
+    },
+    {
+      "file": "biohazard/js/art-hero.js",
+      "bytes": 19255,
+      "sha256": "ba3af720da1d1bf0dda26c6dd645639e3e9a63f71e2c305082ee8580934cbf7e"
+    },
+    {
+      "file": "biohazard/js/art-hit.js",
+      "bytes": 15970,
+      "sha256": "3a4055a5e882529dcdf7f75657171de6e0def5f266dd9146e171f462b34b5a17"
+    },
+    {
+      "file": "biohazard/js/art-map-hd.js",
+      "bytes": 2845,
+      "sha256": "66e28b6fb6ce9aad98493d09920a47feedcd75e738beb3c5920fb63ba6fb5f74"
+    },
+    {
+      "file": "biohazard/js/art-melee-five.js",
+      "bytes": 5007,
+      "sha256": "85b7f6f1e878d5803b75667a011360c2e446d2831ea2109e1be914fd86b5ea81"
+    },
+    {
+      "file": "biohazard/js/art-melee-six.js",
+      "bytes": 9962,
+      "sha256": "ce28a31e5b2876fdb3308e75be4bbc067248c9435ada41bc0ea885a7b018f7c9"
+    },
+    {
+      "file": "biohazard/js/art-melee.js",
+      "bytes": 6307,
+      "sha256": "19be8546b92e6ae9c3c352f072d16bd54095165c795294029b06e962b0cde843"
+    },
+    {
+      "file": "biohazard/js/art-pickup.js",
+      "bytes": 29216,
+      "sha256": "134595bd5ef35fdfc4ee4fe3ef1045a2d5bed9e12cb75c35e8c1ce7eec646cba"
+    },
+    {
+      "file": "biohazard/js/art-throw-nine.js",
+      "bytes": 6414,
+      "sha256": "ebe87f94d27e2d4a5769902e614f0f8b25ef6aa9ae9a779628431bfad50feb25"
+    },
+    {
+      "file": "biohazard/js/art-views.js",
+      "bytes": 9309,
+      "sha256": "20daf8cd1e5389e1874936e42c0e4279ca2c9d70673d49cb904de7c3882822f4"
+    },
+    {
+      "file": "biohazard/js/art-workbench.js",
+      "bytes": 21422,
+      "sha256": "65c5d8026a0bbc6b23d905f6257aae59b64af93b87df25bd82bd4a4e6d1a2244"
+    },
+    {
+      "file": "biohazard/js/audio.js",
+      "bytes": 11982,
+      "sha256": "910f90876988b0c1b285eeb7f5b9c6799b4a9c0eb7af749fb380221fde206fa0"
+    },
+    {
+      "file": "biohazard/js/car-art.js",
+      "bytes": 69382,
+      "sha256": "52ac5a44d32da13603d35ccff10247c9c54cb12f0dda93b96719ac0d30e94daf"
+    },
+    {
+      "file": "biohazard/js/car-fit.js",
+      "bytes": 76104,
+      "sha256": "e21cd457c85bc0176307ec223379dc685eba609ddedcfd05d39cfe05c15ee0df"
+    },
+    {
+      "file": "biohazard/js/car-life.js",
+      "bytes": 34296,
+      "sha256": "5c8873f0a513e15aac2a9d0baa5c6e2dc089ec655586229bcda662faa5e5a3d7"
+    },
+    {
+      "file": "biohazard/js/car-light.js",
+      "bytes": 28999,
+      "sha256": "89199d6ab5b582cfa776a3528b46934c6c7c59dc0e8e0af028ec1f29ab0f1c92"
+    },
+    {
+      "file": "biohazard/js/car-mat.js",
+      "bytes": 17957,
+      "sha256": "ffbc08d0a952aba493d8a1e7478fe1fe3ca874465e3aaf6cb3fa4d7610e83542"
+    },
+    {
+      "file": "biohazard/js/car-preview.js",
+      "bytes": 50419,
+      "sha256": "55bcc7f31633d371f0a138a523fac2e5b8809d437b6a61dc6468f377f1ee5384"
+    },
+    {
+      "file": "biohazard/js/castle-art-v2.js",
+      "bytes": 8385,
+      "sha256": "3eec2bcb1b7791ffe721442db85926bae8cc32db62d95c6034875e3182000ac7"
+    },
+    {
+      "file": "biohazard/js/castle-draw.js",
+      "bytes": 75610,
+      "sha256": "861f3de32974d7f85f156261645cceb5d0c67b4cc38994ed224292d17ae0fd69"
+    },
+    {
+      "file": "biohazard/js/castle-gen.js",
+      "bytes": 59285,
+      "sha256": "b6762b38270cb927b1f493cae5d6e13e6d0dc0ad034b07bded834d65749724ad"
+    },
+    {
+      "file": "biohazard/js/config.js",
+      "bytes": 59851,
+      "sha256": "161a264a6dd9add6b15ddb5e1de513ab28214b2312f7556c467d3f976f81a63c"
+    },
+    {
+      "file": "biohazard/js/day-night.js",
+      "bytes": 20829,
+      "sha256": "4fc88187abc477f9f96fce36062619efddc2aa22f80ecde56cd57b053325fa14"
+    },
+    {
+      "file": "biohazard/js/debugger-schema.js",
+      "bytes": 239541,
+      "sha256": "b0954ac23ee0f1a8a1f642bfdbab3322be557c0adf85b871ba5ff810d6a0ee90"
+    },
+    {
+      "file": "biohazard/js/debugger.js",
+      "bytes": 22221,
+      "sha256": "ea9a58a3862e83395ade997a509ec5f0cea2e653f672837abbe7d3ba2fa43bb5"
+    },
+    {
+      "file": "biohazard/js/entities.js",
+      "bytes": 11901,
+      "sha256": "1b0a0336d372c4ebc3fd9364ca31a50b905a789b4b4c9012ee30b46bcc49abc0"
+    },
+    {
+      "file": "biohazard/js/game.js",
+      "bytes": 149420,
+      "sha256": "b9272b6258663292afef304e6947c335941c1c3653c91a51e928c5f8dc33841f"
+    },
+    {
+      "file": "biohazard/js/input.js",
+      "bytes": 2508,
+      "sha256": "ae694ded565191cd1ebe1e70f4144fd5a684a0d2aec77c3f8d3fe4e4cdb93c5d"
+    },
+    {
+      "file": "biohazard/js/level.js",
+      "bytes": 51953,
+      "sha256": "d28ce9440218c85ab3f6d90971af65d0864886e2d7606a891d683e0f7b8fbe8c"
+    },
+    {
+      "file": "biohazard/js/longmap-draw.js",
+      "bytes": 73009,
+      "sha256": "23e5ccfa406367c40ed60ec391677b451e0c675875ea1a560c6790f1715395e2"
+    },
+    {
+      "file": "biohazard/js/longmap-gen.js",
+      "bytes": 53962,
+      "sha256": "effd002bb88f3003692ea3604417ca89443911a674a29f8d73a40f2016ec0aea"
+    },
+    {
+      "file": "biohazard/js/longmap-play.js",
+      "bytes": 11663,
+      "sha256": "d1b44933241e10ad33b1bfbf5f0f05e8c5f38aa42979f8ac9f65f59a657d322d"
     },
     {
       "file": "biohazard/js/mobile-controls.js",
@@ -409,14 +769,249 @@
       "sha256": "15c1ef4807da7406ccdb676a081c7e5e5ba95dd530233bdb415e7f91ec1181d1"
     },
     {
+      "file": "biohazard/js/net.js",
+      "bytes": 16433,
+      "sha256": "25f22f80126e6ca957dcade1eb9146dc13615a856e5fc361a279558fba1d46bd"
+    },
+    {
+      "file": "biohazard/js/operator-heavy-recon.js",
+      "bytes": 12092,
+      "sha256": "627269ed7f64ee5b61c605eed5575b19e9a638e8aa77ce066c9a2c9268100817"
+    },
+    {
+      "file": "biohazard/js/operator-medic-hazmat.js",
+      "bytes": 12491,
+      "sha256": "8fecc87fdeb937c756141f20000bdf8fba5bd45aea80d0d6203d3422d2015d1a"
+    },
+    {
+      "file": "biohazard/js/operator-skins.js",
+      "bytes": 1427,
+      "sha256": "8de703ab357892a89d93b10d580bda06916ead889fb68f959b9e1482e93935d5"
+    },
+    {
+      "file": "biohazard/js/operator-vanguard.js",
+      "bytes": 10297,
+      "sha256": "af23fa7801c5658b370a34c38eb7e0e3c3c21cd9799e384951197b626ee78b6a"
+    },
+    {
       "file": "biohazard/js/pause-menu.js",
       "bytes": 4028,
       "sha256": "46510635b9effe6e18058aa121e4cbabd954b7f4958a00db52c5662fc3514463"
     },
     {
+      "file": "biohazard/js/perf-probe.js",
+      "bytes": 5526,
+      "sha256": "ce9ec5ae9aae588ce128ea51eea464abc382095f8f349be98c8395354d645b6c"
+    },
+    {
+      "file": "biohazard/js/pixel-sprites.js",
+      "bytes": 8239,
+      "sha256": "c914498ae375031430e731093fabe4b4243b92e203ed20d366835bf0d4b72890"
+    },
+    {
+      "file": "biohazard/js/pixel.js",
+      "bytes": 8058,
+      "sha256": "4fd1f77b236063acceb8d4ab56a673d74956f4ed0ea97d0753db85e31c93b457"
+    },
+    {
+      "file": "biohazard/js/region-core.js",
+      "bytes": 18026,
+      "sha256": "f2a7553678db30d0aeff0fc48c7f1293bd573b2c55062679978fcd42ce387581"
+    },
+    {
+      "file": "biohazard/js/region-editor.js",
+      "bytes": 43714,
+      "sha256": "8df3bf8edadecd27087940565b2084ebae63c642599379a201af4bdec2e0d92e"
+    },
+    {
+      "file": "biohazard/js/region-train.js",
+      "bytes": 25824,
+      "sha256": "5f3f2d0bd41e333d07fec1e555c7f21b3035bb939333f3db594d94a0ef444d09"
+    },
+    {
+      "file": "biohazard/js/replay.js",
+      "bytes": 9077,
+      "sha256": "e825a961f950ee3d37ea71a65bf30ec558d4604ed9e3d62beadb788f0400a249"
+    },
+    {
+      "file": "biohazard/js/settings.js",
+      "bytes": 18143,
+      "sha256": "93f27bfbb00d3f134033f78b595a5659ba04e071f0db1d66a5c7f6deadd36c85"
+    },
+    {
+      "file": "biohazard/js/train-draw.js",
+      "bytes": 206747,
+      "sha256": "a3e2bc9f6a190978095148c4393843ad0b096e1f06f5d42bd2d7aeef1ee799c1"
+    },
+    {
+      "file": "biohazard/js/train-gen.js",
+      "bytes": 106742,
+      "sha256": "3aa6d8e094c106768f77825b304b42e1cd0ea9bd2b5d8b36ada46d597689ec07"
+    },
+    {
+      "file": "biohazard/js/train-level.js",
+      "bytes": 12673,
+      "sha256": "df6d8918be720bde503f5fc164b1682bd12ac19db08c7e4c6a150166f01191e5"
+    },
+    {
+      "file": "biohazard/js/train-overview.js",
+      "bytes": 11752,
+      "sha256": "a1d5180014f0ed68853596f49437c7a8b3a2e068988eaa55a2142b69d93f64a8"
+    },
+    {
+      "file": "biohazard/js/train-play.js",
+      "bytes": 47671,
+      "sha256": "7473899a0b1bdca31005b436eb720c2a9499a796a8070cbdc7fecee00c13afde"
+    },
+    {
+      "file": "biohazard/js/ui-kit.js",
+      "bytes": 23149,
+      "sha256": "13291a7109b8d2056f038d6b4ed35f58db9d45149f132558dcf6b2b7495a2d6f"
+    },
+    {
+      "file": "biohazard/js/ui-overlay.js",
+      "bytes": 16054,
+      "sha256": "c86249b4c6c9f8566946bd0f5231912ddad8d3e49e06a2ad1ae311620afebdba"
+    },
+    {
+      "file": "biohazard/js/ui-shell.js",
+      "bytes": 89604,
+      "sha256": "b601ee684c3e3af2417fb09dd6e5f22327c76f711213f311b2ee27ef56af631d"
+    },
+    {
+      "file": "biohazard/js/ui.js",
+      "bytes": 146948,
+      "sha256": "afadaab96ab606df78703e7f23ffd25f5a282476379d27f14b0713aee3a1f3d3"
+    },
+    {
+      "file": "biohazard/js/villa-draw.js",
+      "bytes": 61289,
+      "sha256": "204dd6a656ea1411d200ea02ea997c27694900ad2c005e166637a99c742f19b8"
+    },
+    {
+      "file": "biohazard/js/villa-gen.js",
+      "bytes": 34474,
+      "sha256": "14f6b1419abb2bf84f2b732a8862e72fcb6c984894e441f8d908895fccaf29b0"
+    },
+    {
+      "file": "biohazard/js/warehouse.js",
+      "bytes": 3556,
+      "sha256": "ffd229972effe4ac1e322b96afad3d00c42d7f6df7591a5bbf881e4f754093f9"
+    },
+    {
+      "file": "biohazard/sounds/ak47.ogg",
+      "bytes": 8357,
+      "sha256": "d32d61914ad15278a7da406771c439fa8cb7c59ad96dd25d83f0be884c54d06e"
+    },
+    {
+      "file": "biohazard/sounds/ar15.ogg",
+      "bytes": 8352,
+      "sha256": "dad012908963270cf63994190be53e298cf9c5105803c954fcecbf20e0b9816f"
+    },
+    {
+      "file": "biohazard/sounds/arisaka.ogg",
+      "bytes": 7721,
+      "sha256": "85ec30b295969ba1f2232328b9f820337132dda5bf958fe2411896f2a77a2118"
+    },
+    {
+      "file": "biohazard/sounds/bersa.ogg",
+      "bytes": 8388,
+      "sha256": "1d8811b31cb6306ca4f5fe13a8d920b0542521e5318d1774414dc975f025a345"
+    },
+    {
+      "file": "biohazard/sounds/cd.ogg",
+      "bytes": 7907,
+      "sha256": "809a69d746b83e04d7bff215fc62eba1ac834f3c3ac06f0ac05865997bc7149b"
+    },
+    {
+      "file": "biohazard/sounds/m12.ogg",
+      "bytes": 8108,
+      "sha256": "b93067af7be4905057e429260307f8de39a134859be2240db928436debf6f5be"
+    },
+    {
+      "file": "biohazard/sounds/m1894.ogg",
+      "bytes": 7855,
+      "sha256": "d050c97b503e9243d29ad29cfba3eb3cb5b7b808587fc3a96110b815bd0750f6"
+    },
+    {
+      "file": "biohazard/sounds/m1911.ogg",
+      "bytes": 8215,
+      "sha256": "47e0a54af30035192d46a075208668b852b457df07ecd6808f8c1fbb4b4aacd2"
+    },
+    {
+      "file": "biohazard/sounds/m45.ogg",
+      "bytes": 9845,
+      "sha256": "d37a1faac512db968037269252f450b81341f7dc2708a7662479daeb7a8664c6"
+    },
+    {
+      "file": "biohazard/sounds/marlin.ogg",
+      "bytes": 7993,
+      "sha256": "25ad484153e81bef68f0d7c48f1985218b75867eaf2366eb57c1bd999ea407eb"
+    },
+    {
+      "file": "biohazard/sounds/mosin.ogg",
+      "bytes": 8054,
+      "sha256": "6d1379cb6e92c9cdcd9e916b0b79eaa4d17e543b625a061d24974a5c9c1760e1"
+    },
+    {
+      "file": "biohazard/sounds/mossberg.ogg",
+      "bytes": 8012,
+      "sha256": "4eba1f63388f123c6e3ebbffa354252ad886ee7ef7f1b6134df69051ef392abd"
+    },
+    {
+      "file": "biohazard/sounds/nova.ogg",
+      "bytes": 8711,
+      "sha256": "013da6447ae1688e4abac351b7eea3966092ee96dd1738a1b6e2af9e48cafec7"
+    },
+    {
+      "file": "biohazard/sounds/ppq.ogg",
+      "bytes": 8137,
+      "sha256": "dde57084bd6aaecda255aca9e223810ea802349518e649099c0d8b6efcc89176"
+    },
+    {
+      "file": "biohazard/sounds/ppsh.ogg",
+      "bytes": 9977,
+      "sha256": "693c05bb378fa73fbe7e0ed6ca8b5d6184ef7396cdaa28e31b3205b94f4562e6"
+    },
+    {
+      "file": "biohazard/sounds/revolver.ogg",
+      "bytes": 8354,
+      "sha256": "a4416b662a8de457071f0227d59c4ab65891d6d23da531dbf5f316249ffd4302"
+    },
+    {
+      "file": "biohazard/sounds/ruger.ogg",
+      "bytes": 8418,
+      "sha256": "3c6347c77591e792f507c8640e5c4896481466ac7f5aed006c91525ec200b256"
+    },
+    {
+      "file": "biohazard/sounds/savage.ogg",
+      "bytes": 8174,
+      "sha256": "5c2a014a3cd70dd4845e8022e79b4f23ee023d31d882f52a9142d8da41cb1f32"
+    },
+    {
+      "file": "biohazard/sounds/six.ogg",
+      "bytes": 8288,
+      "sha256": "5e151a5d16a0940dc56d749717e43d23f7fc8393c5ba6314228bcad72ce051e8"
+    },
+    {
+      "file": "biohazard/sounds/sks.ogg",
+      "bytes": 8446,
+      "sha256": "7080a4a41fc191f67e7765cd3913a7f3c39d654c10c326da30a7a05c33164a43"
+    },
+    {
+      "file": "biohazard/sounds/sw642.ogg",
+      "bytes": 8559,
+      "sha256": "421b3b5cc2f8f73e7db0a7026099c1221f47eaddb08987d4f6c5473a8c0a1417"
+    },
+    {
+      "file": "biohazard/sounds/tikka.ogg",
+      "bytes": 8158,
+      "sha256": "23faf2c7aed2a20f70e7c2245f9e2310c93af6e663c649e55efb6aa619ca4cd0"
+    },
+    {
       "file": "credits.html",
-      "bytes": 2223,
-      "sha256": "0a08dc66b2c53d437e6aaaca6def1b16fcaf0cb52ccbf89ebe1f1b34fc27c148"
+      "bytes": 2617,
+      "sha256": "e8930037ec5c7b48377e5bfe5134c135244c69a67aab32959af4918bfd98d77a"
     },
     {
       "file": "credits/HKY原创版权与第三方说明.md",
@@ -632,6 +1227,181 @@
       "file": "cs2/阅读说明.txt",
       "bytes": 814,
       "sha256": "70d35668d9c88cde4ed8cebce1649eb646be4cffaad0d45cd15e4fed40385297"
+    },
+    {
+      "file": "demo/electric-safety/accident-cases.html",
+      "bytes": 37149,
+      "sha256": "a0350f6e48bdf8ae91bd3f8183c643fee20d36412ea81be22de78620a38b5a95"
+    },
+    {
+      "file": "demo/electric-safety/agent-entry.html",
+      "bytes": 10642,
+      "sha256": "fe2264db7e115ac440d1bced9c4963c417f5c27300454724e0f3d69cc4a22060"
+    },
+    {
+      "file": "demo/electric-safety/agent-map.html",
+      "bytes": 39843,
+      "sha256": "219bc2b46a2c32e59986a09da653edc2ad86563d71996ce647412940771006ce"
+    },
+    {
+      "file": "demo/electric-safety/chat.html",
+      "bytes": 84696,
+      "sha256": "4bd005a58d162c76dd98d4798c2d77826a7f2341098b696a6ff43ad3df24d62e"
+    },
+    {
+      "file": "demo/electric-safety/css/animations.css",
+      "bytes": 4511,
+      "sha256": "27929cf53594c68ac8407139d442f8d5fdf348da2b72a0dd0baa0e07b59202d3"
+    },
+    {
+      "file": "demo/electric-safety/css/demo.css",
+      "bytes": 5965,
+      "sha256": "ce0d0448564fd409d46012144c64f124f4307d46b4ad6617910f75f8a96f7492"
+    },
+    {
+      "file": "demo/electric-safety/css/pc-style.css",
+      "bytes": 76252,
+      "sha256": "dccfa6719d5e9b4286d847e9738708df9cfe50527084abd692ad0462489af855"
+    },
+    {
+      "file": "demo/electric-safety/css/style.css",
+      "bytes": 42535,
+      "sha256": "919c677fedb211b04b8495f067dc1610059197809e5bb3743529aeaaee175c66"
+    },
+    {
+      "file": "demo/electric-safety/dashboard.html",
+      "bytes": 57527,
+      "sha256": "0cea217b259e4612e11fec316954ccf8c288f98fbf22a7e43c6cc582e9deaf29"
+    },
+    {
+      "file": "demo/electric-safety/disclosure-detail.html",
+      "bytes": 37192,
+      "sha256": "f2468444f3d3198d1b3f74aa7376c19c73e555ed6b629dc9a66e32562a0aa099"
+    },
+    {
+      "file": "demo/electric-safety/index.html",
+      "bytes": 18373,
+      "sha256": "028363cd7441ca5ff333fa4ba2c3ffa87253d37b3a283b8b65e22ac7bfabc861"
+    },
+    {
+      "file": "demo/electric-safety/js/dashboard.js",
+      "bytes": 74701,
+      "sha256": "1a6d3fcb81f08c162fb6e2ead6865a8e43e13e4002872b1cfefd9762dc0f0eb1"
+    },
+    {
+      "file": "demo/electric-safety/js/demo.js",
+      "bytes": 27677,
+      "sha256": "59d64d73feb15d23eaaafc964d16beb74685efa1eefa9c346002a8e08e3b1dd6"
+    },
+    {
+      "file": "demo/electric-safety/js/disclosure-detail.js",
+      "bytes": 17452,
+      "sha256": "3fc07c8dd95d3e84264455017b70ae0f088691ff061fce049a2943208aa7c03a"
+    },
+    {
+      "file": "demo/electric-safety/js/login.js",
+      "bytes": 3950,
+      "sha256": "a5b4edf20ab9dcc2e6f578ef3d323c9dbb4ba9a5542e34b830c194cf36fdac41"
+    },
+    {
+      "file": "demo/electric-safety/js/profile.js",
+      "bytes": 5782,
+      "sha256": "2270f4be556ad2c2e50617e4d41d39686c9232ef5673272991df3151675d69c9"
+    },
+    {
+      "file": "demo/electric-safety/js/register.js",
+      "bytes": 6100,
+      "sha256": "3528f55b520b6f59e4e2f5c7e79fc288bad47df85af39cb67026ffaae926b977"
+    },
+    {
+      "file": "demo/electric-safety/js/theme.js",
+      "bytes": 4282,
+      "sha256": "0b199beb9cd2cb154bcc1841318cfa5edc4a97878da8a062ef6c9b346935f5fd"
+    },
+    {
+      "file": "demo/electric-safety/js/weather-risk.js",
+      "bytes": 52920,
+      "sha256": "c08833c225cd34f9a96ee26cd5e64ecc943097cfe19989f8b1cda99c9dfadbd9"
+    },
+    {
+      "file": "demo/electric-safety/profile.html",
+      "bytes": 24714,
+      "sha256": "a6e04bd4e0d83d61a1c990dcfd6c66e5181a6d066444c10995b4de0a3094e6a1"
+    },
+    {
+      "file": "demo/electric-safety/register.html",
+      "bytes": 20606,
+      "sha256": "33ce62a18f72abad2b7d41b9886e63ea51028dc3dce539c6269b1fe7d56f0305"
+    },
+    {
+      "file": "demo/electric-safety/settings.html",
+      "bytes": 16978,
+      "sha256": "4b1cefe5faf68d30c3fdffc622c5f074f27bd1bc7eca179d7e27af7cf565f7e4"
+    },
+    {
+      "file": "demo/electric-safety/vendor/leaflet/images/layers-2x.png",
+      "bytes": 1259,
+      "sha256": "066daca850d8ffbef007af00b06eac0015728dee279c51f3cb6c716df7c42edf"
+    },
+    {
+      "file": "demo/electric-safety/vendor/leaflet/images/layers.png",
+      "bytes": 696,
+      "sha256": "1dbbe9d028e292f36fcba8f8b3a28d5e8932754fc2215b9ac69e4cdecf5107c6"
+    },
+    {
+      "file": "demo/electric-safety/vendor/leaflet/images/marker-icon-2x.png",
+      "bytes": 2464,
+      "sha256": "00179c4c1ee830d3a108412ae0d294f55776cfeb085c60129a39aa6fc4ae2528"
+    },
+    {
+      "file": "demo/electric-safety/vendor/leaflet/images/marker-icon.png",
+      "bytes": 1466,
+      "sha256": "574c3a5cca85f4114085b6841596d62f00d7c892c7b03f28cbfa301deb1dc437"
+    },
+    {
+      "file": "demo/electric-safety/vendor/leaflet/images/marker-shadow.png",
+      "bytes": 618,
+      "sha256": "264f5c640339f042dd729062cfc04c17f8ea0f29882b538e3848ed8f10edb4da"
+    },
+    {
+      "file": "demo/electric-safety/vendor/leaflet/leaflet.css",
+      "bytes": 14145,
+      "sha256": "337bfca5cabd03b39815b2700febe2b3b7edf55921c59cd49f88ecb328212303"
+    },
+    {
+      "file": "demo/electric-safety/vendor/leaflet/leaflet.js",
+      "bytes": 147552,
+      "sha256": "db49d009c841f5ca34a888c96511ae936fd9f5533e90d8b2c4d57596f4e5641a"
+    },
+    {
+      "file": "demo/electric-safety/vision-monitor.html",
+      "bytes": 90005,
+      "sha256": "8ab7a1cb945a93b17871364fbb3ea41237de6de6fcf9ee35464d012d76f3f529"
+    },
+    {
+      "file": "demo/electric-safety/weather-risk.html",
+      "bytes": 54945,
+      "sha256": "2582b7447a07a32e218986bac4aaf0a669023a7214dc65b085b8e7ac3ff902d3"
+    },
+    {
+      "file": "demo/teaching-video/assets/index-BVLJDtIB.css",
+      "bytes": 18628,
+      "sha256": "300abb31cd7916da57ae6368b787ef33fe8ff9ca6176a0259fd5af38b4e07cf5"
+    },
+    {
+      "file": "demo/teaching-video/assets/index-Ctrbv9Wa.js",
+      "bytes": 369963,
+      "sha256": "de3a7168cb9758732a863677bd676b51d688534230c7e35beb69b676002bb688"
+    },
+    {
+      "file": "demo/teaching-video/index.html",
+      "bytes": 682,
+      "sha256": "d1390ad3645a572031be0fe370423733456a5fb60f1a406817f81634bff8d413"
+    },
+    {
+      "file": "demo/teaching-video/vite.svg",
+      "bytes": 1497,
+      "sha256": "4a748afd443918bb16591c834c401dae33e87861ab5dbad0811c3a3b4a9214fb"
     },
     {
       "file": "docs/README部署说明.md",
@@ -870,8 +1640,8 @@
     },
     {
       "file": "release.html",
-      "bytes": 2667,
-      "sha256": "28a54d4d0c36f35f2b2667de571f276c9a9d525681060a1f5a2b1a5942e86dce"
+      "bytes": 3061,
+      "sha256": "d3dcc761521cffbb62d97f72fd8ea112af8bac0f7341b1611c541e06cb52ffd1"
     },
     {
       "file": "spreadsheets/CS2_经济系统配置与预算.xlsx",
@@ -880,8 +1650,8 @@
     },
     {
       "file": "spreadsheets/index.html",
-      "bytes": 2381,
-      "sha256": "c107177096534fce8e8a279f63d224e070459d99737c6b71bdb50699e59aede6"
+      "bytes": 2759,
+      "sha256": "d7f9463f16b20f7b51cca4212875a896bcca949d633a8997672ac387c51c8cda"
     },
     {
       "file": "spreadsheets/使用说明.md",
@@ -894,21 +1664,6 @@
       "sha256": "e56f151134a513f08adbe202cd90af6560f47fd0eefdca9246f058ba503efc40"
     },
     {
-      "file": "assets/wave-rider.jpg",
-      "bytes": 89985,
-      "sha256": "d2f9757ffcd533aca1e57d941a96bc872bb8fc3ec503c2341824d856be8403c8"
-    },
-    {
-      "file": "assets/biohazard.jpg",
-      "bytes": 105881,
-      "sha256": "75cc3ba39f11a35dfe6c0bd7746d8a837ef1c67b457934dc4a719cc2baa6d6bd"
-    },
-    {
-      "file": "wave-rider/index.html",
-      "bytes": 5195,
-      "sha256": "af78a53d0b6044e588342c04692452cdd9712aca720705da92262cf932186c29"
-    },
-    {
       "file": "wave-rider/WaveRider-Offline.html",
       "bytes": 1888767,
       "sha256": "b1e665c5d2817f0cb918a0cbf6937ddfd2f6463d7f47e61da84af6cc87387af0"
@@ -919,759 +1674,9 @@
       "sha256": "944fea6c488108cf8a489ff677529464279d7676017fc346b7dae2bec5fc4312"
     },
     {
-      "file": "biohazard/editor.html",
-      "bytes": 30969,
-      "sha256": "e0ed4bd077f0a2831f2f0295da696c62973530e9713536c8acaad57c4f139290"
-    },
-    {
-      "file": "biohazard/index.html",
-      "bytes": 56552,
-      "sha256": "5c4f5f64c5c177fe37efc66003342e0cbdf94073d9b1cad726979e05b72bf0ba"
-    },
-    {
-      "file": "biohazard/codex-castle-art-rebuild/boot.js",
-      "bytes": 2974,
-      "sha256": "f45d124a070dfd7c23c72d2f677fdbaf6fbc7359ccc41b4e8a9572f199527ad1"
-    },
-    {
-      "file": "biohazard/codex-castle-art-rebuild/browser-model.js",
-      "bytes": 7543,
-      "sha256": "f247436972c55e131e4c12da02c31ad89b6e1750887a28d88cd23165f5e57b35"
-    },
-    {
-      "file": "biohazard/codex-castle-art-rebuild/preview.js",
-      "bytes": 4164,
-      "sha256": "622649109e747d80e5e2742f959fc731c907c7a53777e9471b92988d110e4df0"
-    },
-    {
-      "file": "biohazard/codex-castle-art-rebuild/render.js",
-      "bytes": 6372,
-      "sha256": "29ce8958a069098fd70c10eda68aa68d7a4fca84d55385491982f485e6b97d12"
-    },
-    {
-      "file": "biohazard/codex-castle-art-rebuild/modules/architecture.js",
-      "bytes": 13442,
-      "sha256": "4a3b1e02b982ec7c909f1a308938ee9105039dd89c111b33c399f2163608c639"
-    },
-    {
-      "file": "biohazard/codex-castle-art-rebuild/modules/environment.js",
-      "bytes": 49337,
-      "sha256": "932cf2c08c1efb36034abc9daab8df990c385c74e4f49fa8499a46a6ed3028ed"
-    },
-    {
-      "file": "biohazard/codex-castle-art-rebuild/modules/exterior.js",
-      "bytes": 18972,
-      "sha256": "77780a4d4902ed172ed29a1a7d02c084abe96b265731db586dd61d6d2835b926"
-    },
-    {
-      "file": "biohazard/codex-castle-art-rebuild/modules/props.js",
-      "bytes": 55713,
-      "sha256": "c6377aa2b211045bded93d9a755b1633507b21fbe9ae17b7bfd65a642a16ed04"
-    },
-    {
-      "file": "biohazard/codex-castle-collision/bounded-evidence.js",
-      "bytes": 6692,
-      "sha256": "fc1e8124be085006e7a374a1f8be939461fcb73dc04d5e65c980d57d430ddd49"
-    },
-    {
-      "file": "biohazard/codex-castle-collision/bridge.js",
-      "bytes": 1713,
-      "sha256": "582ef34106b8d82df6f373316ae66319076ef4b5b3e1bdc69972da9a375a8820"
-    },
-    {
-      "file": "biohazard/codex-castle-collision/check.js",
-      "bytes": 5237,
-      "sha256": "548b5b8b39a643db5e78bce62f9040b0959453b4df4f6dad7ef4c9ee709eab77"
-    },
-    {
-      "file": "biohazard/codex-castle-collision/combinations.js",
-      "bytes": 3149,
-      "sha256": "2269c329aba794fa1ed2ec4e82cdb817546ef2da06c98a84dd4589556665d8e8"
-    },
-    {
-      "file": "biohazard/codex-castle-collision/compiler.js",
-      "bytes": 20108,
-      "sha256": "b4de06c8176d5b716a13438e4fabe86c77b77e953eef20b85e7f266ac261fc36"
-    },
-    {
-      "file": "biohazard/codex-castle-collision/contracts.js",
-      "bytes": 2299,
-      "sha256": "85511092022e89f609ca372d7d410d8fe3f857ad0529e6673919cc366826b5f6"
-    },
-    {
-      "file": "biohazard/codex-castle-collision/contracts.json",
-      "bytes": 404758,
-      "sha256": "d53025536ca408945d5549cddba6e90bce925568b53820c5553a9d342e95b5f0"
-    },
-    {
-      "file": "biohazard/codex-castle-collision/final-geometry.json",
-      "bytes": 356836,
-      "sha256": "0ae9055b1f6e6f065d1ceb9d9d6b58ddf6b040463a4d15737760c841be6760b8"
-    },
-    {
-      "file": "biohazard/codex-castle-collision/finalize-evidence.js",
-      "bytes": 7828,
-      "sha256": "c254064a5796bb01dfb65490f4d096a47d561c044a91f1dbf55a604b686f7182"
-    },
-    {
-      "file": "biohazard/codex-castle-collision/harness.js",
-      "bytes": 4687,
-      "sha256": "eeff130a136ccd77b8b8deb102ec5677853796340c0a0f95cb1a03885a80b084"
-    },
-    {
-      "file": "biohazard/codex-castle-collision/inspector.js",
-      "bytes": 21852,
-      "sha256": "d939a83f89ff8ebb326b2a3c3a3d780bfbe8bdb244393474ccbc71a23a0ce050"
-    },
-    {
-      "file": "biohazard/codex-castle-collision/local-targeted.js",
-      "bytes": 1589,
-      "sha256": "f7cd2ae9c89684e7ea81e36532f75999627b8122bab75a02bbffb8606c082e18"
-    },
-    {
-      "file": "biohazard/codex-castle-collision/point-z14-targeted.js",
-      "bytes": 4375,
-      "sha256": "c7e0b606ed1e3f1502dc04ec78301127409f44489df331b97f1d252aef536825"
-    },
-    {
-      "file": "biohazard/codex-castle-collision/runner.js",
-      "bytes": 19233,
-      "sha256": "5d35fdf7f709b27f463075f25c638157739a94c24527aa3f20970a51646ab4ec"
-    },
-    {
-      "file": "biohazard/codex-castle-collision/sweep.js",
-      "bytes": 1349,
-      "sha256": "0fa917f2c69f365add74c567e9f75a5f1fad718244735c4e13d66888ca588c74"
-    },
-    {
-      "file": "biohazard/codex-castle-layout/stage2-geometry.json",
-      "bytes": 113405,
-      "sha256": "e63f5d0935faf6b1a10d9159dcf99e4b99d6992e2c9e0c38a6837d66df9fa7e4"
-    },
-    {
-      "file": "biohazard/codex-castle-scale/controls.js",
-      "bytes": 5187,
-      "sha256": "18bd44fe3d7966d80db3afd5c621320e7b2a134da5e87e31a03b49746376eafd"
-    },
-    {
-      "file": "biohazard/codex-castle-scale/model.js",
-      "bytes": 2525,
-      "sha256": "b63ec923035a8a4a09caf83c00010b2cc3d698a7ee5a10d25323a001034b4448"
-    },
-    {
-      "file": "biohazard/css/style.css",
-      "bytes": 31707,
-      "sha256": "558080bc0d76299c6b9c7cf2d054b7835e64be1086da1a187ab868370396e8fa"
-    },
-    {
-      "file": "biohazard/css/ui-shell.css",
-      "bytes": 79100,
-      "sha256": "76d7bdeaa57eb385dafcfc62005afa26537768a6c78da0baef055becf432973b"
-    },
-    {
-      "file": "biohazard/fonts/zpix.ttf",
-      "bytes": 4681088,
-      "sha256": "a67917d94bb597acbdf3bfe1cf97047cc3e1cdd3839d21da188e35cc0737e828"
-    },
-    {
-      "file": "biohazard/js/ai.js",
-      "bytes": 10193,
-      "sha256": "b0b66fd74afbcdce4159398a8b57c6d7bab14db4c1b3cf32c80ae40a27c05d70"
-    },
-    {
-      "file": "biohazard/js/art-bullets.js",
-      "bytes": 9961,
-      "sha256": "f8d28b865ddd986f3f9bf8ee7887a2b965e89b5a80fd2f4315c53942b81859ec"
-    },
-    {
-      "file": "biohazard/js/art-core.js",
-      "bytes": 22712,
-      "sha256": "b0b39eca8ea7c3b079a21c8a0332d547202bb03f4e81a3a5de4fc863cef3f448"
-    },
-    {
-      "file": "biohazard/js/art-draw.js",
-      "bytes": 20104,
-      "sha256": "e6e2db0a47476098f907db6a4e3d6fabc323e467c1a85aa8958b63aa7ecf0d81"
-    },
-    {
-      "file": "biohazard/js/art-events.js",
-      "bytes": 35689,
-      "sha256": "bf702673f7fb194747db9fed6e7d12dd9c16f5d5e974d04261c8c9a3e596f41e"
-    },
-    {
-      "file": "biohazard/js/art-guns-hd.js",
-      "bytes": 5383,
-      "sha256": "b532e651e241fd69d25fc3438766e25676951b99794965fc0e8d69237b2d598e"
-    },
-    {
-      "file": "biohazard/js/art-guns.js",
-      "bytes": 224362,
-      "sha256": "2b7945a05ac5cb241187d1bec7a233e87c44be2da1a15717ecb95c0599327f90"
-    },
-    {
-      "file": "biohazard/js/art-hero.js",
-      "bytes": 19255,
-      "sha256": "ba3af720da1d1bf0dda26c6dd645639e3e9a63f71e2c305082ee8580934cbf7e"
-    },
-    {
-      "file": "biohazard/js/art-hit.js",
-      "bytes": 15970,
-      "sha256": "3a4055a5e882529dcdf7f75657171de6e0def5f266dd9146e171f462b34b5a17"
-    },
-    {
-      "file": "biohazard/js/art-map-hd.js",
-      "bytes": 2845,
-      "sha256": "66e28b6fb6ce9aad98493d09920a47feedcd75e738beb3c5920fb63ba6fb5f74"
-    },
-    {
-      "file": "biohazard/js/art-melee-five.js",
-      "bytes": 5007,
-      "sha256": "85b7f6f1e878d5803b75667a011360c2e446d2831ea2109e1be914fd86b5ea81"
-    },
-    {
-      "file": "biohazard/js/art-melee-six.js",
-      "bytes": 9962,
-      "sha256": "ce28a31e5b2876fdb3308e75be4bbc067248c9435ada41bc0ea885a7b018f7c9"
-    },
-    {
-      "file": "biohazard/js/art-melee.js",
-      "bytes": 6307,
-      "sha256": "19be8546b92e6ae9c3c352f072d16bd54095165c795294029b06e962b0cde843"
-    },
-    {
-      "file": "biohazard/js/art-pickup.js",
-      "bytes": 29216,
-      "sha256": "134595bd5ef35fdfc4ee4fe3ef1045a2d5bed9e12cb75c35e8c1ce7eec646cba"
-    },
-    {
-      "file": "biohazard/js/art-throw-nine.js",
-      "bytes": 6414,
-      "sha256": "ebe87f94d27e2d4a5769902e614f0f8b25ef6aa9ae9a779628431bfad50feb25"
-    },
-    {
-      "file": "biohazard/js/art-views.js",
-      "bytes": 9309,
-      "sha256": "20daf8cd1e5389e1874936e42c0e4279ca2c9d70673d49cb904de7c3882822f4"
-    },
-    {
-      "file": "biohazard/js/art-workbench.js",
-      "bytes": 21422,
-      "sha256": "65c5d8026a0bbc6b23d905f6257aae59b64af93b87df25bd82bd4a4e6d1a2244"
-    },
-    {
-      "file": "biohazard/js/audio.js",
-      "bytes": 11982,
-      "sha256": "910f90876988b0c1b285eeb7f5b9c6799b4a9c0eb7af749fb380221fde206fa0"
-    },
-    {
-      "file": "biohazard/js/car-art.js",
-      "bytes": 69382,
-      "sha256": "52ac5a44d32da13603d35ccff10247c9c54cb12f0dda93b96719ac0d30e94daf"
-    },
-    {
-      "file": "biohazard/js/car-fit.js",
-      "bytes": 76104,
-      "sha256": "e21cd457c85bc0176307ec223379dc685eba609ddedcfd05d39cfe05c15ee0df"
-    },
-    {
-      "file": "biohazard/js/car-life.js",
-      "bytes": 34296,
-      "sha256": "5c8873f0a513e15aac2a9d0baa5c6e2dc089ec655586229bcda662faa5e5a3d7"
-    },
-    {
-      "file": "biohazard/js/car-light.js",
-      "bytes": 28999,
-      "sha256": "89199d6ab5b582cfa776a3528b46934c6c7c59dc0e8e0af028ec1f29ab0f1c92"
-    },
-    {
-      "file": "biohazard/js/car-mat.js",
-      "bytes": 17957,
-      "sha256": "ffbc08d0a952aba493d8a1e7478fe1fe3ca874465e3aaf6cb3fa4d7610e83542"
-    },
-    {
-      "file": "biohazard/js/car-preview.js",
-      "bytes": 50419,
-      "sha256": "55bcc7f31633d371f0a138a523fac2e5b8809d437b6a61dc6468f377f1ee5384"
-    },
-    {
-      "file": "biohazard/js/castle-art-v2.js",
-      "bytes": 8385,
-      "sha256": "3eec2bcb1b7791ffe721442db85926bae8cc32db62d95c6034875e3182000ac7"
-    },
-    {
-      "file": "biohazard/js/castle-draw.js",
-      "bytes": 75610,
-      "sha256": "861f3de32974d7f85f156261645cceb5d0c67b4cc38994ed224292d17ae0fd69"
-    },
-    {
-      "file": "biohazard/js/castle-gen.js",
-      "bytes": 59285,
-      "sha256": "b6762b38270cb927b1f493cae5d6e13e6d0dc0ad034b07bded834d65749724ad"
-    },
-    {
-      "file": "biohazard/js/config.js",
-      "bytes": 59851,
-      "sha256": "161a264a6dd9add6b15ddb5e1de513ab28214b2312f7556c467d3f976f81a63c"
-    },
-    {
-      "file": "biohazard/js/day-night.js",
-      "bytes": 20829,
-      "sha256": "4fc88187abc477f9f96fce36062619efddc2aa22f80ecde56cd57b053325fa14"
-    },
-    {
-      "file": "biohazard/js/debugger-schema.js",
-      "bytes": 239541,
-      "sha256": "b0954ac23ee0f1a8a1f642bfdbab3322be557c0adf85b871ba5ff810d6a0ee90"
-    },
-    {
-      "file": "biohazard/js/debugger.js",
-      "bytes": 22221,
-      "sha256": "ea9a58a3862e83395ade997a509ec5f0cea2e653f672837abbe7d3ba2fa43bb5"
-    },
-    {
-      "file": "biohazard/js/entities.js",
-      "bytes": 11901,
-      "sha256": "1b0a0336d372c4ebc3fd9364ca31a50b905a789b4b4c9012ee30b46bcc49abc0"
-    },
-    {
-      "file": "biohazard/js/game.js",
-      "bytes": 149420,
-      "sha256": "b9272b6258663292afef304e6947c335941c1c3653c91a51e928c5f8dc33841f"
-    },
-    {
-      "file": "biohazard/js/input.js",
-      "bytes": 2508,
-      "sha256": "ae694ded565191cd1ebe1e70f4144fd5a684a0d2aec77c3f8d3fe4e4cdb93c5d"
-    },
-    {
-      "file": "biohazard/js/level.js",
-      "bytes": 51953,
-      "sha256": "d28ce9440218c85ab3f6d90971af65d0864886e2d7606a891d683e0f7b8fbe8c"
-    },
-    {
-      "file": "biohazard/js/longmap-draw.js",
-      "bytes": 73009,
-      "sha256": "23e5ccfa406367c40ed60ec391677b451e0c675875ea1a560c6790f1715395e2"
-    },
-    {
-      "file": "biohazard/js/longmap-gen.js",
-      "bytes": 53962,
-      "sha256": "effd002bb88f3003692ea3604417ca89443911a674a29f8d73a40f2016ec0aea"
-    },
-    {
-      "file": "biohazard/js/longmap-play.js",
-      "bytes": 11663,
-      "sha256": "d1b44933241e10ad33b1bfbf5f0f05e8c5f38aa42979f8ac9f65f59a657d322d"
-    },
-    {
-      "file": "biohazard/js/net.js",
-      "bytes": 16433,
-      "sha256": "25f22f80126e6ca957dcade1eb9146dc13615a856e5fc361a279558fba1d46bd"
-    },
-    {
-      "file": "biohazard/js/operator-heavy-recon.js",
-      "bytes": 12092,
-      "sha256": "627269ed7f64ee5b61c605eed5575b19e9a638e8aa77ce066c9a2c9268100817"
-    },
-    {
-      "file": "biohazard/js/operator-medic-hazmat.js",
-      "bytes": 12491,
-      "sha256": "8fecc87fdeb937c756141f20000bdf8fba5bd45aea80d0d6203d3422d2015d1a"
-    },
-    {
-      "file": "biohazard/js/operator-skins.js",
-      "bytes": 1427,
-      "sha256": "8de703ab357892a89d93b10d580bda06916ead889fb68f959b9e1482e93935d5"
-    },
-    {
-      "file": "biohazard/js/operator-vanguard.js",
-      "bytes": 10297,
-      "sha256": "af23fa7801c5658b370a34c38eb7e0e3c3c21cd9799e384951197b626ee78b6a"
-    },
-    {
-      "file": "biohazard/js/perf-probe.js",
-      "bytes": 5526,
-      "sha256": "ce9ec5ae9aae588ce128ea51eea464abc382095f8f349be98c8395354d645b6c"
-    },
-    {
-      "file": "biohazard/js/pixel-sprites.js",
-      "bytes": 8239,
-      "sha256": "c914498ae375031430e731093fabe4b4243b92e203ed20d366835bf0d4b72890"
-    },
-    {
-      "file": "biohazard/js/pixel.js",
-      "bytes": 8058,
-      "sha256": "4fd1f77b236063acceb8d4ab56a673d74956f4ed0ea97d0753db85e31c93b457"
-    },
-    {
-      "file": "biohazard/js/region-core.js",
-      "bytes": 18026,
-      "sha256": "f2a7553678db30d0aeff0fc48c7f1293bd573b2c55062679978fcd42ce387581"
-    },
-    {
-      "file": "biohazard/js/region-editor.js",
-      "bytes": 43714,
-      "sha256": "8df3bf8edadecd27087940565b2084ebae63c642599379a201af4bdec2e0d92e"
-    },
-    {
-      "file": "biohazard/js/region-train.js",
-      "bytes": 25824,
-      "sha256": "5f3f2d0bd41e333d07fec1e555c7f21b3035bb939333f3db594d94a0ef444d09"
-    },
-    {
-      "file": "biohazard/js/replay.js",
-      "bytes": 9077,
-      "sha256": "e825a961f950ee3d37ea71a65bf30ec558d4604ed9e3d62beadb788f0400a249"
-    },
-    {
-      "file": "biohazard/js/settings.js",
-      "bytes": 18143,
-      "sha256": "93f27bfbb00d3f134033f78b595a5659ba04e071f0db1d66a5c7f6deadd36c85"
-    },
-    {
-      "file": "biohazard/js/train-draw.js",
-      "bytes": 206747,
-      "sha256": "a3e2bc9f6a190978095148c4393843ad0b096e1f06f5d42bd2d7aeef1ee799c1"
-    },
-    {
-      "file": "biohazard/js/train-gen.js",
-      "bytes": 106742,
-      "sha256": "3aa6d8e094c106768f77825b304b42e1cd0ea9bd2b5d8b36ada46d597689ec07"
-    },
-    {
-      "file": "biohazard/js/train-level.js",
-      "bytes": 12673,
-      "sha256": "df6d8918be720bde503f5fc164b1682bd12ac19db08c7e4c6a150166f01191e5"
-    },
-    {
-      "file": "biohazard/js/train-overview.js",
-      "bytes": 11752,
-      "sha256": "a1d5180014f0ed68853596f49437c7a8b3a2e068988eaa55a2142b69d93f64a8"
-    },
-    {
-      "file": "biohazard/js/train-play.js",
-      "bytes": 47671,
-      "sha256": "7473899a0b1bdca31005b436eb720c2a9499a796a8070cbdc7fecee00c13afde"
-    },
-    {
-      "file": "biohazard/js/ui-kit.js",
-      "bytes": 23149,
-      "sha256": "13291a7109b8d2056f038d6b4ed35f58db9d45149f132558dcf6b2b7495a2d6f"
-    },
-    {
-      "file": "biohazard/js/ui-overlay.js",
-      "bytes": 16054,
-      "sha256": "c86249b4c6c9f8566946bd0f5231912ddad8d3e49e06a2ad1ae311620afebdba"
-    },
-    {
-      "file": "biohazard/js/ui-shell.js",
-      "bytes": 89604,
-      "sha256": "b601ee684c3e3af2417fb09dd6e5f22327c76f711213f311b2ee27ef56af631d"
-    },
-    {
-      "file": "biohazard/js/ui.js",
-      "bytes": 146948,
-      "sha256": "afadaab96ab606df78703e7f23ffd25f5a282476379d27f14b0713aee3a1f3d3"
-    },
-    {
-      "file": "biohazard/js/villa-draw.js",
-      "bytes": 61289,
-      "sha256": "204dd6a656ea1411d200ea02ea997c27694900ad2c005e166637a99c742f19b8"
-    },
-    {
-      "file": "biohazard/js/villa-gen.js",
-      "bytes": 34474,
-      "sha256": "14f6b1419abb2bf84f2b732a8862e72fcb6c984894e441f8d908895fccaf29b0"
-    },
-    {
-      "file": "biohazard/js/warehouse.js",
-      "bytes": 3556,
-      "sha256": "ffd229972effe4ac1e322b96afad3d00c42d7f6df7591a5bbf881e4f754093f9"
-    },
-    {
-      "file": "biohazard/sounds/ak47.ogg",
-      "bytes": 8357,
-      "sha256": "d32d61914ad15278a7da406771c439fa8cb7c59ad96dd25d83f0be884c54d06e"
-    },
-    {
-      "file": "biohazard/sounds/ar15.ogg",
-      "bytes": 8352,
-      "sha256": "dad012908963270cf63994190be53e298cf9c5105803c954fcecbf20e0b9816f"
-    },
-    {
-      "file": "biohazard/sounds/arisaka.ogg",
-      "bytes": 7721,
-      "sha256": "85ec30b295969ba1f2232328b9f820337132dda5bf958fe2411896f2a77a2118"
-    },
-    {
-      "file": "biohazard/sounds/bersa.ogg",
-      "bytes": 8388,
-      "sha256": "1d8811b31cb6306ca4f5fe13a8d920b0542521e5318d1774414dc975f025a345"
-    },
-    {
-      "file": "biohazard/sounds/cd.ogg",
-      "bytes": 7907,
-      "sha256": "809a69d746b83e04d7bff215fc62eba1ac834f3c3ac06f0ac05865997bc7149b"
-    },
-    {
-      "file": "biohazard/sounds/m12.ogg",
-      "bytes": 8108,
-      "sha256": "b93067af7be4905057e429260307f8de39a134859be2240db928436debf6f5be"
-    },
-    {
-      "file": "biohazard/sounds/m1894.ogg",
-      "bytes": 7855,
-      "sha256": "d050c97b503e9243d29ad29cfba3eb3cb5b7b808587fc3a96110b815bd0750f6"
-    },
-    {
-      "file": "biohazard/sounds/m1911.ogg",
-      "bytes": 8215,
-      "sha256": "47e0a54af30035192d46a075208668b852b457df07ecd6808f8c1fbb4b4aacd2"
-    },
-    {
-      "file": "biohazard/sounds/m45.ogg",
-      "bytes": 9845,
-      "sha256": "d37a1faac512db968037269252f450b81341f7dc2708a7662479daeb7a8664c6"
-    },
-    {
-      "file": "biohazard/sounds/marlin.ogg",
-      "bytes": 7993,
-      "sha256": "25ad484153e81bef68f0d7c48f1985218b75867eaf2366eb57c1bd999ea407eb"
-    },
-    {
-      "file": "biohazard/sounds/mosin.ogg",
-      "bytes": 8054,
-      "sha256": "6d1379cb6e92c9cdcd9e916b0b79eaa4d17e543b625a061d24974a5c9c1760e1"
-    },
-    {
-      "file": "biohazard/sounds/mossberg.ogg",
-      "bytes": 8012,
-      "sha256": "4eba1f63388f123c6e3ebbffa354252ad886ee7ef7f1b6134df69051ef392abd"
-    },
-    {
-      "file": "biohazard/sounds/nova.ogg",
-      "bytes": 8711,
-      "sha256": "013da6447ae1688e4abac351b7eea3966092ee96dd1738a1b6e2af9e48cafec7"
-    },
-    {
-      "file": "biohazard/sounds/ppq.ogg",
-      "bytes": 8137,
-      "sha256": "dde57084bd6aaecda255aca9e223810ea802349518e649099c0d8b6efcc89176"
-    },
-    {
-      "file": "biohazard/sounds/ppsh.ogg",
-      "bytes": 9977,
-      "sha256": "693c05bb378fa73fbe7e0ed6ca8b5d6184ef7396cdaa28e31b3205b94f4562e6"
-    },
-    {
-      "file": "biohazard/sounds/revolver.ogg",
-      "bytes": 8354,
-      "sha256": "a4416b662a8de457071f0227d59c4ab65891d6d23da531dbf5f316249ffd4302"
-    },
-    {
-      "file": "biohazard/sounds/ruger.ogg",
-      "bytes": 8418,
-      "sha256": "3c6347c77591e792f507c8640e5c4896481466ac7f5aed006c91525ec200b256"
-    },
-    {
-      "file": "biohazard/sounds/savage.ogg",
-      "bytes": 8174,
-      "sha256": "5c2a014a3cd70dd4845e8022e79b4f23ee023d31d882f52a9142d8da41cb1f32"
-    },
-    {
-      "file": "biohazard/sounds/six.ogg",
-      "bytes": 8288,
-      "sha256": "5e151a5d16a0940dc56d749717e43d23f7fc8393c5ba6314228bcad72ce051e8"
-    },
-    {
-      "file": "biohazard/sounds/sks.ogg",
-      "bytes": 8446,
-      "sha256": "7080a4a41fc191f67e7765cd3913a7f3c39d654c10c326da30a7a05c33164a43"
-    },
-    {
-      "file": "biohazard/sounds/sw642.ogg",
-      "bytes": 8559,
-      "sha256": "421b3b5cc2f8f73e7db0a7026099c1221f47eaddb08987d4f6c5473a8c0a1417"
-    },
-    {
-      "file": "biohazard/sounds/tikka.ogg",
-      "bytes": 8158,
-      "sha256": "23faf2c7aed2a20f70e7c2245f9e2310c93af6e663c649e55efb6aa619ca4cd0"
-    },
-    {
-      "file": "demo/electric-safety/accident-cases.html",
-      "bytes": 37149,
-      "sha256": "a0350f6e48bdf8ae91bd3f8183c643fee20d36412ea81be22de78620a38b5a95"
-    },
-    {
-      "file": "demo/electric-safety/agent-entry.html",
-      "bytes": 10642,
-      "sha256": "fe2264db7e115ac440d1bced9c4963c417f5c27300454724e0f3d69cc4a22060"
-    },
-    {
-      "file": "demo/electric-safety/agent-map.html",
-      "bytes": 39843,
-      "sha256": "219bc2b46a2c32e59986a09da653edc2ad86563d71996ce647412940771006ce"
-    },
-    {
-      "file": "demo/electric-safety/chat.html",
-      "bytes": 84696,
-      "sha256": "4bd005a58d162c76dd98d4798c2d77826a7f2341098b696a6ff43ad3df24d62e"
-    },
-    {
-      "file": "demo/electric-safety/dashboard.html",
-      "bytes": 57527,
-      "sha256": "0cea217b259e4612e11fec316954ccf8c288f98fbf22a7e43c6cc582e9deaf29"
-    },
-    {
-      "file": "demo/electric-safety/disclosure-detail.html",
-      "bytes": 37192,
-      "sha256": "f2468444f3d3198d1b3f74aa7376c19c73e555ed6b629dc9a66e32562a0aa099"
-    },
-    {
-      "file": "demo/electric-safety/index.html",
-      "bytes": 18373,
-      "sha256": "028363cd7441ca5ff333fa4ba2c3ffa87253d37b3a283b8b65e22ac7bfabc861"
-    },
-    {
-      "file": "demo/electric-safety/profile.html",
-      "bytes": 24714,
-      "sha256": "a6e04bd4e0d83d61a1c990dcfd6c66e5181a6d066444c10995b4de0a3094e6a1"
-    },
-    {
-      "file": "demo/electric-safety/register.html",
-      "bytes": 20606,
-      "sha256": "33ce62a18f72abad2b7d41b9886e63ea51028dc3dce539c6269b1fe7d56f0305"
-    },
-    {
-      "file": "demo/electric-safety/settings.html",
-      "bytes": 16978,
-      "sha256": "4b1cefe5faf68d30c3fdffc622c5f074f27bd1bc7eca179d7e27af7cf565f7e4"
-    },
-    {
-      "file": "demo/electric-safety/vision-monitor.html",
-      "bytes": 90005,
-      "sha256": "8ab7a1cb945a93b17871364fbb3ea41237de6de6fcf9ee35464d012d76f3f529"
-    },
-    {
-      "file": "demo/electric-safety/weather-risk.html",
-      "bytes": 54945,
-      "sha256": "2582b7447a07a32e218986bac4aaf0a669023a7214dc65b085b8e7ac3ff902d3"
-    },
-    {
-      "file": "demo/electric-safety/css/animations.css",
-      "bytes": 4511,
-      "sha256": "27929cf53594c68ac8407139d442f8d5fdf348da2b72a0dd0baa0e07b59202d3"
-    },
-    {
-      "file": "demo/electric-safety/css/demo.css",
-      "bytes": 5965,
-      "sha256": "ce0d0448564fd409d46012144c64f124f4307d46b4ad6617910f75f8a96f7492"
-    },
-    {
-      "file": "demo/electric-safety/css/pc-style.css",
-      "bytes": 76252,
-      "sha256": "dccfa6719d5e9b4286d847e9738708df9cfe50527084abd692ad0462489af855"
-    },
-    {
-      "file": "demo/electric-safety/css/style.css",
-      "bytes": 42535,
-      "sha256": "919c677fedb211b04b8495f067dc1610059197809e5bb3743529aeaaee175c66"
-    },
-    {
-      "file": "demo/electric-safety/js/dashboard.js",
-      "bytes": 74701,
-      "sha256": "1a6d3fcb81f08c162fb6e2ead6865a8e43e13e4002872b1cfefd9762dc0f0eb1"
-    },
-    {
-      "file": "demo/electric-safety/js/demo.js",
-      "bytes": 27677,
-      "sha256": "59d64d73feb15d23eaaafc964d16beb74685efa1eefa9c346002a8e08e3b1dd6"
-    },
-    {
-      "file": "demo/electric-safety/js/disclosure-detail.js",
-      "bytes": 17452,
-      "sha256": "3fc07c8dd95d3e84264455017b70ae0f088691ff061fce049a2943208aa7c03a"
-    },
-    {
-      "file": "demo/electric-safety/js/login.js",
-      "bytes": 3950,
-      "sha256": "a5b4edf20ab9dcc2e6f578ef3d323c9dbb4ba9a5542e34b830c194cf36fdac41"
-    },
-    {
-      "file": "demo/electric-safety/js/profile.js",
-      "bytes": 5782,
-      "sha256": "2270f4be556ad2c2e50617e4d41d39686c9232ef5673272991df3151675d69c9"
-    },
-    {
-      "file": "demo/electric-safety/js/register.js",
-      "bytes": 6100,
-      "sha256": "3528f55b520b6f59e4e2f5c7e79fc288bad47df85af39cb67026ffaae926b977"
-    },
-    {
-      "file": "demo/electric-safety/js/theme.js",
-      "bytes": 4282,
-      "sha256": "0b199beb9cd2cb154bcc1841318cfa5edc4a97878da8a062ef6c9b346935f5fd"
-    },
-    {
-      "file": "demo/electric-safety/js/weather-risk.js",
-      "bytes": 52920,
-      "sha256": "c08833c225cd34f9a96ee26cd5e64ecc943097cfe19989f8b1cda99c9dfadbd9"
-    },
-    {
-      "file": "demo/electric-safety/vendor/leaflet/leaflet.css",
-      "bytes": 14145,
-      "sha256": "337bfca5cabd03b39815b2700febe2b3b7edf55921c59cd49f88ecb328212303"
-    },
-    {
-      "file": "demo/electric-safety/vendor/leaflet/leaflet.js",
-      "bytes": 147552,
-      "sha256": "db49d009c841f5ca34a888c96511ae936fd9f5533e90d8b2c4d57596f4e5641a"
-    },
-    {
-      "file": "demo/electric-safety/vendor/leaflet/images/layers-2x.png",
-      "bytes": 1259,
-      "sha256": "066daca850d8ffbef007af00b06eac0015728dee279c51f3cb6c716df7c42edf"
-    },
-    {
-      "file": "demo/electric-safety/vendor/leaflet/images/layers.png",
-      "bytes": 696,
-      "sha256": "1dbbe9d028e292f36fcba8f8b3a28d5e8932754fc2215b9ac69e4cdecf5107c6"
-    },
-    {
-      "file": "demo/electric-safety/vendor/leaflet/images/marker-icon-2x.png",
-      "bytes": 2464,
-      "sha256": "00179c4c1ee830d3a108412ae0d294f55776cfeb085c60129a39aa6fc4ae2528"
-    },
-    {
-      "file": "demo/electric-safety/vendor/leaflet/images/marker-icon.png",
-      "bytes": 1466,
-      "sha256": "574c3a5cca85f4114085b6841596d62f00d7c892c7b03f28cbfa301deb1dc437"
-    },
-    {
-      "file": "demo/electric-safety/vendor/leaflet/images/marker-shadow.png",
-      "bytes": 618,
-      "sha256": "264f5c640339f042dd729062cfc04c17f8ea0f29882b538e3848ed8f10edb4da"
-    },
-    {
-      "file": "demo/teaching-video/index.html",
-      "bytes": 682,
-      "sha256": "d1390ad3645a572031be0fe370423733456a5fb60f1a406817f81634bff8d413"
-    },
-    {
-      "file": "demo/teaching-video/vite.svg",
-      "bytes": 1497,
-      "sha256": "4a748afd443918bb16591c834c401dae33e87861ab5dbad0811c3a3b4a9214fb"
-    },
-    {
-      "file": "demo/teaching-video/assets/index-BVLJDtIB.css",
-      "bytes": 18628,
-      "sha256": "300abb31cd7916da57ae6368b787ef33fe8ff9ca6176a0259fd5af38b4e07cf5"
-    },
-    {
-      "file": "demo/teaching-video/assets/index-Ctrbv9Wa.js",
-      "bytes": 369963,
-      "sha256": "de3a7168cb9758732a863677bd676b51d688534230c7e35beb69b676002bb688"
+      "file": "wave-rider/index.html",
+      "bytes": 5195,
+      "sha256": "af78a53d0b6044e588342c04692452cdd9712aca720705da92262cf932186c29"
     },
     {
       "file": "wave-rider/versions.html",
