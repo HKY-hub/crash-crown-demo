@@ -230,8 +230,15 @@ body.reading-page .document-note {
     width: calc(100% - 28px);
   }
 
+  .reading-top {
+    position: static;
+  }
+
   .reading-wrap {
     min-height: 56px;
+    flex-wrap: wrap;
+    padding: 8px 0;
+    gap: 4px 16px;
   }
 
   .reading-brand span {
@@ -239,12 +246,13 @@ body.reading-page .document-note {
   }
 
   .reading-nav {
-    gap: 14px;
+    flex-wrap: wrap;
+    gap: 4px 14px;
     font-size: 12px;
   }
 
   .reading-nav a:not([aria-current="page"]):not(:first-child) {
-    display: none;
+    display: inline-block;
   }
 
   body.reading-page .wrap.reading {
