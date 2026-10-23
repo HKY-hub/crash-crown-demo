@@ -578,7 +578,15 @@ tr:nth-child(even) td{background:#fbfcfd}
   });
   menu.addEventListener('click', () => setMenu(!sidebar.classList.contains('open')));
   scrim.addEventListener('click', () => setMenu(false, true));
-  links.forEach(a => a.addEventListener('click', () => setMenu(false)));
+  links.forEach(a => a.addEventListener('click', () => {
+    setMenu(false);
+    const id = a.getAttribute('href');
+    const target = id && id.charAt(0) === '#' ? document.querySelector(id) : null;
+    if (target) {
+      target.tabIndex = -1;
+      setTimeout(() => target.focus({preventScroll:true}), 0);
+    }
+  }));
   document.getElementById('print').addEventListener('click', () => print());
   backtop.addEventListener('click', () => scrollTo({top:0,behavior:'smooth'}));
   document.addEventListener('keydown', e => {

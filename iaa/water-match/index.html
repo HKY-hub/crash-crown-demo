@@ -1366,7 +1366,17 @@ dialog img{display:block;width:100%;max-height:78vh;object-fit:contain;backgroun
   scrim.addEventListener('click', function(){ closeMenu(true); });
   document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeMenu(true); });
   window.addEventListener('resize', function(){ if (window.innerWidth > 900) closeMenu(false); });
-  document.querySelectorAll('.toc a').forEach(function(a){ a.addEventListener('click', function(){ closeMenu(false); }); });
+  document.querySelectorAll('.toc a').forEach(function(a){
+    a.addEventListener('click', function(){
+      closeMenu(false);
+      var id = a.getAttribute('href');
+      var target = id && id.charAt(0) === '#' ? document.querySelector(id) : null;
+      if (target) {
+        target.tabIndex = -1;
+        setTimeout(function(){ target.focus({preventScroll:true}); }, 0);
+      }
+    });
+  });
 
   var bar = document.getElementById('progressBar');
   function onScroll(){

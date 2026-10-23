@@ -6105,7 +6105,7 @@ body{color:#172033}
   window.addEventListener('resize', () => { if (innerWidth > 860) setSidebar(false); });
   menu.addEventListener('click', () => setSidebar(!sidebar.classList.contains('open')));
   document.getElementById('scrim').addEventListener('click', () => setSidebar(false, true));
-  sidebar.querySelectorAll('a').forEach(link => link.addEventListener('click', event => {event.stopPropagation(); const group = link.closest('details'); if (group) group.open = true; setSidebar(false);}));
+  sidebar.querySelectorAll('a').forEach(link => link.addEventListener('click', event => {event.stopPropagation(); const group = link.closest('details'); if (group) group.open = true; setSidebar(false); const id = link.getAttribute('href'); if (id && id.charAt(0) === '#') {const target = document.querySelector(id); if (target) {target.tabIndex = -1; setTimeout(() => target.focus({preventScroll:true}), 0);}}}));
   document.getElementById('print').addEventListener('click', () => window.print());
 
   const navLinks = Array.from(document.querySelectorAll('.toc-link'));
